@@ -5,26 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-
-    Rigidbody rigidbody;
-
-    Transform cameraTransform;
-
-
-    [SerializeField]
-    float walkSpeed = 0.0f;
-    [SerializeField]
-    float rotateSpeed = 1.0f;
-
+    [SerializeField] float walkSpeed = 0.0f;
+    [SerializeField] float rotateSpeed = 1.0f;
 
     float currentSpeed;
     float targetSpeed;
 
-
     Vector2 moveInput;
     Vector3 playerMovement;
 
-    // Start is called before the first frame update
+    Transform cameraTransform;
+    Rigidbody rigidbody;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -57,7 +49,7 @@ public class PlayerManager : MonoBehaviour
         targetSpeed = walkSpeed;
         targetSpeed *= moveInput.magnitude;
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f*Time.deltaTime);
-        rigidbody.velocity = playerMovement * currentSpeed;
+        rigidbody.velocity = new Vector3((playerMovement * currentSpeed).x, rigidbody.velocity.y, (playerMovement * currentSpeed).z);
     }
 
     private void Rotate()
