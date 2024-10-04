@@ -6,7 +6,7 @@ public class PlayerSensor : MonoBehaviour
 {
 
     [Header("プレーヤーができる距離")]
-    public float checkDistance = 0.5f;
+    public float checkDistance = 3.0f;
 
     [Header("角度は制限され、プレーヤーの正面と障害物の法線との間の角度は、この値よりも大きく、インタラクティブにすることはできません。")]
     public float interactAngle = 45f;
@@ -27,9 +27,14 @@ public class PlayerSensor : MonoBehaviour
         Debug.DrawRay(playerTransform.position + offset, playerTransform.forward);
         if (Physics.Raycast(playerTransform.position + offset,playerTransform.forward, out RaycastHit obsHit,checkDistance))
         {
-            
-            hitNormal = obsHit.normal;
+            Debug.Log(obsHit.collider.name);
+            if (!obsHit.collider.CompareTag("Interactable"))
+            {
+                Debug.Log("tag false");
+                return false;
+            }
 
+            hitNormal = obsHit.normal;
             if(Vector3.Angle(-hitNormal, playerTransform.forward) > interactAngle || Vector3.Angle(hitNormal, inputDirection) > interactAngle)
             {
                 Debug.Log("角度不正");
