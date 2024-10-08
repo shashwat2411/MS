@@ -23,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
     {
         closeRangeAttack.action.started += CloseRangeAttack;
         longRangeAttack.action.started += LongRangeAttack;
+
+        ResetCollider();
     }
 
     // Update is called once per frame

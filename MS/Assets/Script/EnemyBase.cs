@@ -7,9 +7,11 @@ public class EnemyBase : MonoBehaviour
     float hp = 100f;
     float maxHp = 100f;
 
+    private HealthBar healthBar;
+
     void Start()
     {
-        
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
     void FixedUpdate()
@@ -19,7 +21,11 @@ public class EnemyBase : MonoBehaviour
 
     public void Damage(float value)
     {
-        if(hp - value > 0){ hp -= value;}
-        else { hp = 0; }
+        healthBar.Damage(value);
+    }
+
+    public void Death()
+    {
+
     }
 }
