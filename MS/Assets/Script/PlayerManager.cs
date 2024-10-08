@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
         playerMovement.x = moveInput.x;
         playerMovement.z = moveInput.y;
 
-        Debug.Log(playerMovement);
+        //Debug.Log(playerMovement);
     }
 
     private void FixedUpdate()
