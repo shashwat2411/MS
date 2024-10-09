@@ -1374,6 +1374,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
         type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: ced8b3ab-8830-4fc9-83f0-a2249c2a1dbe
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: Player/Interact[/Keyboard/e]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1416,6 +1431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7143782225409692060, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7534836792733724964, guid: ec964859751d20948ac5798b363edcca,
         type: 3}
@@ -1569,7 +1589,7 @@ GameObject:
   - component: {fileID: 1722729194}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
