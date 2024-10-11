@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,16 +24,25 @@ public class PlayerManager : MonoBehaviour
     Vector3 playerMovement;
     Vector3 playerMovementWorldSpace;
 
+    [Header("Dash")]
+    private bool isDashing = false;
+    public float dashTime = 1.0f;
+    private float dashTimeLeft = 1.0f;
+    public float dashCooldown;
+    private float lastDash;
+    public float dashSpeed;
+
 
     Transform cameraTransform;
     Rigidbody rigidbody;
     PlayerSensor playerSensor;
-
+    Collider collider;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
+        collider = GetComponent<Collider>();
     }
 
     private void Awake()
@@ -56,12 +66,27 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void GetDashDown(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            if (Time.time > (lastDash + dashCooldown))
+            {
+                ReadyToDash();
+            }
+        }
+    }
+
     #endregion
     private void FixedUpdate()
     {
+        Dash();
+        if (isDashing)
+            return;
         CaculateInputDirection();
         Move();
         Rotate();
+       
     }
 
 
@@ -106,6 +131,55 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    ///　ダッシュ
+    /// </summary>
+    void Dash()
+    {
+
+        if (isDashing)
+        {
+            if(dashTimeLeft > 0)
+            {
+                collider.enabled = false;
+                // 入力の方向にダッシュ
+                if (playerMovement.magnitude != 0)
+                {
+                    rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
+                                                0,
+                                                dashSpeed * playerMovement.z);
+                }
+                // プレーヤーが向いている方向にダッシュ
+                else
+                {
+                    rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
+                                               0,
+                                               dashSpeed * transform.forward.z);
+                }
+
+                dashTimeLeft -= Time.deltaTime;
+            }
+            else
+            {
+                isDashing = false;
+                collider.enabled = true;
+            }
+        }
+     
+    }
 
 
+    void ReadyToDash()
+    {
+        // TODO:地形の範囲のチェック
+        if (true)
+        {
+            isDashing = true;
+
+            dashTimeLeft = dashTime;
+
+            lastDash = Time.time;
+        }
+       
+    }
 }
