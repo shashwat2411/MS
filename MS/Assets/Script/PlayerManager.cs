@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,13 +26,19 @@ public class PlayerManager : MonoBehaviour
     Vector3 playerMovement;
     Vector3 playerMovementWorldSpace;
 
-    [Header("Dash")]
+
+    
+    [Header("Dash Staff")]
+    [SerializeField]
     private bool isDashing = false;
     public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
     public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
+    
+    [Header("Dash CD UI Staff")]
+    public Image dashCoolDownMask;
 
 
     Transform cameraTransform;
@@ -165,7 +173,9 @@ public class PlayerManager : MonoBehaviour
                 collider.enabled = true;
             }
         }
-     
+
+
+        dashCoolDownMask.fillAmount -= 1.0f / dashCooldown * Time.deltaTime;
     }
 
 
@@ -179,6 +189,8 @@ public class PlayerManager : MonoBehaviour
             dashTimeLeft = dashTime;
 
             lastDash = Time.time;
+
+            dashCoolDownMask.fillAmount = 1.0f; 
         }
        
     }
