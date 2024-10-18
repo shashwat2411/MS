@@ -132,7 +132,7 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
 
-        if (playerSensor.SensorCheck(transform, playerMovementWorldSpace))
+        if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         {
             Debug.Log("act!");
         }
@@ -149,7 +149,7 @@ public class PlayerManager : MonoBehaviour
         {
             if(dashTimeLeft > 0)
             {
-                collider.enabled = false;
+               
                 // “ü—Í‚Ì•ûŒü‚Éƒ_ƒbƒVƒ…
                 if (playerMovement.magnitude != 0)
                 {
@@ -170,7 +170,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 isDashing = false;
-                collider.enabled = true;
+            
             }
         }
 
@@ -190,7 +190,11 @@ public class PlayerManager : MonoBehaviour
 
             lastDash = Time.time;
 
-            dashCoolDownMask.fillAmount = 1.0f; 
+            dashCoolDownMask.fillAmount = 1.0f;
+        }
+        else
+        {
+            Debug.Log("Cant Dash");
         }
        
     }
