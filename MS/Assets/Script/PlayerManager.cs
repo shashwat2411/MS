@@ -156,6 +156,10 @@ public class PlayerManager : MonoBehaviour
                     rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
                                                 0,
                                                 dashSpeed * playerMovement.z);
+
+                    Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
+                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
+
                 }
                 // プレーヤーが向いている方向にダッシュ
                 else
