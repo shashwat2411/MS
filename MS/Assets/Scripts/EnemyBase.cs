@@ -15,10 +15,14 @@ public class EnemyBase : MonoBehaviour
     private HighLightFlash highLightFlash;
 
     private Coroutine hurtFlashCoroutine;
+
+    private FSM fsm;
     void Start()
     {
         healthBar = GetComponentInChildren<HealthBar>();
         highLightFlash = GetComponent<HighLightFlash>();
+        fsm = GetComponent<FSM>();
+        fsm.parameter.health = maxHp;
     }
 
     void FixedUpdate()
@@ -28,6 +32,8 @@ public class EnemyBase : MonoBehaviour
 
     public void Damage(float value)
     {
+        fsm.GetHit(value);
+
         hp-= value;
         healthBar.Damage(value);
 
