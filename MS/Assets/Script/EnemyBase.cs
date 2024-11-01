@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    float hp = 100f;
-    float maxHp = 100f;
+    protected float hp = 100f;
+    protected float maxHp = 100f;
 
-    private HealthBar healthBar;
+    protected HealthBar healthBar;
 
-    void Start()
+    virtual protected void Start()
     {
         healthBar = GetComponentInChildren<HealthBar>();
     }
 
-    void FixedUpdate()
+    virtual protected void FixedUpdate()
     {
         
     }
