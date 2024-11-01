@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class DashEnemy : EnemyBase
 {
+    public float idleTime;
+    public float attackTime;
+    public float hurtTime;
     public enum DASHENEMY_STATE
     {
         IDLE,
-        WALK,
+        MOVE,
         ATTACK,
-        DAMAGE
+        HURT
     }
 
     public DASHENEMY_STATE state;
@@ -31,34 +34,40 @@ public class DashEnemy : EnemyBase
                 Idle();
                 break;
 
-            case DASHENEMY_STATE.WALK:
-                Walk();
+            case DASHENEMY_STATE.MOVE:
+                Move();
                 break;
 
             case DASHENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case DASHENEMY_STATE.DAMAGE:
-                Damage();
+            case DASHENEMY_STATE.HURT:
+                Hurt();
                 break;
         }
     }
 
     void Idle()
     {
-
+        StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
     }
-    void Walk()
+    void Move()
     {
-
+        //ÉvÉåÅ[ÉÑÅ[Ç…å¸ÇØÇƒà⁄ìÆ
     }
     void Attack()
     {
-
+        StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, attackTime));
     }
-    void Damage()
+    void Hurt()
     {
+        StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
+    }
 
+    IEnumerator ChangeState(DASHENEMY_STATE value, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        state = value;
     }
 }
