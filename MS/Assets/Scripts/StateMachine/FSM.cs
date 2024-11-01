@@ -116,8 +116,8 @@ public class FSM : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            parameter.target = null;
-            Debug.Log($"lost ");
+           // parameter.target = null;
+           // Debug.Log($"lost ");
         }
     }
 

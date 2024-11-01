@@ -46,11 +46,14 @@ public class PlayerManager : MonoBehaviour
     PlayerSensor playerSensor;
     Collider collider;
 
+    PlayerAttack playerAttack;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Awake()
@@ -88,13 +91,22 @@ public class PlayerManager : MonoBehaviour
     #endregion
     private void FixedUpdate()
     {
-        Dash();
-        if (isDashing)
-            return;
-        CaculateInputDirection();
-        Move();
-        Rotate();
-       
+        if(!playerAttack.isHold)
+        {
+            Dash();
+            if (isDashing)
+                return;
+            CaculateInputDirection();
+            Move();
+            Rotate();
+
+        }
+        else
+        {
+            playerAttack.RangeMove(playerMovement);
+        }
+
+    
     }
 
 

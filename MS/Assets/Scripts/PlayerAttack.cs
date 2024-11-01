@@ -8,9 +8,20 @@ public class PlayerAttack : MonoBehaviour
 {
     [Header("Close Range")]
     public float attackTime = 0.1f;
-    public float damage = 10f;
     public GameObject collider;
-    public float maxAttackSize = 2.5f;
+
+    [Header("ダメージ時間")]
+    public float damage = 10f;
+    [Header("最大チャージ時間")]
+    public float maxChargeTime = 2.5f;
+    [Header("最大攻撃範囲")]
+    public Vector3 maxAttackSize = Vector3.one;
+    [Header("チャージ速度")]
+    public float chargeSpeed = 1.0f;
+    [Header("攻撃移動範囲")]
+    public float attackMoveRange;
+
+
 
 
     [Header("Long Range")]
@@ -23,20 +34,33 @@ public class PlayerAttack : MonoBehaviour
     public InputActionReference longRangeAttack;
 
     float holdtime = 1.0f;
-    bool isHold = false;
-    
+    public bool isHold = false;
+
+    Transform attackArea;
+
+    Vector3 initLocalPosition;
+
 
     float holdIncreaseFlag = 1.0f;
 
     
     void Start()
     {
+
+        #region Input
         closeRangeAttack.action.started += HoldAttack;
         longRangeAttack.action.started += LongRangeAttack;
 
 
 
         closeRangeAttack.action.canceled += AttackFinish;
+
+        #endregion
+
+
+
+        attackArea = GetComponentsInChildren<Transform>()[1];
+        initLocalPosition = attackArea.localPosition;
 
 
 
@@ -48,16 +72,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if(isHold)
         {
-            collider.GetComponent<Transform>().localScale = Vector3.one * holdtime;
-
-            if (holdtime > maxAttackSize || holdtime < 1.0f)
+            if (holdtime < maxChargeTime)
             {
-                holdIncreaseFlag = -holdIncreaseFlag;
-            }
-           
-            holdtime += Time.deltaTime * holdIncreaseFlag;
 
-           
+                holdtime += Time.deltaTime * chargeSpeed;
+          
+                collider.GetComponent<Transform>().localScale =
+                    new Vector3(maxAttackSize.x / holdtime, maxAttackSize.y, maxAttackSize.z / holdtime) ;
+                    
+
+            }
         }
 
       
@@ -66,14 +90,17 @@ public class PlayerAttack : MonoBehaviour
 
     void AttackFinish(InputAction.CallbackContext context)
     {
+
+        Debug.Log("cancel");
+        IniteMenko();
+
+        // Reset
         isHold = false;
         holdtime = 1.0f;
-
-
         Invoke("ResetCollider", attackTime);
 
-        //collider.GetComponent<MeshRenderer>().enabled = true;
-        collider.GetComponent<BoxCollider>().enabled = true;
+       
+        collider.GetComponent<SphereCollider>().enabled = true;
     }
 
     void HoldAttack(InputAction.CallbackContext context)
@@ -90,14 +117,17 @@ public class PlayerAttack : MonoBehaviour
         Invoke("ResetCollider", attackTime);
 
         collider.GetComponent<MeshRenderer>().enabled = true;
-        collider.GetComponent<BoxCollider>().enabled = true;
+        collider.GetComponent<SphereCollider>().enabled = true;
     }
     void ResetCollider()
     {
+        isHold = false;
+        holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale = Vector3.one;
+        collider.GetComponent<Transform>().localScale = maxAttackSize;
+        collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
-        collider.GetComponent<BoxCollider>().enabled = false;
+        collider.GetComponent<SphereCollider>().enabled = false;
     }
 
     void LongRangeAttack(InputAction.CallbackContext context)
@@ -124,5 +154,61 @@ public class PlayerAttack : MonoBehaviour
             enemy.Damage(damage);
             Debug.Log(damage);
         }
+    }
+
+    /// <summary>
+    ///  めんこ生成
+    /// </summary>
+    void IniteMenko()
+    {
+       
+        Vector3 startPoint = this.transform.position + Vector3.up * 3.0f;
+
+        Vector3 endPoint = collider.transform.position;
+        float offset = 1.5f;
+        if (holdtime < 2.5f)
+        {
+            endPoint = collider.transform.position +
+                new Vector3(
+                             Random.Range(-offset / holdtime, offset / holdtime),
+                             0.0f,
+                             Random.Range(-offset / holdtime, offset / holdtime)
+                         );
+
+        }
+
+
+        Debug.Log(holdtime +"  " + endPoint);
+        Vector3 dir = endPoint - startPoint;
+
+        Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir);
+
+    }
+
+    public bool RangeMove(Vector3 playerInput)
+    {
+
+
+      var newPos = new Vector3(
+                                attackArea.localPosition.x + playerInput.x * Time.deltaTime * 3.0f,
+                                attackArea.localPosition.y,
+                                attackArea.localPosition.z + playerInput.z * Time.deltaTime * 3.0f
+                                );
+
+        var offset = newPos - Vector3.zero;
+
+        attackArea.localPosition = Vector3.zero + Vector3.ClampMagnitude(offset, attackMoveRange);
+
+
+        if (attackArea.localPosition.z <0.5f)
+        {
+            attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
+        }                                              
+                                                     
+
+
+
+        return true;
+
     }
 }

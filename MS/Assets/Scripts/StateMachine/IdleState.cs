@@ -144,14 +144,19 @@ public class ChaseState : IState
            parameter.target.position, parameter.chaseSpeed * Time.deltaTime);
         }
 
-        if (parameter.target == null
+        if (Vector3.Distance(parameter.target.position, manager.transform.position) > (parameter.chaseDistance + 2.0f)
             )
         {
+            parameter.target = null;
             manager.TransitionState(StateType.Idle);
         }
-            
+
 
         // TODO: attack
+        if (false)
+        {
+            manager.TransitionState(StateType.Attack);
+        }
     }
 
     public void OnExit()

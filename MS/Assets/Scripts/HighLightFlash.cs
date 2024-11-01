@@ -9,7 +9,8 @@ using UnityEngine;
     public bool start=false;
     public float flashSpeed;
      public float intensity;
-    Color nullColor;
+
+
      private Color endColor = Color.red;
      public Material mat;
      private Material matInstance;
