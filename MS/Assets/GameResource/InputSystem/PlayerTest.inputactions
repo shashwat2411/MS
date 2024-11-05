@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "d3452b9d-a8d3-4e58-920d-3f9514e6eb7c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CloseRangeAttack",
                     "type": "Button",
                     "id": "28a48f1d-992c-4a3c-a6c9-a587a4a11b60",
@@ -27,6 +36,15 @@
                     "name": "LongRangeAttack",
                     "type": "Button",
                     "id": "17968a37-c75a-4bd5-b45c-f16036d2b2ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "56950028-3cc7-4eee-ad59-3d526f9386f4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -145,10 +163,65 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "b1bb60e1-e26b-4c6e-b1fd-febcad9b652b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "9dda1821-d66d-45d8-ac3b-608ecb7aa88e",
+                    "path": "<XInputController>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick;XR;Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "1e5989be-3f7b-42d0-bced-0a341628dcbc",
+                    "path": "<XInputController>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick;XR;Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "1026456e-c98b-4ecd-9a85-eb3a330ba878",
+                    "path": "<XInputController>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick;XR;Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "fc6d073e-ce08-43d5-bd3f-68aebf8aefa7",
+                    "path": "<XInputController>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick;XR;Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "407a8048-c46d-4cd9-b603-56619ce3ad78",
                     "path": "<Keyboard>/c",
-                    "interactions": "",
+                    "interactions": "Hold(pressPoint=0.1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "CloseRangeAttack",
@@ -163,6 +236,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "LongRangeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a8f40b0-3712-42d5-a6cf-0222d165bded",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4865323-136a-4227-bda6-cfd795b8a760",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR;Joystick;Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e30c2185-55f8-4a3e-9c20-2b852f2c4223",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
