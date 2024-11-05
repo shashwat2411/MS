@@ -10,14 +10,14 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime = 0.1f;
     public GameObject collider;
 
-    [Header("ダメージ時間")]
-    public float damage = 10f;
-    [Header("最大チャージ時間")]
-    public float maxChargeTime = 2.5f;
-    [Header("最大攻撃範囲")]
-    public Vector3 maxAttackSize = Vector3.one;
-    [Header("チャージ速度")]
-    public float chargeSpeed = 1.0f;
+    //[Header("ダメージ時間")]
+    //public float damage = 10f;
+    //[Header("最大チャージ時間")]
+    //public float maxChargeTime = 2.5f;
+    //[Header("最大攻撃範囲")]
+    //public Vector3 maxAttackSize = Vector3.one;
+    //[Header("チャージ速度")]
+    //public float chargeSpeed = 1.0f;
     [Header("攻撃移動範囲")]
     public float attackMoveRange;
 
@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
 
     float holdIncreaseFlag = 1.0f;
 
+    PlayerData playerData;
     
     void Start()
     {
@@ -57,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
         #endregion
 
-
+        playerData = GetComponent<PlayerManager>().playerData;
 
         attackArea = GetComponentsInChildren<Transform>()[1];
         initLocalPosition = attackArea.localPosition;
@@ -72,13 +73,13 @@ public class PlayerAttack : MonoBehaviour
     {
         if(isHold)
         {
-            if (holdtime < maxChargeTime)
+            if (holdtime < playerData.maxChargeTime)
             {
 
-                holdtime += Time.deltaTime * chargeSpeed;
+                holdtime += Time.deltaTime * playerData.chargeSpeed;
           
                 collider.GetComponent<Transform>().localScale =
-                    new Vector3(maxAttackSize.x / holdtime, maxAttackSize.y, maxAttackSize.z / holdtime) ;
+                    new Vector3(playerData.maxAttackSize / holdtime, 0.5f, playerData.maxAttackSize / holdtime) ;
                     
 
             }
@@ -124,7 +125,7 @@ public class PlayerAttack : MonoBehaviour
         isHold = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale = maxAttackSize;
+        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.5f, playerData.maxAttackSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
         collider.GetComponent<SphereCollider>().enabled = false;
@@ -151,8 +152,8 @@ public class PlayerAttack : MonoBehaviour
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
         if (enemy)
         {
-            enemy.Damage(damage);
-            Debug.Log(damage);
+            enemy.Damage(playerData.attack);
+            Debug.Log(playerData.attack);
         }
     }
 
@@ -190,9 +191,9 @@ public class PlayerAttack : MonoBehaviour
 
 
       var newPos = new Vector3(
-                                attackArea.localPosition.x + playerInput.x * Time.deltaTime * 3.0f,
-                                attackArea.localPosition.y,
-                                attackArea.localPosition.z + playerInput.z * Time.deltaTime * 3.0f
+                                attackArea.localPosition.x + playerInput.x * Time.deltaTime * playerData.atkMoveSpeed,
+                                attackArea.localPosition.y,                                   
+                                attackArea.localPosition.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
                                 );
 
         var offset = newPos - Vector3.zero;

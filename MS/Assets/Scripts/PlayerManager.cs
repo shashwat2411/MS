@@ -31,9 +31,9 @@ public class PlayerManager : MonoBehaviour
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
-    public float dashTime = 1.0f;
+    //public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
-    public float dashCooldown;
+    //public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
     
@@ -48,16 +48,25 @@ public class PlayerManager : MonoBehaviour
 
     PlayerAttack playerAttack;
 
+
+   public PlayerData playerData;
+
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerSensor = GetComponent<PlayerSensor>();
-        collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+     
     }
 
     private void Awake()
     {
+
+        rigidbody = GetComponent<Rigidbody>();
+        playerSensor = GetComponent<PlayerSensor>();
+        collider = GetComponent<Collider>();
+        playerAttack = GetComponent<PlayerAttack>();
+
+        playerData = CharacterSettings.Instance.playerData.GetCopy();
+
         cameraTransform = Camera.main.transform;    
     }
 
@@ -73,6 +82,9 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
+            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
+            ApplyBonus(testBonus);
+
             Interact();
         }
     }
@@ -81,7 +93,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + dashCooldown))
+            if (Time.time > (lastDash + playerData.dashCooldown))
             {
                 ReadyToDash();
             }
@@ -103,6 +115,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
+            rigidbody.velocity = Vector3.zero;
             playerAttack.RangeMove(playerMovement);
         }
 
@@ -191,7 +204,7 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        dashCoolDownMask.fillAmount -= 1.0f / dashCooldown * Time.deltaTime;
+        dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
     }
 
 
@@ -202,7 +215,7 @@ public class PlayerManager : MonoBehaviour
         {
             isDashing = true;
 
-            dashTimeLeft = dashTime;
+            dashTimeLeft = playerData.dashTime;
 
             lastDash = Time.time;
 
@@ -213,5 +226,14 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Cant Dash");
         }
        
+    }
+
+    /// <summary>
+    /// レベルアップ時のボーナス
+    /// </summary>
+    /// <param name="bd"></param>
+    public void ApplyBonus(BonusData bd)
+    {
+        playerData.ApplyBonus(bd);
     }
 }
