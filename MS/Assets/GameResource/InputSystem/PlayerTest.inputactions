@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "56950028-3cc7-4eee-ad59-3d526f9386f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -212,7 +221,7 @@
                     "name": "",
                     "id": "407a8048-c46d-4cd9-b603-56619ce3ad78",
                     "path": "<Keyboard>/c",
-                    "interactions": "",
+                    "interactions": "Hold(pressPoint=0.1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "CloseRangeAttack",
@@ -249,6 +258,17 @@
                     "processors": "",
                     "groups": "XR;Joystick;Gamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e30c2185-55f8-4a3e-9c20-2b852f2c4223",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
