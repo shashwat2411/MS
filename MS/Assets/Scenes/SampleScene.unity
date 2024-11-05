@@ -184,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b57651f197f5124983af1e6426a7f88, type: 2}
+  - {fileID: 2100000, guid: c626f75357ca5554fb8e1e1d807ff67e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +224,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.31, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 64.92, y: 21.64, z: 64.92}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -849,10 +849,60 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 708032344349938450, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 2739651672912452979, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: speed
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: hurtTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: idleTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: attackTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: attakSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: chargeTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: attackPower
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: attackDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636314698431864461, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: attackCooldownTime
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5954954773601333205, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
         type: 3}
