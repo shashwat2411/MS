@@ -158,7 +158,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 70
   m_PresetInfoIsWorld: 1
 --- !u!114 &8707625192951398014
 MonoBehaviour:
@@ -385,7 +385,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &5831445766453965725
 MonoBehaviour:
@@ -396,18 +396,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4311904956939338282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f51e6f2823a82b74e9b48294a2b37e70, type: 3}
+  m_Script: {fileID: 11500000, guid: 37748268147733648bf7d4c50b0a25cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleTime: 0.5
-  chargeTime: 0.4
-  attackCooldownTime: 0.6
-  hurtTime: 0.3
   speed: 800
+  rotationSpeed: 0
   attackDistance: 4
-  attackPower: 30
-  attakSpeed: 1000
+  attackPower: 20
+  attackSpeed: 0
   state: 0
+  idleTime: 0.4
+  chargeTime: 0.5
+  attackCooldownTime: 1
+  hurtTime: 0.3
 --- !u!1 &8043821627367766159
 GameObject:
   m_ObjectHideFlags: 0
