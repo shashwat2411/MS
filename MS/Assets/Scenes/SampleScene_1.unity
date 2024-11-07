@@ -381,7 +381,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -396,7 +396,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -875,7 +875,7 @@ PrefabInstance:
     - target: {fileID: 4311904956939338282, guid: 209918086360d774898f677740be67c9,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4840296772092726222, guid: 209918086360d774898f677740be67c9,
         type: 3}
@@ -922,7 +922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &691195748
 Transform:
   m_ObjectHideFlags: 0
@@ -1826,6 +1826,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2739651672912452979, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4935208489479472676, guid: 43d3aed4da77bfd4fa0059ed012a4e2a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2063,11 +2068,86 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec964859751d20948ac5798b363edcca, type: 3}
+--- !u!1001 &8389219282979034708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505493457801505759, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688850613984748123, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: attackDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818193166308914855, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
+        type: 3}
+      propertyPath: m_Name
+      value: BombEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
+  - {fileID: 556214205}
+  - {fileID: 1177558486}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 203270380}
@@ -2076,7 +2156,6 @@ SceneRoots:
   - {fileID: 501593458923609189}
   - {fileID: 659180966}
   - {fileID: 5875005397724763008}
-  - {fileID: 556214205}
-  - {fileID: 1177558486}
+  - {fileID: 8389219282979034708}
   - {fileID: 656137013}
   - {fileID: 691195748}
