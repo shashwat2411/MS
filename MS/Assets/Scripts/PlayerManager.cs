@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 0.0f;
+    float walkSpeed = 0;
+    [SerializeField] float noramlWalkSpeed = 0.0f;
+    [SerializeField] float attackingWalkSpeed = 0.0f;
     [SerializeField] float rotateSpeed = 1.0f;
 
 
@@ -24,6 +26,7 @@ public class PlayerManager : MonoBehaviour
 
 
     Vector3 playerMovement;
+    Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
 
 
@@ -82,6 +85,17 @@ public class PlayerManager : MonoBehaviour
         playerMovement.x = moveInput.x;
         playerMovement.z = moveInput.y;
     }
+
+
+    public void GetAttackMoveInput(InputAction.CallbackContext ctx)
+    {
+        var input = ctx.ReadValue<Vector2>();
+        playerAttackMovement.x = input.x;
+        playerAttackMovement.z = input.y;
+
+        Debug.Log(playerAttackMovement);
+    }
+
     public void GetInteract(InputAction.CallbackContext ctx)
     {
         if (ctx.phase == InputActionPhase.Started)
@@ -105,6 +119,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
+
     private void FixedUpdate()
     {
         if(!playerAttack.isHold)
@@ -113,25 +128,34 @@ public class PlayerManager : MonoBehaviour
             if (isDashing)
                 return;
             CaculateInputDirection();
-            Move();
-            Rotate();
+          
 
         }
         else
         {
-            rigidbody.velocity = Vector3.zero;
-            playerAttack.RangeMove(playerMovement);
+            playerAttack.RangeMove(playerAttackMovement);
         }
 
-    
+        if (!playerAttack.afterShock)
+        {
+            Move();
+            Rotate();
+        }
+       
     }
 
 
     
-    private void Move() { 
-        targetSpeed = walkSpeed;
+    private void Move() {
+        targetSpeed = playerAttack.isHold ? attackingWalkSpeed:noramlWalkSpeed;
         targetSpeed *= moveInput.magnitude;
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f*Time.deltaTime);
+
+        if(currentSpeed > targetSpeed)
+        {
+            currentSpeed /= 2;
+        }
+
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.3f * Time.deltaTime);
         rigidbody.velocity = new Vector3((playerMovement * currentSpeed).x, rigidbody.velocity.y, (playerMovement * currentSpeed).z);
     }
 

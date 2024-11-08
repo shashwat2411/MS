@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour
     GameObject impactArea;
     [SerializeField]
     GameObject impactEffect;
+
+    public float damage;
     void Start()
     {
         
@@ -28,10 +30,10 @@ public class Bullet : MonoBehaviour
 
 
 
-    public void Initiate(Vector3 direction)
+    public void Initiate(Vector3 direction,float damage = 1.0f)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
-       
+        this.damage = damage;
        // Invoke("DestroyBullet", lifetime);
     }
 
@@ -48,7 +50,7 @@ public class Bullet : MonoBehaviour
             impactEffect.SetActive(true);
 
            
-            //Invoke("DestroyBullet", lifetime);
+            Invoke("DestroyBullet", lifetime);
         }
     }
 
