@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DashEnemy : EnemyBase
+public class GunEnemy : EnemyBase
 {
-    public enum DASHENEMY_STATE
+    public enum GUNENEMY_STATE
     {
         IDLE,
         MOVE,
-        CHARGE,
         ATTACK,
         HURT
     }
 
-    [Header("State")]
-    public DASHENEMY_STATE state;
+    [Header("State Time")]
+    public GUNENEMY_STATE state;
     public float idleTime;
-    public float chargeTime;
     public float attackCooldownTime;
     public float hurtTime;
+
+    [Header("Bullet")]
+    public GameObject enemyBullet;
+    public Transform spawnPoint;
+    public float bulletLifetime;
+    private float cooldown = 0f;
 
 
     //___仮想関数のOverride_________________________________________________________________________________________________________________________
@@ -27,7 +32,7 @@ public class DashEnemy : EnemyBase
     {
         base.Start();
 
-        state = DASHENEMY_STATE.IDLE;
+        state = GUNENEMY_STATE.IDLE;
     }
     protected override void FixedUpdate()
     {
@@ -35,23 +40,19 @@ public class DashEnemy : EnemyBase
 
         switch (state)
         {
-            case DASHENEMY_STATE.IDLE:
+            case GUNENEMY_STATE.IDLE:
                 Idle();
                 break;
 
-            case DASHENEMY_STATE.MOVE:
+            case GUNENEMY_STATE.MOVE:
                 Move();
                 break;
 
-            case DASHENEMY_STATE.CHARGE:
-                Charge();
-                break;
-
-            case DASHENEMY_STATE.ATTACK:
+            case GUNENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case DASHENEMY_STATE.HURT:
+            case GUNENEMY_STATE.HURT:
                 Hurt();
                 break;
         }
@@ -60,14 +61,10 @@ public class DashEnemy : EnemyBase
     {
         base.OnCollision(null);
 
-        if(collided.gameObject == player)
+        if (collided.gameObject == player)
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
-
-            if(state != DASHENEMY_STATE.ATTACK)
-            {
-                healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
-            }
+            healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
             //プレーヤーへのダメージ
         }
     }
@@ -77,54 +74,63 @@ public class DashEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
-        stopRotation = false;   //回転再会
-
-        StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
+        StartCoroutine(ChangeState(GUNENEMY_STATE.MOVE, idleTime));
     }
     void Move()
     {
         direction = player.transform.position - gameObject.transform.position;
         rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
+        //プレーヤーに向けて移動
 
         if (direction.magnitude <= attackDistance)
         {
             rigidbody.velocity = Vector3.zero;
-            StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
+            StartCoroutine(ChangeState(GUNENEMY_STATE.ATTACK, idleTime));
         }
-    }
-    void Charge()
-    {
-        direction = player.transform.position - gameObject.transform.position;
-        attacked = false;
-        StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
     }
     void Attack()
     {
-        stopRotation = true;    //回転を一時停止
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude > attackDistance)
+        {
+            StartCoroutine(ChangeState(GUNENEMY_STATE.IDLE, 0f));
+        }
 
         if (attacked == false)
         {
-            rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
+            GameObject bullet = Instantiate(enemyBullet, spawnPoint.position, spawnPoint.rotation);
+            bullet.GetComponent<Rigidbody>().velocity = direction.normalized * attackSpeed * Time.deltaTime;
+            StartCoroutine(DestroyBullet(bullet));
             attacked = true;
         }
-
-        if (rigidbody.velocity.magnitude <= 0.01f)
+        else
         {
-            StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, attackCooldownTime));
+            cooldown += Time.deltaTime;
+            if(cooldown >= attackCooldownTime)
+            {
+                cooldown = 0f;
+                attacked = false;
+            }
         }
     }
     void Hurt()
     {
-        StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
+        StartCoroutine(ChangeState(GUNENEMY_STATE.IDLE, hurtTime));
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Coroutines_________________________________________________________________________________________________________________________
-    IEnumerator ChangeState(DASHENEMY_STATE value, float delayTime)
+    IEnumerator ChangeState(GUNENEMY_STATE value, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+    }
+
+    IEnumerator DestroyBullet(GameObject bullet)
+    {
+        yield return new WaitForSeconds(bulletLifetime);
+        Destroy(bullet);
     }
     //____________________________________________________________________________________________________________________________
 

@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("ダメージ時間")]
     public float damage = 10f;
+    public float collisionDamage = 10f;
+
     [Header("最大チャージ時間")]
     public float maxChargeTime = 2.5f;
     [Header("最大攻撃範囲")]
