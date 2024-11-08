@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DashEnemy : EnemyBase
+public class BombEnemy : EnemyBase
 {
-    public enum DASHENEMY_STATE
+    public enum BOMBENEMY_STATE
     {
         IDLE,
         MOVE,
-        CHARGE,
         ATTACK,
         HURT
     }
 
-    [Header("State")]
-    public DASHENEMY_STATE state;
+    [Header("State Time")]
+    public BOMBENEMY_STATE state;
     public float idleTime;
-    public float chargeTime;
     public float attackCooldownTime;
     public float hurtTime;
+
+    [Header("Bomb")]
+    public GameObject enemyBomb;
+    public Transform spawnPoint;
+    public float bombLifetime;
+    private float cooldown = 0f;
 
 
     //___仮想関数のOverride_________________________________________________________________________________________________________________________
@@ -27,7 +32,7 @@ public class DashEnemy : EnemyBase
     {
         base.Start();
 
-        state = DASHENEMY_STATE.IDLE;
+        state = BOMBENEMY_STATE.IDLE;
     }
     protected override void FixedUpdate()
     {
@@ -35,23 +40,19 @@ public class DashEnemy : EnemyBase
 
         switch (state)
         {
-            case DASHENEMY_STATE.IDLE:
+            case BOMBENEMY_STATE.IDLE:
                 Idle();
                 break;
 
-            case DASHENEMY_STATE.MOVE:
+            case BOMBENEMY_STATE.MOVE:
                 Move();
                 break;
 
-            case DASHENEMY_STATE.CHARGE:
-                Charge();
-                break;
-
-            case DASHENEMY_STATE.ATTACK:
+            case BOMBENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case DASHENEMY_STATE.HURT:
+            case BOMBENEMY_STATE.HURT:
                 Hurt();
                 break;
         }
@@ -60,14 +61,10 @@ public class DashEnemy : EnemyBase
     {
         base.OnCollision(null);
 
-        if(collided.gameObject == player)
+        if (collided.gameObject == player)
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
-
-            if(state != DASHENEMY_STATE.ATTACK)
-            {
-                healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
-            }
+            healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
             //プレーヤーへのダメージ
         }
     }
@@ -77,54 +74,63 @@ public class DashEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
-        stopRotation = false;   //回転再会
-
-        StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
+        StartCoroutine(ChangeState(BOMBENEMY_STATE.MOVE, idleTime));
     }
     void Move()
     {
         direction = player.transform.position - gameObject.transform.position;
         rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
+        //プレーヤーに向けて移動
 
         if (direction.magnitude <= attackDistance)
         {
             rigidbody.velocity = Vector3.zero;
-            StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
+            StartCoroutine(ChangeState(BOMBENEMY_STATE.ATTACK, idleTime));
         }
-    }
-    void Charge()
-    {
-        direction = player.transform.position - gameObject.transform.position;
-        attacked = false;
-        StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
     }
     void Attack()
     {
-        stopRotation = true;    //回転を一時停止
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude > attackDistance)
+        {
+            StartCoroutine(ChangeState(BOMBENEMY_STATE.IDLE, 0f));
+        }
 
         if (attacked == false)
         {
-            rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
+            GameObject bomb = Instantiate(enemyBomb, spawnPoint.position, spawnPoint.rotation);
+            bomb.GetComponent<EnemyBomb>().SetTarget(player.transform.position);
+
+            StartCoroutine(DestroyBomb(bomb));
             attacked = true;
         }
-
-        if (rigidbody.velocity.magnitude <= 0.01f)
+        else
         {
-            StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, attackCooldownTime));
+            cooldown += Time.deltaTime;
+            if (cooldown >= attackCooldownTime)
+            {
+                cooldown = 0f;
+                attacked = false;
+            }
         }
     }
     void Hurt()
     {
-        StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
+        StartCoroutine(ChangeState(BOMBENEMY_STATE.IDLE, hurtTime));
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Coroutines_________________________________________________________________________________________________________________________
-    IEnumerator ChangeState(DASHENEMY_STATE value, float delayTime)
+    IEnumerator ChangeState(BOMBENEMY_STATE value, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+    }
+    IEnumerator DestroyBomb(GameObject bomb)
+    {
+        yield return new WaitForSeconds(bombLifetime);
+        Destroy(bomb);
     }
     //____________________________________________________________________________________________________________________________
 
@@ -135,5 +141,12 @@ public class DashEnemy : EnemyBase
         Gizmos.color = Color.yellow.WithAlpha(0.3f);
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
+    //____________________________________________________________________________________________________________________________
+
+
+    //____________________________________________________________________________________________________________________________
+
+
+    //___関数_________________________________________________________________________________________________________________________
     //____________________________________________________________________________________________________________________________
 }
