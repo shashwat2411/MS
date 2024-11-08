@@ -83,13 +83,26 @@ public class Fade : MonoBehaviour
     {
         GetComponent<Image>().material = material;
         float current = 0;
-        while (current < time)
-        {
-            material.SetFloat("_Alpha", current / time);
-            yield return new WaitForEndOfFrame();
-            current += Time.deltaTime;
-        }
-        material.SetFloat("_Alpha", 1);
-    }
 
+        if (IsFade_In == true)
+        {
+            while (current < time)
+            {
+                material.SetFloat("_Alpha",1- current / time);
+                yield return new WaitForEndOfFrame();
+                current += Time.deltaTime;
+            }
+            material.SetFloat("_Alpha", 0);
+        }
+        else
+        {
+            while (current < time)
+            {
+                material.SetFloat("_Alpha", current / time);
+                yield return new WaitForEndOfFrame();
+                current += Time.deltaTime;
+            }
+            material.SetFloat("_Alpha", 1);
+        } 
+    }
 }
