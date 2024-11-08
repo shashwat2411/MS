@@ -91,6 +91,8 @@ public class PlayerAttack : MonoBehaviour
         // Reset
         isHold = false;
         holdtime = 1.0f;
+        collider.GetComponent<MeshRenderer>().enabled = false;
+        collider.GetComponent<SphereCollider>().enabled = false;
         Invoke("ResetCollider", attackTime);
       
 
@@ -165,7 +167,7 @@ public class PlayerAttack : MonoBehaviour
             endPoint = collider.transform.position +
                 new Vector3(
                              Random.Range(-offset / holdtime, offset / holdtime),
-                             0.0f,
+                             this.transform.position.y,
                              Random.Range(-offset / holdtime, offset / holdtime)
                          );
 
@@ -173,8 +175,9 @@ public class PlayerAttack : MonoBehaviour
 
 
         Debug.Log(holdtime +"  " + endPoint);
-        Vector3 dir = endPoint - startPoint;
 
+        Vector3 dir = endPoint - startPoint;
+        dir.Normalize();
         Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
 
     }
