@@ -23,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-
     [Header("Long Range")]
     public float cooldown = 0.1f;
     public GameObject bullet;

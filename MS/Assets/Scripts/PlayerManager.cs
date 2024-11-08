@@ -49,7 +49,11 @@ public class PlayerManager : MonoBehaviour
     PlayerAttack playerAttack;
 
 
-   public PlayerData playerData;
+
+    [Header("Player Data Staff")]
+    public PlayerData playerData;
+    public int lv;
+    public float nowExp = 0;
 
 
     void Start()
