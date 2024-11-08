@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     protected HealthBar healthBar;
     protected GameObject player;
     protected Rigidbody rigidbody;
+    protected NavMeshAgent agent;
     private GameObject canvas;
 
     [Header("Attack")]
@@ -31,6 +34,7 @@ public class EnemyBase : MonoBehaviour
         healthBar = GetComponentInChildren<HealthBar>();
         player = FindFirstObjectByType<PlayerManager>().gameObject;
         rigidbody = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
 
         attacked = false;
         stopRotation = false;
@@ -58,12 +62,20 @@ public class EnemyBase : MonoBehaviour
     {
         if (stopRotation == false)
         {
-            Vector3 dir = player.transform.position - gameObject.transform.position;
+            //Vector3 dir = player.transform.position - gameObject.transform.position;
+            Vector3 dir = agent.velocity.normalized;
+
 
             dir.y = 0;
             Quaternion rotation = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    virtual protected void Move()
+    {
+        agent.isStopped = false;
+        agent.SetDestination(player.transform.position);
     }
 
     public void Damage(float value)
@@ -80,4 +92,12 @@ public class EnemyBase : MonoBehaviour
     {
         OnCollision(collision.gameObject);
     }
+
+    //___Gizmos_________________________________________________________________________________________________________________________
+    virtual protected void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green.WithAlpha(0.2f);
+        Gizmos.DrawSphere(transform.position, attackDistance);
+    }
+    //____________________________________________________________________________________________________________________________
 }
