@@ -76,15 +76,17 @@ public class BombEnemy : EnemyBase
     {
         StartCoroutine(ChangeState(BOMBENEMY_STATE.MOVE, idleTime));
     }
-    void Move()
+    protected override void Move()
     {
-        direction = player.transform.position - gameObject.transform.position;
-        rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
+        base.Move();
+        //direction = player.transform.position - gameObject.transform.position;
+        //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //ƒvƒŒ[ƒ„[‚ÉŒü‚¯‚ÄˆÚ“®
 
-        if (direction.magnitude <= attackDistance)
+        if (agent.remainingDistance <= attackDistance)
         {
             rigidbody.velocity = Vector3.zero;
+            agent.isStopped = true;
             StartCoroutine(ChangeState(BOMBENEMY_STATE.ATTACK, idleTime));
         }
     }
@@ -136,14 +138,6 @@ public class BombEnemy : EnemyBase
 
 
     //___Gizmos_________________________________________________________________________________________________________________________
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow.WithAlpha(0.3f);
-        Gizmos.DrawSphere(transform.position, attackDistance);
-    }
-    //____________________________________________________________________________________________________________________________
-
-
     //____________________________________________________________________________________________________________________________
 
 
