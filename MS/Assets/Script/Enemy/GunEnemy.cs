@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static BombEnemy;
 
 public class GunEnemy : EnemyBase
 {
@@ -76,15 +77,18 @@ public class GunEnemy : EnemyBase
     {
         StartCoroutine(ChangeState(GUNENEMY_STATE.MOVE, idleTime));
     }
-    void Move()
+    protected override void Move()
     {
-        direction = player.transform.position - gameObject.transform.position;
-        rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
+        base.Move();
+
+        //direction = player.transform.position - gameObject.transform.position;
+        //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //ÉvÉåÅ[ÉÑÅ[Ç…å¸ÇØÇƒà⁄ìÆ
 
-        if (direction.magnitude <= attackDistance)
+        if (agent.remainingDistance <= attackDistance)
         {
             rigidbody.velocity = Vector3.zero;
+            agent.isStopped = true;
             StartCoroutine(ChangeState(GUNENEMY_STATE.ATTACK, idleTime));
         }
     }
@@ -136,10 +140,5 @@ public class GunEnemy : EnemyBase
 
 
     //___Gizmos_________________________________________________________________________________________________________________________
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow.WithAlpha(0.3f);
-        Gizmos.DrawSphere(transform.position, attackDistance);
-    }
     //____________________________________________________________________________________________________________________________
 }
