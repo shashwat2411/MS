@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 203270377}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1507,6 +1507,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6674590088494070561}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1748083451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2617681579185603731, guid: ec964859751d20948ac5798b363edcca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6674590088494070561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951e52619e6f099468bb50d3aff8f921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1781294994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,6 +2005,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 474815662338935907, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: attackTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: 251fa7fd-5211-4d85-8384-5d6f8684791c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: Player/Attack Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1748083451}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetAttackMoveInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069497061651339197, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322463382977989844, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 2617681579185603731, guid: ec964859751d20948ac5798b363edcca,
         type: 3}
       propertyPath: rotateSpeed
@@ -2000,9 +2072,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2617681579185603731, guid: ec964859751d20948ac5798b363edcca,
         type: 3}
+      propertyPath: noramlWalkSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617681579185603731, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
       propertyPath: dashCoolDownMask
       value: 
       objectReference: {fileID: 1145192543}
+    - target: {fileID: 2617681579185603731, guid: ec964859751d20948ac5798b363edcca,
+        type: 3}
+      propertyPath: attackingWalkSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4568421102176998011, guid: ec964859751d20948ac5798b363edcca,
         type: 3}
       propertyPath: m_Name
@@ -2129,7 +2211,7 @@ PrefabInstance:
     - target: {fileID: 4688850613984748123, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
         type: 3}
       propertyPath: attackDistance
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4818193166308914855, guid: 6e3705a3c4e2e2a4e98e1fdc11212d5d,
         type: 3}

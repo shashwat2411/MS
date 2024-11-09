@@ -62,8 +62,8 @@ public class EnemyBase : MonoBehaviour
     {
         if (stopRotation == false)
         {
-            //Vector3 dir = player.transform.position - gameObject.transform.position;
-            Vector3 dir = agent.velocity.normalized;
+            Vector3 dir = player.transform.position - gameObject.transform.position;
+            //Vector3 dir = agent.velocity.normalized;
 
 
             dir.y = 0;
