@@ -1,0 +1,95 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class KamikazeEnemy : EnemyBase
+{
+    public enum KAMIKAZEENEMY_STATE
+    {
+        IDLE,
+        MOVE,
+        HURT
+    }
+
+    [Header("State Time")]
+    public KAMIKAZEENEMY_STATE state;
+    public float idleTime;
+    public float hurtTime;
+
+
+    //___仮想関数のOverride_________________________________________________________________________________________________________________________
+    protected override void Start()
+    {
+        base.Start();
+
+        state = KAMIKAZEENEMY_STATE.IDLE;
+    }
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        switch (state)
+        {
+            case KAMIKAZEENEMY_STATE.IDLE:
+                Idle();
+                break;
+
+            case KAMIKAZEENEMY_STATE.MOVE:
+                Move();
+                break;
+
+            case KAMIKAZEENEMY_STATE.HURT:
+                Hurt();
+                break;
+        }
+    }
+    protected override void OnCollision(GameObject collided)
+    {
+        base.OnCollision(null);
+
+        if (collided.gameObject == player)
+        {
+            player.GetComponent<MeshRenderer>().material.color = Color.red;
+            healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
+
+            Destroy(gameObject);
+            //プレーヤーへのダメージ
+        }
+    }
+    //____________________________________________________________________________________________________________________________
+
+
+    //____ステート________________________________________________________________________________________________________________________
+    void Idle()
+    {
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.MOVE, idleTime));
+    }
+    void Hurt()
+    {
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.IDLE, hurtTime));
+    }
+    //____________________________________________________________________________________________________________________________
+
+
+    //___Coroutines_________________________________________________________________________________________________________________________
+    IEnumerator ChangeState(KAMIKAZEENEMY_STATE value, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        state = value;
+    }
+    //____________________________________________________________________________________________________________________________
+
+
+    //___Gizmos_________________________________________________________________________________________________________________________
+    //____________________________________________________________________________________________________________________________
+
+
+    //___関数_________________________________________________________________________________________________________________________
+    private void OnDestroy()
+    {
+        //爆破生成
+    }
+    //____________________________________________________________________________________________________________________________
+}
