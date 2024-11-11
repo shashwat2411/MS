@@ -11,8 +11,8 @@ public class EnemyBase : MonoBehaviour
     protected float maxHp = 100f;
 
     [Header("Movement")]
-    public float speed;
-    public float rotationSpeed;
+    //public float speed;
+    //public float rotationSpeed;
     protected Vector3 direction;
     protected bool stopRotation;
 
@@ -45,7 +45,7 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void FixedUpdate()
     {
-        RotateTowards();
+        //RotateTowards();
     }
 
     virtual protected void LateUpdate()
@@ -58,23 +58,25 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    virtual protected void RotateTowards()
-    {
-        if (stopRotation == false)
-        {
-            //Vector3 dir = player.transform.position - gameObject.transform.position;
-            Vector3 dir = agent.velocity.normalized;
+    //virtual protected void RotateTowards()
+    //{
+    //    //if (stopRotation == false)
+    //    //{
+    //    //    //Vector3 dir = player.transform.position - gameObject.transform.position;
+    //    //    Vector3 dir = agent.velocity.normalized;
+    //    //    if (dir.magnitude <= 0.0001f) { dir = new Vector3(0.01f, 0.01f, 0.01f); }
 
 
-            dir.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-        }
-    }
+    //    //    dir.y = 0;
+    //    //    Quaternion rotation = Quaternion.LookRotation(dir);
+    //    //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+    //    //}
+    //}
 
     virtual protected void Move()
     {
         agent.isStopped = false;
+
         agent.SetDestination(player.transform.position);
     }
 
