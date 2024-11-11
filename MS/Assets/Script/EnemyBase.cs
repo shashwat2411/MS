@@ -80,12 +80,12 @@ public class EnemyBase : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    public void Damage(float value)
+    virtual public void Damage(float value)
     {
         healthBar.Damage(value);
     }
 
-    public void Death()
+    virtual public void Death()
     {
 
     }

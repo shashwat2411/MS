@@ -402,8 +402,8 @@ GameObject:
   - component: {fileID: 1897547637401927889}
   - component: {fileID: 8637095619059041616}
   - component: {fileID: 8714549595432170664}
-  - component: {fileID: 7711396439132801089}
   - component: {fileID: 2222145220484867403}
+  - component: {fileID: 7711396439132801089}
   m_Layer: 0
   m_Name: KamikazeEnemy
   m_TagString: Untagged
@@ -420,7 +420,7 @@ Transform:
   m_GameObject: {fileID: 7294047095009365553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7, y: 1, z: 0}
+  m_LocalPosition: {x: 4.7, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -523,26 +523,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &7711396439132801089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294047095009365553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc2d2d23a2c15b44385fb83f1c154ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDistance: 0
-  attackPower: 0
-  attackSpeed: 0
-  state: 0
-  idleTime: 1
-  hurtTime: 0.5
 --- !u!195 &2222145220484867403
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -565,3 +547,21 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7711396439132801089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294047095009365553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2d2d23a2c15b44385fb83f1c154ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 0
+  attackPower: 0
+  attackSpeed: 0
+  state: 0
+  idleTime: 1
+  hurtTime: 0.5
