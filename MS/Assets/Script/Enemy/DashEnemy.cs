@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static ThrowEnemy;
 
 public class DashEnemy : EnemyBase
 {
@@ -71,6 +72,17 @@ public class DashEnemy : EnemyBase
             //プレーヤーへのダメージ
         }
     }
+    public override void Damage(float value)
+    {
+        base.Damage(value);
+        StartCoroutine(ChangeState(DASHENEMY_STATE.HURT, 0f));
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
     //____________________________________________________________________________________________________________________________
 
 
@@ -89,7 +101,7 @@ public class DashEnemy : EnemyBase
 
         if (agent.remainingDistance <= attackDistance)
         {
-            rigidbody.velocity = Vector3.zero;
+            agent.velocity = Vector3.zero;
             agent.isStopped = true;
             StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
         }

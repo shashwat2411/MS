@@ -10,7 +10,7 @@ public class KamikazeEnemy : EnemyBase
     {
         IDLE,
         MOVE,
-        HURT
+        HURT,
     }
 
     [Header("State Time")]
@@ -54,9 +54,21 @@ public class KamikazeEnemy : EnemyBase
             player.GetComponent<MeshRenderer>().material.color = Color.red;
             healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
 
-            Destroy(gameObject);
+            healthBar.Damage(healthBar.health + 1f);
             //プレーヤーへのダメージ
         }
+    }
+
+    public override void Damage(float value)
+    {
+        base.Damage(value);
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.HURT, 0f));
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
     }
     //____________________________________________________________________________________________________________________________
 
