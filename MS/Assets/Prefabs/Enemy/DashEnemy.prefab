@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 8032413906914235708}
   - component: {fileID: 1879835070338036779}
   - component: {fileID: 5399695320453320732}
+  - component: {fileID: 5687407883323016225}
   - component: {fileID: 5831445766453965725}
   m_Layer: 0
   m_Name: DashEnemy
@@ -282,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 4311904956939338282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7, y: 1, z: 0}
+  m_LocalPosition: {x: 4.7, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -385,8 +386,30 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!195 &5687407883323016225
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4311904956939338282}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 8
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 900
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &5831445766453965725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,8 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37748268147733648bf7d4c50b0a25cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 800
-  rotationSpeed: 0
   attackDistance: 4
   attackPower: 20
   attackSpeed: 0

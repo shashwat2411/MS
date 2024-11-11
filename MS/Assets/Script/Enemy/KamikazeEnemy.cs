@@ -1,25 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static ThrowEnemy;
 
-public class DashEnemy : EnemyBase
+public class KamikazeEnemy : EnemyBase
 {
-    public enum DASHENEMY_STATE
+    public enum KAMIKAZEENEMY_STATE
     {
         IDLE,
         MOVE,
-        CHARGE,
-        ATTACK,
-        HURT
+        HURT,
     }
 
-    [Header("State")]
-    public DASHENEMY_STATE state;
+    [Header("State Time")]
+    public KAMIKAZEENEMY_STATE state;
     public float idleTime;
-    public float chargeTime;
-    public float attackCooldownTime;
     public float hurtTime;
 
 
@@ -28,7 +24,7 @@ public class DashEnemy : EnemyBase
     {
         base.Start();
 
-        state = DASHENEMY_STATE.IDLE;
+        state = KAMIKAZEENEMY_STATE.IDLE;
     }
     protected override void FixedUpdate()
     {
@@ -36,23 +32,15 @@ public class DashEnemy : EnemyBase
 
         switch (state)
         {
-            case DASHENEMY_STATE.IDLE:
+            case KAMIKAZEENEMY_STATE.IDLE:
                 Idle();
                 break;
 
-            case DASHENEMY_STATE.MOVE:
+            case KAMIKAZEENEMY_STATE.MOVE:
                 Move();
                 break;
 
-            case DASHENEMY_STATE.CHARGE:
-                Charge();
-                break;
-
-            case DASHENEMY_STATE.ATTACK:
-                Attack();
-                break;
-
-            case DASHENEMY_STATE.HURT:
+            case KAMIKAZEENEMY_STATE.HURT:
                 Hurt();
                 break;
         }
@@ -61,21 +49,20 @@ public class DashEnemy : EnemyBase
     {
         base.OnCollision(null);
 
-        if(collided.gameObject == player)
+        if (collided.gameObject == player)
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
+            healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
 
-            if(state != DASHENEMY_STATE.ATTACK)
-            {
-                healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
-            }
+            healthBar.Damage(healthBar.health + 1f);
             //プレーヤーへのダメージ
         }
     }
+
     public override void Damage(float value)
     {
         base.Damage(value);
-        StartCoroutine(ChangeState(DASHENEMY_STATE.HURT, 0f));
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.HURT, 0f));
     }
 
     public override void Death()
@@ -89,53 +76,17 @@ public class DashEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
-        stopRotation = false;   //回転再会
-
-        StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
-    }
-    protected override void Move()
-    {
-        base.Move();
-        //direction = player.transform.position - gameObject.transform.position;
-        //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
-
-        if (agent.remainingDistance <= attackDistance)
-        {
-            agent.velocity = Vector3.zero;
-            agent.isStopped = true;
-            StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
-        }
-    }
-    void Charge()
-    {
-        direction = player.transform.position - gameObject.transform.position;
-        attacked = false;
-        StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
-    }
-    void Attack()
-    {
-        stopRotation = true;    //回転を一時停止
-
-        if (attacked == false)
-        {
-            rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
-            attacked = true;
-        }
-
-        if (rigidbody.velocity.magnitude <= 0.01f)
-        {
-            StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, attackCooldownTime));
-        }
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.MOVE, idleTime));
     }
     void Hurt()
     {
-        StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
+        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.IDLE, hurtTime));
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Coroutines_________________________________________________________________________________________________________________________
-    IEnumerator ChangeState(DASHENEMY_STATE value, float delayTime)
+    IEnumerator ChangeState(KAMIKAZEENEMY_STATE value, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
@@ -144,5 +95,13 @@ public class DashEnemy : EnemyBase
 
 
     //___Gizmos_________________________________________________________________________________________________________________________
+    //____________________________________________________________________________________________________________________________
+
+
+    //___関数_________________________________________________________________________________________________________________________
+    private void OnDestroy()
+    {
+        //爆破生成
+    }
     //____________________________________________________________________________________________________________________________
 }

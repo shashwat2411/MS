@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -9,8 +11,8 @@ public class EnemyBase : MonoBehaviour
     protected float maxHp = 100f;
 
     [Header("Movement")]
-    public float speed;
-    public float rotationSpeed;
+    //public float speed;
+    //public float rotationSpeed;
     protected Vector3 direction;
     protected bool stopRotation;
 
@@ -18,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     protected HealthBar healthBar;
     protected GameObject player;
     protected Rigidbody rigidbody;
+    protected NavMeshAgent agent;
     private GameObject canvas;
 
     [Header("Attack")]
@@ -31,6 +34,7 @@ public class EnemyBase : MonoBehaviour
         healthBar = GetComponentInChildren<HealthBar>();
         player = FindFirstObjectByType<PlayerManager>().gameObject;
         rigidbody = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
 
         attacked = false;
         stopRotation = false;
@@ -41,7 +45,7 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void FixedUpdate()
     {
-        RotateTowards();
+        //RotateTowards();
     }
 
     virtual protected void LateUpdate()
@@ -54,24 +58,34 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    virtual protected void RotateTowards()
-    {
-        if (stopRotation == false)
-        {
-            Vector3 dir = player.transform.position - gameObject.transform.position;
+    //virtual protected void RotateTowards()
+    //{
+    //    //if (stopRotation == false)
+    //    //{
+    //    //    //Vector3 dir = player.transform.position - gameObject.transform.position;
+    //    //    Vector3 dir = agent.velocity.normalized;
+    //    //    if (dir.magnitude <= 0.0001f) { dir = new Vector3(0.01f, 0.01f, 0.01f); }
 
-            dir.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-        }
+
+    //    //    dir.y = 0;
+    //    //    Quaternion rotation = Quaternion.LookRotation(dir);
+    //    //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+    //    //}
+    //}
+
+    virtual protected void Move()
+    {
+        agent.isStopped = false;
+
+        agent.SetDestination(player.transform.position);
     }
 
-    public void Damage(float value)
+    virtual public void Damage(float value)
     {
         healthBar.Damage(value);
     }
 
-    public void Death()
+    virtual public void Death()
     {
 
     }
@@ -80,4 +94,12 @@ public class EnemyBase : MonoBehaviour
     {
         OnCollision(collision.gameObject);
     }
+
+    //___Gizmos_________________________________________________________________________________________________________________________
+    virtual protected void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green.WithAlpha(0.2f);
+        Gizmos.DrawSphere(transform.position, attackDistance);
+    }
+    //____________________________________________________________________________________________________________________________
 }
