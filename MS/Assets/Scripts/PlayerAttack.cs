@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime = 0.2f;
     public GameObject collider;
 
-    [Header("攻撃移動範囲")]
+    [Header("攻撁E��動篁E��")]
     public float attackMoveRange;
 
 
@@ -30,10 +30,10 @@ public class PlayerAttack : MonoBehaviour
     public bool isHold = false;
     public bool afterShock = false;
 
-    //攻撃の位置
+    //攻撁E�E位置
     Transform attackArea;
 
-    //攻撃の初期生成位置
+    //攻撁E�E初期生�E位置
     Vector3 initLocalPosition;
 
 
@@ -168,32 +168,36 @@ public class PlayerAttack : MonoBehaviour
     }
 
     /// <summary>
-    ///  めんこ生成
+    ///  めんこ生戁E
     /// </summary>
     void IniteMenko()
     {
        
         Vector3 startPoint = this.transform.position + Vector3.up * 3.0f;
 
-        Vector3 endPoint = collider.transform.position;
+        Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;
         if (holdtime < 2.5f)
         {
             endPoint = collider.transform.position +
                 new Vector3(
                              Random.Range(-offset / holdtime, offset / holdtime),
-                             this.transform.position.y,
+                             0.0f,
                              Random.Range(-offset / holdtime, offset / holdtime)
                          );
 
         }
 
 
-        Debug.Log(holdtime +"  " + endPoint);
+        //Debug.Log(holdtime +"  " + endPoint );
 
-        Vector3 dir = endPoint - startPoint;
+        Vector3 dir = endPoint - startPoint ;
         dir.Normalize();
-        Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+
+
+        //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+        var obj = ObjectPool.Instance.Get(bullet, startPoint, collider.transform.rotation);
+        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.attack);
 
     }
 
