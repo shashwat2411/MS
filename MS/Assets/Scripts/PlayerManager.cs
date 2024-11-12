@@ -260,6 +260,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void Death()
     {
+    }
 
     void LevelUp()
     {
