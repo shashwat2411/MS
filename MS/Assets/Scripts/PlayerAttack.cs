@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
     [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
     public float attackMoveRange;
 
+    public float collisionDamage = 10.0f;
+
     //
     public bool afterShock = false;
 
@@ -31,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
     //UŒ‚‚ÌˆÊ’u
     Transform attackArea;
+    Vector3 playerPos;
 
     //UŒ‚‚Ì‰Šú¶¬ˆÊ’u
     Vector3 initLocalPosition;
@@ -57,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = GetComponentsInChildren<Transform>()[1];
         initLocalPosition = attackArea.localPosition;
-
+        playerPos = GetComponentInParent<PlayerManager>().transform.position;
 
 
         ResetCollider();
@@ -196,9 +199,11 @@ public class PlayerAttack : MonoBehaviour
                               attackArea.position.y,
                               attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
                               );
+        
+        var offset = newPos - playerPos;
 
-       var offset = newPos - this.transform.position;
-
+      
+        Debug.Log(attackArea.localPosition + " , " + offset);
         //  attackArea.localPosition = Vector3.zero + Vector3.ClampMagnitude(offset, attackMoveRange);
 
         attackArea.position = newPos;
