@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     float currentSpeed;
     float targetSpeed;
 
-    #region “ü—Í’l
+    #region å…¥åŠ›å€¤
     Vector2 moveInput;
 
 
@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
+    [HideInInspector] public Player_HP playerHP;
 
 
 
@@ -75,7 +76,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    #region “ü—Í Stuff
+    #region å…¥åŠ› Stuff
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
@@ -177,7 +178,7 @@ public class PlayerManager : MonoBehaviour
 
 
     /// <summary>
-    ///@
+    ///ã€€
     /// </summary>
     private void Interact()
     {
@@ -190,7 +191,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    ///@ƒ_ƒbƒVƒ…
+    ///ã€€ãƒ€ãƒƒã‚·ãƒ¥
     /// </summary>
     void Dash()
     {
@@ -200,7 +201,7 @@ public class PlayerManager : MonoBehaviour
             if(dashTimeLeft > 0)
             {
                
-                // “ü—Í‚Ì•ûŒü‚Éƒ_ƒbƒVƒ…
+                // å…¥åŠ›ã®æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 if (playerMovement.magnitude != 0)
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
@@ -211,7 +212,7 @@ public class PlayerManager : MonoBehaviour
                     transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
 
                 }
-                // ƒvƒŒ[ƒ„[‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚Éƒ_ƒbƒVƒ…
+                // ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 else
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
@@ -235,7 +236,7 @@ public class PlayerManager : MonoBehaviour
 
     void ReadyToDash()
     {
-        // TODO:’nŒ`‚Ì”ÍˆÍ‚Ìƒ`ƒFƒbƒN
+        // TODO:åœ°å½¢ã®ç¯„å›²ã®ãƒã‚§ãƒƒã‚¯
         if (true)
         {
             isDashing = true;
@@ -253,6 +254,12 @@ public class PlayerManager : MonoBehaviour
        
     }
 
+    public void Damage()
+    {
+
+    }
+    public void Death()
+    {
 
     void LevelUp()
     {
@@ -268,7 +275,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒŒƒxƒ‹ƒAƒbƒv‚Ìƒ{[ƒiƒX
+    /// ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—æ™‚ã®ãƒœãƒ¼ãƒŠã‚¹
     /// </summary>
     /// <param name="bd"></param>
     public void ApplyBonus(BonusData bd)
@@ -277,13 +284,13 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ŒoŒ±’l‚ğ—^‚¦‚é
+    /// çµŒé¨“å€¤ã‚’ä¸ãˆã‚‹
     /// </summary>
     /// <param name="exp"></param>
     public void ApplyExp(float exp)
     {
         var toNextLeft = playerData.nextExp - playerData.exp - exp;
-        // ‰ß‚²‚µ‚½ŒoŒ±’l
+        // éã”ã—ãŸçµŒé¨“å€¤
         if(toNextLeft <= 0)
         {
             LevelUp();

@@ -55,7 +55,9 @@ public class KamikazeEnemy : EnemyBase
             healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
 
             healthBar.Damage(healthBar.health + 1f);
+
             //プレーヤーへのダメージ
+            player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
         }
     }
 

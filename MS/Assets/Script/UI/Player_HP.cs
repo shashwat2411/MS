@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class Player_HP : MonoBehaviour
 {
-    [SerializeField]
-    GameObject Player;
-
-    float Hp_Now;
-    float Hp_Max;
+    [SerializeField] float Hp_Now;
+    [SerializeField] float Hp_Max;
 
     [SerializeField]
     GameObject RedBar, GreenBar;
+
+    PlayerManager player;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +21,12 @@ public class Player_HP : MonoBehaviour
 
         Hp_Max = 100.0f;
         Hp_Now = 100.0f;
+
+        player = FindFirstObjectByType<PlayerManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Œ»Ý‚ÌHP‚ðŽæ“¾
         
@@ -50,4 +51,21 @@ public class Player_HP : MonoBehaviour
         }
 
     }
+
+    public void Damage(float value)
+    {
+        float result = Hp_Now - value;
+        if (result > 0f) 
+        { 
+            Hp_Now = result;
+            player.Damage();
+        }
+        else if(result <= 0f)
+        {
+            Hp_Now = 0f;
+            player.Death();
+        }
+    }
+
+
 }
