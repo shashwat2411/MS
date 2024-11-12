@@ -83,10 +83,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.57
-  m_Height: 4.35
+  m_Radius: 2.8
+  m_Height: 7.06
   m_Direction: 1
-  m_Center: {x: 0.0122801, y: 0.84, z: 0}
+  m_Center: {x: 0, y: 0.84, z: 0}
 --- !u!114 &6383329367501922129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +252,7 @@ MonoBehaviour:
   lifetime: 0.8
   impactArea: {fileID: 5188208545944089872}
   impactEffect: {fileID: 2564988726047547041}
+  damage: 0
 --- !u!1001 &3886470152827210572
 PrefabInstance:
   m_ObjectHideFlags: 0

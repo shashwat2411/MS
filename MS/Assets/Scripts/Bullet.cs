@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -49,7 +50,7 @@ public class Bullet : MonoBehaviour
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
 
-           
+            Debug.Log(transform.position);
             Invoke("DestroyBullet", lifetime);
         }
     }

@@ -89,28 +89,36 @@ public class PlayerAttack : MonoBehaviour
     void AttackFinish(InputAction.CallbackContext context)
     {
 
+        if (isHold && !afterShock)
+        {
+            //GetComponent<Rigidbody>().velocity = Vector3.zero;
+            IniteMenko();
 
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        IniteMenko();
-        afterShock = true;
+            // Reset
+            isHold = false;
+            afterShock = true;
+            holdtime = 1.0f;
+            collider.GetComponent<MeshRenderer>().enabled = false;
+            //collider.GetComponent<SphereCollider>().enabled = false;
+            Invoke("ResetCollider", attackTime);
 
 
-        // Reset
-        isHold = false;
-        holdtime = 1.0f;
-        collider.GetComponent<MeshRenderer>().enabled = false;
-        collider.GetComponent<SphereCollider>().enabled = false;
-        Invoke("ResetCollider", attackTime);
+
+        
+          
+       
+        }
       
-
-
-        collider.GetComponent<SphereCollider>().enabled = true;
     }
 
     void HoldAttack(InputAction.CallbackContext context)
     {
-        isHold = true;
-        collider.GetComponent<MeshRenderer>().enabled = true;
+        if(!afterShock)
+        {
+            isHold = true;
+            collider.GetComponent<MeshRenderer>().enabled = true;
+        }
+       
 
     }
 
@@ -121,7 +129,7 @@ public class PlayerAttack : MonoBehaviour
         Invoke("ResetCollider", attackTime);
     
         collider.GetComponent<MeshRenderer>().enabled = true;
-        collider.GetComponent<SphereCollider>().enabled = true;
+        //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
 
@@ -134,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.5f, playerData.maxAttackSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
-        collider.GetComponent<SphereCollider>().enabled = false;
+        //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
     void LongRangeAttack(InputAction.CallbackContext context)
@@ -200,19 +208,16 @@ public class PlayerAttack : MonoBehaviour
                               );
         
         var offset = newPos - playerPos;
+        var localPoint = transform.InverseTransformPoint(newPos);
 
-      
-        Debug.Log(attackArea.localPosition + " , " + offset);
-        //  attackArea.localPosition = Vector3.zero + Vector3.ClampMagnitude(offset, attackMoveRange);
-
-        attackArea.position = newPos;
-        //attackArea.localPosition =Vector3.ClampMagnitude(offset, attackMoveRange);
+   
+        attackArea.localPosition =  Vector3.ClampMagnitude(localPoint, attackMoveRange);
 
 
-        //if (attackArea.localPosition.z <0.5f)
-        //{
-        //    attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
-        //}                                              
+        if (attackArea.localPosition.z < 0.5f)
+        {
+            attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
+        }
 
 
 
