@@ -28,9 +28,10 @@ public class PlayerManager : MonoBehaviour
     Vector3 playerMovement;
     Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
+    [SerializeField] public Player_HP playerHP;
 
 
-    
+
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
@@ -50,8 +51,6 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
-    [HideInInspector] public Player_HP playerHP;
-
 
 
     [Header("Player Data Staff")]
@@ -262,6 +261,7 @@ public class PlayerManager : MonoBehaviour
     {
     }
 
+
     void LevelUp()
     {
         playerData.lv++;
@@ -302,6 +302,16 @@ public class PlayerManager : MonoBehaviour
             playerData.exp = playerData.exp + exp;
         }
        
+
+    }
+
+    public void Damage()
+    {
+
+    }
+
+    public void Death()
+    {
 
     }
 }
