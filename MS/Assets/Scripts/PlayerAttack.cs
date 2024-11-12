@@ -10,10 +10,13 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime = 0.2f;
     public GameObject collider;
 
-    [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
+    [Header("æ”»æ’ƒç§»å‹•ç¯„å›²")]
     public float attackMoveRange;
 
-    public float collisionDamage = 1.0f;
+
+    [HideInInspector] public float collisionDamage = 10f;
+
+
     //
     public bool afterShock = false;
 
@@ -29,10 +32,11 @@ public class PlayerAttack : MonoBehaviour
     public bool isHold = false;
 
 
-    //UŒ‚‚ÌˆÊ’u
+    //æ”»æ’ƒã®ä½ç½®
     Transform attackArea;
+    Vector3 playerPos;
 
-    //UŒ‚‚Ì‰Šú¶¬ˆÊ’u
+    //æ”»æ’ƒã®åˆæœŸç”Ÿæˆä½ç½®
     Vector3 initLocalPosition;
 
 
@@ -57,7 +61,7 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = GetComponentsInChildren<Transform>()[1];
         initLocalPosition = attackArea.localPosition;
-
+        playerPos = GetComponentInParent<PlayerManager>().transform.position;
 
 
         ResetCollider();
@@ -158,7 +162,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     /// <summary>
-    ///  ‚ß‚ñ‚±¶¬
+    ///  ã‚ã‚“ã“ç”Ÿæˆ
     /// </summary>
     void IniteMenko()
     {
@@ -196,9 +200,11 @@ public class PlayerAttack : MonoBehaviour
                               attackArea.position.y,
                               attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
                               );
+        
+        var offset = newPos - playerPos;
 
-       var offset = newPos - this.transform.position;
-
+      
+        Debug.Log(attackArea.localPosition + " , " + offset);
         //  attackArea.localPosition = Vector3.zero + Vector3.ClampMagnitude(offset, attackMoveRange);
 
         attackArea.position = newPos;
