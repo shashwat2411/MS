@@ -106,7 +106,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + playerData.dashCooldown))
+            if (Time.time > (lastDash + playerData.dashCooldown) && !playerAttack.isHold)
             {
                 ReadyToDash();
             }
@@ -117,16 +117,17 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!playerAttack.isHold)
-        {
-            Dash();
-            if (isDashing)
-                return; 
-        }
-        else
+  
+        Dash();
+        if (isDashing)
+            return;
+
+        if (playerAttack.isHold)
         {
             playerAttack.RangeMove(playerAttackMovement);
         }
+    
+        
 
         if (!playerAttack.afterShock)
         {
