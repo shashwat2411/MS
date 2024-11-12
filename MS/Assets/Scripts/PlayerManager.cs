@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     float currentSpeed;
     float targetSpeed;
 
-    #region å…¥åŠ›å€¤
+    #region “ü—Í’l
     Vector2 moveInput;
 
 
@@ -28,9 +28,10 @@ public class PlayerManager : MonoBehaviour
     Vector3 playerMovement;
     Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
+    [SerializeField] public Player_HP playerHP;
 
 
-    
+
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
@@ -50,8 +51,6 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
-    [HideInInspector] public Player_HP playerHP;
-
 
 
     [Header("Player Data Staff")]
@@ -76,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    #region å…¥åŠ› Stuff
+    #region “ü—Í Stuff
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
@@ -178,7 +177,7 @@ public class PlayerManager : MonoBehaviour
 
 
     /// <summary>
-    ///ã€€
+    ///@
     /// </summary>
     private void Interact()
     {
@@ -191,7 +190,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    ///ã€€ãƒ€ãƒƒã‚·ãƒ¥
+    ///@ƒ_ƒbƒVƒ…
     /// </summary>
     void Dash()
     {
@@ -201,7 +200,7 @@ public class PlayerManager : MonoBehaviour
             if(dashTimeLeft > 0)
             {
                
-                // å…¥åŠ›ã®æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
+                // “ü—Í‚Ì•ûŒü‚Éƒ_ƒbƒVƒ…
                 if (playerMovement.magnitude != 0)
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
@@ -212,7 +211,7 @@ public class PlayerManager : MonoBehaviour
                     transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
 
                 }
-                // ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
+                // ƒvƒŒ[ƒ„[‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚Éƒ_ƒbƒVƒ…
                 else
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
@@ -236,7 +235,7 @@ public class PlayerManager : MonoBehaviour
 
     void ReadyToDash()
     {
-        // TODO:åœ°å½¢ã®ç¯„å›²ã®ãƒã‚§ãƒƒã‚¯
+        // TODO:’nŒ`‚Ì”ÍˆÍ‚Ìƒ`ƒFƒbƒN
         if (true)
         {
             isDashing = true;
@@ -254,12 +253,6 @@ public class PlayerManager : MonoBehaviour
        
     }
 
-    public void Damage()
-    {
-
-    }
-    public void Death()
-    {
 
     void LevelUp()
     {
@@ -275,7 +268,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—æ™‚ã®ãƒœãƒ¼ãƒŠã‚¹
+    /// ƒŒƒxƒ‹ƒAƒbƒv‚Ìƒ{[ƒiƒX
     /// </summary>
     /// <param name="bd"></param>
     public void ApplyBonus(BonusData bd)
@@ -284,13 +277,13 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// çµŒé¨“å€¤ã‚’ä¸ãˆã‚‹
+    /// ŒoŒ±’l‚ğ—^‚¦‚é
     /// </summary>
     /// <param name="exp"></param>
     public void ApplyExp(float exp)
     {
         var toNextLeft = playerData.nextExp - playerData.exp - exp;
-        // éã”ã—ãŸçµŒé¨“å€¤
+        // ‰ß‚²‚µ‚½ŒoŒ±’l
         if(toNextLeft <= 0)
         {
             LevelUp();
@@ -301,6 +294,16 @@ public class PlayerManager : MonoBehaviour
             playerData.exp = playerData.exp + exp;
         }
        
+
+    }
+
+    public void Damage()
+    {
+
+    }
+
+    public void Death()
+    {
 
     }
 }

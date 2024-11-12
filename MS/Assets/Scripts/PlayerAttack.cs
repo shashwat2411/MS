@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
+    [HideInInspector] public float collisionDamage;
 
     [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
     public float attackMoveRange;
