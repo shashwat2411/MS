@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static KamikazeEnemy;
 
-public class BombEnemy : EnemyBase
+public class ThrowEnemy : EnemyBase
 {
-    public enum BOMBENEMY_STATE
+    public enum THROWENEMY_STATE
     {
         IDLE,
         MOVE,
@@ -15,13 +16,13 @@ public class BombEnemy : EnemyBase
     }
 
     [Header("State Time")]
-    public BOMBENEMY_STATE state;
+    public THROWENEMY_STATE state;
     public float idleTime;
     public float attackCooldownTime;
     public float hurtTime;
 
-    [Header("Bomb")]
-    public GameObject enemyBomb;
+    [Header("Item")]
+    public GameObject enemyItem;
     public Transform spawnPoint;
     public float bombLifetime;
     private float cooldown = 0f;
@@ -32,7 +33,7 @@ public class BombEnemy : EnemyBase
     {
         base.Start();
 
-        state = BOMBENEMY_STATE.IDLE;
+        state = THROWENEMY_STATE.IDLE;
     }
     protected override void FixedUpdate()
     {
@@ -40,19 +41,19 @@ public class BombEnemy : EnemyBase
 
         switch (state)
         {
-            case BOMBENEMY_STATE.IDLE:
+            case THROWENEMY_STATE.IDLE:
                 Idle();
                 break;
 
-            case BOMBENEMY_STATE.MOVE:
+            case THROWENEMY_STATE.MOVE:
                 Move();
                 break;
 
-            case BOMBENEMY_STATE.ATTACK:
+            case THROWENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case BOMBENEMY_STATE.HURT:
+            case THROWENEMY_STATE.HURT:
                 Hurt();
                 break;
         }
@@ -68,13 +69,24 @@ public class BombEnemy : EnemyBase
             //プレーヤーへのダメージ
         }
     }
+    public override void Damage(float value)
+    {
+        base.Damage(value);
+        StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
     //____________________________________________________________________________________________________________________________
 
 
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
-        StartCoroutine(ChangeState(BOMBENEMY_STATE.MOVE, idleTime));
+        StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
     }
     protected override void Move()
     {
@@ -82,12 +94,13 @@ public class BombEnemy : EnemyBase
         //direction = player.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //プレーヤーに向けて移動
+        Debug.Log("Distance : " + agent.remainingDistance);
 
         if (agent.remainingDistance <= attackDistance)
         {
-            rigidbody.velocity = Vector3.zero;
+            agent.velocity = Vector3.zero;
             agent.isStopped = true;
-            StartCoroutine(ChangeState(BOMBENEMY_STATE.ATTACK, idleTime));
+            StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, idleTime));
         }
     }
     void Attack()
@@ -95,15 +108,15 @@ public class BombEnemy : EnemyBase
         direction = player.transform.position - gameObject.transform.position;
         if (direction.magnitude > attackDistance)
         {
-            StartCoroutine(ChangeState(BOMBENEMY_STATE.IDLE, 0f));
+            StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
         }
 
         if (attacked == false)
         {
-            GameObject bomb = Instantiate(enemyBomb, spawnPoint.position, spawnPoint.rotation);
-            bomb.GetComponent<EnemyBomb>().SetTarget(player.transform.position);
+            GameObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation);
+            item.GetComponent<ThrowableEnemyObject>().SetTarget(player.transform.position);
 
-            StartCoroutine(DestroyBomb(bomb));
+            StartCoroutine(DestroyBomb(item));
             attacked = true;
         }
         else
@@ -118,13 +131,13 @@ public class BombEnemy : EnemyBase
     }
     void Hurt()
     {
-        StartCoroutine(ChangeState(BOMBENEMY_STATE.IDLE, hurtTime));
+        StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, hurtTime));
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Coroutines_________________________________________________________________________________________________________________________
-    IEnumerator ChangeState(BOMBENEMY_STATE value, float delayTime)
+    IEnumerator ChangeState(THROWENEMY_STATE value, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         state = value;

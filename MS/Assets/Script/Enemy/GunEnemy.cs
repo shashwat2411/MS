@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static BombEnemy;
+using static ThrowEnemy;
 
 public class GunEnemy : EnemyBase
 {
@@ -69,6 +69,17 @@ public class GunEnemy : EnemyBase
             //プレーヤーへのダメージ
         }
     }
+    public override void Damage(float value)
+    {
+        base.Damage(value);
+        StartCoroutine(ChangeState(GUNENEMY_STATE.HURT, 0f));
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
     //____________________________________________________________________________________________________________________________
 
 
@@ -87,7 +98,7 @@ public class GunEnemy : EnemyBase
 
         if (agent.remainingDistance <= attackDistance)
         {
-            rigidbody.velocity = Vector3.zero;
+            agent.velocity = Vector3.zero;
             agent.isStopped = true;
             StartCoroutine(ChangeState(GUNENEMY_STATE.ATTACK, idleTime));
         }
