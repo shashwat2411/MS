@@ -135,7 +135,8 @@ public class PlayerAttack : MonoBehaviour
 
     void ResetCollider()
     {
-        
+        Debug.Log(initLocalPosition);
+
         afterShock = false;
         holdtime = 1.0f;
 
