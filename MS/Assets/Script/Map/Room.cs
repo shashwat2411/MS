@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public Vector2Int Position { get; private set; }  // 部屋の座標
+    public Vector2Int Position { get; set; }  // 部屋の座標
     public bool HasTopExit, HasBottomExit, HasLeftExit, HasRightExit;  // 各方向の接続情報
     public bool IsCleared = false;  // 敵を倒した後のフラグ
 
