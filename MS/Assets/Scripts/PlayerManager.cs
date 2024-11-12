@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
+    [HideInInspector] public Player_HP playerHP;
 
     void Start()
     {
@@ -213,5 +214,14 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Cant Dash");
         }
        
+    }
+
+    public void Damage()
+    {
+
+    }
+    public void Death()
+    {
+
     }
 }
