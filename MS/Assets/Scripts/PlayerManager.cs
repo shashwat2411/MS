@@ -305,13 +305,4 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void Damage()
-    {
-
-    }
-
-    public void Death()
-    {
-
-    }
 }
