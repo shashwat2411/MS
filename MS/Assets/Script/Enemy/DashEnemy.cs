@@ -65,11 +65,15 @@ public class DashEnemy : EnemyBase
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
 
-            if(state != DASHENEMY_STATE.ATTACK)
+            if (state != DASHENEMY_STATE.ATTACK)
             {
                 healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
             }
-            //プレーヤーへのダメージ
+            else
+            {
+                //プレーヤーへのダメージ
+                player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+            }
         }
     }
     public override void Damage(float value)
