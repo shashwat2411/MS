@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 0.0f;
+    float walkSpeed = 0;
+    [SerializeField] float noramlWalkSpeed = 0.0f;
+    [SerializeField] float attackingWalkSpeed = 0.0f;
     [SerializeField] float rotateSpeed = 1.0f;
 
 
@@ -16,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     float currentSpeed;
     float targetSpeed;
 
-    #region “ü—Í’l
+    #region å…¥åŠ›å€¤
     Vector2 moveInput;
 
 
@@ -24,6 +26,7 @@ public class PlayerManager : MonoBehaviour
 
 
     Vector3 playerMovement;
+    Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
 
 
@@ -31,9 +34,9 @@ public class PlayerManager : MonoBehaviour
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
-    public float dashTime = 1.0f;
+    //public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
-    public float dashCooldown;
+    //public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
     
@@ -49,31 +52,55 @@ public class PlayerManager : MonoBehaviour
     PlayerAttack playerAttack;
     [HideInInspector] public Player_HP playerHP;
 
+
+
+    [Header("Player Data Staff")]
+    public PlayerData playerData;
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerSensor = GetComponent<PlayerSensor>();
-        collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+     
     }
 
     private void Awake()
     {
+
+        rigidbody = GetComponent<Rigidbody>();
+        playerSensor = GetComponent<PlayerSensor>();
+        collider = GetComponent<Collider>();
+        playerAttack = GetComponent<PlayerAttack>();
+
+        playerData = CharacterSettings.Instance.playerData.GetCopy();
+
         cameraTransform = Camera.main.transform;    
     }
 
 
-    #region “ü—Í Stuff
+    #region å…¥åŠ› Stuff
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
         playerMovement.x = moveInput.x;
         playerMovement.z = moveInput.y;
     }
+
+
+    public void GetAttackMoveInput(InputAction.CallbackContext ctx)
+    {
+        var input = ctx.ReadValue<Vector2>();
+        playerAttackMovement.x = input.x;
+        playerAttackMovement.z = input.y;
+
+        Debug.Log(playerAttackMovement);
+    }
+
     public void GetInteract(InputAction.CallbackContext ctx)
     {
         if (ctx.phase == InputActionPhase.Started)
         {
+            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
+            ApplyBonus(testBonus);
+
             Interact();
         }
     }
@@ -82,7 +109,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + dashCooldown))
+            if (Time.time > (lastDash + playerData.dashCooldown))
             {
                 ReadyToDash();
             }
@@ -90,6 +117,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
+
     private void FixedUpdate()
     {
         if(!playerAttack.isHold)
@@ -98,24 +126,34 @@ public class PlayerManager : MonoBehaviour
             if (isDashing)
                 return;
             CaculateInputDirection();
-            Move();
-            Rotate();
+          
 
         }
         else
         {
-            playerAttack.RangeMove(playerMovement);
+            playerAttack.RangeMove(playerAttackMovement);
         }
 
-    
+        if (!playerAttack.afterShock)
+        {
+            Move();
+            Rotate();
+        }
+       
     }
 
 
     
-    private void Move() { 
-        targetSpeed = walkSpeed;
+    private void Move() {
+        targetSpeed = playerAttack.isHold ? attackingWalkSpeed:noramlWalkSpeed;
         targetSpeed *= moveInput.magnitude;
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f*Time.deltaTime);
+
+        if(currentSpeed > targetSpeed)
+        {
+            currentSpeed /= 2;
+        }
+
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.3f * Time.deltaTime);
         rigidbody.velocity = new Vector3((playerMovement * currentSpeed).x, rigidbody.velocity.y, (playerMovement * currentSpeed).z);
     }
 
@@ -140,7 +178,7 @@ public class PlayerManager : MonoBehaviour
 
 
     /// <summary>
-    ///@
+    ///ã€€
     /// </summary>
     private void Interact()
     {
@@ -153,7 +191,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    ///@ƒ_ƒbƒVƒ…
+    ///ã€€ãƒ€ãƒƒã‚·ãƒ¥
     /// </summary>
     void Dash()
     {
@@ -163,7 +201,7 @@ public class PlayerManager : MonoBehaviour
             if(dashTimeLeft > 0)
             {
                
-                // “ü—Í‚Ì•ûŒü‚Éƒ_ƒbƒVƒ…
+                // å…¥åŠ›ã®æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 if (playerMovement.magnitude != 0)
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
@@ -174,7 +212,7 @@ public class PlayerManager : MonoBehaviour
                     transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
 
                 }
-                // ƒvƒŒ[ƒ„[‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚Éƒ_ƒbƒVƒ…
+                // ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 else
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
@@ -192,18 +230,18 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        dashCoolDownMask.fillAmount -= 1.0f / dashCooldown * Time.deltaTime;
+        dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
     }
 
 
     void ReadyToDash()
     {
-        // TODO:’nŒ`‚Ì”ÍˆÍ‚Ìƒ`ƒFƒbƒN
+        // TODO:åœ°å½¢ã®ç¯„å›²ã®ãƒã‚§ãƒƒã‚¯
         if (true)
         {
             isDashing = true;
 
-            dashTimeLeft = dashTime;
+            dashTimeLeft = playerData.dashTime;
 
             lastDash = Time.time;
 
@@ -222,6 +260,47 @@ public class PlayerManager : MonoBehaviour
     }
     public void Death()
     {
+
+    void LevelUp()
+    {
+        playerData.lv++;
+        if((playerData.lv %5) == 0)
+        {
+            playerData.nextExp *= 1.2f;
+        }
+
+        //Bonus Menu
+
+
+    }
+
+    /// <summary>
+    /// ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—æ™‚ã®ãƒœãƒ¼ãƒŠã‚¹
+    /// </summary>
+    /// <param name="bd"></param>
+    public void ApplyBonus(BonusData bd)
+    {
+        playerData.ApplyBonus(bd);
+    }
+
+    /// <summary>
+    /// çµŒé¨“å€¤ã‚’ä¸ãˆã‚‹
+    /// </summary>
+    /// <param name="exp"></param>
+    public void ApplyExp(float exp)
+    {
+        var toNextLeft = playerData.nextExp - playerData.exp - exp;
+        // éã”ã—ãŸçµŒé¨“å€¤
+        if(toNextLeft <= 0)
+        {
+            LevelUp();
+            playerData.exp = -toNextLeft;
+        }
+        else
+        {
+            playerData.exp = playerData.exp + exp;
+        }
+       
 
     }
 }
