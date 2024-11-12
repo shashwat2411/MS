@@ -10,10 +10,12 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime = 0.2f;
     public GameObject collider;
 
-    [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
+    [Header("æ”»æ’ƒç§»å‹•ç¯„å›²")]
     public float attackMoveRange;
 
-    public float collisionDamage = 10.0f;
+
+    [HideInInspector] public float collisionDamage = 10f;
+
 
 
     public GameObject bullet;
@@ -28,10 +30,10 @@ public class PlayerAttack : MonoBehaviour
     public bool isHold = false;
     public bool afterShock = false;
 
-    //UŒ‚‚ÌˆÊ’u
+    //æ”»æ’ƒã®ä½ç½®
     Transform attackArea;
 
-    //UŒ‚‚Ì‰Šú¶¬ˆÊ’u
+    //æ”»æ’ƒã®åˆæœŸç”Ÿæˆä½ç½®
     Vector3 initLocalPosition;
 
 
@@ -166,7 +168,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     /// <summary>
-    ///  ‚ß‚ñ‚±¶¬
+    ///  ã‚ã‚“ã“ç”Ÿæˆ
     /// </summary>
     void IniteMenko()
     {
