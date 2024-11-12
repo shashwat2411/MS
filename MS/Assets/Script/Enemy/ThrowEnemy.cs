@@ -65,7 +65,7 @@ public class ThrowEnemy : EnemyBase
         if (collided.gameObject == player)
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
-            healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
+            healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
             //プレーヤーへのダメージ
         }
     }

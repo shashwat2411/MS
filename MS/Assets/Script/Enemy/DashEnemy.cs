@@ -67,7 +67,7 @@ public class DashEnemy : EnemyBase
 
             if(state != DASHENEMY_STATE.ATTACK)
             {
-                healthBar.Damage(player.GetComponent<PlayerAttack>().collisionDamage);
+                healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
             }
             //プレーヤーへのダメージ
         }
