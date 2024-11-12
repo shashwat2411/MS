@@ -20,15 +20,15 @@ public class Player_HP : MonoBehaviour
         GreenBar.GetComponent<Image>().fillAmount = 1;
         RedBar.GetComponent<Image>().fillAmount = 1;
 
-        Hp_Max = 100.0f;
-        Hp_Now = 100.0f;
+        Hp_Max = Player.GetComponent<PlayerManager>().playerData.maxHp;
+        Hp_Now = Player.GetComponent<PlayerManager>().playerData.hp;
     }
 
     // Update is called once per frame
     void Update()
     {
         //åªç›ÇÃHPÇéÊìæ
-        
+        Hp_Now = Player.GetComponent<PlayerManager>().playerData.hp;
 
         if (Hp_Now <= 0)
         {
@@ -41,7 +41,7 @@ public class Player_HP : MonoBehaviour
         //ReDBarÇÃèàóù
         if (RedBar.GetComponent<Image>().fillAmount > GreenBar.GetComponent<Image>().fillAmount)
         {
-            RedBar.GetComponent<Image>().fillAmount -= 0.001f;
+            RedBar.GetComponent<Image>().fillAmount -= 0.005f;
         }
 
         if(RedBar.GetComponent<Image>().fillAmount <= GreenBar.GetComponent<Image>().fillAmount)

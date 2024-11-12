@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
     public float attackMoveRange;
 
+    public float collisionDamage = 1.0f;
     //
     public bool afterShock = false;
 
