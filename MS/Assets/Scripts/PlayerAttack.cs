@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("UŒ‚ˆÚ“®”ÍˆÍ")]
     public float attackMoveRange;
 
-
+    //
     public bool afterShock = false;
 
     public GameObject bullet;
@@ -23,11 +23,15 @@ public class PlayerAttack : MonoBehaviour
     public InputActionReference closeRangeAttack;
     public InputActionReference longRangeAttack;
 
+    //
     float holdtime = 1.0f;
     public bool isHold = false;
 
+
+    //UŒ‚‚ÌˆÊ’u
     Transform attackArea;
 
+    //UŒ‚‚Ì‰Šú¶¬ˆÊ’u
     Vector3 initLocalPosition;
 
 

@@ -6,12 +6,17 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    public int lv;
+
     public float hp;
 
     public float maxHp;
 
-    [Header("経験値")]
+    [Header("今の経験値")]
     public float exp;
+
+    [Header("必要な経験値")]
+    public float nextExp;
 
     [Header("攻撃力")]
     public float attack;
@@ -92,7 +97,7 @@ public class PlayerData
     /// ボーナス適用
     /// </summary>
     /// <param name="bs"></param>
-    public void ApplyBonus(BonusStats bs)
+    protected void ApplyBonus(BonusStats bs)
     {
         // TODO: 加算以外のボーナス処理
 

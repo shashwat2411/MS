@@ -55,9 +55,6 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Player Data Staff")]
     public PlayerData playerData;
-    public int lv;
-    public float nowExp = 0;
-
 
     void Start()
     {
@@ -256,6 +253,20 @@ public class PlayerManager : MonoBehaviour
        
     }
 
+
+    void LevelUp()
+    {
+        playerData.lv++;
+        if((playerData.lv %5) == 0)
+        {
+            playerData.nextExp *= 1.2f;
+        }
+
+        //Bonus Menu
+
+
+    }
+
     /// <summary>
     /// レベルアップ時のボーナス
     /// </summary>
@@ -263,5 +274,26 @@ public class PlayerManager : MonoBehaviour
     public void ApplyBonus(BonusData bd)
     {
         playerData.ApplyBonus(bd);
+    }
+
+    /// <summary>
+    /// 経験値を与える
+    /// </summary>
+    /// <param name="exp"></param>
+    public void ApplyExp(float exp)
+    {
+        var toNextLeft = playerData.nextExp - playerData.exp - exp;
+        // 過ごした経験値
+        if(toNextLeft <= 0)
+        {
+            LevelUp();
+            playerData.exp = -toNextLeft;
+        }
+        else
+        {
+            playerData.exp = playerData.exp + exp;
+        }
+       
+
     }
 }
