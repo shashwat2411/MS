@@ -15,8 +15,6 @@ public class PlayerAttack : MonoBehaviour
 
     public float collisionDamage = 10.0f;
 
-    //
-    public bool afterShock = false;
 
     public GameObject bullet;
     private bool shoot = true;
@@ -28,17 +26,14 @@ public class PlayerAttack : MonoBehaviour
     //
     float holdtime = 1.0f;
     public bool isHold = false;
-
+    public bool afterShock = false;
 
     //çUåÇÇÃà íu
     Transform attackArea;
-    Vector3 playerPos;
 
     //çUåÇÇÃèâä˙ê∂ê¨à íu
     Vector3 initLocalPosition;
 
-
-    float holdIncreaseFlag = 1.0f;
 
     PlayerData playerData;
     
@@ -59,8 +54,7 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = GetComponentsInChildren<Transform>()[1];
         initLocalPosition = attackArea.localPosition;
-        playerPos = GetComponentInParent<PlayerManager>().transform.position;
-
+     
 
         ResetCollider();
     }
@@ -85,7 +79,10 @@ public class PlayerAttack : MonoBehaviour
       
     }
 
-
+    /// <summary>
+    /// triggerÇï˙ÇµÇΩÇÁÅAÇﬂÇÒÇ±î≠éÀ
+    /// </summary>
+    /// <param name="context"></param>
     void AttackFinish(InputAction.CallbackContext context)
     {
 
@@ -110,6 +107,7 @@ public class PlayerAttack : MonoBehaviour
         }
       
     }
+
 
     void HoldAttack(InputAction.CallbackContext context)
     {
@@ -197,6 +195,7 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
+
     public bool RangeMove(Vector3 playerInput)
     {
 
@@ -206,11 +205,8 @@ public class PlayerAttack : MonoBehaviour
                               attackArea.position.y,
                               attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
                               );
-        
-        var offset = newPos - playerPos;
-        var localPoint = transform.InverseTransformPoint(newPos);
 
-   
+        var localPoint = transform.InverseTransformPoint(newPos);
         attackArea.localPosition =  Vector3.ClampMagnitude(localPoint, attackMoveRange);
 
 

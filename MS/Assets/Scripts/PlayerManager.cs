@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    float walkSpeed = 0;
+
     [SerializeField] float noramlWalkSpeed = 0.0f;
     [SerializeField] float attackingWalkSpeed = 0.0f;
     [SerializeField] float rotateSpeed = 1.0f;
@@ -21,13 +21,13 @@ public class PlayerManager : MonoBehaviour
     #region 入力値
     Vector2 moveInput;
 
-
-    #endregion
-
-
     Vector3 playerMovement;
     Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
+    #endregion
+
+
+
     [SerializeField] public Player_HP playerHP;
 
 
@@ -35,9 +35,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
-    //public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
-    //public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
     
@@ -123,10 +121,7 @@ public class PlayerManager : MonoBehaviour
         {
             Dash();
             if (isDashing)
-                return;
-            CaculateInputDirection();
-          
-
+                return; 
         }
         else
         {
@@ -137,12 +132,12 @@ public class PlayerManager : MonoBehaviour
         {
             Move();
             Rotate();
+            CaculateInputDirection();
         }
        
     }
 
 
-    
     private void Move() {
         targetSpeed = playerAttack.isHold ? attackingWalkSpeed:noramlWalkSpeed;
         targetSpeed *= moveInput.magnitude;
