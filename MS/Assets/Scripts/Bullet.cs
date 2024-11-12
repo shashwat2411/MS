@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             GetComponent<Rigidbody>().velocity =Vector3.zero;
-            this.transform.position = new Vector3(this.transform.position.x, 0.5f, this.transform.position.z);
+            this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
 
 
             impactArea.SetActive(true);
