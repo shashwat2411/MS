@@ -1627,7 +1627,7 @@ Transform:
   m_GameObject: {fileID: 1312768691}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.843}
+  m_LocalPosition: {x: 0, y: 0, z: 1.282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2398,17 +2398,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
@@ -2542,9 +2542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951e52619e6f099468bb50d3aff8f921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noramlRunSpeed: 15
-  ChargeRunSpeed: 6
-  rotateSpeed: 400
+  noramlRunSpeed: 8
+  ChargeRunSpeed: 4.5
+  rotateSpeed: 200
   currentSpeed: 0
   playerHP: {fileID: 0}
   isDashing: 0
@@ -2688,7 +2688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.3
   collider: {fileID: 1312768691}
-  attackMoveRange: 8
+  attackMoveRange: 6
   collisionDamage: 10
   bullet: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb, type: 3}
   closeRangeAttack: {fileID: 6481758436606181088, guid: f37a0ac7a5eade24c98c8281967e814e,

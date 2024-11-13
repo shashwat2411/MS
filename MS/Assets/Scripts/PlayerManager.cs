@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     {
         Idle,
         Run,
-        Charge
+        Walk
     };
 
     LocomotionState locomotionState = LocomotionState.Idle;
@@ -97,6 +97,7 @@ public class PlayerManager : MonoBehaviour
         postureHash = Animator.StringToHash("Posture");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
+        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
     }
 
@@ -174,7 +175,7 @@ public class PlayerManager : MonoBehaviour
    
         if (playerAttack.isHold)
         {
-            locomotionState = LocomotionState.Charge;
+            locomotionState = LocomotionState.Walk;
         }
         else if (moveInput.magnitude == 0)
         {
@@ -184,7 +185,7 @@ public class PlayerManager : MonoBehaviour
             locomotionState = LocomotionState.Run;
         }
 
-        Debug.Log(locomotionState);
+      
     }
 
 
@@ -359,16 +360,19 @@ public class PlayerManager : MonoBehaviour
 
     void SetAnimator()
     {
+      
         animator.SetFloat(postureHash, 1f, 0.1f, Time.deltaTime);
         switch (locomotionState)
         {
             case LocomotionState.Idle:
                 animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
                 break;
-            case LocomotionState.Charge:
+            case LocomotionState.Walk:
+               // Debug.Log(playerMovementWorldSpace.magnitude +" " + playerMovementWorldSpace.magnitude*ChargeRunSpeed);
                 animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * ChargeRunSpeed, 0.1f, Time.deltaTime);
                 break;
             case LocomotionState.Run:
+               // Debug.Log(playerMovementWorldSpace.magnitude + " " + playerMovementWorldSpace.magnitude *noramlRunSpeed);
                 animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
                 break;
         }
@@ -377,13 +381,18 @@ public class PlayerManager : MonoBehaviour
         // Rotate
         float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
         animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
-        transform.Rotate(0, rad * 200 * Time.deltaTime, 0f);
+        transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
 
     }
 
 
     private void OnAnimatorMove()
     {
-        rigidbody.velocity = animator.velocity;
+        if (!isDashing)
+        {
+            rigidbody.velocity = animator.velocity;
+           // Debug.Log(animator.velocity);
+        }
+       
     }
 }

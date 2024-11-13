@@ -72,7 +72,7 @@ public class PlayerAttack : MonoBehaviour
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
           
                 collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAttackSize / holdtime, 0.5f, playerData.maxAttackSize / holdtime) ;
+                    new Vector3(playerData.maxAttackSize / holdtime, 0.2f, playerData.maxAttackSize / holdtime) ;
                     
 
             }
@@ -140,7 +140,7 @@ public class PlayerAttack : MonoBehaviour
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.5f, playerData.maxAttackSize);
+        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.2f, playerData.maxAttackSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
         //collider.GetComponent<SphereCollider>().enabled = false;
@@ -174,7 +174,7 @@ public class PlayerAttack : MonoBehaviour
     void IniteMenko()
     {
        
-        Vector3 startPoint = this.transform.position + Vector3.up * 3.0f;
+        Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
 
         Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;
