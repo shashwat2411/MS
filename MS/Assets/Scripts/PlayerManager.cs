@@ -82,7 +82,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     Animator animator;
-
+  
 
     void Start()
     {
@@ -144,7 +144,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + playerData.dashCooldown) && !playerAttack.isHold)
+            if (Time.time > (lastDash + playerData.dashCooldown) )
             {
                 ReadyToDash();
             }
@@ -163,30 +163,25 @@ public class PlayerManager : MonoBehaviour
         if (playerAttack.isHold)
         {
             playerAttack.RangeMove(playerAttackMovement);
+            //playerAttack.MoveToTarget(GetCloestEnemy());
+           
         }
     
         
 
-        if (!playerAttack.afterShock)
-        {
-            //Move();
-            //Rotate();
-            CaculateInputDirection();
-          
-        }
+       
+        CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
+     
+       
     }
 
     void SwitchPlayerStates()
     {
 
    
-        if (playerAttack.isHold)
-        {
-            locomotionState = LocomotionState.Walk;
-        }
-        else if (moveInput.magnitude == 0)
+        if (moveInput.magnitude == 0)
         {
             locomotionState = LocomotionState.Idle;
         }else
@@ -363,32 +358,35 @@ public class PlayerManager : MonoBehaviour
             playerData.exp = playerData.exp + exp;
         }
        
-
     }
 
 
     void SetAnimator()
     {
-      
-        animator.SetFloat(postureHash, 1f, 0.1f, Time.deltaTime);
-        switch (locomotionState)
+        if (playerAttack.afterShock)
         {
-            case LocomotionState.Idle:
-                animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
-                break;
-            case LocomotionState.Walk:
-               // Debug.Log(playerMovementWorldSpace.magnitude +" " + playerMovementWorldSpace.magnitude*ChargeRunSpeed);
-                animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * ChargeRunSpeed, 0.1f, Time.deltaTime);
-                break;
-            case LocomotionState.Run:
-               // Debug.Log(playerMovementWorldSpace.magnitude + " " + playerMovementWorldSpace.magnitude *noramlRunSpeed);
-                animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
-                break;
+            animator.SetFloat(postureHash, 2f, 1.0f, Time.deltaTime);
+        }
+        else
+        {
+            animator.SetFloat(postureHash, 1f, 0.1f, Time.deltaTime);
+            switch (locomotionState)
+            {
+                case LocomotionState.Idle:
+                    animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Walk:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Run:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+            }
+
         }
 
-        // attacking
+        // attacking layer
         animator.SetBool(aimHash, playerAttack.isHold);
-
         // Rotate
         float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
         animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
@@ -399,11 +397,19 @@ public class PlayerManager : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        if (!isDashing)
+        if (playerAttack.afterShock)
+        {
+            rigidbody.velocity =Vector3.zero;
+        }
+        else if (!isDashing)
         {
             rigidbody.velocity = animator.velocity;
-           // Debug.Log(animator.velocity);
+         //   Debug.Log(animator.velocity);
         }
        
+       
     }
+
+
+   
 }

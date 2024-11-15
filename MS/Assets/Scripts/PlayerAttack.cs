@@ -6,12 +6,15 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerAttack : MonoBehaviour
 {
+
+
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
 
     [Header("ÊîªÊíÅEßªÂãïÁØÅEõ≤")]
     public float attackMoveRange;
+
 
 
     [HideInInspector] public float collisionDamage = 10f;
@@ -38,7 +41,9 @@ public class PlayerAttack : MonoBehaviour
 
 
     PlayerData playerData;
-    
+    public List<GameObject> enemies;
+
+    Vector3 attackTarget;
     void Start()
     {
 
@@ -73,12 +78,13 @@ public class PlayerAttack : MonoBehaviour
           
                 collider.GetComponent<Transform>().localScale =
                     new Vector3(playerData.maxAttackSize / holdtime, 0.2f, playerData.maxAttackSize / holdtime) ;
-                    
+
+                
 
             }
+            //MoveToTarget(attackTarget);
+           // GetCloestEnemy();
         }
-
-      
     }
 
     /// <summary>
@@ -117,6 +123,7 @@ public class PlayerAttack : MonoBehaviour
         {
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
+            GetCloestEnemy();
         }
        
 
@@ -135,12 +142,11 @@ public class PlayerAttack : MonoBehaviour
 
     void ResetCollider()
     {
-        Debug.Log(initLocalPosition);
 
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.2f, playerData.maxAttackSize);
+        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.05f, playerData.maxAttackSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
         //collider.GetComponent<SphereCollider>().enabled = false;
@@ -178,7 +184,7 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;
-        if (holdtime < 2.5f)
+        if (holdtime < 3.5f)
         {
             endPoint = collider.transform.position +
                 new Vector3(
@@ -198,7 +204,7 @@ public class PlayerAttack : MonoBehaviour
 
         //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         var obj = ObjectPool.Instance.Get(bullet, startPoint, collider.transform.rotation);
-        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.attack);
+        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.attack * holdtime);
 
     }
 
@@ -222,10 +228,43 @@ public class PlayerAttack : MonoBehaviour
             attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
         }
 
-
-
-
         return true;
 
     }
+
+    public bool MoveToTarget(Vector3 Target)
+    {
+        if (Target == null)
+        {
+            return false;
+        }
+
+        attackArea.transform.position = Vector3.Lerp(attackArea.transform.position, Target, 1.5f*Time.deltaTime);
+        attackArea.transform.position = new Vector3(attackArea.transform.position.x, 0.2f, attackArea.transform.position.z);
+        return true;
+
+    }
+
+
+    private Vector3 GetCloestEnemy()
+    {
+        if (enemies.Count == 0)
+            return Vector3.zero;
+
+        float firstLength = Vector3.Distance(enemies[0].transform.position, transform.position);
+        attackTarget = enemies[0].transform.position;
+
+        foreach (var enemy in enemies)
+        {
+            float nowLength = Vector3.Distance(enemy.transform.position, transform.position);
+            if (nowLength < firstLength)
+            {
+                firstLength = nowLength;
+                attackTarget = enemy.transform.position;
+            }
+        }
+
+        return attackTarget;
+    }
+
 }

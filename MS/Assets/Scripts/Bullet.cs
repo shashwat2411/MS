@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     public void Initiate(Vector3 direction,Vector3 hitPosition ,float damage = 1.0f)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
-        this.damage = damage;
+        this.damage = damage/10.0f;
         hitPos = hitPosition;
         Invoke("DestroyBullet", lifetime);
     }
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+     
        if (other.CompareTag("Ground"))
         {
             GetComponent<Rigidbody>().velocity =Vector3.zero;
@@ -52,8 +52,10 @@ public class Bullet : MonoBehaviour
 
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
+            impactArea.transform.localScale = Vector3.one * this.damage;
+            impactEffect.transform.localScale =new Vector3(this.damage, this.damage, this.damage/2);
 
-            Debug.Log(transform.position);
+            Debug.Log(this.damage);
             Invoke("DestroyBullet", lifetime);
         }
     }
