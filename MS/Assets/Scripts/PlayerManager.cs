@@ -16,6 +16,13 @@ public class PlayerManager : MonoBehaviour
         Walk
     };
 
+
+    public enum PlayerState
+    {
+        Normal,
+        Aim
+    }
+
     LocomotionState locomotionState = LocomotionState.Idle;
 
     [SerializeField] float noramlRunSpeed = 0.0f;
@@ -70,6 +77,7 @@ public class PlayerManager : MonoBehaviour
     int postureHash;
     int moveSpeedHash;
     int turnSpeedHash;
+    int aimHash;
 
     #endregion
 
@@ -97,6 +105,7 @@ public class PlayerManager : MonoBehaviour
         postureHash = Animator.StringToHash("Posture");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
+        aimHash = Animator.StringToHash("Aim");
         animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
     }
@@ -377,6 +386,8 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
 
+        // attacking
+        animator.SetBool(aimHash, playerAttack.isHold);
 
         // Rotate
         float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
