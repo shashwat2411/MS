@@ -7,7 +7,7 @@ using TMPro;
 public class SkillWindow : MonoBehaviour
 {
 
-    BonusData Bonus;
+    public BonusData Bonus;
 
     [SerializeField]
     Image Icon;
@@ -17,21 +17,29 @@ public class SkillWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Bonus = BonusSettings.Instance.bonusDatas[0];
 
-        DrawSkill();
+        //DrawBonus();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RandomBonus()
     {
-        
+        int c = BonusSettings.Instance.bonusDatas.Count;
+
+        int i = Random.Range(0, c);
+
+        Bonus = BonusSettings.Instance.bonusDatas[i];
     }
 
-    void DrawSkill()
+    
+
+    public void DrawBonus()
     {
+        RandomBonus();
+
         Name.text = Bonus.name;
         Description.text = Bonus.description;
         Icon.sprite = Bonus.icon;
     }
+
+   
 }

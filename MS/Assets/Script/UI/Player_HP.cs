@@ -31,7 +31,7 @@ public class Player_HP : MonoBehaviour
     void FixedUpdate()
     {
         //現在のHPを取得
-        Hp_Now = Player.GetComponent<PlayerManager>().playerData.hp;
+        Hp_Now = player.GetComponent<PlayerManager>().playerData.hp;
 
         if (Hp_Now <= 0)
         {
