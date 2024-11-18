@@ -123,6 +123,7 @@ public class ThrowEnemy : EnemyBase
         {
             GameObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation);
             item.GetComponent<ThrowableEnemyObject>().SetTarget(player.transform.position);
+            item.GetComponent<ThrowableEnemyObject>().SetOwner(gameObject);
 
             StartCoroutine(DestroyBomb(item));
             attacked = true;
