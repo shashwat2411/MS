@@ -12,6 +12,7 @@ public class ThrowableEnemyObject : MonoBehaviour
 
     public AnimationCurve motion;
     protected GameObject player;
+    protected GameObject owner;
     virtual protected void Start()
     {
         motionTime = 0f;
@@ -37,4 +38,5 @@ public class ThrowableEnemyObject : MonoBehaviour
     }
 
     public void SetTarget(Vector3 value) { target = value; }
+    public void SetOwner(GameObject value) { owner = value; }
 }
