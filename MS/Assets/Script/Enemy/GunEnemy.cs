@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static DashEnemy;
 using static ThrowEnemy;
 
 public class GunEnemy : EnemyBase
@@ -86,6 +87,9 @@ public class GunEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
+        stopRotation = false;   //回転再会
+        stopMovement = false;
+
         StartCoroutine(ChangeState(GUNENEMY_STATE.MOVE, idleTime));
     }
     protected override void Move()
@@ -95,20 +99,21 @@ public class GunEnemy : EnemyBase
         //direction = player.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //プレーヤーに向けて移動
-
-        if (agent.remainingDistance <= attackDistance)
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude < attackDistance)
         {
-            agent.velocity = Vector3.zero;
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            rigidbody.velocity = Vector3.zero;
             StartCoroutine(ChangeState(GUNENEMY_STATE.ATTACK, idleTime));
         }
     }
     void Attack()
     {
-        RotateTowards();
+        RotateTowards(player.transform.position);
 
         direction = player.transform.position - gameObject.transform.position;
-        if (direction.magnitude > attackDistance)
+        if (direction.magnitude >= attackDistance)
         {
             StartCoroutine(ChangeState(GUNENEMY_STATE.IDLE, 0f));
         }
@@ -142,6 +147,11 @@ public class GunEnemy : EnemyBase
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+
+        if (value == GUNENEMY_STATE.IDLE)
+        {
+            agent.gameObject.transform.position = transform.position;
+        }
     }
 
     IEnumerator DestroyBullet(GameObject bullet)
