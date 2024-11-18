@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GunEnemy;
 using static KamikazeEnemy;
 
 public class ThrowEnemy : EnemyBase
@@ -86,6 +87,9 @@ public class ThrowEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
+        stopRotation = false;   //回転再会
+        stopMovement = false;
+
         StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
     }
     protected override void Move()
@@ -96,17 +100,21 @@ public class ThrowEnemy : EnemyBase
         //プレーヤーに向けて移動
         Debug.Log("Distance : " + agent.remainingDistance);
 
-        if (agent.remainingDistance <= attackDistance)
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude < attackDistance)
         {
-            agent.velocity = Vector3.zero;
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            rigidbody.velocity = Vector3.zero;
             StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, idleTime));
         }
     }
     void Attack()
     {
+        RotateTowards(player.transform.position);
+
         direction = player.transform.position - gameObject.transform.position;
-        if (direction.magnitude > attackDistance)
+        if (direction.magnitude >= attackDistance)
         {
             StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
         }
@@ -141,6 +149,11 @@ public class ThrowEnemy : EnemyBase
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+
+        if (value == THROWENEMY_STATE.IDLE)
+        {
+            agent.gameObject.transform.position = transform.position;
+        }
     }
     IEnumerator DestroyBomb(GameObject bomb)
     {

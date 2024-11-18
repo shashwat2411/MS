@@ -94,32 +94,36 @@ public class DashEnemy : EnemyBase
     void Idle()
     {
         stopRotation = false;   //âÒì]çƒâÔ
+        stopMovement = false;
+
+        RotateTowards(player.transform.position);
 
         StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
     }
     protected override void Move()
     {
         base.Move();
-        //direction = player.transform.position - gameObject.transform.position;
-        //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
 
-        if (agent.remainingDistance <= attackDistance)
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude <= attackDistance)
         {
-            agent.velocity = Vector3.zero;
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            rigidbody.velocity = Vector3.zero;
             StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
         }
     }
     void Charge()
     {
+        stopMovement = true;
+        RotateTowards(player.transform.position);
+
         direction = player.transform.position - gameObject.transform.position;
         attacked = false;
         StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
     }
     void Attack()
     {
-        stopRotation = true;    //âÒì]ÇàÍéûí‚é~
-
         if (attacked == false)
         {
             rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
@@ -143,6 +147,11 @@ public class DashEnemy : EnemyBase
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+
+        if (value == DASHENEMY_STATE.IDLE)
+        {
+            agent.gameObject.transform.position = transform.position;
+        }
     }
     //____________________________________________________________________________________________________________________________
 
