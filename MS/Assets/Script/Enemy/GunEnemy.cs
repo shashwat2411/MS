@@ -105,6 +105,8 @@ public class GunEnemy : EnemyBase
     }
     void Attack()
     {
+        RotateTowards();
+
         direction = player.transform.position - gameObject.transform.position;
         if (direction.magnitude > attackDistance)
         {
