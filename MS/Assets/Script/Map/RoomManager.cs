@@ -81,7 +81,7 @@ public class RoomManager : MonoBehaviour
                 if (int.TryParse(cols[j], out int value))
                 {
                     // 部屋番号をセットし、初期状態は未クリアとする
-                    roomDatas[i, j] = new RoomData(value, false);
+                    roomDatas[i, j] = new RoomData(value, false, false);
 
                     // スタート地点（部屋番号1）を記録
                     if (value == 1)
@@ -95,14 +95,14 @@ public class RoomManager : MonoBehaviour
                 else
                 {
                     // 無効データの場合
-                    roomDatas[i, j] = new RoomData(0, false);
+                    roomDatas[i, j] = new RoomData(0, false, false);
                 }
             }
 
             // 足りない列を補完
             for (int j = cols.Length; j < colCount; j++)
             {
-                roomDatas[i, j] = new RoomData(0, false);
+                roomDatas[i, j] = new RoomData(0, false, false);
             }
         }
 
@@ -199,17 +199,11 @@ public class RoomManager : MonoBehaviour
 
         return room;
     }
+
+    //=======================
+    // 外部参照用
+    //=======================
+    public RoomData[,] GetRoomDatas() { return roomDatas; }
 }
 
 
-public class RoomData
-{
-    public int roomNumber; // 部屋番号
-    public bool isCleared; // クリア状態
-
-    public RoomData(int number, bool cleared)
-    {
-        roomNumber = number;
-        isCleared = cleared;
-    }
-}
