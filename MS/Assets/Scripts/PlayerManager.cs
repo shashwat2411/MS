@@ -410,6 +410,9 @@ public class PlayerManager : MonoBehaviour
        
     }
 
-
+    public Vector2 GetMovementInput()
+    {
+        return moveInput;
+    }
    
 }
