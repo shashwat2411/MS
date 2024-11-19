@@ -25,7 +25,7 @@ public class ThrowEnemy : EnemyBase
     [Header("Item")]
     public GameObject enemyItem;
     public Transform spawnPoint;
-    public float bombLifetime;
+    public float itemLifetime;
     private float cooldown = 0f;
 
 
@@ -158,7 +158,7 @@ public class ThrowEnemy : EnemyBase
     }
     IEnumerator DestroyBomb(GameObject bomb)
     {
-        yield return new WaitForSeconds(bombLifetime);
+        yield return new WaitForSeconds(itemLifetime);
         Destroy(bomb);
     }
     //____________________________________________________________________________________________________________________________
