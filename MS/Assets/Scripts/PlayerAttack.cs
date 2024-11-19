@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-    public GameObject bullet;
+    GameObject bullet;
     private bool shoot = true;
 
     [Header("InputSystem")]
@@ -33,13 +33,12 @@ public class PlayerAttack : MonoBehaviour
     public bool isHold = false;
     public bool afterShock = false;
 
-    //謾ｻ謦・・菴咲ｽｮ
+
     Transform attackArea;
 
-    //謾ｻ謦・・蛻晄悄逕滓・菴咲ｽｮ
     Vector3 initLocalPosition;
 
-
+    PlayerManager playerManager;
     PlayerData playerData;
     public List<GameObject> enemies;
 
@@ -57,7 +56,7 @@ public class PlayerAttack : MonoBehaviour
         #endregion
 
         playerData = GetComponent<PlayerManager>().playerData;
-
+        playerManager = GetComponent<PlayerManager>();
 
         var childrenTrans = GetComponentsInChildren<Transform>();
         foreach (Transform child in childrenTrans)
@@ -202,7 +201,7 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
-        var obj = ObjectPool.Instance.Get(bullet, startPoint, collider.transform.rotation);
+        var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
         obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
 
     }

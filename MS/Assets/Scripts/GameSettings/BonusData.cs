@@ -22,6 +22,15 @@ public enum PlayerDataType
     dashCooldown,
 }
 
+
+public enum PlayerPrafabType
+{
+    bullet,
+
+}
+
+
+
 [System.Serializable]
 public class BonusData
 {
@@ -56,10 +65,6 @@ public class BonusStats
 
     public PlayerDataType key;
 
-
-
-   
-   
     public float value;
 }
 
@@ -72,6 +77,8 @@ public class ReplaceData
     [TextArea] public string description;
 
     public Sprite icon;
+
+    public PlayerPrafabType key;
 
     public GameObject replaceItem;
 

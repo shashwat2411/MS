@@ -73,7 +73,8 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Player Data Staff")]
     public PlayerData playerData;
-
+    [Header("Player Prefabs Staff")]
+    public PlayerPrefabs playerPrefabs;
 
 
 
@@ -102,6 +103,9 @@ public class PlayerManager : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
+        playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
+
+
 
         cameraTransform = Camera.main.transform;
 
@@ -239,11 +243,13 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Interact()
     {
-
-        if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
-        {
-            Debug.Log("act!");
-        }
+        playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
+        //{
+            
+        //    playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        //    Debug.Log("act!");
+        //}
 
     }
 

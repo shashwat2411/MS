@@ -26,7 +26,7 @@ public class BulletImpact : MonoBehaviour
         {
             var damage = GetComponentInParent<Bullet>().damage;
             enemy.Damage(damage);
-            Debug.Log("Lighting hit ");
+           
         }
     }
 }

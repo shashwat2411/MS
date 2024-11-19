@@ -138,4 +138,36 @@ public class PlayerData
 }
 
 
+[System.Serializable]
+public class PlayerPrefabs
+{
+   public GameObject bullet;
+
+    public GameObject this[PlayerPrafabType key]
+    {
+        get
+        {
+            if (key == PlayerPrafabType.bullet) return bullet;
+            else return null;
+        }
+        set
+        {
+            if (key == PlayerPrafabType.bullet) bullet = value;
+            
+        }
+
+    }
+
+
+    public PlayerPrefabs GetCopy()
+    {
+        return (PlayerPrefabs)MemberwiseClone();
+    }
+
+
+    public void ApplyReplace(ReplaceData replaceData)
+    {
+        this[replaceData.key] = replaceData.replaceItem;
+    }
+}
 

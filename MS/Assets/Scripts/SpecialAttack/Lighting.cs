@@ -23,7 +23,7 @@ public class Lighting : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(damage);
-            Debug.Log(damage);
+            Debug.Log("Lighting hit ");
         }
     }
 }
