@@ -106,7 +106,10 @@ public class RoomManager : MonoBehaviour
             }
         }
 
+
         Debug.Log("CSVデータを正常に読み込みました");
+        Debug.Log(roomDatas.GetLength(0) + ":縦");
+        Debug.Log(roomDatas.GetLength(1) + ":横");
     }
 
     //==================================
@@ -199,6 +202,8 @@ public class RoomManager : MonoBehaviour
 
         return room;
     }
+
+
 
     //=======================
     // 外部参照用
