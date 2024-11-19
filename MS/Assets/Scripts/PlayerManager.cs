@@ -4,30 +4,46 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static PlayerManager;
 
 
 public class PlayerManager : MonoBehaviour
 {
-    float walkSpeed = 0;
-    [SerializeField] float noramlWalkSpeed = 0.0f;
-    [SerializeField] float attackingWalkSpeed = 0.0f;
+    public enum LocomotionState
+    {
+        Idle,
+        Run,
+        Walk
+    };
+
+
+    public enum PlayerState
+    {
+        Normal,
+        Aim
+    }
+
+    LocomotionState locomotionState = LocomotionState.Idle;
+
+    [SerializeField] float noramlRunSpeed = 0.0f;
+    [SerializeField] float ChargeRunSpeed = 0.0f;
     [SerializeField] float rotateSpeed = 1.0f;
 
 
-
+    [SerializeField]
     float currentSpeed;
     float targetSpeed;
 
     #region 入力値
     Vector2 moveInput;
 
-
-    #endregion
-
-
     Vector3 playerMovement;
     Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
+    #endregion
+
+
+
     [SerializeField] public Player_HP playerHP;
 
 
@@ -35,9 +51,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
-    //public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
-    //public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
     
@@ -56,6 +70,20 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Data Staff")]
     public PlayerData playerData;
 
+
+
+
+    #region Animator StateMachine Hash
+    int postureHash;
+    int moveSpeedHash;
+    int turnSpeedHash;
+    int aimHash;
+
+    #endregion
+
+    Animator animator;
+  
+
     void Start()
     {
      
@@ -63,7 +91,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-
+        animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
@@ -71,7 +99,15 @@ public class PlayerManager : MonoBehaviour
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
 
-        cameraTransform = Camera.main.transform;    
+        cameraTransform = Camera.main.transform;
+
+
+        postureHash = Animator.StringToHash("Posture");
+        moveSpeedHash = Animator.StringToHash("MoveSpeed");
+        turnSpeedHash = Animator.StringToHash("RotateSpeed");
+        aimHash = Animator.StringToHash("Aim");
+        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+
     }
 
 
@@ -90,7 +126,7 @@ public class PlayerManager : MonoBehaviour
         playerAttackMovement.x = input.x;
         playerAttackMovement.z = input.y;
 
-        Debug.Log(playerAttackMovement);
+       // Debug.Log(playerAttackMovement);
     }
 
     public void GetInteract(InputAction.CallbackContext ctx)
@@ -108,7 +144,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + playerData.dashCooldown))
+            if (Time.time > (lastDash + playerData.dashCooldown) )
             {
                 ReadyToDash();
             }
@@ -119,40 +155,58 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!playerAttack.isHold)
-        {
-            Dash();
-            if (isDashing)
-                return;
-            CaculateInputDirection();
-          
+  
+        Dash();
+        if (isDashing)
+            return;
 
-        }
-        else
+        if (playerAttack.isHold)
         {
             playerAttack.RangeMove(playerAttackMovement);
+            //playerAttack.MoveToTarget(GetCloestEnemy());
+           
         }
+    
+        
 
-        if (!playerAttack.afterShock)
-        {
-            Move();
-            Rotate();
-        }
+       
+        CaculateInputDirection();
+        SwitchPlayerStates();
+        SetAnimator();
+     
        
     }
 
+    void SwitchPlayerStates()
+    {
 
-    
+   
+        if (moveInput.magnitude == 0)
+        {
+            locomotionState = LocomotionState.Idle;
+        }else
+        {
+            locomotionState = LocomotionState.Run;
+        }
+
+      
+    }
+
+
     private void Move() {
-        targetSpeed = playerAttack.isHold ? attackingWalkSpeed:noramlWalkSpeed;
+
+   
+
+        targetSpeed = playerAttack.isHold ? ChargeRunSpeed:noramlRunSpeed;
         targetSpeed *= moveInput.magnitude;
 
         if(currentSpeed > targetSpeed)
         {
             currentSpeed /= 2;
         }
+       
 
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.3f * Time.deltaTime);
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 2.0f*Time.deltaTime);
         rigidbody.velocity = new Vector3((playerMovement * currentSpeed).x, rigidbody.velocity.y, (playerMovement * currentSpeed).z);
     }
 
@@ -172,7 +226,9 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 camForwardProjection = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
         playerMovementWorldSpace = camForwardProjection * moveInput.y + cameraTransform.right * moveInput.x;
-       // playerMovement = playerTransform.InverseTransformVector(playerMovementWorldSpace);
+        playerMovementWorldSpace = transform.InverseTransformVector(playerMovementWorldSpace);
+        //Debug.Log(moveInput + " " + test);
+
     }
 
 
@@ -208,7 +264,7 @@ public class PlayerManager : MonoBehaviour
                                                 dashSpeed * playerMovement.z);
 
                     Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
-                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
+                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,180);
 
                 }
                 // プレーヤーが向いている方向にダッシュ
@@ -302,11 +358,58 @@ public class PlayerManager : MonoBehaviour
             playerData.exp = playerData.exp + exp;
         }
        
-
     }
 
-    public Vector2 GetMovementInput()
+
+    void SetAnimator()
     {
-        return moveInput;
+        if (playerAttack.afterShock)
+        {
+            animator.SetFloat(postureHash, 2f, 1.0f, Time.deltaTime);
+        }
+        else
+        {
+            animator.SetFloat(postureHash, 1f, 0.1f, Time.deltaTime);
+            switch (locomotionState)
+            {
+                case LocomotionState.Idle:
+                    animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Walk:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Run:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+            }
+
+        }
+
+        // attacking layer
+        animator.SetBool(aimHash, playerAttack.isHold);
+        // Rotate
+        float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
+        animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
+        transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
+
     }
+
+
+    private void OnAnimatorMove()
+    {
+        if (playerAttack.afterShock)
+        {
+            rigidbody.velocity =Vector3.zero;
+        }
+        else if (!isDashing)
+        {
+            rigidbody.velocity = animator.velocity;
+         //   Debug.Log(animator.velocity);
+        }
+       
+       
+    }
+
+
+   
 }

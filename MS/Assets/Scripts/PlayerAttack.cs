@@ -6,19 +6,20 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerAttack : MonoBehaviour
 {
+
+
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
 
-    [Header("攻撃移動範囲")]
+    [Header("攻撁E��動篁E��")]
     public float attackMoveRange;
+
 
 
     [HideInInspector] public float collisionDamage = 10f;
 
 
-    //
-    public bool afterShock = false;
 
     public GameObject bullet;
     private bool shoot = true;
@@ -30,26 +31,24 @@ public class PlayerAttack : MonoBehaviour
     //
     float holdtime = 1.0f;
     public bool isHold = false;
+    public bool afterShock = false;
 
-
-    //攻撃の位置
+    //攻撁E�E位置
     Transform attackArea;
-    Vector3 playerPos;
 
-    //攻撃の初期生成位置
+    //攻撁E�E初期生�E位置
     Vector3 initLocalPosition;
 
 
-    float holdIncreaseFlag = 1.0f;
-
     PlayerData playerData;
-    
+    public List<GameObject> enemies;
+
+    Vector3 attackTarget;
     void Start()
     {
 
         #region Input
         closeRangeAttack.action.started += HoldAttack;
-        longRangeAttack.action.started += LongRangeAttack;
 
 
 
@@ -61,10 +60,14 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = GetComponentsInChildren<Transform>()[1];
         initLocalPosition = attackArea.localPosition;
-        playerPos = GetComponentInParent<PlayerManager>().transform.position;
-
+     
 
         ResetCollider();
+    }
+
+    void test()
+    {
+
     }
 
     // Update is called once per frame
@@ -78,41 +81,55 @@ public class PlayerAttack : MonoBehaviour
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
           
                 collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAttackSize / holdtime, 0.5f, playerData.maxAttackSize / holdtime) ;
-                    
+                    new Vector3(playerData.maxAttackSize / holdtime, 0.2f, playerData.maxAttackSize / holdtime) ;
+
+                
 
             }
+            //MoveToTarget(attackTarget);
+           // GetCloestEnemy();
         }
-
-      
     }
 
-
+    /// <summary>
+    /// trigger���������A�߂񂱔���
+    /// </summary>
+    /// <param name="context"></param>
     void AttackFinish(InputAction.CallbackContext context)
     {
 
+        if (isHold && !afterShock)
+        {
+            //GetComponent<Rigidbody>().velocity = Vector3.zero;
+            IniteMenko();
 
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        IniteMenko();
-        afterShock = true;
+            // Reset
+            isHold = false;
+            afterShock = true;
+            holdtime = 1.0f;
+            collider.GetComponent<MeshRenderer>().enabled = false;
+            //collider.GetComponent<SphereCollider>().enabled = false;
+            Invoke("ResetCollider", attackTime);
 
 
-        // Reset
-        isHold = false;
-        holdtime = 1.0f;
-        collider.GetComponent<MeshRenderer>().enabled = false;
-        collider.GetComponent<SphereCollider>().enabled = false;
-        Invoke("ResetCollider", attackTime);
+
+        
+          
+       
+        }
       
-
-
-        collider.GetComponent<SphereCollider>().enabled = true;
     }
+
 
     void HoldAttack(InputAction.CallbackContext context)
     {
-        isHold = true;
-        collider.GetComponent<MeshRenderer>().enabled = true;
+        if(!afterShock)
+        {
+            isHold = true;
+            collider.GetComponent<MeshRenderer>().enabled = true;
+            GetCloestEnemy();
+        }
+       
 
     }
 
@@ -123,32 +140,23 @@ public class PlayerAttack : MonoBehaviour
         Invoke("ResetCollider", attackTime);
     
         collider.GetComponent<MeshRenderer>().enabled = true;
-        collider.GetComponent<SphereCollider>().enabled = true;
+        //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
 
     void ResetCollider()
     {
-        
+
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.5f, playerData.maxAttackSize);
+        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.05f, playerData.maxAttackSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
-        collider.GetComponent<SphereCollider>().enabled = false;
+        //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
-    void LongRangeAttack(InputAction.CallbackContext context)
-    {
-        //if (shoot == true)
-        //{
-        //    Debug.Log("Long Range Attack");
-        //    Instantiate(bullet, collider.transform.position, collider.transform.rotation).GetComponent<Bullet>().Initiate(transform.forward,playerData.attack);
-        //    Invoke("ResetCooldown", cooldown);
-        //    shoot = false;
-        //}
-    }
+   
 
     void ResetCooldown()
     {
@@ -156,40 +164,42 @@ public class PlayerAttack : MonoBehaviour
         shoot = true;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-       
-    }
+  
 
     /// <summary>
-    ///  めんこ生成
+    ///  めんこ生戁E
     /// </summary>
     void IniteMenko()
     {
        
-        Vector3 startPoint = this.transform.position + Vector3.up * 3.0f;
+        Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
 
-        Vector3 endPoint = collider.transform.position;
+        Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;
-        if (holdtime < 2.5f)
+        if (holdtime < 3.5f)
         {
             endPoint = collider.transform.position +
                 new Vector3(
                              Random.Range(-offset / holdtime, offset / holdtime),
-                             this.transform.position.y,
+                             0.0f,
                              Random.Range(-offset / holdtime, offset / holdtime)
                          );
 
         }
 
 
-        Debug.Log(holdtime +"  " + endPoint);
+        //Debug.Log(holdtime +"  " + endPoint );
 
-        Vector3 dir = endPoint - startPoint;
+        Vector3 dir = endPoint - startPoint ;
         dir.Normalize();
-        Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+
+
+        //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+        var obj = ObjectPool.Instance.Get(bullet, startPoint, collider.transform.rotation);
+        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.attack * holdtime);
 
     }
+
 
     public bool RangeMove(Vector3 playerInput)
     {
@@ -200,26 +210,53 @@ public class PlayerAttack : MonoBehaviour
                               attackArea.position.y,
                               attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
                               );
-        
-        var offset = newPos - playerPos;
 
-      
-        Debug.Log(attackArea.localPosition + " , " + offset);
-        //  attackArea.localPosition = Vector3.zero + Vector3.ClampMagnitude(offset, attackMoveRange);
-
-        attackArea.position = newPos;
-        //attackArea.localPosition =Vector3.ClampMagnitude(offset, attackMoveRange);
+        var localPoint = transform.InverseTransformPoint(newPos);
+        attackArea.localPosition =  Vector3.ClampMagnitude(localPoint, attackMoveRange);
 
 
-        //if (attackArea.localPosition.z <0.5f)
-        //{
-        //    attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
-        //}                                              
-
-
-
+        if (attackArea.localPosition.z < 0.5f)
+        {
+            attackArea.localPosition = new Vector3(attackArea.localPosition.x, attackArea.localPosition.y, 0.5f);
+        }
 
         return true;
 
     }
+
+    public bool MoveToTarget(Vector3 Target)
+    {
+        if (Target == null)
+        {
+            return false;
+        }
+
+        attackArea.transform.position = Vector3.Lerp(attackArea.transform.position, Target, 1.5f*Time.deltaTime);
+        attackArea.transform.position = new Vector3(attackArea.transform.position.x, 0.2f, attackArea.transform.position.z);
+        return true;
+
+    }
+
+
+    private Vector3 GetCloestEnemy()
+    {
+        if (enemies.Count == 0)
+            return Vector3.zero;
+
+        float firstLength = Vector3.Distance(enemies[0].transform.position, transform.position);
+        attackTarget = enemies[0].transform.position;
+
+        foreach (var enemy in enemies)
+        {
+            float nowLength = Vector3.Distance(enemy.transform.position, transform.position);
+            if (nowLength < firstLength)
+            {
+                firstLength = nowLength;
+                attackTarget = enemy.transform.position;
+            }
+        }
+
+        return attackTarget;
+    }
+
 }
