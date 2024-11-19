@@ -54,7 +54,11 @@ public class PlayerManager : MonoBehaviour
     private float dashTimeLeft = 1.0f;
     private float lastDash;
     public float dashSpeed;
-    
+    bool dashOrientationFlag;
+    Vector3 dashOrientation;
+
+
+
     [Header("Dash CD UI Staff")]
     public Image dashCoolDownMask;
 
@@ -195,8 +199,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Move() {
 
-   
-
         targetSpeed = playerAttack.isHold ? ChargeRunSpeed:noramlRunSpeed;
         targetSpeed *= moveInput.magnitude;
 
@@ -255,27 +257,13 @@ public class PlayerManager : MonoBehaviour
         {
             if(dashTimeLeft > 0)
             {
-               
-                // 入力の方向にダッシュ
-                if (playerMovement.magnitude != 0)
-                {
-                    rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
-                                                0,
-                                                dashSpeed * playerMovement.z);
-
-                    Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
-                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,180);
-
-                }
-                // プレーヤーが向いている方向にダッシュ
-                else
-                {
-                    rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
-                                               0,
-                                               dashSpeed * transform.forward.z);
-                }
-
+                rigidbody.velocity = dashOrientation;
+                Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180);
+                       
                 dashTimeLeft -= Time.deltaTime;
+
+
             }
             else
             {
@@ -296,11 +284,30 @@ public class PlayerManager : MonoBehaviour
         {
             isDashing = true;
 
+            dashOrientationFlag = true;
+            
             dashTimeLeft = playerData.dashTime;
 
             lastDash = Time.time;
 
             dashCoolDownMask.fillAmount = 1.0f;
+
+
+            //ダッシュ方向計算
+            if (playerMovement.magnitude != 0)
+            {
+                dashOrientation = new Vector3(dashSpeed * playerMovement.x,
+                                            0,
+                                            dashSpeed * playerMovement.z);
+            }
+            // プレーヤーが向いている方向にダッシュ
+            else
+            {
+                dashOrientation = new Vector3(dashSpeed * transform.forward.x,
+                                           0,
+                                           dashSpeed * transform.forward.z);
+            }
+
         }
         else
         {
@@ -387,11 +394,14 @@ public class PlayerManager : MonoBehaviour
 
         // attacking layer
         animator.SetBool(aimHash, playerAttack.isHold);
-        // Rotate
-        float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
-        animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
-        transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
 
+        if (!isDashing)
+        {
+            // Rotate
+            float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
+            animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
+            transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
+        }
     }
 
 

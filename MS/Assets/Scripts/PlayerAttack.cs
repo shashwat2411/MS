@@ -58,7 +58,18 @@ public class PlayerAttack : MonoBehaviour
 
         playerData = GetComponent<PlayerManager>().playerData;
 
-        attackArea = GetComponentsInChildren<Transform>()[1];
+
+        var childrenTrans = GetComponentsInChildren<Transform>();
+        foreach (Transform child in childrenTrans)
+        {
+            if(child.name == "AttackArea")
+            {
+                attackArea = child;
+                break;
+            }
+        }
+      //  attackArea = GetComponentsInChildren<Transform>()[1];
+
         initLocalPosition = attackArea.localPosition;
      
 
@@ -81,7 +92,7 @@ public class PlayerAttack : MonoBehaviour
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
           
                 collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAttackSize / holdtime, 0.2f, playerData.maxAttackSize / holdtime) ;
+                    new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime) ;
 
                 
 
@@ -150,7 +161,7 @@ public class PlayerAttack : MonoBehaviour
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAttackSize,0.05f, playerData.maxAttackSize);
+        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAimSize,0.05f, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
         //collider.GetComponent<SphereCollider>().enabled = false;
@@ -196,7 +207,7 @@ public class PlayerAttack : MonoBehaviour
 
         //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         var obj = ObjectPool.Instance.Get(bullet, startPoint, collider.transform.rotation);
-        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.attack * holdtime);
+        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
 
     }
 

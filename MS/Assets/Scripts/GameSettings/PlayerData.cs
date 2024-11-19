@@ -21,6 +21,12 @@ public class PlayerData
     [Header("攻撃力")]
     public float attack;
 
+    [Header("今の消費能力の回数")]
+    public float specialAttackTime;
+
+    [Header("今の消費能力の回数")]
+    public float maxSpecialAttackTime;
+
     [Header("防御力")]
     public float defence;
 
@@ -30,13 +36,16 @@ public class PlayerData
     [Header("最大チャージ時間")]
     public float maxChargeTime;
 
+    [Header("チャージなし最初出る攻撃範囲")]
+    public float maxAimSize;
+
     [Header("最大攻撃範囲")]
     public float maxAttackSize;
 
     [Header("チャージ速度")]
     public float chargeSpeed;
 
-    [Header("攻撃移動速度")]
+    [Header("攻撃範囲の移動速度")]
     public float atkMoveSpeed;
 
     [Header("ダッシュ時間")]
@@ -52,9 +61,12 @@ public class PlayerData
             else if (key == PlayerDataType.maxHp) return maxHp;
             else if (key == PlayerDataType.exp) return exp;
             else if (key == PlayerDataType.attack) return attack;
+            else if (key == PlayerDataType.specialAttackTime) return specialAttackTime;
+            else if (key == PlayerDataType.maxSpecialAttackTime) return maxSpecialAttackTime;
             else if (key == PlayerDataType.defence) return defence;
             else if (key == PlayerDataType.healthRespons) return healthRespons;
             else if (key == PlayerDataType.maxChargeTime) return maxChargeTime;
+            else if (key == PlayerDataType.maxAimSize) return maxAimSize;
             else if (key == PlayerDataType.maxAttackSize) return maxAttackSize;
             else if (key == PlayerDataType.chargeSpeed) return chargeSpeed;
             else if (key == PlayerDataType.atkMoveSpeed) return atkMoveSpeed;
@@ -70,9 +82,12 @@ public class PlayerData
             else if (key == PlayerDataType.maxHp) maxHp = value;
             else if (key == PlayerDataType.exp) exp = value;
             else if (key == PlayerDataType.attack) attack = value;
+            else if (key == PlayerDataType.specialAttackTime) specialAttackTime = value;
+            else if (key == PlayerDataType.maxSpecialAttackTime) maxSpecialAttackTime = value;
             else if (key == PlayerDataType.defence) defence = value;
             else if (key == PlayerDataType.healthRespons) healthRespons = value;
             else if (key == PlayerDataType.maxChargeTime) maxChargeTime = value;
+            else if (key == PlayerDataType.maxAimSize) maxAimSize = value;
             else if (key == PlayerDataType.maxAttackSize) maxAttackSize = value;
             else if (key == PlayerDataType.chargeSpeed) chargeSpeed = value;
             else if (key == PlayerDataType.atkMoveSpeed) atkMoveSpeed = value;

@@ -17,6 +17,10 @@ public class Bullet : MonoBehaviour
     GameObject impactEffect;
 
     public float damage;
+    float maxAttackSize;
+
+    float factor = 10.0f;
+
     void Start()
     {
         
@@ -32,11 +36,14 @@ public class Bullet : MonoBehaviour
 
 
 
-    public void Initiate(Vector3 direction,Vector3 hitPosition ,float damage = 1.0f)
+    public void Initiate(Vector3 direction,Vector3 hitPosition ,float maxAttackSize = 100.0f,float damage = 1.0f)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
-        this.damage = damage/10.0f;
+
+        this.damage = damage/factor;
+        //Debug.Log(this.damage);
         hitPos = hitPosition;
+        this.maxAttackSize = maxAttackSize;
         Invoke("DestroyBullet", lifetime);
     }
 
@@ -52,10 +59,20 @@ public class Bullet : MonoBehaviour
 
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
-            impactArea.transform.localScale = Vector3.one * this.damage;
-            impactEffect.transform.localScale =new Vector3(this.damage, this.damage, this.damage/2);
+            if (this.maxAttackSize >= this.damage / factor)
+            {
+                impactArea.transform.localScale = Vector3.one * this.damage / factor;
+                impactEffect.transform.localScale = new Vector3(this.damage / factor, this.damage / factor, this.damage / (2*factor));
+            }
+            else
+            {
+                impactArea.transform.localScale = Vector3.one * this.maxAttackSize;
+                impactEffect.transform.localScale = new Vector3(this.maxAttackSize, this.maxAttackSize, this.maxAttackSize / 2);
 
-            Debug.Log(this.damage);
+            }
+
+            Debug.Log(this.damage /factor);
+
             Invoke("DestroyBullet", lifetime);
         }
     }
