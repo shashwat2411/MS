@@ -45,6 +45,7 @@ public enum BonusType
 {
     add,
     multiple,
+    replace,
 }
 
 
@@ -55,6 +56,23 @@ public class BonusStats
 
     public PlayerDataType key;
 
+
+
+   
    
     public float value;
+}
+
+
+[System.Serializable]
+public class ReplaceData
+{
+    public string name;
+
+    [TextArea] public string description;
+
+    public Sprite icon;
+
+    public GameObject replaceItem;
+
 }

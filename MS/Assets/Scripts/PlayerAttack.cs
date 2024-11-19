@@ -120,11 +120,7 @@ public class PlayerAttack : MonoBehaviour
             holdtime = 1.0f;
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
-            Invoke("ResetCollider", attackTime);
-
-
-
-        
+            Invoke("ResetCollider", attackTime);   
           
        
         }

@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 3f;
     public float lifetime = 10f;
-    Vector3 hitPos = Vector3.zero;
+    protected Vector3 hitPos = Vector3.zero;
 
     Collider collider;
 
@@ -72,7 +72,7 @@ public class Bullet : MonoBehaviour
             }
 
             Debug.Log(this.damage /factor);
-
+            SpecialEffect();
             Invoke("DestroyBullet", lifetime);
         }
     }
@@ -88,4 +88,7 @@ public class Bullet : MonoBehaviour
         //Destroy(impactEffect);
         //Destroy(gameObject);
     }
+
+
+    public virtual void SpecialEffect() {}
 }
