@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GunEnemy;
 
 public class KamikazeEnemy : EnemyBase
 {
@@ -78,6 +79,9 @@ public class KamikazeEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
+        stopRotation = false;   //回転再会
+        stopMovement = false;
+
         StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.MOVE, idleTime));
     }
     void Hurt()
@@ -92,6 +96,11 @@ public class KamikazeEnemy : EnemyBase
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+
+        if (value == KAMIKAZEENEMY_STATE.IDLE)
+        {
+            agent.gameObject.transform.position = transform.position;
+        }
     }
     //____________________________________________________________________________________________________________________________
 
