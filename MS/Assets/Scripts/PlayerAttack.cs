@@ -49,7 +49,6 @@ public class PlayerAttack : MonoBehaviour
 
         #region Input
         closeRangeAttack.action.started += HoldAttack;
-        longRangeAttack.action.started += LongRangeAttack;
 
 
 
@@ -64,6 +63,11 @@ public class PlayerAttack : MonoBehaviour
      
 
         ResetCollider();
+    }
+
+    void test()
+    {
+
     }
 
     // Update is called once per frame
@@ -152,16 +156,7 @@ public class PlayerAttack : MonoBehaviour
         //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
-    void LongRangeAttack(InputAction.CallbackContext context)
-    {
-        //if (shoot == true)
-        //{
-        //    Debug.Log("Long Range Attack");
-        //    Instantiate(bullet, collider.transform.position, collider.transform.rotation).GetComponent<Bullet>().Initiate(transform.forward,playerData.attack);
-        //    Invoke("ResetCooldown", cooldown);
-        //    shoot = false;
-        //}
-    }
+   
 
     void ResetCooldown()
     {
@@ -169,10 +164,7 @@ public class PlayerAttack : MonoBehaviour
         shoot = true;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-       
-    }
+  
 
     /// <summary>
     ///  めんこ生戁E
