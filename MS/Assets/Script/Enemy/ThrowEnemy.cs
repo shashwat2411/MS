@@ -98,7 +98,7 @@ public class ThrowEnemy : EnemyBase
         //direction = player.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //ƒvƒŒ[ƒ„[‚ÉŒü‚¯‚ÄˆÚ“®
-        Debug.Log("Distance : " + agent.remainingDistance);
+       // Debug.Log("Distance : " + agent.remainingDistance);
 
         direction = player.transform.position - gameObject.transform.position;
         if (direction.magnitude < attackDistance)
