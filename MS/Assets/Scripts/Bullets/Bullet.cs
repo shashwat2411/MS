@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
+
+
+
 public class Bullet : MonoBehaviour
 {
     public float speed = 3f;
@@ -21,6 +24,8 @@ public class Bullet : MonoBehaviour
 
     float factor = 10.0f;
 
+
+    bool once = true;
     void Start()
     {
         
@@ -39,20 +44,22 @@ public class Bullet : MonoBehaviour
     public void Initiate(Vector3 direction,Vector3 hitPosition ,float maxAttackSize = 100.0f,float damage = 1.0f)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
-
+        once = true;
         this.damage = damage/factor;
         //Debug.Log(this.damage);
         hitPos = hitPosition;
         this.maxAttackSize = maxAttackSize;
         Invoke("DestroyBullet", lifetime);
+       
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
      
-       if (other.CompareTag("Ground"))
+       if (once && other.CompareTag("Ground"))
         {
+            Debug.Log(other.name);
             GetComponent<Rigidbody>().velocity =Vector3.zero;
             //this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
             this.transform.position = hitPos+ Vector3.up * 0.1f;
@@ -74,6 +81,7 @@ public class Bullet : MonoBehaviour
             Debug.Log(this.damage /factor);
             SpecialEffect();
             Invoke("DestroyBullet", lifetime);
+            once = false;
         }
     }
 
