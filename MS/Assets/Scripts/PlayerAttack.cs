@@ -127,7 +127,7 @@ public class PlayerAttack : MonoBehaviour
         {
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
-            GetCloestEnemy();
+            //GetCloestEnemy();
         }
        
 
