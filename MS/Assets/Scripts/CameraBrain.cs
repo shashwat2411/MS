@@ -28,13 +28,14 @@ public class CameraBrain : MonoBehaviour
 
         transform.LookAt(player.transform.position);
 
-        if(player.GetMovementInput().x > 0.3f)
+        float value = player.GetMovementInput().x;
+        if(value > 0.3f)
         {
-            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), rotationAngle * Time.deltaTime);
+            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), rotationAngle * value * Time.deltaTime);
         }
-        else if (player.GetMovementInput().x < 0.3f)
+        else if (value < 0.3f)
         {
-            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * Time.deltaTime);
+            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
         }
     }
 
