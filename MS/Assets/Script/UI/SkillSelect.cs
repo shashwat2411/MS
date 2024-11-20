@@ -25,9 +25,7 @@ public class SkillSelect : MonoBehaviour
 
     public void BonusMenuAction()
     {
-        
 
-        //Time.timeScale = 0;
         SelectNo = 0;
 
         for (int i = 0; i < 3; i++)
@@ -72,8 +70,35 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        this.gameObject.SetActive(false);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+
+        Time.timeScale = 1f;
     }
 
 
+    public void LevelUpDebug(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+
+        LevelUp();
+    }
+
+    public void LevelUp()
+    {
+
+        BonusMenuAction();
+
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+    }
 }
