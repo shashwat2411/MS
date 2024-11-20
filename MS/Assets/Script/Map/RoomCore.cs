@@ -15,12 +15,7 @@ public class RoomCore
     public GameObject room;
 
 
-    //通路を設置する場所
-    public bool topCorridor = false;
-    public bool bottomCorridor = false;
-    public bool leftCorridor = false;
-    public bool rightCorridor = false;
 
     //エネミーが討伐されてるか
-    //public bool isCleared = false;
+    public bool isCleared = false;
 }
