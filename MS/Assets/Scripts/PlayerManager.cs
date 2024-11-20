@@ -4,36 +4,55 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static PlayerManager;
 
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 0.0f;
+    public enum LocomotionState
+    {
+        Idle,
+        Run,
+        Walk
+    };
+
+
+    public enum PlayerState
+    {
+        Normal,
+        Aim
+    }
+
+    LocomotionState locomotionState = LocomotionState.Idle;
+
+    [SerializeField] float noramlRunSpeed = 0.0f;
+    [SerializeField] float ChargeRunSpeed = 0.0f;
     [SerializeField] float rotateSpeed = 1.0f;
 
 
-
+    [SerializeField]
     float currentSpeed;
     float targetSpeed;
 
-    #region “ü—Í’l
+    #region å…¥åŠ›å€¤
     Vector2 moveInput;
 
-
+    Vector3 playerMovement;
+    Vector3 playerAttackMovement;
+    Vector3 playerMovementWorldSpace;
     #endregion
 
 
-    Vector3 playerMovement;
-    Vector3 playerMovementWorldSpace;
+
+    [HideInInspector] public Player_HP playerHP;
+    [HideInInspector] public PlayerExp playerExp;
 
 
-    
+
     [Header("Dash Staff")]
     [SerializeField]
     private bool isDashing = false;
-    public float dashTime = 1.0f;
     private float dashTimeLeft = 1.0f;
-    public float dashCooldown;
     private float lastDash;
     public float dashSpeed;
     
@@ -48,31 +67,82 @@ public class PlayerManager : MonoBehaviour
 
     PlayerAttack playerAttack;
 
+
+    [Header("Player Data Staff")]
+    public PlayerData playerData;
+
+
+
+
+    #region Animator StateMachine Hash
+    int postureHash;
+    int moveSpeedHash;
+    int turnSpeedHash;
+    int aimHash;
+
+    #endregion
+
+    Animator animator;
+
+    //Bonus
+    GameObject BonusMenu;
+  
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerSensor = GetComponent<PlayerSensor>();
-        collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+        BonusMenu = GameObject.Find("BonusSelect");
+     
     }
 
     private void Awake()
     {
-        cameraTransform = Camera.main.transform;    
+        animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
+        playerSensor = GetComponent<PlayerSensor>();
+        collider = GetComponent<Collider>();
+        playerAttack = GetComponent<PlayerAttack>();
+
+        playerData = CharacterSettings.Instance.playerData.GetCopy();
+
+        cameraTransform = Camera.main.transform;
+
+
+        postureHash = Animator.StringToHash("Posture");
+        moveSpeedHash = Animator.StringToHash("MoveSpeed");
+        turnSpeedHash = Animator.StringToHash("RotateSpeed");
+        aimHash = Animator.StringToHash("Aim");
+        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+
+        playerHP = FindFirstObjectByType<Player_HP>();
+        playerExp = FindFirstObjectByType<PlayerExp>();
     }
 
 
-    #region “ü—Í Stuff
+    #region å…¥åŠ› Stuff
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
         playerMovement.x = moveInput.x;
         playerMovement.z = moveInput.y;
     }
+
+
+    public void GetAttackMoveInput(InputAction.CallbackContext ctx)
+    {
+        var input = ctx.ReadValue<Vector2>();
+        playerAttackMovement.x = input.x;
+        playerAttackMovement.z = input.y;
+
+       // Debug.Log(playerAttackMovement);
+    }
+
     public void GetInteract(InputAction.CallbackContext ctx)
     {
         if (ctx.phase == InputActionPhase.Started)
         {
+            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
+            ApplyBonus(testBonus);
+
             Interact();
         }
     }
@@ -81,7 +151,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + dashCooldown))
+            if (Time.time > (lastDash + playerData.dashCooldown) )
             {
                 ReadyToDash();
             }
@@ -89,32 +159,61 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
+
     private void FixedUpdate()
     {
-        if(!playerAttack.isHold)
-        {
-            Dash();
-            if (isDashing)
-                return;
-            CaculateInputDirection();
-            Move();
-            Rotate();
+  
+        Dash();
+        if (isDashing)
+            return;
 
-        }
-        else
+        if (playerAttack.isHold)
         {
-            playerAttack.RangeMove(playerMovement);
+            playerAttack.RangeMove(playerAttackMovement);
+            //playerAttack.MoveToTarget(GetCloestEnemy());
+           
         }
-
     
+        
+
+       
+        CaculateInputDirection();
+        SwitchPlayerStates();
+        SetAnimator();
+     
+       
+    }
+
+    void SwitchPlayerStates()
+    {
+
+   
+        if (moveInput.magnitude == 0)
+        {
+            locomotionState = LocomotionState.Idle;
+        }else
+        {
+            locomotionState = LocomotionState.Run;
+        }
+
+      
     }
 
 
-    
-    private void Move() { 
-        targetSpeed = walkSpeed;
+    private void Move() {
+
+   
+
+        targetSpeed = playerAttack.isHold ? ChargeRunSpeed:noramlRunSpeed;
         targetSpeed *= moveInput.magnitude;
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f*Time.deltaTime);
+
+        if(currentSpeed > targetSpeed)
+        {
+            currentSpeed /= 2;
+        }
+       
+
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 2.0f*Time.deltaTime);
         rigidbody.velocity = new Vector3((playerMovement * currentSpeed).x, rigidbody.velocity.y, (playerMovement * currentSpeed).z);
     }
 
@@ -134,12 +233,14 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 camForwardProjection = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
         playerMovementWorldSpace = camForwardProjection * moveInput.y + cameraTransform.right * moveInput.x;
-       // playerMovement = playerTransform.InverseTransformVector(playerMovementWorldSpace);
+        playerMovementWorldSpace = transform.InverseTransformVector(playerMovementWorldSpace);
+        //Debug.Log(moveInput + " " + test);
+
     }
 
 
     /// <summary>
-    ///@
+    ///ã€€
     /// </summary>
     private void Interact()
     {
@@ -152,7 +253,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    ///@ƒ_ƒbƒVƒ…
+    ///ã€€ãƒ€ãƒƒã‚·ãƒ¥
     /// </summary>
     void Dash()
     {
@@ -162,7 +263,7 @@ public class PlayerManager : MonoBehaviour
             if(dashTimeLeft > 0)
             {
                
-                // “ü—Í‚Ì•ûŒü‚Éƒ_ƒbƒVƒ…
+                // å…¥åŠ›ã®æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 if (playerMovement.magnitude != 0)
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
@@ -170,10 +271,10 @@ public class PlayerManager : MonoBehaviour
                                                 dashSpeed * playerMovement.z);
 
                     Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
-                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,90);
+                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,180);
 
                 }
-                // ƒvƒŒ[ƒ„[‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚Éƒ_ƒbƒVƒ…
+                // ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥
                 else
                 {
                     rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
@@ -191,18 +292,18 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        dashCoolDownMask.fillAmount -= 1.0f / dashCooldown * Time.deltaTime;
+        dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
     }
 
 
     void ReadyToDash()
     {
-        // TODO:’nŒ`‚Ì”ÍˆÍ‚Ìƒ`ƒFƒbƒN
+        // TODO:åœ°å½¢ã®ç¯„å›²ã®ãƒã‚§ãƒƒã‚¯
         if (true)
         {
             isDashing = true;
 
-            dashTimeLeft = dashTime;
+            dashTimeLeft = playerData.dashTime;
 
             lastDash = Time.time;
 
@@ -214,4 +315,111 @@ public class PlayerManager : MonoBehaviour
         }
        
     }
+
+    public void Damage()
+    {
+
+    }
+    public void Death()
+    {
+    }
+
+
+    void LevelUp()
+    {
+        playerData.lv++;
+        if((playerData.lv %5) == 0)
+        {
+            playerData.nextExp *= 1.2f;
+        }
+
+        //Bonus Menu
+        BonusMenu.SetActive(true);
+
+    }
+
+    /// <summary>
+    /// ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—æ™‚ã®ãƒœãƒ¼ãƒŠã‚¹
+    /// </summary>
+    /// <param name="bd"></param>
+    public void ApplyBonus(BonusData bd)
+    {
+        playerData.ApplyBonus(bd);
+    }
+
+    /// <summary>
+    /// çµŒé¨“å€¤ã‚’ä¸ãˆã‚‹
+    /// </summary>
+    /// <param name="exp"></param>
+    public void ApplyExp(float exp)
+    {
+        var toNextLeft = playerData.nextExp - playerData.exp - exp;
+        // éã”ã—ãŸçµŒé¨“å€¤
+        if(toNextLeft <= 0)
+        {
+            LevelUp();
+            playerData.exp = -toNextLeft;
+        }
+        else
+        {
+            playerData.exp = playerData.exp + exp;
+        }
+       
+    }
+
+
+    void SetAnimator()
+    {
+        if (playerAttack.afterShock)
+        {
+            animator.SetFloat(postureHash, 2f, 1.0f, Time.deltaTime);
+        }
+        else
+        {
+            animator.SetFloat(postureHash, 1f, 0.1f, Time.deltaTime);
+            switch (locomotionState)
+            {
+                case LocomotionState.Idle:
+                    animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Walk:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+                case LocomotionState.Run:
+                    animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                    break;
+            }
+
+        }
+
+        // attacking layer
+        animator.SetBool(aimHash, playerAttack.isHold);
+        // Rotate
+        float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
+        animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
+        transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
+
+    }
+
+
+    private void OnAnimatorMove()
+    {
+        if (playerAttack.afterShock)
+        {
+            rigidbody.velocity =Vector3.zero;
+        }
+        else if (!isDashing)
+        {
+            rigidbody.velocity = animator.velocity;
+         //   Debug.Log(animator.velocity);
+        }
+       
+       
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        return moveInput;
+    }
+   
 }

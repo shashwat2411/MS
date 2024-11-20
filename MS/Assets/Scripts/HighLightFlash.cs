@@ -29,7 +29,7 @@ using UnityEngine;
      {
         //if (start)
         //{
-        //    matInstance.SetColor("_EmissionColor", Color.Lerp(nullColor, endColor * intensity, Mathf.PingPong(Time.time, flashSpeed)));
+        //    matInstance.SetColor("_EmissionColor", Color.Lerp(nullColor, endColor * intensity, Mathf.PingPong(Time.timeForImpact, flashSpeed)));
         //}
         //else
         //{

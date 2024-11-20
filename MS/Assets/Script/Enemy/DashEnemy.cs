@@ -1,24 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static ThrowEnemy;
 
 public class DashEnemy : EnemyBase
 {
-    [Header("State Time")]
-    public float idleTime;
-    public float chargeTime;
-    public float attackCooldownTime;
-    public float hurtTime;
-
-    [Header("Movement")]
-    public float speed;
-    public float attackDistance;
-    private Vector3 direction;
-
-    [Header("Attack")]
-    public float attackPower;
-    public float attakSpeed;
-    private bool attacked;
     public enum DASHENEMY_STATE
     {
         IDLE,
@@ -28,14 +15,20 @@ public class DashEnemy : EnemyBase
         HURT
     }
 
+    [Header("State")]
     public DASHENEMY_STATE state;
+    public float idleTime;
+    public float chargeTime;
+    public float attackCooldownTime;
+    public float hurtTime;
 
+
+    //___仮想関数のOverride_________________________________________________________________________________________________________________________
     protected override void Start()
     {
         base.Start();
 
         state = DASHENEMY_STATE.IDLE;
-        attacked = false;
     }
     protected override void FixedUpdate()
     {
@@ -71,38 +64,69 @@ public class DashEnemy : EnemyBase
         if(collided.gameObject == player)
         {
             player.GetComponent<MeshRenderer>().material.color = Color.red;
-            //プレーヤーへのダメージ
+
+            if (state != DASHENEMY_STATE.ATTACK)
+            {
+                healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
+            }
+            else
+            {
+                //プレーヤーへのダメージ
+                player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+            }
         }
     }
+    public override void Damage(float value)
+    {
+        base.Damage(value);
+        StartCoroutine(ChangeState(DASHENEMY_STATE.HURT, 0f));
+    }
 
+    public override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
+    //____________________________________________________________________________________________________________________________
+
+
+    //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
+        stopRotation = false;   //回転再会
+        stopMovement = false;
+
+        RotateTowards(player.transform.position);
+
         StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
     }
-    void Move()
+    protected override void Move()
     {
-        direction = player.transform.position - gameObject.transform.position;
-        rigidbody.AddForce(direction.normalized * speed * Time.deltaTime, ForceMode.Acceleration);
+        base.Move();
 
-        if(direction.magnitude <= attackDistance)
+        direction = player.transform.position - gameObject.transform.position;
+        if (direction.magnitude <= attackDistance)
         {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            rigidbody.velocity = Vector3.zero;
             StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
         }
-        //プレーヤーに向けて移動
     }
     void Charge()
     {
+        stopMovement = true;
+        RotateTowards(player.transform.position);
+
         direction = player.transform.position - gameObject.transform.position;
         attacked = false;
-        //rigidbody.velocity = rigidbody.velocity * 0.8f;
         StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
     }
     void Attack()
     {
         if (attacked == false)
         {
-            //rigidbody.velocity = rigidbody.velocity * 0.9f;
-            rigidbody.AddForce(direction.normalized * attakSpeed * Time.deltaTime, ForceMode.Impulse);
+            rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
             attacked = true;
         }
 
@@ -115,10 +139,23 @@ public class DashEnemy : EnemyBase
     {
         StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
     }
+    //____________________________________________________________________________________________________________________________
 
+
+    //___Coroutines_________________________________________________________________________________________________________________________
     IEnumerator ChangeState(DASHENEMY_STATE value, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         state = value;
+
+        if (value == DASHENEMY_STATE.IDLE)
+        {
+            agent.gameObject.transform.position = transform.position;
+        }
     }
+    //____________________________________________________________________________________________________________________________
+
+
+    //___Gizmos_________________________________________________________________________________________________________________________
+    //____________________________________________________________________________________________________________________________
 }
