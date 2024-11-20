@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4738677461460989149}
-  - component: {fileID: 6100553330773711036}
   - component: {fileID: 9141230855314260189}
   - component: {fileID: 5498508515628831569}
+  - component: {fileID: 6100553330773711036}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -35,19 +35,6 @@ Transform:
   - {fileID: 6923739497049807339}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6100553330773711036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3621364558873686749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85498e4c929ca4c46acdc5cbefb3a0df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 240
 --- !u!65 &9141230855314260189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,6 +83,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6100553330773711036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3621364558873686749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85498e4c929ca4c46acdc5cbefb3a0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 240
 --- !u!1 &5417804873341273923
 GameObject:
   m_ObjectHideFlags: 0

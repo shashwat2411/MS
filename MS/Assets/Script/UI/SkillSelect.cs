@@ -41,7 +41,7 @@ public class SkillSelect : MonoBehaviour
         int i = Random.Range(0, c);
 
         b1 = i;
-        //bonus1Œˆ’è
+        //bonus1Å’Ë†â€™Ã¨
         i = Random.Range(0, c);
 
         b2 = i;
@@ -51,7 +51,7 @@ public class SkillSelect : MonoBehaviour
 
             b2 = i;
         }
-        //bonus2Œˆ’è
+        //bonus2Å’Ë†â€™Ã¨
         i = Random.Range(0, c);
 
         b3 = i;
@@ -61,7 +61,7 @@ public class SkillSelect : MonoBehaviour
 
             b3 = i;
         }
-        //bonus3Œˆ’è
+        //bonus3Å’Ë†â€™Ã¨
 
         BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b1];
         BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b2];
@@ -75,7 +75,7 @@ public class SkillSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //¶‰EƒXƒLƒ‹‘I‘ğ
+        //ÂÂ¶â€°EÆ’XÆ’LÆ’â€¹â€˜Iâ€˜Ã°
         Cursor.transform.localPosition = BonusWindow[SelectNo].transform.localPosition;
 
     }
@@ -108,10 +108,35 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        Time.timeScale = 1;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
-        this.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
 
+    public void LevelUpDebug(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+
+        LevelUp();
+    }
+
+    public void LevelUp()
+    {
+
+        BonusMenuAction();
+
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+    }
 }
