@@ -200,7 +200,7 @@ public class RoomManager : MonoBehaviour
             Debug.Log("ƒNƒŠƒAÏ‚İ‚Ì‚½‚ß“G‚Í¶¬‚³‚ê‚Ü‚¹‚ñ");
         }
 
-        gameObject.GetComponent<NavMeshGenerator>().GenerateNavMesh(room);
+        gameObject.GetComponent<NavMeshGenerator>().GenerateNavMesh(room);  //NavMesh‚ğì¬
 
         return room;
     }
