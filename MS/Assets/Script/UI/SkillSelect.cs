@@ -67,7 +67,10 @@ public class SkillSelect : MonoBehaviour
         BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b1];
         BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b2];
         BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b3];
-
+        for (int j = 0; j < 3; j++)
+        {
+            BonusWindow[j].GetComponent<SkillWindow>().DrawBonus();
+        }
 
         // Bonus = BonusSettings.Instance.bonusDatas[i];
     }
