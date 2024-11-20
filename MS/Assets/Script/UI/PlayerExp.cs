@@ -66,10 +66,10 @@ public class PlayerExp : MonoBehaviour
             exp = result - maxExp;
 
             FindFirstObjectByType<SkillSelect>().LevelUp();
+            player.playerData.nextExp = maxExp * 1.2f;
         }
 
         player.playerData.exp = exp;
-        player.playerData.nextExp = maxExp * 1.2f;
     }
 
 #if UNITY_EDITOR

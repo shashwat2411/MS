@@ -44,7 +44,8 @@ public class PlayerManager : MonoBehaviour
 
 
 
-    [SerializeField] public Player_HP playerHP;
+    [HideInInspector] public Player_HP playerHP;
+    [HideInInspector] public PlayerExp playerExp;
 
 
 
@@ -112,6 +113,8 @@ public class PlayerManager : MonoBehaviour
         aimHash = Animator.StringToHash("Aim");
         animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
+        playerHP = FindFirstObjectByType<Player_HP>();
+        playerExp = FindFirstObjectByType<PlayerExp>();
     }
 
 
