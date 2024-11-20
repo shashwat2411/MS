@@ -200,6 +200,8 @@ public class RoomManager : MonoBehaviour
             Debug.Log("クリア済みのため敵は生成されません");
         }
 
+        gameObject.GetComponent<NavMeshGenerator>().GenerateNavMesh(room);
+
         return room;
     }
 
@@ -209,6 +211,8 @@ public class RoomManager : MonoBehaviour
     // 外部参照用
     //=======================
     public RoomData[,] GetRoomDatas() { return roomDatas; }
+
+
 }
 
 
