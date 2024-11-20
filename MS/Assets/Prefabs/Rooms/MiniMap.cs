@@ -66,7 +66,7 @@ public class MiniMapUI : MonoBehaviour
                 // 特定の位置にアイコンを作製する
                 if (roomType == 1)
                 {
-                    //icon.GetComponent<Image>().color = Color.green; // スタート地点
+                    icon.transform.GetChild(2).GetComponent<Image>().color = Color.green; // スタート地点
                     nowX = x;
                     nowY = y;
 
@@ -76,7 +76,7 @@ public class MiniMapUI : MonoBehaviour
                     //playerRect.anchoredPosition = new Vector2(nowX * roomIconSize, -nowY * roomIconSize);
                     //playerIcon.name = "PlayerIcon";
                 }
-                    //if (roomType == 99) icon.GetComponent<Image>().color = Color.red; // ゴール地点
+                if (roomType == 99) icon.transform.GetChild(2).GetComponent<Image>().color = Color.red; // ゴール地点
             }
         }
     }
