@@ -30,6 +30,20 @@ public enum PlayerPrafabType
 }
 
 
+public enum PlayerBonusType
+{
+    add,
+    multiple,
+  
+}
+
+public enum ItemBonusType
+{
+    levelUp,
+    item,
+
+}
+
 
 [System.Serializable]
 public class BonusData
@@ -50,18 +64,12 @@ public class BonusData
 }
 
 
-public enum BonusType
-{
-    add,
-    multiple,
-    replace,
-}
 
 
 [System.Serializable]
 public class BonusStats
 {
-    public BonusType type;
+    public PlayerBonusType type;
 
     public PlayerDataType key;
 
@@ -109,9 +117,8 @@ public class BonusItem
 [System.Serializable]
 public class BonusItemStats
 {
-
     public PlayerPrafabType key;
+    public ItemBonusType type;
 
     public GameObject bonusItem;
-
 }

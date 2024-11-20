@@ -118,11 +118,11 @@ public class PlayerData
 
         // TODO: 最大値チェック
 
-        if (bs.type==BonusType.add)
+        if (bs.type==PlayerBonusType.add)
         {
             this[bs.key] += bs.value;
         }
-        else if(bs.type == BonusType.multiple)
+        else if(bs.type == PlayerBonusType.multiple)
         {
             this[bs.key] *= (1 + bs.value);
         }
@@ -181,7 +181,15 @@ public class PlayerPrefabs
 
     private void ApplyBonus(BonusItemStats bis)
     {
-        this[bis.key].GetComponent<IAtkEffBonusAdder>().ApplyBonus(bis.bonusItem);
+        if(bis.type == ItemBonusType.levelUp)
+        {
+            bis.bonusItem.GetComponent<IAtkEffect>().LevelUp();
+        }
+        else
+        {
+            this[bis.key].GetComponent<IAtkEffBonusAdder>().ApplyBonus(bis.bonusItem);
+        }
+       
     }
 
 }

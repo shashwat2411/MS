@@ -114,7 +114,7 @@ public class AnimatePlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
+            BonusData testBonus = BonusSettings.Instance.playerBonusDatas[1];
             ApplyBonus(testBonus);
 
             Interact();

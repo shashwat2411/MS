@@ -12,44 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cda04505e4be234280f19aef94b0643, type: 3}
   m_Name: BonusSettings
   m_EditorClassIdentifier: 
-  bonusDatas:
-  - name: HP+
-    description: hp+5
+  playerBonusDatas:
+  - name: Hp +5
+    description: Hp +5
     icon: {fileID: 0}
     bonuses:
     - type: 0
       key: 0
       value: 5
-  - name: test2
-    description: 'charg range +10%
-
-      charg speed+10% '
-    icon: {fileID: 0}
-    bonuses:
-    - type: 1
-      key: 6
-      value: 0.1
-    - type: 1
-      key: 8
-      value: 0.1
-  - name: SpecialAttackTime +
-    description: maxSpecialAttackTime +1
-    icon: {fileID: 0}
-    bonuses:
-    - type: 0
-      key: 4
-      value: 1
-    - type: 0
-      key: 5
-      value: 1
-  bonusItems:
-  - name: Lighting Effect
-    description: Lighting Effect
+  playerBonusItems:
+  - name: Lighting
+    description: Add lighting to mennko
     icon: {fileID: 0}
     bonuses:
     - key: 0
+      type: 1
       bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
         type: 3}
+  - name: Lighting power +
+    description: Lighting power +
+    icon: {fileID: 0}
+    bonuses:
+    - key: 0
+      type: 0
+      bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+        type: 3}
+  ItemBonusDatas:
+  - name: 
+    description: 
+    icon: {fileID: 0}
+    bonuses:
+    - key: 0
+      type: 0
+      bonusItem: {fileID: 0}
   replaceDatas:
   - name: Lighting Bullet
     description: 

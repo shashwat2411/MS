@@ -6,9 +6,11 @@ using UnityEngine;
 public class BonusSettings : ScriptableObject
 {
 
-    public List<BonusData> bonusDatas;
+    public List<BonusData> playerBonusDatas;
 
-    public List<BonusItem> bonusItems;
+    public List<BonusItem> playerBonusItems;
+
+    public List<BonusItem> ItemBonusDatas;
 
     public List<ReplaceData> replaceDatas;
   

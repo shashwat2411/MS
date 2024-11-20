@@ -23,11 +23,11 @@ public class SkillWindow : MonoBehaviour
 
     public void RandomBonus()
     {
-        int c = BonusSettings.Instance.bonusDatas.Count;
+        int c = BonusSettings.Instance.playerBonusDatas.Count;
 
         int i = Random.Range(0, c);
 
-        Bonus = BonusSettings.Instance.bonusDatas[i];
+        Bonus = BonusSettings.Instance.playerBonusDatas[i];
     }
 
     
