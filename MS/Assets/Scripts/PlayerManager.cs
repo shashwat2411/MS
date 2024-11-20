@@ -82,10 +82,14 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     Animator animator;
+
+    //Bonus
+    GameObject BonusMenu;
   
 
     void Start()
     {
+        BonusMenu = GameObject.Find("BonusSelect");
      
     }
 
@@ -327,7 +331,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         //Bonus Menu
-
+        BonusMenu.SetActive(true);
 
     }
 

@@ -18,23 +18,15 @@ public class SkillWindow : MonoBehaviour
     void Start()
     {
 
-        //DrawBonus();
+       
     }
 
-    public void RandomBonus()
-    {
-        int c = BonusSettings.Instance.bonusDatas.Count;
-
-        int i = Random.Range(0, c);
-
-        Bonus = BonusSettings.Instance.bonusDatas[i];
-    }
-
+    
     
 
     public void DrawBonus()
     {
-        RandomBonus();
+        
 
         Name.text = Bonus.name;
         Description.text = Bonus.description;
