@@ -169,5 +169,20 @@ public class PlayerPrefabs
     {
         this[replaceData.key] = replaceData.replaceItem;
     }
+
+
+    public void ApplyBonus(BonusItem bonusItem)
+    {
+        foreach (var bs in bonusItem.bonuses)
+        {
+            ApplyBonus(bs);
+        }
+    }
+
+    private void ApplyBonus(BonusItemStats bis)
+    {
+        this[bis.key].GetComponent<IAtkEffBonusAdder>().ApplyBonus(bis.bonusItem);
+    }
+
 }
 

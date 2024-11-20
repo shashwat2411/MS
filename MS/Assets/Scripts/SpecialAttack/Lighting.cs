@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lighting : MonoBehaviour
+public class Lighting : MonoBehaviour, IAtkEffect
 {
     public float damage;
     // Start is called before the first frame update
@@ -11,7 +11,13 @@ public class Lighting : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
+    {
+        Destroy(gameObject,lifetime);
+        this.damage = damage;
+    }
+
+        // Update is called once per frame
     void Update()
     {
         

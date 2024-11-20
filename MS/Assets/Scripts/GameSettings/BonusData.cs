@@ -83,3 +83,35 @@ public class ReplaceData
     public GameObject replaceItem;
 
 }
+
+
+[System.Serializable]
+public class BonusItem
+{
+    public string name;
+
+    [TextArea] public string description;
+
+    public Sprite icon;
+
+
+    public List<BonusItemStats> bonuses;
+
+
+    public BonusData GetCopy()
+    {
+        return (BonusData)MemberwiseClone();
+    }
+}
+
+
+
+[System.Serializable]
+public class BonusItemStats
+{
+
+    public PlayerPrafabType key;
+
+    public GameObject bonusItem;
+
+}

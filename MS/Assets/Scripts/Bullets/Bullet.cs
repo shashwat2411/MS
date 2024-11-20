@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IAtkEffBonusAdder
 {
     public float speed = 3f;
     public float lifetime = 10f;
@@ -26,6 +26,9 @@ public class Bullet : MonoBehaviour
 
 
     bool once = true;
+
+    static List<GameObject> sp = new List<GameObject>();
+
     void Start()
     {
         
@@ -79,7 +82,9 @@ public class Bullet : MonoBehaviour
             }
 
             Debug.Log(this.damage /factor);
-            SpecialEffect();
+            // DoSpecialThings();
+
+            AttackEffectSettlement();
             Invoke("DestroyBullet", lifetime);
             once = false;
         }
@@ -87,6 +92,7 @@ public class Bullet : MonoBehaviour
 
     void DestroyBullet()
     {
+        CancelInvoke();
         impactArea.SetActive(false);
         impactEffect.SetActive(false);
         ObjectPool.Instance.Push(gameObject);
@@ -98,5 +104,23 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public virtual void SpecialEffect() {}
+    public void ApplyBonus(GameObject bonusEffect)
+    {
+        sp.Add(bonusEffect);
+    }
+
+    public virtual void DoSpecialThings() {}
+
+
+    void AttackEffectSettlement()
+    {
+        foreach(var g in sp)
+        {
+            var offset = new Vector3(Random.Range(2.0f, -2.0f), 0, Random.Range(2.0f, 0.0f));
+            var obj = ObjectPool.Instance.Get(g, transform.position + offset, transform.rotation);
+            obj.GetComponent<IAtkEffect>().Initiate(0.8f, this.damage / 2.0f);
+
+
+        }
+    }
 }

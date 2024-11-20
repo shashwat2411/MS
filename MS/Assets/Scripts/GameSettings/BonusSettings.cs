@@ -8,6 +8,8 @@ public class BonusSettings : ScriptableObject
 
     public List<BonusData> bonusDatas;
 
+    public List<BonusItem> bonusItems;
+
     public List<ReplaceData> replaceDatas;
   
     static BonusSettings instance;

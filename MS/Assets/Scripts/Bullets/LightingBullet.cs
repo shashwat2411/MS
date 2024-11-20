@@ -11,7 +11,7 @@ public class LightingBullet : Bullet
 
 
   
-    public override void SpecialEffect() 
+    public override void DoSpecialThings() 
     {
         InitiateLighting();
     }

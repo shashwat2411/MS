@@ -141,9 +141,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
-            ApplyBonus(testBonus);
-
             Interact();
         }
     }
@@ -239,11 +236,13 @@ public class PlayerManager : MonoBehaviour
 
 
     /// <summary>
-    ///　
+    ///　プレイヤーとのインタラクションのための機能。現在は報酬のテストに使用
     /// </summary>
     private void Interact()
     {
-        playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+
+        playerPrefabs.ApplyBonus(BonusSettings.Instance.bonusItems[0]);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             
