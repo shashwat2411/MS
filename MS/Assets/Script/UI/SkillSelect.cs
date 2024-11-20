@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -108,10 +109,12 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < BonusWindow.Count(); i++)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            BonusWindow[i].SetActive(false);
         }
+        Cursor.SetActive(false);
+
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
         Time.timeScale = 1f;
@@ -128,14 +131,15 @@ public class SkillSelect : MonoBehaviour
     public void LevelUp()
     {
 
-        BonusMenuAction();
+        RandomBonus();
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < BonusWindow.Count(); i++)
         {
-            transform.GetChild(i).gameObject.SetActive(true);
+            BonusWindow[i].SetActive(true);
         }
+        Cursor.SetActive(true);
 
         Time.timeScale = 0f;
     }

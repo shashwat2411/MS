@@ -65,9 +65,11 @@ public class ThrowEnemy : EnemyBase
 
         if (collided.gameObject == player)
         {
-            player.GetComponent<MeshRenderer>().material.color = Color.red;
-            healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
+            PlayerManager manager = player.GetComponent<PlayerManager>();
+
+            healthBar.Damage(manager.playerData.attack);
             //プレーヤーへのダメージ
+            manager.playerHP.Damage(attackPower);
         }
     }
     public override void Damage(float value)
