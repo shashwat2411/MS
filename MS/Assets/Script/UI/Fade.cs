@@ -16,7 +16,10 @@ public class Fade : MonoBehaviour
     //Fade‚ÌŒo‰ßŽžŠÔ
     float ElapsedTime;
 
-    
+    //fade—p‰æ‘œ
+    [SerializeField]
+    Image SceneChangeImage;
+    Image StageChangeImage;
 
     //True: Fade_In  False: Fade_Out
     [SerializeField]
@@ -69,6 +72,10 @@ public class Fade : MonoBehaviour
         StartCoroutine(BeginTransition());
     }
 
+    public void SetSprite()
+    {
+
+    }
 
     IEnumerator BeginTransition()
     {
