@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PlayerExp : MonoBehaviour
 {
     [Header("Exp")]
-    public float exp = 100f;
+    public float exp = 30f;
     public float maxExp = 100f;
     public float shiftSpeed = 0.3f;
 
