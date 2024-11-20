@@ -85,7 +85,10 @@ public class SkillSelect : MonoBehaviour
        
         if (!context.started) return;
 
-        if (context.action.name == "Left")
+
+        Vector2 moveInput = context.ReadValue<Vector2>();
+
+        if (moveInput.x < 0.3f)   //Left
         {
             SelectNo -= 1;
             if (SelectNo < 0)
@@ -93,7 +96,7 @@ public class SkillSelect : MonoBehaviour
                 SelectNo = 2;
             }
         }
-        if (context.action.name == "Right")
+        if (moveInput.x > 0.3f) //Right
         {
             SelectNo += 1;
             if (SelectNo > 2)
