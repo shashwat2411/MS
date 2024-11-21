@@ -120,10 +120,9 @@ public class BonusItem
 
     public List<ItemBonusList> bonusList;
 
-
-    public BonusData GetCopy()
+    public BonusItem GetCopy()
     {
-        return (BonusData)MemberwiseClone();
+        return (BonusItem)MemberwiseClone();
     }
 }
 

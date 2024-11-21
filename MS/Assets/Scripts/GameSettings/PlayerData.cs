@@ -141,7 +141,13 @@ public class PlayerData
 [System.Serializable]
 public class PlayerPrefabs
 {
-   public GameObject bullet;
+   　public GameObject bullet;
+
+    // 各アイテムのボーナスリストのインデックスを記録するためのDictionary 
+    // メモリを消費しすぎる気がする。。 もっといい方法はないのか？
+    [SerializeField]
+   　Dictionary<string,int> itemCountPair = new Dictionary<string, int>();
+
 
     public GameObject this[PlayerPrafabType key]
     {
@@ -180,17 +186,25 @@ public class PlayerPrefabs
     /// <param name="item"></param>
     public void GetTopItemBonus(BonusItem item)
     {
-        if(item.bonusList.Count > 0)
+ 
+        if (!itemCountPair.ContainsKey(item.name))
         {
-            var now = item.bonusList[0];
+            itemCountPair.Add(item.name, 0);
+        }
+
+        var index = itemCountPair[item.name];
+        if (item.bonusList.Count > index)
+        {
+            var now = item.bonusList[index];
             ApplyBonus(now.BonusOnOneTime);
-            
+
+
             // 説明文更新
             // TODO：直接毎回のボーナスの説明文を読み込みのか?
-            item.description = (item.bonusList.Count > 1)? item.bonusList[1].description: item.description;
-            
-            item.bonusList.Remove(item.bonusList[0]);
+            item.description =  item.bonusList[index].description;
+            itemCountPair[item.name]++;
         }
+
     }
 
 

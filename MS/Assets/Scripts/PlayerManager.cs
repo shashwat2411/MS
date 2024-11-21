@@ -87,8 +87,8 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     Animator animator;
-  
 
+    BonusItem bonusItem;
     void Start()
     {
      
@@ -104,7 +104,6 @@ public class PlayerManager : MonoBehaviour
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
-
 
 
         cameraTransform = Camera.main.transform;
@@ -241,6 +240,7 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        
         playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
