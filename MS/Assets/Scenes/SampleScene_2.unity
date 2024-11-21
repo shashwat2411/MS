@@ -888,6 +888,16 @@ PrefabInstance:
       propertyPath: dashCoolDownMask
       value: 
       objectReference: {fileID: 1145192543}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2090259568}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerDash, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1935278687817318914, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_Constraints
@@ -962,7 +972,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 2090259568}
   m_SourcePrefab: {fileID: 100100000, guid: 7537abae4a13d694fb7a6089945f1806, type: 3}
 --- !u!1 &1507539776
 GameObject:
@@ -1546,6 +1560,26 @@ MonoBehaviour:
     getHit: 0
     damage: 1
     highLightFlash: {fileID: 0}
+--- !u!1 &2090259560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+    type: 3}
+  m_PrefabInstance: {fileID: 1190276357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2090259568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090259560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c519ef449f87c7459e74c14466c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 50
+  dashCoolDownMask: {fileID: 1145192543}
 --- !u!23 &84519798049545054
 MeshRenderer:
   m_ObjectHideFlags: 0

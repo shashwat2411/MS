@@ -25,18 +25,6 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
     protected static List<GameObject> sp = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;

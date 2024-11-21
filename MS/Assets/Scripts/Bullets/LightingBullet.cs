@@ -7,9 +7,6 @@ public class LightingBullet : BulletBase
 {
     [SerializeField]
     GameObject lightingArea;
-
-
-
   
     public override void DoSpecialThings() 
     {
