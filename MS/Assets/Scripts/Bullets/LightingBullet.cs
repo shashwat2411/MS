@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class LightingBullet : Bullet
+public class LightingBullet : BulletBase
 {
     [SerializeField]
     GameObject lightingArea;
