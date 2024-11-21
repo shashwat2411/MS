@@ -24,27 +24,42 @@ MonoBehaviour:
   - name: Lighting
     description: Add lighting to mennko
     icon: {fileID: 0}
-    bonuses:
-    - key: 0
-      type: 1
-      bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-        type: 3}
-  - name: Lighting power +
-    description: Lighting power +
-    icon: {fileID: 0}
-    bonuses:
-    - key: 0
-      type: 0
-      bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-        type: 3}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: Add lighting to mennko
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: lighting +
   ItemBonusDatas:
   - name: 
     description: 
     icon: {fileID: 0}
-    bonuses:
-    - key: 0
-      type: 0
-      bonusItem: {fileID: 0}
+    bonusList: []
   replaceDatas:
   - name: Lighting Bullet
     description: 

@@ -241,10 +241,8 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
-        playerPrefabs.ApplyBonus(BonusSettings.Instance.playerBonusItems[0]);
-
-        playerPrefabs.ApplyBonus(BonusSettings.Instance.playerBonusItems[1]);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             

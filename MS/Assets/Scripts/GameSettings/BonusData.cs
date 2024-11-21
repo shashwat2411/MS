@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -92,8 +93,22 @@ public class ReplaceData
 
 }
 
+[System.SerializableAttribute]
+public class ItemBonusList
+{
+    public List<BonusItemStats> BonusOnOneTime = new List<BonusItemStats>();
 
-[System.Serializable]
+    [TextArea] public string description;
+
+    public ItemBonusList(List<BonusItemStats> list)
+    {
+        BonusOnOneTime = list;
+    }
+}
+
+
+
+[System.SerializableAttribute]
 public class BonusItem
 {
     public string name;
@@ -103,7 +118,7 @@ public class BonusItem
     public Sprite icon;
 
 
-    public List<BonusItemStats> bonuses;
+    public List<ItemBonusList> bonusList;
 
 
     public BonusData GetCopy()
@@ -118,6 +133,7 @@ public class BonusItem
 public class BonusItemStats
 {
     public PlayerPrafabType key;
+
     public ItemBonusType type;
 
     public GameObject bonusItem;

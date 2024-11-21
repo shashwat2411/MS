@@ -165,27 +165,64 @@ public class PlayerPrefabs
     }
 
 
+    /// <summary>
+    /// アイテムを入れ替える
+    /// </summary>
+    /// <param name="replaceData"></param>
     public void ApplyReplace(ReplaceData replaceData)
     {
         this[replaceData.key] = replaceData.replaceItem;
     }
 
-
-    public void ApplyBonus(BonusItem bonusItem)
+    /// <summary>
+    /// アイテムの一回のボーナスを適用する
+    /// </summary>
+    /// <param name="item"></param>
+    public void GetTopItemBonus(BonusItem item)
     {
-        foreach (var bs in bonusItem.bonuses)
+        if(item.bonusList.Count > 0)
+        {
+            var now = item.bonusList[0];
+            ApplyBonus(now.BonusOnOneTime);
+            
+            // 説明文更新
+            // TODO：直接毎回のボーナスの説明文を読み込みのか?
+            item.description = (item.bonusList.Count > 1)? item.bonusList[1].description: item.description;
+            
+            item.bonusList.Remove(item.bonusList[0]);
+        }
+    }
+
+
+    /// <summary>
+    /// すべてのボーナスを繰り返す
+    /// </summary>
+    /// <param name="bonusItem"></param>
+    protected void ApplyBonus(List<BonusItemStats> bonusItem)
+    {
+        foreach (var bs in bonusItem)
         {
             ApplyBonus(bs);
         }
     }
 
+
+    /// <summary>
+    /// 具体的にボーナスを適用操作
+    /// </summary>
+    /// <param name="bis"></param>
     private void ApplyBonus(BonusItemStats bis)
     {
         if(bis.type == ItemBonusType.levelUp)
         {
-            bis.bonusItem.GetComponent<IAtkEffect>().LevelUp();
+            // Upgrade requires this item first
+            var atkEff = bis.bonusItem.GetComponent<IAtkEffect>();
+            if (atkEff != null)
+            {
+                atkEff.LevelUp();
+            }
         }
-        else
+        else  if(bis.type == ItemBonusType.item)
         {
             this[bis.key].GetComponent<IAtkEffBonusAdder>().ApplyBonus(bis.bonusItem);
         }
