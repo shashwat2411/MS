@@ -46,9 +46,10 @@ public class EnemyTrap : ThrowableEnemyObject
             return;
         }
 
-        if (other.gameObject == player)
+        if (other.gameObject == player && owner != player)
         {
             collided = true;
+            //other.GetComponent<MeshRenderer>().material.color = Color.green;
             Destroy(gameObject);
         }
     }

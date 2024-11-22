@@ -16,17 +16,22 @@ public class Fade : MonoBehaviour
     //Fadeの経過時間
     float ElapsedTime;
 
-    //FadeOut後、次のシーンの名前
+    //fade用画像
     [SerializeField]
-    string NextScene_Name;
+    Image SceneChangeImage;
+    Image StageChangeImage;
 
     //True: Fade_In  False: Fade_Out
     [SerializeField]
     bool IsFade_In;
 
+    public bool Fade_End;
+
     // Start is called before the first frame update
     void Start()
     {
+        Fade_End = false;
+
         ElapsedTime = 0.0f;
 
         StartCoroutine(BeginTransition());
@@ -35,38 +40,41 @@ public class Fade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsFade_In == true)
-        {
-            ElapsedTime += Time.deltaTime;
-
-            if (ElapsedTime >= 1.1f)
-            {
-                Destroy(this.gameObject);
-            }
-        }
-        else
+        if (IsFade_In == true)//fadein
         {
             ElapsedTime += Time.deltaTime;
 
             if (ElapsedTime >= transitiontime + 0.5f)
             {
-                SceneManager.sceneLoaded += GameSceneLoaded;
+                Fade_End = true;
+                this.gameObject.SetActive(false);
+            }
+        }
+        else//fadeout
+        {
+            ElapsedTime += Time.deltaTime;
 
-                SceneManager.LoadScene(NextScene_Name);
+            if (ElapsedTime >= transitiontime + 0.5f)
+            {
+
+                //this.gameObject.SetActive(false);
+                Fade_End = true;
             }
         }
     }
 
-    private void GameSceneLoaded(Scene next, LoadSceneMode mode)
+    public void FadeReset()
     {
-        // シーン切り替え後のスクリプトを取得
-        //var gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManagerScript>();
+        Fade_End = false;
 
-        // データを渡す処理
-        
+        ElapsedTime = 0.0f;
 
+        StartCoroutine(BeginTransition());
+    }
 
-        SceneManager.sceneLoaded -= GameSceneLoaded;
+    public void SetSprite()
+    {
+
     }
 
     IEnumerator BeginTransition()
