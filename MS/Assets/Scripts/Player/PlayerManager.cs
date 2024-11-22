@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Player_HP playerHP;
     [HideInInspector] public PlayerExp playerExp;
 
+    static List<GameObject> sp = new List<GameObject>();
 
     Transform cameraTransform;
     Rigidbody rigidbody;
@@ -60,6 +61,8 @@ public class PlayerManager : MonoBehaviour
     //Bonus
     GameObject BonusMenu;
 
+    [SerializeField]
+    GameObject playerAblities;
 
     [Header("Player Data Staff")]
     public PlayerData playerData;
@@ -97,6 +100,8 @@ public class PlayerManager : MonoBehaviour
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
 
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
+            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
 
         cameraTransform = Camera.main.transform;
 
@@ -172,6 +177,8 @@ public class PlayerManager : MonoBehaviour
        
     }
 
+
+
     void SwitchPlayerStates()
     {
 
@@ -232,7 +239,7 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -242,6 +249,8 @@ public class PlayerManager : MonoBehaviour
         //}
 
     }
+
+ 
 
 
     public void Damage()
