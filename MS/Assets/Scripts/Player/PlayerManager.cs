@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     #region 入力値
     Vector2 moveInput;
 
-    Vector3 playerMovement;
+    public Vector3 playerMovement { get; private set; }
     Vector3 playerAttackMovement;
     Vector3 playerMovementWorldSpace;
     #endregion
@@ -48,29 +48,23 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public PlayerExp playerExp;
 
 
-
-    [Header("Dash Staff")]
-    [SerializeField]
-    private bool isDashing = false;
-    private float dashTimeLeft = 1.0f;
-    private float lastDash;
-    public float dashSpeed;
-    
-    [Header("Dash CD UI Staff")]
-    public Image dashCoolDownMask;
-
-
     Transform cameraTransform;
     Rigidbody rigidbody;
     PlayerSensor playerSensor;
     Collider collider;
 
     PlayerAttack playerAttack;
+    PlayerDash playerDash;
+
+
+    //Bonus
+    GameObject BonusMenu;
 
 
     [Header("Player Data Staff")]
     public PlayerData playerData;
-
+    [Header("Player Prefabs Staff")]
+    public PlayerPrefabs playerPrefabs;
 
 
 
@@ -84,10 +78,7 @@ public class PlayerManager : MonoBehaviour
 
     Animator animator;
 
-    //Bonus
-    GameObject BonusMenu;
-  
-
+    BonusItem bonusItem;
     void Start()
     {
         BonusMenu = GameObject.Find("BonusSelect");
@@ -101,20 +92,27 @@ public class PlayerManager : MonoBehaviour
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
         playerAttack = GetComponent<PlayerAttack>();
+        playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
+        playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
+
 
         cameraTransform = Camera.main.transform;
 
-
+       #region Animator setting
         postureHash = Animator.StringToHash("Posture");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
         animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
+       #endregion
+
+
         playerHP = FindFirstObjectByType<Player_HP>();
         playerExp = FindFirstObjectByType<PlayerExp>();
+
     }
 
 
@@ -122,8 +120,10 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        playerMovement.x = moveInput.x;
-        playerMovement.z = moveInput.y;
+        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+
+        //playerMovement.x = moveInput.x;
+        //playerMovement.z = moveInput.y;
     }
 
 
@@ -140,31 +140,19 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            BonusData testBonus = BonusSettings.Instance.bonusDatas[1];
-            ApplyBonus(testBonus);
-
             Interact();
         }
     }
 
-    public void GetDashDown(InputAction.CallbackContext ctx)
-    {
-        if (ctx.phase == InputActionPhase.Started)
-        {
-            if (Time.time > (lastDash + playerData.dashCooldown) )
-            {
-                ReadyToDash();
-            }
-        }
-    }
+
 
     #endregion
 
     private void FixedUpdate()
     {
-  
-        Dash();
-        if (isDashing)
+
+        playerDash.Dash();
+        if (playerDash.isDashing)
             return;
 
         if (playerAttack.isHold)
@@ -202,8 +190,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Move() {
 
-   
-
         targetSpeed = playerAttack.isHold ? ChargeRunSpeed:noramlRunSpeed;
         targetSpeed *= moveInput.magnitude;
 
@@ -240,81 +226,23 @@ public class PlayerManager : MonoBehaviour
 
 
     /// <summary>
-    ///　
+    ///　プレイヤーとのインタラクションのための機能。現在は報酬のテストに使用
     /// </summary>
     private void Interact()
     {
+        // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
-        if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
-        {
-            Debug.Log("act!");
-        }
-
-    }
-
-    /// <summary>
-    ///　ダッシュ
-    /// </summary>
-    void Dash()
-    {
-
-        if (isDashing)
-        {
-            if(dashTimeLeft > 0)
-            {
-               
-                // 入力の方向にダッシュ
-                if (playerMovement.magnitude != 0)
-                {
-                    rigidbody.velocity = new Vector3(dashSpeed * playerMovement.x,
-                                                0,
-                                                dashSpeed * playerMovement.z);
-
-                    Quaternion targetRotation = Quaternion.LookRotation(playerMovement, Vector3.up);
-                    transform.rotation =  Quaternion.RotateTowards(transform.rotation, targetRotation,180);
-
-                }
-                // プレーヤーが向いている方向にダッシュ
-                else
-                {
-                    rigidbody.velocity = new Vector3(dashSpeed * transform.forward.x,
-                                               0,
-                                               dashSpeed * transform.forward.z);
-                }
-
-                dashTimeLeft -= Time.deltaTime;
-            }
-            else
-            {
-                isDashing = false;
+        //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
+        //{
             
-            }
-        }
+        //    playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
+        //    Debug.Log("act!");
+        //}
 
-
-        dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
     }
 
-
-    void ReadyToDash()
-    {
-        // TODO:地形の範囲のチェック
-        if (true)
-        {
-            isDashing = true;
-
-            dashTimeLeft = playerData.dashTime;
-
-            lastDash = Time.time;
-
-            dashCoolDownMask.fillAmount = 1.0f;
-        }
-        else
-        {
-            Debug.Log("Cant Dash");
-        }
-       
-    }
 
     public void Damage()
     {
@@ -394,11 +322,14 @@ public class PlayerManager : MonoBehaviour
 
         // attacking layer
         animator.SetBool(aimHash, playerAttack.isHold);
-        // Rotate
-        float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
-        animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
-        transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
 
+        if (!playerDash.isDashing)
+        {
+            // Rotate
+            float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
+            animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
+            transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
+        }
     }
 
 
@@ -406,15 +337,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (playerAttack.afterShock)
         {
-            rigidbody.velocity =Vector3.zero;
+            rigidbody.velocity = Vector3.zero;
         }
-        else if (!isDashing)
+        else if (!playerDash.isDashing)
         {
             rigidbody.velocity = animator.velocity;
          //   Debug.Log(animator.velocity);
         }
-       
-       
     }
 
     public Vector2 GetMovementInput()

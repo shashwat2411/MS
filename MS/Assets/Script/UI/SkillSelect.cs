@@ -37,7 +37,7 @@ public class SkillSelect : MonoBehaviour
         int b1, b2, b3;
         b1 = b2 = b3 = 0;
 
-        int c = BonusSettings.Instance.bonusDatas.Count;
+        int c = BonusSettings.Instance.playerBonusDatas.Count;
 
         int i = Random.Range(0, c);
 
@@ -64,9 +64,9 @@ public class SkillSelect : MonoBehaviour
         }
         //bonus3Œˆ’è
 
-        BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b1];
-        BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b2];
-        BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.bonusDatas[b3];
+        BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b1];
+        BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b2];
+        BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b3];
         for (int j = 0; j < 3; j++)
         {
             BonusWindow[j].GetComponent<SkillWindow>().DrawBonus();
