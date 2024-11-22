@@ -20,13 +20,27 @@ MonoBehaviour:
     - type: 0
       key: 0
       value: 5
-  - name: Hp +5
-    description: Hp +5
+  - name: Charge Speed +
+    description: "\u30C1\u30E3\u30FC\u30B8\u901F\u5EA6\u4E0A\u6607"
     icon: {fileID: 0}
     bonuses:
     - type: 0
-      key: 0
-      value: 5
+      key: 11
+      value: 0.1
+  - name: 'Attack + '
+    description: "\u30C0\u30E1\u30FC\u30B8\u4E0A\u660720%"
+    icon: {fileID: 0}
+    bonuses:
+    - type: 1
+      key: 3
+      value: 0.2
+  - name: 'Attack + '
+    description: "\u4F53\u529B"
+    icon: {fileID: 0}
+    bonuses:
+    - type: 1
+      key: 3
+      value: 0.2
   playerBonusItems:
   - name: Lighting
     description: Add lighting to mennko+

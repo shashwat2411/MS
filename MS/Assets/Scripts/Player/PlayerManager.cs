@@ -47,6 +47,9 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Player_HP playerHP;
     [HideInInspector] public PlayerExp playerExp;
 
+    [HideInInspector] public bool invincibility = false;
+    [HideInInspector] public float invincibilityTimeLeft;
+
     static List<GameObject> sp = new List<GameObject>();
 
     Transform cameraTransform;
@@ -94,14 +97,14 @@ public class PlayerManager : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+        playerAttack = GetComponentInChildren<PlayerAttack>();
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
 
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
-            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
+            ObjectPool.Instance.Get(playerAblities,new Vector3(0.0f,-5.0f,0.0f),transform.rotation);
 
         cameraTransform = Camera.main.transform;
 
@@ -126,6 +129,7 @@ public class PlayerManager : MonoBehaviour
     {
         moveInput = ctx.ReadValue<Vector2>();
         playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+        Debug.Log(moveInput);
 
         //playerMovement.x = moveInput.x;
         //playerMovement.z = moveInput.y;
@@ -166,9 +170,9 @@ public class PlayerManager : MonoBehaviour
             //playerAttack.MoveToTarget(GetCloestEnemy());
            
         }
-    
-        
 
+
+      
        
         CaculateInputDirection();
         SwitchPlayerStates();
@@ -239,7 +243,7 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -252,10 +256,29 @@ public class PlayerManager : MonoBehaviour
 
  
 
+    public void CheckPlayerDataState()
+    {
+        playerData.hp = (playerData.hp >= playerData.maxHp) ? playerData.maxHp : playerData.hp;
+        playerData.mp = (playerData.mp >= playerData.maxMp) ? playerData.maxMp : playerData.mp;
+        
+    }
+
+    public void InvincibleCheck()
+    {
+        if (invincibility)
+        {
+            invincibilityTimeLeft -= Time.deltaTime;
+            invincibility = (invincibilityTimeLeft <= 0) ? false : true;
+            Debug.Log(invincibilityTimeLeft);
+        }
+
+    }
+
 
     public void Damage()
     {
-
+        invincibility = true;
+        invincibilityTimeLeft = playerData.hurtInvincibilityTime;
     }
     public void Death()
     {

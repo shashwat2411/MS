@@ -13,8 +13,7 @@ public class Bullet : BulletBase
 
         foreach (var g in sp)
         {
-            var offset = new Vector3(Random.Range(2.0f, -2.0f), 0, Random.Range(2.0f, 0.0f));
-            var obj = ObjectPool.Instance.Get(g, transform.position + offset, transform.rotation);
+            var obj = ObjectPool.Instance.Get(g, transform.position, transform.rotation);
             obj.GetComponent<IAtkEffect>().Initiate(0.8f, this.damage / 2.0f);
 
 

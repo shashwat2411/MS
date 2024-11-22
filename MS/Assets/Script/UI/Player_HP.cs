@@ -57,6 +57,11 @@ public class Player_HP : MonoBehaviour
 
     public void Damage(float value)
     {
+        if (player.invincibility)
+        {
+            return;
+        }
+
         float result = Hp_Now - value;
         if (result > 0f) 
         { 
