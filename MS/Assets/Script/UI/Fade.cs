@@ -54,7 +54,7 @@ public class Fade : MonoBehaviour
         {
             ElapsedTime += Time.deltaTime;
 
-            if (ElapsedTime >= transitiontime + 0.5f)
+            if (ElapsedTime >= transitiontime)
             {
 
                 //this.gameObject.SetActive(false);
