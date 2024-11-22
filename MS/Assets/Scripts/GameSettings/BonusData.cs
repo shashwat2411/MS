@@ -26,7 +26,9 @@ public enum PlayerDataType
 
 public enum PlayerPrafabType
 {
+    playerPermanentAblity,
     bullet,
+    dash,
 
 }
 
