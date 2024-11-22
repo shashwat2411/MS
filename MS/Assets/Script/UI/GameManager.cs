@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     GameObject FadeIn, FadeOut, PauseMenu;
 
     bool IsPause;
-
+    bool SceneChangeflag;
 
     //シーン遷移でのデータ受け渡し
 
@@ -24,12 +24,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IsPause = false;
+        SceneChangeflag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (FadeOut.GetComponent<Fade>().Fade_End == true && SceneChangeflag == true) 
+        {
+            // SceneManager.sceneLoaded += GameSceneLoaded;
+
+            SceneManager.LoadScene(NextScene_Name);
+            Debug.Log("1");
+        }
     }
 
     public void Pause(InputAction.CallbackContext context)
@@ -54,15 +61,10 @@ public class GameManager : MonoBehaviour
 
     public void SceneChange()
     {
-        FadeIn.GetComponent<Fade>().FadeReset();
+       // FadeIn.GetComponent<Fade>().FadeReset();
         FadeOut.SetActive(true);
 
-        if (FadeOut.GetComponent<Fade>().Fade_End == true)
-        {
-            SceneManager.sceneLoaded += GameSceneLoaded;
-
-            SceneManager.LoadScene(NextScene_Name);
-        }
+        SceneChangeflag = true;
     }
 
     public void StageFadeIn()
@@ -89,4 +91,6 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
+
+
 }
