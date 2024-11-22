@@ -12,44 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cda04505e4be234280f19aef94b0643, type: 3}
   m_Name: BonusSettings
   m_EditorClassIdentifier: 
-  bonusDatas:
-  - name: HP+
-    description: hp+5
-    icon: {fileID: 21300000, guid: 62166c4fe5a62014296529029ac72f6e, type: 3}
+  playerBonusDatas:
+  - name: Hp +5
+    description: Hp +5
+    icon: {fileID: 0}
     bonuses:
     - type: 0
       key: 0
       value: 5
-  - name: test2
-    description: 'charg range +10%
-
-      charg speed+10% '
-    icon: {fileID: 21300000, guid: 62166c4fe5a62014296529029ac72f6e, type: 3}
-    bonuses:
-    - type: 1
-      key: 6
-      value: 0.1
-    - type: 1
-      key: 8
-      value: 0.1
-  - name: test3
-    description: test3
+  playerBonusItems:
+  - name: Lighting
+    description: Add lighting to mennko+
     icon: {fileID: 0}
-    bonuses:
-    - type: 1
-      key: 6
-      value: 0.1
-  - name: test4
-    description: test4
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: Add lighting to mennko+
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: Lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: Lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: Lighting power +
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
+          type: 3}
+      description: One more lighting +
+  ItemBonusDatas:
+  - name: 
+    description: 
     icon: {fileID: 0}
-    bonuses:
-    - type: 1
-      key: 6
-      value: 0.1
-  - name: test5
-    description: test5
+    bonusList: []
+  replaceDatas:
+  - name: Lighting Bullet
+    description: 
     icon: {fileID: 0}
-    bonuses:
-    - type: 1
-      key: 6
-      value: 0.1
+    key: 0
+    replaceItem: {fileID: 6598491007561421007, guid: e5d9ff7c80f018b40befa002b4209640,
+      type: 3}

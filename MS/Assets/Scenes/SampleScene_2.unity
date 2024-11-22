@@ -1017,6 +1017,61 @@ PrefabInstance:
       propertyPath: dashCoolDownMask
       value: 
       objectReference: {fileID: 1145192543}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: a818dff9-adf4-44a0-9bce-bbc5efcad2f5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: 2a42b409-151c-4cfc-8073-86e2057b7956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 38e3ac43-39e3-45f6-bce5-d1ecb9e02fb6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
+      value: bd39f2a0-5478-4434-a0a9-80e50910bf03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: 7815826e-0a4d-465d-ab61-8d98ab7740c9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Player/LevelUp[/Keyboard/1]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: UI/Pause[/Keyboard/p]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
+      value: UI/Select[/Keyboard/space]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: UI/Back[/Keyboard/e]
+      objectReference: {fileID: 0}
     - target: {fileID: 1935278687817318914, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_Constraints
@@ -1085,8 +1140,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 1190276359}
   m_SourcePrefab: {fileID: 100100000, guid: 7537abae4a13d694fb7a6089945f1806, type: 3}
+--- !u!1 &1190276358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+    type: 3}
+  m_PrefabInstance: {fileID: 1190276357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1190276359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190276358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c519ef449f87c7459e74c14466c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 50
+  dashCoolDownMask: {fileID: 1145192543}
 --- !u!1 &1507539776
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,3 +2949,4 @@ SceneRoots:
   - {fileID: 1754039144}
   - {fileID: 7546326418321527640}
   - {fileID: 8823609180215426969}
+  - {fileID: 2113639234}

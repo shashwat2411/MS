@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterSettings : ScriptableObject
 {
     public PlayerData playerData;
+    public PlayerPrefabs playerPrefabs;
 
     static CharacterSettings instance;
     public static CharacterSettings Instance
