@@ -159,7 +159,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        Debug.Log(invincibility);
         playerDash.Dash();
         if (playerDash.isDashing)
             return;
@@ -171,9 +171,9 @@ public class PlayerManager : MonoBehaviour
            
         }
 
+        InvincibleCheck();
 
-      
-       
+
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
@@ -245,6 +245,7 @@ public class PlayerManager : MonoBehaviour
         
         playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
+        playerHP.Damage(10.0f);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             
@@ -265,11 +266,12 @@ public class PlayerManager : MonoBehaviour
 
     public void InvincibleCheck()
     {
-        if (invincibility)
+     
+        if (invincibility )
         {
             invincibilityTimeLeft -= Time.deltaTime;
             invincibility = (invincibilityTimeLeft <= 0) ? false : true;
-            Debug.Log(invincibilityTimeLeft);
+            
         }
 
     }

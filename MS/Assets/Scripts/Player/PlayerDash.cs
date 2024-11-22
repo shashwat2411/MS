@@ -77,7 +77,7 @@ public class PlayerDash : MonoBehaviour
                 invincibilityTimeLeft -= Time.deltaTime;
               
                 playerManager.invincibility = (invincibilityTimeLeft <= 0)?false:true;
-                
+               
             }
             else
             {
@@ -106,6 +106,7 @@ public class PlayerDash : MonoBehaviour
             invincibilityTimeLeft = 
                 (playerData.dashInvincibilityTime > playerData.dashTime)? 
                     playerData.dashInvincibilityTime : playerData.dashTime;
+            playerManager.invincibility = true;
 
             lastDash = Time.time;
 

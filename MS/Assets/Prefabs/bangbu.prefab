@@ -320,8 +320,8 @@ MonoBehaviour:
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 647273031843841806}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+      - m_Target: {fileID: 5503018272777329881}
+        m_TargetAssemblyTypeName: PlayerDash, Assembly-CSharp
         m_MethodName: GetDashDown
         m_Mode: 0
         m_Arguments:
@@ -429,12 +429,16 @@ MonoBehaviour:
   currentSpeed: 0
   playerHP: {fileID: 0}
   playerExp: {fileID: 0}
+  invincibility: 0
+  invincibilityTimeLeft: 0
   playerAblities: {fileID: 4889590496942192446, guid: f53d234b28e5e1643b498df2de8bc2d0,
     type: 3}
   playerData:
     lv: 0
     hp: 0
     maxHp: 0
+    mp: 0
+    maxMp: 0
     exp: 0
     nextExp: 0
     attack: 0
@@ -449,8 +453,11 @@ MonoBehaviour:
     atkMoveSpeed: 0
     dashTime: 0
     dashCooldown: 0
+    dashInvincibilityTime: 0
+    hurtInvincibilityTime: 0
   playerPrefabs:
     bullet: {fileID: 0}
+    attackArea: {fileID: 0}
 --- !u!114 &5328800350277007654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 50
+  invincibilityTimeLeft: 0
   dashCoolDownMask: {fileID: 0}
 --- !u!136 &2416221155332571422
 CapsuleCollider:
