@@ -159,7 +159,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(invincibility);
+      
         playerDash.Dash();
         if (playerDash.isDashing)
             return;
@@ -243,9 +243,9 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[2]);
 
-        playerHP.Damage(10.0f);
+       // playerHP.Damage(10.0f);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             
