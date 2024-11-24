@@ -21,10 +21,12 @@ public class EnemyPoison : ThrowableEnemyObject
             Destroy(gameObject);
             return;
         }
-        if (other.gameObject == player)
+        if (other.gameObject == player && owner != player)
         {
             //player@‚ğ“Åó‘Ô‚É•ÏX
+            //other.GetComponent<MeshRenderer>().material.color = Color.green;
             Destroy(gameObject);
+            return;
         }
     }
 }

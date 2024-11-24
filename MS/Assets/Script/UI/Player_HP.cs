@@ -31,7 +31,8 @@ public class Player_HP : MonoBehaviour
     void FixedUpdate()
     {
         //現在のHPを取得
-        Hp_Now = player.GetComponent<PlayerManager>().playerData.hp;
+        Hp_Now = player.playerData.hp;
+        Hp_Max = player.playerData.maxHp;
 
         if (Hp_Now <= 0)
         {
@@ -56,6 +57,11 @@ public class Player_HP : MonoBehaviour
 
     public void Damage(float value)
     {
+        if (player.invincibility)
+        {
+            return;
+        }
+
         float result = Hp_Now - value;
         if (result > 0f) 
         { 
@@ -67,6 +73,8 @@ public class Player_HP : MonoBehaviour
             Hp_Now = 0f;
             player.Death();
         }
+
+        player.playerData.hp = Hp_Now;
     }
 
 

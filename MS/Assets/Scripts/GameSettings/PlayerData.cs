@@ -12,6 +12,12 @@ public class PlayerData
 
     public float maxHp;
 
+
+    public float mp;
+
+    public float maxMp;
+
+
     [Header("今の経験値")]
     public float exp;
 
@@ -53,11 +59,23 @@ public class PlayerData
 
     [Header("ダッシュCD")]
     public float dashCooldown;
+
+
+    [Header("ダッシュ無敵時間(ダッシュ時間以下!)")]
+    public float dashInvincibilityTime;
+
+    [Header("ダメージ食らったあとの無敵時間")]
+    public float hurtInvincibilityTime;
+
+
     public float this[PlayerDataType key]
     {
         get
         {
             if (key == PlayerDataType.hp) return hp;
+            else if (key == PlayerDataType.maxHp) return maxHp;
+            else if (key == PlayerDataType.mp) return mp;
+            else if (key == PlayerDataType.maxMp) return maxMp;
             else if (key == PlayerDataType.maxHp) return maxHp;
             else if (key == PlayerDataType.exp) return exp;
             else if (key == PlayerDataType.attack) return attack;
@@ -80,6 +98,8 @@ public class PlayerData
         {
             if (key == PlayerDataType.hp) hp = value;
             else if (key == PlayerDataType.maxHp) maxHp = value;
+            else if (key == PlayerDataType.mp) mp = value;
+            else if (key == PlayerDataType.maxMp) maxMp = value;
             else if (key == PlayerDataType.exp) exp = value;
             else if (key == PlayerDataType.attack) attack = value;
             else if (key == PlayerDataType.specialAttackTime) specialAttackTime = value;
@@ -141,7 +161,13 @@ public class PlayerData
 [System.Serializable]
 public class PlayerPrefabs
 {
-   　public GameObject bullet;
+
+    GameObject playerAblities;
+    public GameObject bullet;
+    public GameObject attackArea;
+  
+
+
 
     // 各アイテムのボーナスリストのインデックスを記録するためのDictionary 
     // メモリを消費しすぎる気がする。。 もっといい方法はないのか？
@@ -153,12 +179,16 @@ public class PlayerPrefabs
     {
         get
         {
-            if (key == PlayerPrafabType.bullet) return bullet;
+            if (key == PlayerPrafabType.playerPermanentAblity) return playerAblities;
+            else if (key == PlayerPrafabType.bullet) return bullet;
+            else if (key == PlayerPrafabType.attackArea) return attackArea;
             else return null;
         }
         set
         {
-            if (key == PlayerPrafabType.bullet) bullet = value;
+            if (key == PlayerPrafabType.playerPermanentAblity) playerAblities = value;
+            else if (key == PlayerPrafabType.bullet) bullet = value;
+            else if (key == PlayerPrafabType.attackArea) attackArea = value;
             
         }
 

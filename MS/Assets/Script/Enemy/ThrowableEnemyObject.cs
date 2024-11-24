@@ -5,6 +5,8 @@ using UnityEngine;
 public class ThrowableEnemyObject : MonoBehaviour
 {
     protected float motionTime;
+    protected float lifetime;
+    protected float maxLifetime;
     public float timeForImpact;
 
     protected Vector3 target;
@@ -16,6 +18,8 @@ public class ThrowableEnemyObject : MonoBehaviour
     virtual protected void Start()
     {
         motionTime = 0f;
+        lifetime = 0f;
+
         startPosition = transform.position;
         player = FindFirstObjectByType<PlayerManager>().gameObject;
     }
@@ -25,6 +29,9 @@ public class ThrowableEnemyObject : MonoBehaviour
     {
         if (motionTime < 1.0f) { motionTime += Time.deltaTime / timeForImpact; }
         else { motionTime = 1.0f; }
+
+        if (lifetime < maxLifetime) { lifetime += Time.deltaTime; }
+        else { Destroy(gameObject); }
 
         float y = motion.Evaluate(motionTime);
 
@@ -37,6 +44,17 @@ public class ThrowableEnemyObject : MonoBehaviour
 
     }
 
+    public void ResetMotion()
+    {
+        motionTime = 0f;
+        lifetime = 0f;
+        startPosition = transform.position;
+    }
+
+    public void SetMaxLifetime(float value) { maxLifetime = value; }
     public void SetTarget(Vector3 value) { target = value; }
     public void SetOwner(GameObject value) { owner = value; }
+    public void SetPlayer(GameObject value) { player = value; }
+
+    public GameObject GetOwner() { return owner; }
 }

@@ -25,7 +25,7 @@ public class ThrowEnemy : EnemyBase
     [Header("Item")]
     public GameObject enemyItem;
     public Transform spawnPoint;
-    public float bombLifetime;
+    public float itemLifetime;
     private float cooldown = 0f;
 
 
@@ -65,9 +65,11 @@ public class ThrowEnemy : EnemyBase
 
         if (collided.gameObject == player)
         {
-            player.GetComponent<MeshRenderer>().material.color = Color.red;
-            healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
+            PlayerManager manager = player.GetComponent<PlayerManager>();
+
+            healthBar.Damage(manager.playerData.attack);
             //プレーヤーへのダメージ
+            manager.playerHP.Damage(attackPower);
         }
     }
     public override void Damage(float value)
@@ -121,11 +123,12 @@ public class ThrowEnemy : EnemyBase
 
         if (attacked == false)
         {
-            GameObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation);
-            item.GetComponent<ThrowableEnemyObject>().SetTarget(player.transform.position);
-            item.GetComponent<ThrowableEnemyObject>().SetOwner(gameObject);
+            ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
-            StartCoroutine(DestroyBomb(item));
+            item.SetTarget(player.transform.position);
+            item.SetOwner(gameObject);
+            item.SetMaxLifetime(itemLifetime);
+
             attacked = true;
         }
         else
@@ -155,11 +158,6 @@ public class ThrowEnemy : EnemyBase
         {
             agent.gameObject.transform.position = transform.position;
         }
-    }
-    IEnumerator DestroyBomb(GameObject bomb)
-    {
-        yield return new WaitForSeconds(bombLifetime);
-        Destroy(bomb);
     }
     //____________________________________________________________________________________________________________________________
 

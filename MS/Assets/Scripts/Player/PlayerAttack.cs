@@ -55,19 +55,17 @@ public class PlayerAttack : MonoBehaviour
 
         #endregion
 
-        playerData = GetComponent<PlayerManager>().playerData;
-        playerManager = GetComponent<PlayerManager>();
-
-        var childrenTrans = GetComponentsInChildren<Transform>();
-        foreach (Transform child in childrenTrans)
-        {
-            if(child.name == "AttackArea")
-            {
-                attackArea = child;
-                break;
-            }
-        }
-      //  attackArea = GetComponentsInChildren<Transform>()[1];
+      
+        playerManager = GetComponentInParent<PlayerManager>();
+        playerData = playerManager.playerData;
+        collider = GameObject.Instantiate(playerManager.playerPrefabs.attackArea,
+                                          this.transform.position + (3.0f * this.transform.forward),
+                                          this.transform.rotation,
+                                          this.transform
+                                          );
+        
+        attackArea = collider.transform;
+      
 
         initLocalPosition = attackArea.localPosition;
      

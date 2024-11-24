@@ -14,6 +14,9 @@ public class PlayerDash : MonoBehaviour
     public float dashSpeed;
     bool dashOrientationFlag;
     Vector3 dashOrientation;
+
+    public float invincibilityTimeLeft;
+
     public bool isDashing { get; private set; } = false;
     [Header("Dash CD UI Staff")]
     public Image dashCoolDownMask;
@@ -71,7 +74,10 @@ public class PlayerDash : MonoBehaviour
                 }
                 dashTimeLeft -= Time.deltaTime;
 
-
+                invincibilityTimeLeft -= Time.deltaTime;
+              
+                playerManager.invincibility = (invincibilityTimeLeft <= 0)?false:true;
+               
             }
             else
             {
@@ -95,6 +101,12 @@ public class PlayerDash : MonoBehaviour
             dashOrientationFlag = true;
 
             dashTimeLeft = playerData.dashTime;
+            
+
+            invincibilityTimeLeft = 
+                (playerData.dashInvincibilityTime > playerData.dashTime)? 
+                    playerData.dashInvincibilityTime : playerData.dashTime;
+            playerManager.invincibility = true;
 
             lastDash = Time.time;
 
