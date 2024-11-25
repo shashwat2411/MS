@@ -16,9 +16,18 @@ public class SkillSelect : MonoBehaviour
 
     PlayerManager player;
 
+    Animator AnimeCon;
+    public bool b1, b2, b3, AnimeStart;
+
     // Start is called before the first frame update
     void Start()
     {
+        AnimeStart = true;
+
+        b1 = b2 = b3 = false;
+
+        AnimeCon = GetComponent<Animator>();
+
         player = FindFirstObjectByType<PlayerManager>();
         //Time.timeScale = 0;
         SelectNo = 0;
@@ -82,6 +91,11 @@ public class SkillSelect : MonoBehaviour
         //¶‰EƒXƒLƒ‹‘I‘ð
         Cursor.transform.localPosition = BonusWindow[SelectNo].transform.localPosition;
 
+        AnimeCon.SetBool("Start", AnimeStart);
+        AnimeCon.SetBool("Bonus1", b1);
+        AnimeCon.SetBool("Bonus2", b2);
+        AnimeCon.SetBool("Bonus3", b3);
+
     }
     public void BonusChoose(InputAction.CallbackContext context)
     {
@@ -115,10 +129,25 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        for (int i = 0; i < BonusWindow.Count(); i++)
+        //for (int i = 0; i < BonusWindow.Count(); i++)
+        //{
+        //    BonusWindow[i].SetActive(false);
+        //}
+
+        switch (SelectNo)
         {
-            BonusWindow[i].SetActive(false);
+            case 0:
+                b1 = true;
+                break;
+            case 1:
+                b2 = true;
+                break;
+            case 2:
+                b3 = true;
+                break;
         }
+
+
         Cursor.SetActive(false);
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
@@ -149,4 +178,12 @@ public class SkillSelect : MonoBehaviour
 
         Time.timeScale = 0f;
     }
+
+    public void AnimationReset()
+    {
+        AnimeStart = false;
+
+        b1 = b2 = b3 = false;
+    }
+
 }
