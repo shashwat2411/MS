@@ -678,6 +678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1190276361}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1409315332}
@@ -780,6 +785,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BonusChoose
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerDash, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
@@ -921,35 +931,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8409728732359065208, guid: 7537abae4a13d694fb7a6089945f1806, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1190276359}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7537abae4a13d694fb7a6089945f1806, type: 3}
---- !u!1 &1190276358 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+--- !u!114 &1190276361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5503018272777329881, guid: 7537abae4a13d694fb7a6089945f1806,
     type: 3}
   m_PrefabInstance: {fileID: 1190276357}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1190276359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1190276358}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c519ef449f87c7459e74c14466c297a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 50
-  dashCoolDownMask: {fileID: 1145192543}
 --- !u!114 &1409315332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1557383592862409123, guid: 635abd798f48b584b88f870d4b380e37,

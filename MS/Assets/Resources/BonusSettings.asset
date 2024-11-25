@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: BonusSettings
   m_EditorClassIdentifier: 
   playerBonusDatas:
-  - name: Hp +5
-    description: Hp +5
+  - name: Hp +10
+    description: Hp +10
     icon: {fileID: 0}
     bonuses:
     - type: 0
       key: 0
-      value: 5
-  - name: Hp +5
-    description: Hp +5
+      value: 10
+  - name: Max HP+3
+    description: Max HP+3
     icon: {fileID: 0}
     bonuses:
     - type: 0
-      key: 0
-      value: 5
-  - name: Hp +5
-    description: Hp +5
+      key: 1
+      value: 3
+  - name: Atack+100%
+    description: Atack+100%
     icon: {fileID: 0}
     bonuses:
-    - type: 0
-      key: 0
-      value: 5
+    - type: 1
+      key: 3
+      value: 1
   playerBonusItems:
   - name: Lighting
     description: Add lighting to mennko+
