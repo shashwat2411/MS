@@ -1789,6 +1789,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450709595891107635, guid: bfb2386262852fd4a844badc0039cca7,
         type: 3}
+      propertyPath: smoothTime
+      value: 0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450709595891107635, guid: bfb2386262852fd4a844badc0039cca7,
+        type: 3}
+      propertyPath: rotationAngle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450709595891107635, guid: bfb2386262852fd4a844badc0039cca7,
+        type: 3}
       propertyPath: zoomOutOffset.y
       value: 16
       objectReference: {fileID: 0}
@@ -1796,6 +1806,16 @@ PrefabInstance:
         type: 3}
       propertyPath: zoomOutOffset.z
       value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182049365078953749, guid: bfb2386262852fd4a844badc0039cca7,
+        type: 3}
+      propertyPath: slowDownFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182049365078953749, guid: bfb2386262852fd4a844badc0039cca7,
+        type: 3}
+      propertyPath: slowDownLength
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8056945509264658181, guid: bfb2386262852fd4a844badc0039cca7,
         type: 3}
@@ -1850,18 +1870,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2909797893399941358, guid: bfb2386262852fd4a844badc0039cca7,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8710421343607021234}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfb2386262852fd4a844badc0039cca7, type: 3}
---- !u!1 &3286622509534342066 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2909797893399941358, guid: bfb2386262852fd4a844badc0039cca7,
-    type: 3}
-  m_PrefabInstance: {fileID: 3286622509534342065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3590062240476354223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2209,18 +2219,6 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 3286622509534342065}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8710421343607021234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3286622509534342066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71032e1f594a1544d9347ae301c5e6e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

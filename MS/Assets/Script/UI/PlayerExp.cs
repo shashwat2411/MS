@@ -17,7 +17,7 @@ public class PlayerExp : MonoBehaviour
 
 
     [Header("Color")]
-    public Color baseColor = Color.white.WithAlpha(0f);
+    public Color baseColor = Color.white;
     public Color shiftColor = Color.red;
     public Color borderColor = Color.black;
 
@@ -79,7 +79,7 @@ public class PlayerExp : MonoBehaviour
 
     private void UpdateColor()
     {
-        if (baseBar != null) { baseBar.color = baseColor.WithAlpha(0f); }
+        if (baseBar != null) { baseBar.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0f); }
         if (shiftBar != null) { shiftBar.color = shiftColor; }
         if (borderBar != null) { borderBar.color = borderColor; }
         if (innerBorderBar != null) { innerBorderBar.color = borderColor; }

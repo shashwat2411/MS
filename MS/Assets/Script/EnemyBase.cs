@@ -116,7 +116,7 @@ public class EnemyBase : MonoBehaviour
     //___Gizmos_________________________________________________________________________________________________________________________
     virtual protected void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green.WithAlpha(0.2f);
+        Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
     //____________________________________________________________________________________________________________________________
