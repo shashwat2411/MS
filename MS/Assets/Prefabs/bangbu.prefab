@@ -131,12 +131,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.551
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
@@ -233,6 +233,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5328800350277007654}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d51ded387c513bf4ba4f2d3661c12f5b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5503018272777329881}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d51ded387c513bf4ba4f2d3661c12f5b,
         type: 3}
       insertIndex: -1
@@ -346,6 +350,62 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 251fa7fd-5211-4d85-8384-5d6f8684791c
     m_ActionName: Player/Attack Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38e3ac43-39e3-45f6-bce5-d1ecb9e02fb6
+    m_ActionName: UI/Pause[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SkillSelect, Assembly-CSharp
+        m_MethodName: BonusSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bd39f2a0-5478-4434-a0a9-80e50910bf03
+    m_ActionName: UI/Select[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7815826e-0a4d-465d-ab61-8d98ab7740c9
+    m_ActionName: UI/Back[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SkillSelect, Assembly-CSharp
+        m_MethodName: LevelUpDebug
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a818dff9-adf4-44a0-9bce-bbc5efcad2f5
+    m_ActionName: Player/LevelUp[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SkillSelect, Assembly-CSharp
+        m_MethodName: BonusChoose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2a42b409-151c-4cfc-8073-86e2057b7956
+    m_ActionName: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -363,14 +423,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951e52619e6f099468bb50d3aff8f921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noramlRunSpeed: 8
+  noramlRunSpeed: 15.4
   ChargeRunSpeed: 4.5
   rotateSpeed: 200
   currentSpeed: 0
   playerHP: {fileID: 0}
-  isDashing: 0
-  dashSpeed: 50
-  dashCoolDownMask: {fileID: 0}
+  playerExp: {fileID: 0}
+  playerAblities: {fileID: 4889590496942192446, guid: f53d234b28e5e1643b498df2de8bc2d0,
+    type: 3}
   playerData:
     lv: 0
     hp: 0
@@ -378,14 +438,19 @@ MonoBehaviour:
     exp: 0
     nextExp: 0
     attack: 0
+    specialAttackTime: 0
+    maxSpecialAttackTime: 0
     defence: 0
     healthRespons: 0
     maxChargeTime: 0
+    maxAimSize: 0
     maxAttackSize: 0
     chargeSpeed: 0
     atkMoveSpeed: 0
     dashTime: 0
     dashCooldown: 0
+  playerPrefabs:
+    bullet: {fileID: 0}
 --- !u!114 &5328800350277007654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,11 +463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6cff701cee0b0478185484e5426141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTime: 1
+  attackTime: 0.2
   collider: {fileID: 7563353397225535718}
   attackMoveRange: 2
   collisionDamage: 10
-  bullet: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb, type: 3}
   closeRangeAttack: {fileID: 6481758436606181088, guid: f37a0ac7a5eade24c98c8281967e814e,
     type: 3}
   longRangeAttack: {fileID: -2860430663938567012, guid: f37a0ac7a5eade24c98c8281967e814e,
@@ -413,6 +477,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &5503018272777329881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324634354448140029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c519ef449f87c7459e74c14466c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 50
+  dashCoolDownMask: {fileID: 0}
 --- !u!136 &2416221155332571422
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -461,7 +539,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!4 &8704572399323274311 stripped
 Transform:

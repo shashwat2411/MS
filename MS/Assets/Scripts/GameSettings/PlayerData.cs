@@ -141,7 +141,12 @@ public class PlayerData
 [System.Serializable]
 public class PlayerPrefabs
 {
-   　public GameObject bullet;
+
+    GameObject playerAblities;
+    public GameObject bullet;
+  
+
+
 
     // 各アイテムのボーナスリストのインデックスを記録するためのDictionary 
     // メモリを消費しすぎる気がする。。 もっといい方法はないのか？
@@ -153,12 +158,14 @@ public class PlayerPrefabs
     {
         get
         {
-            if (key == PlayerPrafabType.bullet) return bullet;
+            if (key == PlayerPrafabType.playerPermanentAblity) return playerAblities;
+            else if (key == PlayerPrafabType.bullet) return bullet;
             else return null;
         }
         set
         {
-            if (key == PlayerPrafabType.bullet) bullet = value;
+            if (key == PlayerPrafabType.playerPermanentAblity) playerAblities = value;
+            else if (key == PlayerPrafabType.bullet) bullet = value;
             
         }
 

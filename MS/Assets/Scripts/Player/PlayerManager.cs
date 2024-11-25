@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Player_HP playerHP;
     [HideInInspector] public PlayerExp playerExp;
 
+    static List<GameObject> sp = new List<GameObject>();
 
     Transform cameraTransform;
     Rigidbody rigidbody;
@@ -60,6 +61,8 @@ public class PlayerManager : MonoBehaviour
     //Bonus
     GameObject BonusMenu;
 
+    [SerializeField]
+    GameObject playerAblities;
 
     [Header("Player Data Staff")]
     public PlayerData playerData;
@@ -97,6 +100,8 @@ public class PlayerManager : MonoBehaviour
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
 
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
+            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
 
         cameraTransform = Camera.main.transform;
 
@@ -120,10 +125,22 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+        //playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
 
-        //playerMovement.x = moveInput.x;
-        //playerMovement.z = moveInput.y;
+
+        //カメラの方向に合わせて前方の方向を補正
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        Vector3 forwardRelative = moveInput.y * cameraForward;
+        Vector3 rightRelative = moveInput.y * cameraRight;
+
+        Vector3 moveDirection = forwardRelative + rightRelative;
+
+        playerMovement = new Vector3(moveDirection.x, 0f, moveDirection.z);
     }
 
 
@@ -171,6 +188,8 @@ public class PlayerManager : MonoBehaviour
      
        
     }
+
+
 
     void SwitchPlayerStates()
     {
@@ -232,7 +251,7 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -243,10 +262,12 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+ 
+
 
     public void Damage()
     {
-
+        StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
     }
     public void Death()
     {
