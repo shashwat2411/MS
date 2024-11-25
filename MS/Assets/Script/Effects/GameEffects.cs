@@ -47,6 +47,6 @@ public class GameEffects : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration);
 
         Time.timeScale = timeScaleBackUp;
-        hitStop = false;
+        hitStop = false
     }
 }
