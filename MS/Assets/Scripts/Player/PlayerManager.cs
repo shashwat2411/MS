@@ -255,7 +255,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Damage()
     {
-
+        StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
     }
     public void Death()
     {

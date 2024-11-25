@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -100,6 +101,11 @@ public class EnemyBase : MonoBehaviour
     virtual public void Death()
     {
         Destroy(agent.gameObject);
+    }
+
+    virtual public void Knockback(Vector3 direction, float power)
+    {
+        rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
     }
 
     protected void OnCollisionEnter(Collision collision)
