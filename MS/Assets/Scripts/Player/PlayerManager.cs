@@ -48,7 +48,8 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public PlayerExp playerExp;
 
     [HideInInspector] public bool invincibility = false;
-    [HideInInspector] public float invincibilityTimeLeft;
+    [HideInInspector] public bool hurtInvincibility = false;
+    [HideInInspector] public float hurtInvincibilityTimeLeft;
 
     static List<GameObject> sp = new List<GameObject>();
 
@@ -171,7 +172,9 @@ public class PlayerManager : MonoBehaviour
            
         }
 
-        InvincibleCheck();
+        HurtInvincibleCheck();
+
+        invincibility = playerDash.dashIncibility || hurtInvincibility ;
 
 
         CaculateInputDirection();
@@ -243,9 +246,9 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[2]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
 
-       // playerHP.Damage(10.0f);
+        playerHP.Damage(10.0f);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             
@@ -264,13 +267,13 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    public void InvincibleCheck()
+    public void HurtInvincibleCheck()
     {
      
-        if (invincibility )
+        if (hurtInvincibility )
         {
-            invincibilityTimeLeft -= Time.deltaTime;
-            invincibility = (invincibilityTimeLeft <= 0) ? false : true;
+            hurtInvincibilityTimeLeft -= Time.deltaTime;
+            hurtInvincibility = (hurtInvincibilityTimeLeft <= 0) ? false : true;
             
         }
 
@@ -279,8 +282,8 @@ public class PlayerManager : MonoBehaviour
 
     public void Damage()
     {
-        invincibility = true;
-        invincibilityTimeLeft = playerData.hurtInvincibilityTime;
+        hurtInvincibility = true;
+        hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
     }
     public void Death()
     {

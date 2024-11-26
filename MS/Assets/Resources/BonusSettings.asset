@@ -131,6 +131,16 @@ MonoBehaviour:
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
       description: Add a Shield
+  - name: DoubleDash
+    description: Player can dash twice
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63,
+          type: 3}
+      description: Player can dash twice
   ItemBonusDatas:
   - name: 
     description: 
