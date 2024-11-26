@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: NaN
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 3
   m_UseSpriteMesh: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458ea793bd976b849a72f695629ffbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mp: 100
+  mp: 90
   maxMp: 100
   shiftSpeed: 0.02
   nextExpCurve:
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.362
+  m_FillAmount: 0.45
   m_FillClockwise: 0
   m_FillOrigin: 3
   m_UseSpriteMesh: 0
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.426
+  m_FillAmount: 0.44999924
   m_FillClockwise: 0
   m_FillOrigin: 3
   m_UseSpriteMesh: 0
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exp: 0
-  maxExp: 0
+  maxExp: 100
   shiftSpeed: 0.05
   nextExpCurve:
     serializedVersion: 2
@@ -1576,8 +1576,39 @@ PrefabInstance:
     - {fileID: 4353951878271747425, guid: 7b31878104ca1124d850b2358d939326, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1440566142997671114, guid: 7b31878104ca1124d850b2358d939326,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2179237128467918422}
   m_SourcePrefab: {fileID: 100100000, guid: 7b31878104ca1124d850b2358d939326, type: 3}
+--- !u!1 &3180931145382218875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1440566142997671114, guid: 7b31878104ca1124d850b2358d939326,
+    type: 3}
+  m_PrefabInstance: {fileID: 4600738471927046321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2179237128467918422
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180931145382218875}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0e7bbaf0d0852b459b6558555c0911b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &5536244866753460624 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8290469528236988705, guid: 7b31878104ca1124d850b2358d939326,

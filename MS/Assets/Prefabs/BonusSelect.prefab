@@ -377,6 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8290469528236988705}
   - component: {fileID: 3046099537249337618}
+  - component: {fileID: 624679928619209940}
   m_Layer: 5
   m_Name: BonusSelect
   m_TagString: Untagged
@@ -424,6 +425,31 @@ MonoBehaviour:
   - {fileID: 4905441169725561665}
   - {fileID: 4844606769679162751}
   Cursor: {fileID: 7448202417338928108}
+  b1: 0
+  b2: 0
+  b3: 0
+  AnimeStart: 0
+--- !u!95 &624679928619209940
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440566142997671114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0e7bbaf0d0852b459b6558555c0911b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1564818119511953588
 GameObject:
   m_ObjectHideFlags: 0
