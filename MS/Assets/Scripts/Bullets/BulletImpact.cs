@@ -24,7 +24,7 @@ public class BulletImpact : MonoBehaviour
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
         if (enemy)
         {
-            var damage = GetComponentInParent<Bullet>().damage;
+            var damage = GetComponentInParent<BulletBase>().damage;
             enemy.Damage(damage);
            
         }
