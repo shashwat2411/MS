@@ -9,6 +9,8 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
 
     static float bulletsCount = 1;
 
+    public float twoMenkoOffset = 1.2f;
+    public float threeMenkoOffset = 2.2f;
 
     public void ApplyBonus(GameObject bonusEffect)
     {
@@ -71,8 +73,8 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         {
             endPoint = GetOffset(area.position, holdtime, offset);
         }
-        var leftEnd  = endPoint - area.right * 1.2f;
-        var rightEnd = endPoint + area.right * 1.2f;
+        var leftEnd  = endPoint - area.right * twoMenkoOffset;
+        var rightEnd = endPoint + area.right * twoMenkoOffset;
         
         var leftDir = leftEnd - startPoint;
         leftDir.Normalize();
@@ -88,6 +90,7 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
        obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
        obj.GetComponent<BulletBase>().Initiate(rightDir, rightEnd, maxAttackSize, attack * holdtime);
     }
+   
     void Three(Vector3 startPoint, Transform area, float maxAttackSize, float attack, float holdtime)
     {
         Vector3 endPoint = new Vector3(area.position.x, 0.0f, area.position.z);
@@ -98,8 +101,8 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         {
             endPoint = GetOffset(area.position, holdtime, offset);
         }
-        var leftEnd =  endPoint - area.right * 2.2f;
-        var rightEnd = endPoint + area.right * 2.2f;
+        var leftEnd =  endPoint - area.right * threeMenkoOffset;
+        var rightEnd = endPoint + area.right * threeMenkoOffset;
 
         var leftDir = leftEnd - startPoint;
         leftDir.Normalize();

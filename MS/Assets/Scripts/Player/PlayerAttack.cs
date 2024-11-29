@@ -76,10 +76,6 @@ public class PlayerAttack : MonoBehaviour
         ResetCollider();
     }
 
-    void test()
-    {
-
-    }
 
     // Update is called once per frame
     void FixedUpdate()
