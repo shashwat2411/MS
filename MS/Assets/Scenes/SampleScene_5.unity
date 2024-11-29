@@ -559,11 +559,32 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4880630771805904516, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: dashCoolDownMask
+      value: 
+      objectReference: {fileID: 1145192543}
     - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1709510368}
+      objectReference: {fileID: 1680315238}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9003394540161547761, guid: 7b31878104ca1124d850b2358d939326,
+        type: 3}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetDashDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelUpDebug
+      objectReference: {fileID: 0}
     - target: {fileID: 1583134474239182855, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -640,9 +661,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7537abae4a13d694fb7a6089945f1806, type: 3}
---- !u!114 &1709510368 stripped
+--- !u!114 &1680315238 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5503018272777329881, guid: 7537abae4a13d694fb7a6089945f1806,
+  m_CorrespondingSourceObject: {fileID: -4880630771805904516, guid: 7537abae4a13d694fb7a6089945f1806,
     type: 3}
   m_PrefabInstance: {fileID: 1680315237}
   m_PrefabAsset: {fileID: 0}
