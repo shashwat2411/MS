@@ -129,22 +129,11 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        //playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
 
 
-        //カメラの方向に合わせて前方の方向を補正
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.right;
-
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
-
-        Vector3 forwardRelative = moveInput.y * cameraForward;
-        Vector3 rightRelative = moveInput.y * cameraRight;
-
-        Vector3 moveDirection = forwardRelative + rightRelative;
-
-        playerMovement = new Vector3(moveDirection.x, 0f, moveDirection.z);
+        
+       
     }
 
 
