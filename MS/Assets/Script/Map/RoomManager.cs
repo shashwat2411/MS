@@ -90,7 +90,7 @@ public class RoomManager : MonoBehaviour
                         nowW = j;
                     }
 
-                    print(value);
+                    //print(value);
                 }
                 else
                 {

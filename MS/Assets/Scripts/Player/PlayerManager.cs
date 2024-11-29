@@ -130,11 +130,7 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-
-        
-       
+        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);   
     }
 
 

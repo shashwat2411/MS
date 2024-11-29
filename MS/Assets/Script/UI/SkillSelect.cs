@@ -97,7 +97,7 @@ public class SkillSelect : MonoBehaviour
         AnimeCon.SetBool("Bonus3", b3);
 
 
-        Debug.Log("Time.timeScale=" + Time.timeScale);
+       // Debug.Log("Time.timeScale=" + Time.timeScale);
 
     }
     public void BonusChoose(InputAction.CallbackContext context)

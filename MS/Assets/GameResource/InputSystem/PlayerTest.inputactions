@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LongRangeAttack",
+                    "name": "GetExp",
                     "type": "Button",
                     "id": "17968a37-c75a-4bd5-b45c-f16036d2b2ba",
                     "expectedControlType": "Button",
@@ -63,6 +63,15 @@
                     "name": "LevelUp",
                     "type": "Button",
                     "id": "a818dff9-adf4-44a0-9bce-bbc5efcad2f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MpAttack",
+                    "type": "Button",
+                    "id": "9a950a7e-789f-4f05-a116-1871961205b8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -198,7 +207,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "LongRangeAttack",
+                    "action": "GetExp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -209,7 +218,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad;Joystick;XR",
-                    "action": "LongRangeAttack",
+                    "action": "GetExp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -386,6 +395,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "LevelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "242fb153-c96d-4bb1-8ecd-333b8f234482",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MpAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
