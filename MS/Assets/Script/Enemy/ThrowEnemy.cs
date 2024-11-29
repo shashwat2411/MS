@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static GunEnemy;
-using static KamikazeEnemy;
 
 public class ThrowEnemy : EnemyBase
 {

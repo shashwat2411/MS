@@ -200,7 +200,7 @@ public class PlayerAttack : MonoBehaviour
 
         //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
-        obj.GetComponent<Bullet>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
+        obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
 
     }
 

@@ -14,15 +14,17 @@ public class SkillWindow : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI Name, Description;
+
+
+  
     // Start is called before the first frame update
     void Start()
     {
-
-       
+        
     }
 
-    
-    
+   
+
 
     public void DrawBonus()
     {
@@ -33,5 +35,6 @@ public class SkillWindow : MonoBehaviour
         Icon.sprite = Bonus.icon;
     }
 
+  
    
 }

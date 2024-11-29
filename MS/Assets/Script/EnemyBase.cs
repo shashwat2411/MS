@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -107,6 +108,11 @@ public class EnemyBase : MonoBehaviour
         Destroy(agent.gameObject);
     }
 
+    virtual public void Knockback(Vector3 direction, float power)
+    {
+        rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
+    }
+
     protected void OnCollisionEnter(Collision collision)
     {
         OnCollision(collision.gameObject);
@@ -115,7 +121,7 @@ public class EnemyBase : MonoBehaviour
     //___Gizmos_________________________________________________________________________________________________________________________
     virtual protected void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green.WithAlpha(0.2f);
+        Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
     //____________________________________________________________________________________________________________________________

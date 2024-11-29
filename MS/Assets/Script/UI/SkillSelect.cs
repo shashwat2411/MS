@@ -16,11 +16,20 @@ public class SkillSelect : MonoBehaviour
 
     PlayerManager player;
 
+    Animator AnimeCon;
+    public bool b1, b2, b3, AnimeStart;
+
     // Start is called before the first frame update
     void Start()
     {
+        AnimeStart = false;
+
+        b1 = b2 = b3 = false;
+
+        AnimeCon = GetComponent<Animator>();
+
         player = FindFirstObjectByType<PlayerManager>();
-        //Time.timeScale = 0;
+        
         SelectNo = 0;
 
         RandomBonus();
@@ -82,6 +91,14 @@ public class SkillSelect : MonoBehaviour
         //¶‰EƒXƒLƒ‹‘I‘ð
         Cursor.transform.localPosition = BonusWindow[SelectNo].transform.localPosition;
 
+        AnimeCon.SetBool("Start", AnimeStart);
+        AnimeCon.SetBool("Bonus1", b1);
+        AnimeCon.SetBool("Bonus2", b2);
+        AnimeCon.SetBool("Bonus3", b3);
+
+
+        Debug.Log("Time.timeScale=" + Time.timeScale);
+
     }
     public void BonusChoose(InputAction.CallbackContext context)
     {
@@ -115,10 +132,22 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        for (int i = 0; i < BonusWindow.Count(); i++)
+       
+
+        switch (SelectNo)
         {
-            BonusWindow[i].SetActive(false);
+            case 0:
+                b1 = true;
+                break;
+            case 1:
+                b2 = true;
+                break;
+            case 2:
+                b3 = true;
+                break;
         }
+
+
         Cursor.SetActive(false);
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
@@ -136,8 +165,13 @@ public class SkillSelect : MonoBehaviour
 
     public void LevelUp()
     {
+        Time.timeScale = 0;
+
+        AnimeStart = true;
 
         RandomBonus();
+
+        
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
@@ -145,8 +179,30 @@ public class SkillSelect : MonoBehaviour
         {
             BonusWindow[i].SetActive(true);
         }
-        Cursor.SetActive(true);
+        //Cursor.SetActive(true);
 
-        Time.timeScale = 0f;
+
+
+        Debug.Log("Time=" + Time.timeScale);
     }
+
+    public void AnimationReset()
+    {
+        AnimeStart = false;
+
+        b1 = b2 = b3 = false;
+    }
+
+    public void BonusScelectEnd()
+    {
+        AnimeStart = false;
+
+        b1 = b2 = b3 = false;
+
+        for (int i = 0; i < BonusWindow.Count(); i++)
+        {
+            BonusWindow[i].SetActive(false);
+        }
+    }
+
 }

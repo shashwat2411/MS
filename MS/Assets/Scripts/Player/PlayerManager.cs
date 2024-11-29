@@ -47,10 +47,6 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Player_HP playerHP;
     [HideInInspector] public PlayerExp playerExp;
 
-    [HideInInspector] public bool invincibility = false;
-    [HideInInspector] public bool hurtInvincibility = false;
-    [HideInInspector] public float hurtInvincibilityTimeLeft;
-
     static List<GameObject> sp = new List<GameObject>();
 
     Transform cameraTransform;
@@ -98,14 +94,14 @@ public class PlayerManager : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
-        playerAttack = GetComponentInChildren<PlayerAttack>();
+        playerAttack = GetComponent<PlayerAttack>();
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
 
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
-            ObjectPool.Instance.Get(playerAblities,new Vector3(0.0f,-5.0f,0.0f),transform.rotation);
+            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
 
         cameraTransform = Camera.main.transform;
 
@@ -129,11 +125,22 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-        Debug.Log(moveInput);
+        //playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
 
-        //playerMovement.x = moveInput.x;
-        //playerMovement.z = moveInput.y;
+
+        //カメラの方向に合わせて前方の方向を補正
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        Vector3 forwardRelative = moveInput.y * cameraForward;
+        Vector3 rightRelative = moveInput.y * cameraRight;
+
+        Vector3 moveDirection = forwardRelative + rightRelative;
+
+        playerMovement = new Vector3(moveDirection.x, 0f, moveDirection.z);
     }
 
 
@@ -160,7 +167,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-      
+
         playerDash.Dash();
         if (playerDash.isDashing)
             return;
@@ -171,12 +178,10 @@ public class PlayerManager : MonoBehaviour
             //playerAttack.MoveToTarget(GetCloestEnemy());
            
         }
+    
+        
 
-        HurtInvincibleCheck();
-
-        invincibility = playerDash.dashIncibility || hurtInvincibility ;
-
-
+       
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
@@ -246,9 +251,8 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
+        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
 
-        playerHP.Damage(10.0f);
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
             
@@ -260,30 +264,10 @@ public class PlayerManager : MonoBehaviour
 
  
 
-    public void CheckPlayerDataState()
-    {
-        playerData.hp = (playerData.hp >= playerData.maxHp) ? playerData.maxHp : playerData.hp;
-        playerData.mp = (playerData.mp >= playerData.maxMp) ? playerData.maxMp : playerData.mp;
-        
-    }
-
-    public void HurtInvincibleCheck()
-    {
-     
-        if (hurtInvincibility )
-        {
-            hurtInvincibilityTimeLeft -= Time.deltaTime;
-            hurtInvincibility = (hurtInvincibilityTimeLeft <= 0) ? false : true;
-            
-        }
-
-    }
-
 
     public void Damage()
     {
-        hurtInvincibility = true;
-        hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
+        StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
     }
     public void Death()
     {
