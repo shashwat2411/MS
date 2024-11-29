@@ -63,11 +63,7 @@ public class ThrowEnemy : EnemyBase
 
         if (collided.gameObject == player)
         {
-            PlayerManager manager = player.GetComponent<PlayerManager>();
 
-            healthBar.Damage(manager.playerData.attack);
-            //プレーヤーへのダメージ
-            manager.playerHP.Damage(attackPower);
         }
     }
     public override void Damage(float value)
