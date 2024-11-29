@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -40,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
 
     PlayerManager playerManager;
     PlayerData playerData;
+    public List<GameObject> multiBullets;
     public List<GameObject> enemies;
 
     Vector3 attackTarget;
@@ -65,10 +67,11 @@ public class PlayerAttack : MonoBehaviour
                                           );
         
         attackArea = collider.transform;
-      
+
+        collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
-     
+       
 
         ResetCollider();
     }
@@ -182,13 +185,7 @@ public class PlayerAttack : MonoBehaviour
         float offset = 1.5f;
         if (holdtime < 3.5f)
         {
-            endPoint = collider.transform.position +
-                new Vector3(
-                             Random.Range(-offset / holdtime, offset / holdtime),
-                             0.0f,
-                             Random.Range(-offset / holdtime, offset / holdtime)
-                         );
-
+            endPoint = GetRandomAttackPos(collider.transform.position, offset);
         }
 
 
@@ -198,10 +195,38 @@ public class PlayerAttack : MonoBehaviour
         dir.Normalize();
 
 
-        //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
-        var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
-        obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
 
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack , holdtime);
+
+        ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+        //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
+        //obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
+
+
+        //foreach(GameObject b in MenkoAttack.bullets)
+        //{
+        //    obj = ObjectPool.Instance.Get(b, startPoint, collider.transform.rotation);
+
+        //    var multiEndPos = GetRandomAttackPos(endPoint, 10.0f);
+        //    dir = multiEndPos - startPoint;
+        //    dir.Normalize();
+
+        //    obj.GetComponent<BulletBase>().Initiate(dir, multiEndPos, playerData.maxAttackSize, playerData.attack * holdtime);
+
+        //}
+
+    }
+
+    Vector3 GetRandomAttackPos(Vector3 initPos,float offset)
+    {
+       Vector3 endPoint = initPos +
+               new Vector3(
+                            Random.Range(-offset / holdtime, offset / holdtime),
+                            0.0f,
+                            Random.Range(-offset / holdtime, offset / holdtime)
+                        );
+
+        return endPoint;    
     }
 
 

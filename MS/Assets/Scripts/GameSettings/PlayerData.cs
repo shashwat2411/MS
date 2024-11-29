@@ -169,8 +169,7 @@ public class PlayerPrefabs
 
 
 
-    // 各アイテムのボーナスリストのインデックスを記録するためのDictionary 
-    // メモリを消費しすぎる気がする。。 もっといい方法はないのか？
+    // 各アイテムのボーナスリストのインデックスを記録するためのDictionary
     [SerializeField]
    　Dictionary<string,int> itemCountPair = new Dictionary<string, int>();
 

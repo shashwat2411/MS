@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4420058689619138816}
   - component: {fileID: 6476040055225683964}
   - component: {fileID: 7395421652004945282}
+  - component: {fileID: -1498387361974452229}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
@@ -105,3 +106,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1498387361974452229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8784403417570942473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b999c1359d6272f47bdfb1be22333873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullets: []
