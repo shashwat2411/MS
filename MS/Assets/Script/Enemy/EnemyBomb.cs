@@ -19,4 +19,16 @@ public class EnemyBomb : ThrowableEnemyObject
 
         //爆風
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player && owner != player)
+        {
+            PlayerManager manager = player.GetComponent<PlayerManager>();
+            //プレーヤーへのダメージ
+            manager.playerHP.Damage(owner.GetComponent<EnemyBase>().attackPower);
+            //other.GetComponent<MeshRenderer>().material.color = Color.green;
+            Destroy(gameObject);
+        }
+    }
 }
