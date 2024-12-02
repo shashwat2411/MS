@@ -168,22 +168,18 @@ public class SkillSelect : MonoBehaviour
         Time.timeScale = 0;
 
         AnimeStart = true;
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
         RandomBonus();
 
         
 
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
             BonusWindow[i].SetActive(true);
         }
         //Cursor.SetActive(true);
-
-
-
-        Debug.Log("Time=" + Time.timeScale);
     }
 
     public void AnimationReset()

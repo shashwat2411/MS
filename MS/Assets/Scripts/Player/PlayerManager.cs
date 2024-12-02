@@ -44,8 +44,6 @@ public class PlayerManager : MonoBehaviour
 
 
 
-    [HideInInspector] public Player_HP playerHP;
-    [HideInInspector] public PlayerExp playerExp;
 
     static List<GameObject> sp = new List<GameObject>();
 
@@ -67,8 +65,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Data Staff")]
     public PlayerData playerData;
     [Header("Player Prefabs Staff")]
-    public PlayerPrefabs playerPrefabs;
+    public PlayerPrefabs playerPrefabs; 
     public ParticleSystem playerDamageEffect;
+    public Player_HP playerHP;
+    public PlayerExp playerExp;
 
 
 
