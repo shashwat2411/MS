@@ -30,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] float rotateSpeed = 1.0f;
 
 
+    bool lockMovement = false;
+
     [SerializeField]
     float currentSpeed;
     float targetSpeed;
@@ -59,6 +61,7 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
+    PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
 
 
@@ -100,6 +103,7 @@ public class PlayerManager : MonoBehaviour
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
         playerAttack = GetComponentInChildren<PlayerAttack>();
+        playerMpAttack = GetComponent<PlayerMpAttack>();    
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
@@ -151,7 +155,24 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void GetActionChange(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started && playerAttack.isHold)
+        {
+            lockMovement = !lockMovement;
+        }
+    }
 
+    public void GetMpAttackPressed(InputAction.CallbackContext context)
+    {
+        if(!playerAttack.isHold 
+            && !playerAttack.afterShock 
+            && !playerDash.isDashing)
+        {
+            playerMpAttack.MpAttackReady();
+        }
+        
+    }
 
     #endregion
 
@@ -166,9 +187,12 @@ public class PlayerManager : MonoBehaviour
         {
             playerAttack.RangeMove(playerAttackMovement);
             //playerAttack.MoveToTarget(GetCloestEnemy());
-           
-        }
 
+        }
+        else
+        {
+            lockMovement = false;
+        }
 
 
         HurtInvincibleCheck();
@@ -187,7 +211,7 @@ public class PlayerManager : MonoBehaviour
     {
 
    
-        if (moveInput.magnitude == 0)
+        if (moveInput.magnitude == 0 || lockMovement)
         {
             locomotionState = LocomotionState.Idle;
         }else

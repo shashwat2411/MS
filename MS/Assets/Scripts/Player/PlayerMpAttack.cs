@@ -28,9 +28,6 @@ public class PlayerMpAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        #region Input
-        mpAttack.action.started += GetMpAttackPressed;
-        #endregion
 
 
         lastAttack = 0;
@@ -54,16 +51,16 @@ public class PlayerMpAttack : MonoBehaviour
 
     }
 
-
-    void GetMpAttackPressed(InputAction.CallbackContext context)
+    public void MpAttackReady()
     {
         if (Time.time > (lastAttack + mpAttackCoolDown))
         {
             mpAttackReady = true;
-        }
-       
 
+        }
     }
+
+ 
 
     void MpAttack()
     {

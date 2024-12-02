@@ -116,6 +116,8 @@ public class PlayerAttack : MonoBehaviour
             holdtime = 1.0f;
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
+
+
             Invoke("ResetCollider", attackTime);   
           
        
@@ -147,6 +149,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
+    //TODO:: To be called by menko attack animaton events
     void ResetCollider()
     {
 
