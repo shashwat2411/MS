@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7715085547500274321}
   - component: {fileID: 1092539610068443608}
   - component: {fileID: 4699113159770082744}
+  - component: {fileID: 5645353892383344349}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -135,3 +136,16 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5645353892383344349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506632363996881376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d959ea97e0853fe428daca1ab68f89cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toDestroy: {fileID: 1506632363996881376}
