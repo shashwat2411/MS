@@ -12,8 +12,7 @@ public class PlayerDash : MonoBehaviour
     private float dashTimeLeft = 1.0f;
     private float lastDash=0;
     public float dashSpeed;
-    public GameObject dashEffectPref;
-    GameObject dashEffect;
+    public ParticleSystem dashEffectPref;
 
     Vector3 dashOrientation;
 
@@ -108,7 +107,7 @@ public class PlayerDash : MonoBehaviour
         //ダッシュ終了
         else
         {
-            dashEffectPref.GetComponent<ParticleSystem>().Stop();
+            dashEffectPref.Stop();
             //二回目のダッシュ
             if (doubleDash)
             {
@@ -170,7 +169,7 @@ public class PlayerDash : MonoBehaviour
 
             dashCount--;
 
-            dashEffectPref.GetComponent<ParticleSystem>().Play();
+            dashEffectPref.Play();
 
             CalculateAndTurnDir();
         }
