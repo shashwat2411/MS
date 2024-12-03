@@ -20,7 +20,7 @@ public class ParticleSystemDestroyer : MonoBehaviour
         {
             if (paritcleSystem.isPlaying == false)
             {
-                Debug.Log("Destroy Particle");
+                //Debug.Log("Destroy Particle");
 
                 if (toDestroy != null) { Destroy(toDestroy); }
                 else { paritcleSystem.Stop(); }

@@ -16,10 +16,13 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("ÊîªÊíÅEßªÂãïÁØÅEõ≤")]
     public float attackMoveRange;
+    public GameObject AssistedAim;
 
+    [HideInInspector] public float attackRangeMoveFactor = 1f;
 
 
     [HideInInspector] public float collisionDamage = 10f;
+
 
 
 
@@ -72,7 +75,8 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
-       
+
+        AssistedAim = GetComponentInChildren<AssisitedAiming>().gameObject;
 
         ResetCollider();
     }
@@ -81,6 +85,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         if(isHold)
         {
             if (holdtime < playerData.maxChargeTime)
@@ -108,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
+            AssistedAim.SetActive(false);
             chargeEffect.Stop();
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
@@ -132,6 +138,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!afterShock)
         {
+            AssistedAim.SetActive(true);
             chargeEffect.Play();
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
@@ -238,9 +245,9 @@ public class PlayerAttack : MonoBehaviour
 
 
       var newPos = new Vector3(  
-                              attackArea.position.x + playerInput.x * Time.deltaTime * playerData.atkMoveSpeed,
+                              attackArea.position.x + playerInput.x * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor,
                               attackArea.position.y,
-                              attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed
+                              attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor
                               );
 
         var localPoint = transform.InverseTransformPoint(newPos);

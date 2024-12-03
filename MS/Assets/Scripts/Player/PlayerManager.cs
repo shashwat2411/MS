@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] float noramlRunSpeed = 0.0f;
     [SerializeField] float ChargeRunSpeed = 0.0f;
-    [SerializeField] float rotateSpeed = 1.0f;
+    [SerializeField] public float rotateSpeed = 1.0f;
 
 
     bool lockMovement = false;
@@ -197,6 +197,9 @@ public class PlayerManager : MonoBehaviour
 
         HurtInvincibleCheck();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
+        rotateSpeed = AimSensorCheck(transform) ? 30f : 200f;
+      
+
 
         CaculateInputDirection();
         SwitchPlayerStates();
@@ -415,5 +418,28 @@ public class PlayerManager : MonoBehaviour
     {
         return moveInput;
     }
-   
+
+
+    public bool AimSensorCheck(Transform playerTransform)
+    {
+        Vector3 offset = new Vector3(0.0f, 0.0f, 0.0f);
+        var layermask = 0;
+       
+        layermask = (1 << LayerMask.NameToLayer("Enemy"));
+      
+
+        Debug.DrawRay(playerTransform.position + offset, playerTransform.forward);
+        if (Physics.Raycast(playerTransform.position + offset, playerTransform.forward, out RaycastHit obsHit, 
+                        100.0f, layermask))
+        {
+           // Debug.Log(obsHit.collider.name);
+            if (!obsHit.collider.GetComponent<EnemyBase>())
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
