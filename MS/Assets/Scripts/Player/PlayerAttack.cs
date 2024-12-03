@@ -43,6 +43,8 @@ public class PlayerAttack : MonoBehaviour
     public List<GameObject> enemies;
 
     Vector3 attackTarget;
+
+    public ParticleSystem chargeEffect;
     void Start()
     {
 
@@ -73,6 +75,8 @@ public class PlayerAttack : MonoBehaviour
      
 
         ResetCollider();
+
+        chargeEffect.Stop();
     }
 
     void test()
@@ -96,9 +100,16 @@ public class PlayerAttack : MonoBehaviour
                 
 
             }
+            else
+            {
+                ParticleSystem.MainModule main = chargeEffect.main;
+                main.loop = false;
+            }
             //MoveToTarget(attackTarget);
            // GetCloestEnemy();
         }
+
+        playerData.charge = holdtime;
     }
 
     /// <summary>
@@ -119,9 +130,11 @@ public class PlayerAttack : MonoBehaviour
             holdtime = 1.0f;
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
-            Invoke("ResetCollider", attackTime);   
-          
-       
+            Invoke("ResetCollider", attackTime);
+
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = false;
+
         }
       
     }
@@ -133,6 +146,12 @@ public class PlayerAttack : MonoBehaviour
         {
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
+
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = true;
+
+            chargeEffect.Play();
+
             //GetCloestEnemy();
         }
        
