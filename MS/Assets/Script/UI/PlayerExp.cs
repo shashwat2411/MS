@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-[ExecuteAlways]
+//[ExecuteAlways]
 public class PlayerExp : MonoBehaviour
 {
     [Header("Exp")]
@@ -50,7 +50,7 @@ public class PlayerExp : MonoBehaviour
         exp = player.playerData.exp;
         maxExp = player.playerData.nextExp;
 
-        baseBar.fillAmount = exp / maxExp * 0.5f;
+        baseBar.fillAmount = exp / (maxExp <= 0f ? 1f : maxExp) * 0.5f;
         shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);
     }
 
