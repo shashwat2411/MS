@@ -12,6 +12,8 @@ public class PlayerDash : MonoBehaviour
     private float dashTimeLeft = 1.0f;
     private float lastDash=0;
     public float dashSpeed;
+    public GameObject dashEffectPref;
+    GameObject dashEffect;
 
     Vector3 dashOrientation;
 
@@ -106,6 +108,7 @@ public class PlayerDash : MonoBehaviour
         //ダッシュ終了
         else
         {
+            dashEffectPref.GetComponent<ParticleSystem>().Stop();
             //二回目のダッシュ
             if (doubleDash)
             {
@@ -166,6 +169,8 @@ public class PlayerDash : MonoBehaviour
             dashCoolDownMask.fillAmount = 1.0f;
 
             dashCount--;
+
+            dashEffectPref.GetComponent<ParticleSystem>().Play();
 
             CalculateAndTurnDir();
         }

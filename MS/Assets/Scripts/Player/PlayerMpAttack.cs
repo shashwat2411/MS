@@ -8,7 +8,6 @@ public class PlayerMpAttack : MonoBehaviour
     public float mpConsumption = 30.0f;
     public InputActionReference mpAttack;
 
-    public GameObject mpAttackAreaPref;
     GameObject mpAttackArea;
 
 
@@ -34,6 +33,7 @@ public class PlayerMpAttack : MonoBehaviour
 
         playerManager = GetComponentInParent<PlayerManager>();
         playerData = playerManager.playerData;
+    
     }
 
     // Update is called once per frame
@@ -77,7 +77,7 @@ public class PlayerMpAttack : MonoBehaviour
 
         mpAttackReady = false;
         isMpAttacking = true;
-        mpAttackArea = ObjectPool.Instance.Get(mpAttackAreaPref, transform.position, transform.rotation);
+        mpAttackArea = ObjectPool.Instance.Get(playerManager.playerPrefabs.mpAttackArea, transform.position, transform.rotation);
 
         mpAttackCoolDownLeft = mpAttackCoolDown;
 

@@ -32,6 +32,7 @@ public enum PlayerPrafabType
     playerPermanentAblity,
     bullet,
     attackArea,
+    mpAttackArea,
     dash,
 
 }

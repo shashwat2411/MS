@@ -12,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
+    public ParticleSystem chargeEffect;
 
     [Header("ÊîªÊíÅEßªÂãïÁØÅEõ≤")]
     public float attackMoveRange;
@@ -107,6 +108,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
+            chargeEffect.Stop();
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
@@ -130,6 +132,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!afterShock)
         {
+            chargeEffect.Play();
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
             //GetCloestEnemy();
@@ -178,7 +181,8 @@ public class PlayerAttack : MonoBehaviour
     void IniteMenko()
     {
        
-        Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
+        //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
+        Vector3 startPoint = chargeEffect.transform.position;
 
         Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;

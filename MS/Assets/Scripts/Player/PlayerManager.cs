@@ -119,7 +119,7 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
-        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+       animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
        #endregion
 
@@ -267,8 +267,8 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+        //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -379,6 +379,7 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case LocomotionState.Run:
                     animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                   // Debug.Log(animator.velocity + "  :  " + playerMovementWorldSpace.magnitude * noramlRunSpeed);
                     break;
             }
 
@@ -406,7 +407,7 @@ public class PlayerManager : MonoBehaviour
         else if (!playerDash.isDashing)
         {
             rigidbody.velocity = animator.velocity;
-         //   Debug.Log(animator.velocity);
+           
         }
     }
 

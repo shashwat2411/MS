@@ -14,7 +14,7 @@ public class Bullet : BulletBase
         foreach (var g in sp)
         {
             var obj = ObjectPool.Instance.Get(g, transform.position, transform.rotation);
-            obj.GetComponent<IAtkEffect>().Initiate(0.8f, this.damage / 2.0f);
+            obj.GetComponent<IAtkEffect>().Initiate(1.0f, this.damage / 2.0f);
 
 
         }

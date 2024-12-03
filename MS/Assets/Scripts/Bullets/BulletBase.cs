@@ -62,7 +62,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
             }
 
-            Debug.Log(this.damage / factor);
+           // Debug.Log(this.damage / factor);
 
             DoSpecialThings();
             Invoke("DestroyBullet", lifetime);

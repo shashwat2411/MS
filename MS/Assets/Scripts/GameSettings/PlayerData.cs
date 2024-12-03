@@ -165,6 +165,7 @@ public class PlayerPrefabs
     GameObject playerAblities;
     public GameObject bullet;
     public GameObject attackArea;
+    public GameObject mpAttackArea;
   
 
 
@@ -181,13 +182,14 @@ public class PlayerPrefabs
             if (key == PlayerPrafabType.playerPermanentAblity) return playerAblities;
             else if (key == PlayerPrafabType.bullet) return bullet;
             else if (key == PlayerPrafabType.attackArea) return attackArea;
+            else if (key == PlayerPrafabType.mpAttackArea) return mpAttackArea;
             else return null;
         }
         set
         {
             if (key == PlayerPrafabType.playerPermanentAblity) playerAblities = value;
             else if (key == PlayerPrafabType.bullet) bullet = value;
-            else if (key == PlayerPrafabType.attackArea) attackArea = value;
+            else if (key == PlayerPrafabType.mpAttackArea) mpAttackArea = value;
             
         }
 
