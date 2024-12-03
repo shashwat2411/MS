@@ -21,6 +21,9 @@ public enum PlayerDataType
     atkMoveSpeed, 
     dashTime,
     dashCooldown,
+    mp,
+    maxMp
+
 }
 
 
@@ -28,6 +31,8 @@ public enum PlayerPrafabType
 {
     playerPermanentAblity,
     bullet,
+    attackArea,
+    mpAttackArea,
     dash,
 
 }
