@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject collider;
     public ParticleSystem chargeEffect;
 
-    [Header("攻撁E��動篁E��")]
+    [Header("謾ｻ謦・ｧｻ蜍慕ｯ・峇")]
     public float attackMoveRange;
 
 
@@ -46,6 +46,8 @@ public class PlayerAttack : MonoBehaviour
     public List<GameObject> enemies;
 
     Vector3 attackTarget;
+
+    public ParticleSystem chargeEffect;
     void Start()
     {
 
@@ -75,6 +77,8 @@ public class PlayerAttack : MonoBehaviour
        
 
         ResetCollider();
+
+        chargeEffect.Stop();
     }
 
 
@@ -94,13 +98,20 @@ public class PlayerAttack : MonoBehaviour
                 
 
             }
+            else
+            {
+                ParticleSystem.MainModule main = chargeEffect.main;
+                main.loop = false;
+            }
             //MoveToTarget(attackTarget);
            // GetCloestEnemy();
         }
+
+        playerData.charge = holdtime;
     }
 
     /// <summary>
-    /// trigger���������A�߂񂱔���
+    /// triggerを放したら、めんこ発射
     /// </summary>
     /// <param name="context"></param>
     void AttackFinish(InputAction.CallbackContext context)
@@ -119,10 +130,10 @@ public class PlayerAttack : MonoBehaviour
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
 
+            Invoke("ResetCollider", attackTime);
 
-            Invoke("ResetCollider", attackTime);   
-          
-       
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = false;
         }
       
     }
@@ -135,6 +146,12 @@ public class PlayerAttack : MonoBehaviour
             chargeEffect.Play();
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
+
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = true;
+
+            chargeEffect.Play();
+
             //GetCloestEnemy();
         }
        
@@ -176,7 +193,7 @@ public class PlayerAttack : MonoBehaviour
   
 
     /// <summary>
-    ///  めんこ生戁E
+    ///  繧√ｓ縺鍋函謌・
     /// </summary>
     void IniteMenko()
     {
