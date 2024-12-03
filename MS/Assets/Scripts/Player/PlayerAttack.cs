@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -11,8 +12,9 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
+    public ParticleSystem chargeEffect;
 
-    [Header("攻撁E��動篁E��")]
+    [Header("謾ｻ謦・ｧｻ蜍慕ｯ・峇")]
     public float attackMoveRange;
 
 
@@ -40,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
     PlayerManager playerManager;
     PlayerData playerData;
+    public List<GameObject> multiBullets;
     public List<GameObject> enemies;
 
     Vector3 attackTarget;
@@ -57,32 +60,27 @@ public class PlayerAttack : MonoBehaviour
 
         #endregion
 
-        playerData = GetComponent<PlayerManager>().playerData;
-        playerManager = GetComponent<PlayerManager>();
+      
+        playerManager = GetComponentInParent<PlayerManager>();
+        playerData = playerManager.playerData;
+        collider = GameObject.Instantiate(playerManager.playerPrefabs.attackArea,
+                                          this.transform.position + (3.0f * this.transform.forward),
+                                          this.transform.rotation,
+                                          this.transform
+                                          );
+        
+        attackArea = collider.transform;
 
-        var childrenTrans = GetComponentsInChildren<Transform>();
-        foreach (Transform child in childrenTrans)
-        {
-            if(child.name == "AttackArea")
-            {
-                attackArea = child;
-                break;
-            }
-        }
-      //  attackArea = GetComponentsInChildren<Transform>()[1];
+        collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
-     
+       
 
         ResetCollider();
 
         chargeEffect.Stop();
     }
 
-    void test()
-    {
-
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -113,7 +111,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// trigger���������A�߂񂱔���
+    /// triggerを放したら、めんこ発射
     /// </summary>
     /// <param name="context"></param>
     void AttackFinish(InputAction.CallbackContext context)
@@ -121,6 +119,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
+            chargeEffect.Stop();
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
@@ -130,11 +129,11 @@ public class PlayerAttack : MonoBehaviour
             holdtime = 1.0f;
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
+
             Invoke("ResetCollider", attackTime);
 
             ParticleSystem.MainModule main = chargeEffect.main;
             main.loop = false;
-
         }
       
     }
@@ -144,6 +143,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!afterShock)
         {
+            chargeEffect.Play();
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
 
@@ -169,6 +169,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
+    //TODO:: To be called by menko attack animaton events
     void ResetCollider()
     {
 
@@ -192,24 +193,19 @@ public class PlayerAttack : MonoBehaviour
   
 
     /// <summary>
-    ///  めんこ生戁E
+    ///  繧√ｓ縺鍋函謌・
     /// </summary>
     void IniteMenko()
     {
        
-        Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
+        //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
+        Vector3 startPoint = chargeEffect.transform.position;
 
         Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
         float offset = 1.5f;
         if (holdtime < 3.5f)
         {
-            endPoint = collider.transform.position +
-                new Vector3(
-                             Random.Range(-offset / holdtime, offset / holdtime),
-                             0.0f,
-                             Random.Range(-offset / holdtime, offset / holdtime)
-                         );
-
+            endPoint = GetRandomAttackPos(collider.transform.position, offset);
         }
 
 
@@ -219,10 +215,38 @@ public class PlayerAttack : MonoBehaviour
         dir.Normalize();
 
 
-        //Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
-        var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
-        obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
 
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack , holdtime);
+
+        ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
+        //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
+        //obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
+
+
+        //foreach(GameObject b in MenkoAttack.bullets)
+        //{
+        //    obj = ObjectPool.Instance.Get(b, startPoint, collider.transform.rotation);
+
+        //    var multiEndPos = GetRandomAttackPos(endPoint, 10.0f);
+        //    dir = multiEndPos - startPoint;
+        //    dir.Normalize();
+
+        //    obj.GetComponent<BulletBase>().Initiate(dir, multiEndPos, playerData.maxAttackSize, playerData.attack * holdtime);
+
+        //}
+
+    }
+
+    Vector3 GetRandomAttackPos(Vector3 initPos,float offset)
+    {
+       Vector3 endPoint = initPos +
+               new Vector3(
+                            Random.Range(-offset / holdtime, offset / holdtime),
+                            0.0f,
+                            Random.Range(-offset / holdtime, offset / holdtime)
+                        );
+
+        return endPoint;    
     }
 
 

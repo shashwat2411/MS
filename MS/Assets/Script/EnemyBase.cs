@@ -31,6 +31,8 @@ public class EnemyBase : MonoBehaviour
     public float attackSpeed;
     protected bool attacked;
 
+    public bool dead = false;
+
     virtual protected void Start()
     {
         healthBar = GetComponentInChildren<HealthBar>();
@@ -41,6 +43,8 @@ public class EnemyBase : MonoBehaviour
         attacked = false;
         stopRotation = false;
         stopMovement = false;
+        dead = false;
+
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
@@ -100,6 +104,7 @@ public class EnemyBase : MonoBehaviour
 
     virtual public void Death()
     {
+        dead = true;
         Destroy(agent.gameObject);
         Instantiate(Camera.main.transform.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
     }

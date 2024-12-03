@@ -30,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] float rotateSpeed = 1.0f;
 
 
+    bool lockMovement = false;
+
     [SerializeField]
     float currentSpeed;
     float targetSpeed;
@@ -39,11 +41,15 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 playerMovement { get; private set; }
     Vector3 playerAttackMovement;
-    Vector3 playerMovementWorldSpace;
+    public Vector3 playerMovementWorldSpace;
     #endregion
 
 
 
+
+    [HideInInspector] public bool invincibility = false;
+    [HideInInspector] public bool hurtInvincibility = false;
+    [HideInInspector] public float hurtInvincibilityTimeLeft;
 
     static List<GameObject> sp = new List<GameObject>();
 
@@ -53,6 +59,7 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
+    PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
 
 
@@ -95,14 +102,15 @@ public class PlayerManager : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+        playerAttack = GetComponentInChildren<PlayerAttack>();
+        playerMpAttack = GetComponent<PlayerMpAttack>();    
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
 
-        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
-            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] =
+                        ObjectPool.Instance.Get(playerAblities, new Vector3(0.0f, -5.0f, 0.0f), transform.rotation);
 
         cameraTransform = Camera.main.transform;
 
@@ -111,7 +119,7 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
-        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+       animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
        #endregion
 
@@ -126,22 +134,7 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        //playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-
-        //カメラの方向に合わせて前方の方向を補正
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.right;
-
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
-
-        Vector3 forwardRelative = moveInput.y * cameraForward;
-        Vector3 rightRelative = moveInput.y * cameraRight;
-
-        Vector3 moveDirection = forwardRelative + rightRelative;
-
-        playerMovement = new Vector3(moveDirection.x, 0f, moveDirection.z);
+        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);   
     }
 
 
@@ -162,7 +155,24 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void GetActionChange(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started && playerAttack.isHold)
+        {
+            lockMovement = !lockMovement;
+        }
+    }
 
+    public void GetMpAttackPressed(InputAction.CallbackContext context)
+    {
+        if(!playerAttack.isHold 
+            && !playerAttack.afterShock 
+            && !playerDash.isDashing)
+        {
+            playerMpAttack.MpAttackReady();
+        }
+        
+    }
 
     #endregion
 
@@ -177,12 +187,17 @@ public class PlayerManager : MonoBehaviour
         {
             playerAttack.RangeMove(playerAttackMovement);
             //playerAttack.MoveToTarget(GetCloestEnemy());
-           
-        }
-    
-        
 
-       
+        }
+        else
+        {
+            lockMovement = false;
+        }
+
+
+        HurtInvincibleCheck();
+        invincibility = playerDash.dashIncibility || hurtInvincibility;
+
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
@@ -196,7 +211,7 @@ public class PlayerManager : MonoBehaviour
     {
 
    
-        if (moveInput.magnitude == 0)
+        if (moveInput.magnitude == 0 || lockMovement)
         {
             locomotionState = LocomotionState.Idle;
         }else
@@ -252,7 +267,8 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -268,11 +284,36 @@ public class PlayerManager : MonoBehaviour
 
     public void Damage()
     {
+
+        hurtInvincibility = true;
+        hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
+       
+
         Instantiate(playerDamageEffect.gameObject, transform.position, transform.rotation);
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
+
     }
     public void Death()
     {
+    }
+
+    public void CheckPlayerDataState()
+    {
+        playerData.hp = (playerData.hp >= playerData.maxHp) ? playerData.maxHp : playerData.hp;
+        playerData.mp = (playerData.mp >= playerData.maxMp) ? playerData.maxMp : playerData.mp;
+
+    }
+
+    public void HurtInvincibleCheck()
+    {
+
+        if (hurtInvincibility)
+        {
+            hurtInvincibilityTimeLeft -= Time.deltaTime;
+            hurtInvincibility = (hurtInvincibilityTimeLeft <= 0) ? false : true;
+
+        }
+
     }
 
 
@@ -338,6 +379,7 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case LocomotionState.Run:
                     animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                   // Debug.Log(animator.velocity + "  :  " + playerMovementWorldSpace.magnitude * noramlRunSpeed);
                     break;
             }
 
@@ -365,7 +407,7 @@ public class PlayerManager : MonoBehaviour
         else if (!playerDash.isDashing)
         {
             rigidbody.velocity = animator.velocity;
-         //   Debug.Log(animator.velocity);
+           
         }
     }
 
