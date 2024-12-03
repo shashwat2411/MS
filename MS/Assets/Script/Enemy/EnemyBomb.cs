@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBomb : ThrowableEnemyObject
 {
+    public ParticleSystem[] explosionSystem; 
     protected override void Start()
     {
         base.Start();
@@ -17,7 +18,13 @@ public class EnemyBomb : ThrowableEnemyObject
     {
         base.OnDestroy();
 
-        //爆風
+        transform.GetChild(0).parent = null;
+
+        explosionSystem[0].gameObject.SetActive(true);
+        explosionSystem[1].gameObject.SetActive(true);
+
+        explosionSystem[0].Play();
+        explosionSystem[1].Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +35,8 @@ public class EnemyBomb : ThrowableEnemyObject
             //プレーヤーへのダメージ
             manager.playerHP.Damage(owner.GetComponent<EnemyBase>().attackPower);
             //other.GetComponent<MeshRenderer>().material.color = Color.green;
-            Destroy(gameObject);
         }
+
+        Destroy(gameObject);
     }
 }

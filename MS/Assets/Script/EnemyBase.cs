@@ -101,6 +101,7 @@ public class EnemyBase : MonoBehaviour
     virtual public void Death()
     {
         Destroy(agent.gameObject);
+        Instantiate(Camera.main.transform.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
     }
 
     virtual public void Knockback(Vector3 direction, float power)
