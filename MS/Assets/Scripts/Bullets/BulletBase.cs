@@ -30,7 +30,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
         once = true;
         this.damage = damage / factor;
-       
+
 
 
         hitPos = hitPosition;
@@ -64,7 +64,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
             }
 
-           // Debug.Log(this.damage / factor);
+            // Debug.Log(this.damage / factor);
 
             DoSpecialThings();
             Invoke("DestroyBullet", lifetime);
@@ -91,4 +91,10 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     {
         sp.Add(bonusEffect);
     }
+
+    public void ResetBonus()
+    {
+        sp.Clear();
+    }
+
 }

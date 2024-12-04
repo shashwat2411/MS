@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -195,12 +196,40 @@ public class PlayerPrefabs
 
     }
 
-
     public PlayerPrefabs GetCopy()
     {
         return (PlayerPrefabs)MemberwiseClone();
     }
 
+
+    public void ResetPlayerPrefabs()
+    {
+        itemCountPair.Clear();
+
+        foreach (PlayerPrafabType val in Enum.GetValues(typeof(PlayerPrafabType)))
+        {
+            if (this[val] != null)
+            {
+                var resetItem = this[val].GetComponent<IAtkEffBonusAdder>();
+                if (resetItem != null)
+                {
+                    resetItem.ResetBonus();
+                }
+            }
+
+        }
+
+        foreach(var item in BonusSettings.Instance.playerBonusItems)
+        {
+            var iAtkEffect = item.bonusList[0].BonusOnOneTime[0].bonusItem.GetComponent<IAtkEffect>();
+            if (iAtkEffect != null)
+            {
+                iAtkEffect.ResetLevel();
+            }
+        }
+
+
+    }
 
     /// <summary>
     /// ƒAƒCƒeƒ€‚ð“ü‚ê‘Ö‚¦‚é

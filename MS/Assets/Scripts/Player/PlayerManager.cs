@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static PlayerManager;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -107,10 +107,11 @@ public class PlayerManager : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
-        playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
+        playerPrefabs = CharacterSettings.Instance.playerPrefabs;
 
-        playerPrefabs[PlayerPrafabType.playerPermanentAblity] =
-                        ObjectPool.Instance.Get(playerAblities, new Vector3(0.0f, -5.0f, 0.0f), transform.rotation);
+
+       
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
         cameraTransform = Camera.main.transform;
 
@@ -119,7 +120,7 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
-       animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
        #endregion
 
@@ -179,6 +180,8 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
 
+      
+
         playerDash.Dash();
         if (playerDash.isDashing)
             return;
@@ -198,13 +201,17 @@ public class PlayerManager : MonoBehaviour
         HurtInvincibleCheck();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
         rotateSpeed = AimSensorCheck(transform) ? 30f : 200f;
-      
 
 
+        CheckPlayerDataState();
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
      
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene(0);
+        }
        
     }
 
@@ -271,7 +278,8 @@ public class PlayerManager : MonoBehaviour
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+        playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{

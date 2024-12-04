@@ -49,6 +49,12 @@ public class PlayerAttack : MonoBehaviour
     public List<GameObject> enemies;
 
     Vector3 attackTarget;
+
+    private void OnEnable()
+    {
+        
+
+    }
     void Start()
     {
 
@@ -76,10 +82,12 @@ public class PlayerAttack : MonoBehaviour
 
         initLocalPosition = attackArea.localPosition;
 
-        AssistedAim = GetComponentInChildren<AssisitedAiming>().gameObject;
+        AssistedAim = collider.GetComponentInChildren<AssisitedAiming>().gameObject;
 
         ResetCollider();
     }
+    
+
 
 
     // Update is called once per frame
