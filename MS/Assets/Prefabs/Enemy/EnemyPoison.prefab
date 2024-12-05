@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 819691088052299339}
   - component: {fileID: 7125641765122051120}
   - component: {fileID: 1451921472549610835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPoison
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -95,12 +95,12 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 503
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeForImpact: 2
+  offset: {x: 0, y: 0, z: 0}
   motion:
     serializedVersion: 2
     m_Curve:
