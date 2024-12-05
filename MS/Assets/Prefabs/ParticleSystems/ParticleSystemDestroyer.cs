@@ -20,7 +20,7 @@ public class ParticleSystemDestroyer : MonoBehaviour
         {
             if (paritcleSystem.isPlaying == false)
             {
-                Debug.Log("Destroy Particle");
+                //Debug.Log("Destroy Particle");
 
                 if (toDestroy != null) { Destroy(toDestroy); }
                 else { paritcleSystem.Stop(); }
@@ -30,7 +30,7 @@ public class ParticleSystemDestroyer : MonoBehaviour
         {
             if(visualEffect.HasAnySystemAwake() == false)
             {
-                Debug.Log("Destroy VFX");
+                //Debug.Log("Destroy VFX");
 
                 if (toDestroy != null) { Destroy(toDestroy); }
                 else { visualEffect.Stop(); }

@@ -12,7 +12,6 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
-    public ParticleSystem chargeEffect;
 
     [Header("謾ｻ謦・ｧｻ蜍慕ｯ・峇")]
     public float attackMoveRange;
