@@ -7,11 +7,11 @@ using UnityEngine.VFX;
 public class ShieldAbility : PlayerAbility
 {
     public float rotationSpeed;
+    public AnimationCurve appearAnimation;
 
-
-    public GameObject shieldRipples;
+    private float appearTime;
+    private Vector3 localScale;
     private Material shield;
-    private VisualEffect shieldRipplesEffect;
 
     //Default Values
     private float alpha;
@@ -35,10 +35,22 @@ public class ShieldAbility : PlayerAbility
         frontColor = shield.GetColor("_FrontColor");
         backColor = shield.GetColor("_BackColor");
         fresnelColor = shield.GetColor("_FresnelColor");
+
+        appearTime = 0f;
+        localScale = transform.localScale;
+
+        float value = appearAnimation.Evaluate(appearTime);
+        transform.localScale = localScale * value;
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (appearTime < 1f) { appearTime += Time.deltaTime; }
+        else { appearTime = 1f; }
+
+        float value = appearAnimation.Evaluate(appearTime);
+        transform.localScale = localScale * value;
 
         transform.position = player.transform.position;
 
@@ -73,13 +85,6 @@ public class ShieldAbility : PlayerAbility
             shield.SetColor("_FrontColor", hitFrontColor);
             shield.SetColor("_BackColor", hitBackColor);
             shield.SetColor("_FresnelColor", hitFesnelColor);
-            //var ripples = Instantiate(shieldRipples, transform);
-            //ripples.transform.localPosition = new Vector3(ripples.transform.localPosition.x, 0.8f, 0.5f);
-            //
-            //shieldRipplesEffect = ripples.GetComponent<VisualEffect>();
-            //shieldRipplesEffect.SetVector3("SphereCenter", collision.contacts[0].point);
-            //
-            //Destroy(ripples, 1);
         }
     }
 }
