@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 24328729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.17, z: -17.24}
+  m_LocalPosition: {x: 0, y: 0, z: -14.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -5915,7 +5915,7 @@ PrefabInstance:
     - target: {fileID: 630240236280638548, guid: 0a5f8b9cd53153c4c86d7472e00cb2cb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2232148033996991932, guid: 0a5f8b9cd53153c4c86d7472e00cb2cb,
         type: 3}
@@ -5925,12 +5925,12 @@ PrefabInstance:
     - target: {fileID: 2232148033996991932, guid: 0a5f8b9cd53153c4c86d7472e00cb2cb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2232148033996991932, guid: 0a5f8b9cd53153c4c86d7472e00cb2cb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2232148033996991932, guid: 0a5f8b9cd53153c4c86d7472e00cb2cb,
         type: 3}
@@ -6201,25 +6201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4353230360117278806, guid: 385437c29a64e3c49980035f03ce6875,
-        type: 3}
-      propertyPath: weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4353230360117278806, guid: 385437c29a64e3c49980035f03ce6875,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7257603723698596160, guid: 385437c29a64e3c49980035f03ce6875,
         type: 3}
       propertyPath: m_Name
       value: PostProcessManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7257603723698596160, guid: 385437c29a64e3c49980035f03ce6875,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8296070286490848718, guid: 385437c29a64e3c49980035f03ce6875,
         type: 3}
