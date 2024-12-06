@@ -16,6 +16,8 @@ MonoBehaviour:
     lv: 1
     hp: 90
     maxHp: 100
+    mp: 90
+    maxMp: 100
     exp: 0
     nextExp: 100
     attack: 100
@@ -23,13 +25,19 @@ MonoBehaviour:
     maxSpecialAttackTime: 3
     defence: 10
     healthRespons: 5.54
-    maxChargeTime: 10
+    maxChargeTime: 8
     maxAimSize: 2
     maxAttackSize: 3
     chargeSpeed: 1
     atkMoveSpeed: 5
-    dashTime: 0.1
-    dashCooldown: 0.6
+    dashTime: 0.3
+    dashCooldown: 1.2
+    dashInvincibilityTime: 0.05
+    hurtInvincibilityTime: 0.8
   playerPrefabs:
     bullet: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb,
+      type: 3}
+    attackArea: {fileID: 8784403417570942473, guid: 1c9e469c91ace5f4a8a9d47dabd590e6,
+      type: 3}
+    mpAttackArea: {fileID: 3207222013639785080, guid: 2160b2c6952ac58409a419f2db889cce,
       type: 3}

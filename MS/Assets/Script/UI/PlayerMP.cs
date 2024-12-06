@@ -42,8 +42,8 @@ public class PlayerMP : MonoBehaviour
 
     void FixedUpdate()
     {
-        mp = player.playerData.hp;
-        maxMp = player.playerData.maxHp;
+        mp = player.playerData.mp;
+        maxMp = player.playerData.maxMp;
 
         baseBar.fillAmount = mp / maxMp * 0.5f;
         shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);

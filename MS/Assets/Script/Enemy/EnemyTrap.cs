@@ -37,16 +37,16 @@ public class EnemyTrap : ThrowableEnemyObject
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Ground") == true)
+        if (collision.gameObject.CompareTag("Ground") == true)
         {
             fixedPosition = transform.position;
             grounded = true;
             return;
         }
 
-        if (other.gameObject == player && owner != player)
+        if (collision.gameObject == player && owner != player)
         {
             collided = true;
             //other.GetComponent<MeshRenderer>().material.color = Color.green;

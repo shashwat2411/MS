@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LongRangeAttack",
+                    "name": "GetExp",
                     "type": "Button",
                     "id": "17968a37-c75a-4bd5-b45c-f16036d2b2ba",
                     "expectedControlType": "Button",
@@ -67,6 +67,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MpAttack",
+                    "type": "Button",
+                    "id": "9a950a7e-789f-4f05-a116-1871961205b8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LockMovement",
+                    "type": "Button",
+                    "id": "f50a3fcd-68f5-43cc-a040-7b9312e6e6f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "82b899e5-43d9-4896-be5d-dc85a75773c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -82,7 +109,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
+                    "name": "up",
                     "id": "78a564ab-0b31-45a3-9d20-eaf8b2a229d6",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -198,7 +225,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "LongRangeAttack",
+                    "action": "GetExp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -209,7 +236,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad;Joystick;XR",
-                    "action": "LongRangeAttack",
+                    "action": "GetExp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -386,6 +413,72 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "LevelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "242fb153-c96d-4bb1-8ecd-333b8f234482",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MpAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6064baae-29cd-4909-ad14-9cea4ab4584c",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Joystick;XR",
+                    "action": "MpAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f3a916f-3a84-4ca6-a038-6d7eaeec4902",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LockMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de41dba8-9179-4804-a45c-093867df67ca",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Joystick;XR",
+                    "action": "LockMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f0a6f92-bbf1-4bd0-a8be-28e56294b031",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2526c247-663a-4029-bd0f-60f23af81df0",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Joystick;XR",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

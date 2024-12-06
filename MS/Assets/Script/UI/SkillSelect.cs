@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class SkillSelect : MonoBehaviour
@@ -22,14 +23,14 @@ public class SkillSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AnimeStart = true;
+        AnimeStart = false;
 
         b1 = b2 = b3 = false;
 
         AnimeCon = GetComponent<Animator>();
 
         player = FindFirstObjectByType<PlayerManager>();
-        //Time.timeScale = 0;
+        
         SelectNo = 0;
 
         RandomBonus();
@@ -96,6 +97,17 @@ public class SkillSelect : MonoBehaviour
         AnimeCon.SetBool("Bonus2", b2);
         AnimeCon.SetBool("Bonus3", b3);
 
+        for (int i = 0; i < BonusWindow.Count(); i++)
+        {
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+        }
+        //Cursor.SetActive(true);
+
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6.25f, 6.25f, 1f);
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
+        // Debug.Log("Time.timeScale=" + Time.timeScale);
+
     }
     public void BonusChoose(InputAction.CallbackContext context)
     {
@@ -129,10 +141,7 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-        //for (int i = 0; i < BonusWindow.Count(); i++)
-        //{
-        //    BonusWindow[i].SetActive(false);
-        //}
+       
 
         switch (SelectNo)
         {
@@ -165,18 +174,30 @@ public class SkillSelect : MonoBehaviour
 
     public void LevelUp()
     {
+        Time.timeScale = 0;
+
+        AnimeStart = true;
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
         RandomBonus();
 
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        AnimeCon.SetBool("Start", AnimeStart);
+        AnimeCon.SetBool("Bonus1", b1);
+        AnimeCon.SetBool("Bonus2", b2);
+        AnimeCon.SetBool("Bonus3", b3);
+
 
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
             BonusWindow[i].SetActive(true);
-        }
-        Cursor.SetActive(true);
 
-        Time.timeScale = 0f;
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+        }
+        //Cursor.SetActive(true);
+
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(8f, 8f, 1f);
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
     }
 
     public void AnimationReset()
@@ -184,6 +205,18 @@ public class SkillSelect : MonoBehaviour
         AnimeStart = false;
 
         b1 = b2 = b3 = false;
+    }
+
+    public void BonusScelectEnd()
+    {
+        AnimeStart = false;
+
+        b1 = b2 = b3 = false;
+
+        for (int i = 0; i < BonusWindow.Count(); i++)
+        {
+            BonusWindow[i].SetActive(false);
+        }
     }
 
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static GunEnemy;
-using static KamikazeEnemy;
 
 public class ThrowEnemy : EnemyBase
 {
@@ -65,11 +63,7 @@ public class ThrowEnemy : EnemyBase
 
         if (collided.gameObject == player)
         {
-            PlayerManager manager = player.GetComponent<PlayerManager>();
 
-            healthBar.Damage(manager.playerData.attack);
-            //プレーヤーへのダメージ
-            manager.playerHP.Damage(attackPower);
         }
     }
     public override void Damage(float value)
