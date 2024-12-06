@@ -115,7 +115,7 @@ public class RoomManager : MonoBehaviour
     //==================================
     // 部屋を移動
     //==================================
-    void MoveRoom(int deltaH, int deltaW)
+    public void MoveRoom(int deltaH, int deltaW)
     {
         int newH = nowH + deltaH;
         int newW = nowW + deltaW;
@@ -186,7 +186,16 @@ public class RoomManager : MonoBehaviour
         // 部屋を作製
         GameObject room = Instantiate(r.room, new Vector3(0, 0, 0), Quaternion.identity);
         //上下左右に部屋があるかどうか確認
+        Room temp = room.GetComponent<Room>();
+        temp.HasTopExit = CheckAndCreateCorridor(nowH - 1, nowW);
+        temp.HasBottomExit = CheckAndCreateCorridor(nowH + 1, nowW);
+        temp.HasLeftExit = CheckAndCreateCorridor(nowH, nowW - 1);
+        temp.HasRightExit = CheckAndCreateCorridor(nowH, nowW + 1);
 
+
+        temp.MakingCorridor();
+
+        //クリアされているかどうか
         Iscleared = roomDatas[nowH, nowW].isCleared;
 
         // 敵の生成制御
@@ -203,6 +212,20 @@ public class RoomManager : MonoBehaviour
         gameObject.GetComponent<NavMeshGenerator>().GenerateNavMesh(room);  //NavMeshを作成
 
         return room;
+    }
+
+    private bool CheckAndCreateCorridor(int h, int w)
+    {
+
+        // 配列範囲外チェック
+        if (h < 0 || h >= roomDatas.GetLength(0) || w < 0 || w >= roomDatas.GetLength(1))
+        return false;
+
+        // 隣接部屋が存在するか確認
+        if (roomDatas[h, w].roomNumber == 0) return false;
+
+        //存在するなら
+        return true;
     }
 
 
