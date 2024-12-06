@@ -45,10 +45,3 @@ public class TextCoreManager : MonoBehaviour
         }
     }
 }
-
-// JSONシリアライズ用のラッパークラス
-[System.Serializable]
-public class TextCoreListWrapper
-{
-    public List<TextCore> textCores;
-}

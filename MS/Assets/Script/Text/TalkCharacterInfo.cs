@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using System.IO;
+using System.Collections.Generic;
 
 public class TalkCharacterInfo : MonoBehaviour
 {
@@ -44,12 +46,12 @@ public class TalkCharacterInfoEditor : Editor
         // 各要素の描画
         reorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
         {
-            SerializedProperty element = talkTextArray.GetArrayElementAtIndex(index);
+            SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
 
             // Foldoutの状態を描画
             float foldoutOffset = 15f; // ボタンを右に移動するオフセット
             Rect foldoutRect = new Rect(rect.x + foldoutOffset, rect.y, rect.width - foldoutOffset, EditorGUIUtility.singleLineHeight);
-            foldoutStates[index] = EditorGUI.Foldout(foldoutRect, foldoutStates[index], $"会話内容 {index}", true);
+            foldoutStates[index] = EditorGUI.Foldout(foldoutRect, foldoutStates[index], $"会話内容 {index + 1}", true);
 
             if (foldoutStates[index])
             {
@@ -65,7 +67,7 @@ public class TalkCharacterInfoEditor : Editor
                 return EditorGUIUtility.singleLineHeight + 4; // 折りたたみ時の高さ
             }
 
-            SerializedProperty element = talkTextArray.GetArrayElementAtIndex(index);
+            SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
             return CalculateElementHeight(element);
         };
     }
@@ -75,7 +77,7 @@ public class TalkCharacterInfoEditor : Editor
         foldoutStates = new bool[size];
         for (int i = 0; i < size; i++)
         {
-            foldoutStates[i] = false; // 初期状態はすべて開いた状態
+            foldoutStates[i] = false; // 初期状態はすべて閉じた状態
         }
     }
 
@@ -145,8 +147,48 @@ public class TalkCharacterInfoEditor : Editor
     public override void OnInspectorGUI()
     {
         reorderableList.DoLayoutList();
-        // 配列情報を表示
+
         EditorGUILayout.LabelField($"現在の要素数: {reorderableList.count}", EditorStyles.miniLabel);
+
+        // JSONファイルインポート
+        if (GUILayout.Button("会話内容用JSONをインポート"))
+        {
+            string path = EditorUtility.OpenFilePanel("インポートするJSONファイルを選択", Application.dataPath, "json");
+            if (!string.IsNullOrEmpty(path))
+            {
+                string json = File.ReadAllText(path);
+                TextCore[] loadedData = JsonUtility.FromJson<TextCoreListWrapper>(json).textCores.ToArray();
+                ApplyLoadedData(loadedData);
+            }
+        }
+
         serializedObject.ApplyModifiedProperties();
+    }
+
+    private void ApplyLoadedData(TextCore[] loadedData)
+    {
+        SerializedProperty talkTextArray = serializedObject.FindProperty("talkText");
+        talkTextArray.ClearArray();
+        foreach (var core in loadedData)
+        {
+            talkTextArray.InsertArrayElementAtIndex(talkTextArray.arraySize);
+            SerializedProperty element = talkTextArray.GetArrayElementAtIndex(talkTextArray.arraySize - 1);
+            element.FindPropertyRelative("_talkName").stringValue = core._talkName;
+            element.FindPropertyRelative("_talkCharaImage").objectReferenceValue = core._talkCharaImage;
+            element.FindPropertyRelative("_talkInfo").stringValue = core._talkInfo;
+            element.FindPropertyRelative("select").boolValue = core.select;
+            element.FindPropertyRelative("choices").arraySize = core.choices.Length;
+            for (int i = 0; i < core.choices.Length; i++)
+            {
+                element.FindPropertyRelative("choices").GetArrayElementAtIndex(i).stringValue = core.choices[i];
+            }
+            element.FindPropertyRelative("nextIndexes").arraySize = core.nextIndexes.Length;
+            for (int i = 0; i < core.nextIndexes.Length; i++)
+            {
+                element.FindPropertyRelative("nextIndexes").GetArrayElementAtIndex(i).intValue = core.nextIndexes[i];
+            }
+            element.FindPropertyRelative("isCheck").boolValue = core.isCheck;
+            element.FindPropertyRelative("changeNumber").intValue = core.changeNumber;
+        }
     }
 }
