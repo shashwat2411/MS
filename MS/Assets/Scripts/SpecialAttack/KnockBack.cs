@@ -8,6 +8,7 @@ public class KnockBack : MonoBehaviour
 
     public float damage;
     static float factor = 5.0f;
+    [SerializeField] float knockForce = 3000.0f;
 
     float curTime = 0;
 
@@ -52,11 +53,12 @@ public class KnockBack : MonoBehaviour
                 if (!enemyBase.dead)
                 {
                     var enemyRigidBody = enemyBase.GetComponent<Rigidbody>();
-                    var startPos = this.transform.position - new Vector3(0.0f, 3.0f, 0.0f);
+                    var startPos = this.transform.position;
                     var dir = enemyBase.transform.position - startPos;
+                    dir.y = 0.0f;
                     dir.Normalize();
 
-                    enemyRigidBody.AddForce(dir * 3000.0f);
+                    enemyRigidBody.AddForce(dir * knockForce);
 
                     enemyBase.Damage(this.damage);
                     

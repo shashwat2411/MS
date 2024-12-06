@@ -208,11 +208,6 @@ public class PlayerManager : MonoBehaviour
         SwitchPlayerStates();
         SetAnimator();
      
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene(0);
-        }
-       
     }
 
 
@@ -276,9 +271,12 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
-        
+
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+       playerHP.Damage(50.0f);
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[5]);
+       
+
         playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
@@ -304,6 +302,14 @@ public class PlayerManager : MonoBehaviour
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }
+
+
+    public void Heal()
+    {
+        playerHP.Heal(playerData.healthRespons);
+        CheckPlayerDataState();
+    }
+
     public void Death()
     {
     }

@@ -78,4 +78,14 @@ public class Player_HP : MonoBehaviour
     }
 
 
+    public void Heal(float value)
+    {
+
+        Hp_Now = Hp_Now + value;
+
+        player.playerData.hp = Hp_Now;
+    }
+
+
+
 }
