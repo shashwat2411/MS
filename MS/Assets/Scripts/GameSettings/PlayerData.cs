@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,12 @@ public class PlayerData
     public float hp;
 
     public float maxHp;
+
+
+    public float mp;
+
+    public float maxMp;
+
 
     [Header("今の経験値")]
     public float exp;
@@ -33,6 +40,9 @@ public class PlayerData
     [Header("回復量")]
     public float healthRespons;
 
+    [Header("チャージ量")]
+    public float charge;
+
     [Header("最大チャージ時間")]
     public float maxChargeTime;
 
@@ -53,11 +63,23 @@ public class PlayerData
 
     [Header("ダッシュCD")]
     public float dashCooldown;
+
+
+    [Header("ダッシュ無敵時間(ダッシュ時間以下!)")]
+    public float dashInvincibilityTime;
+
+    [Header("ダメージ食らったあとの無敵時間")]
+    public float hurtInvincibilityTime;
+
+
     public float this[PlayerDataType key]
     {
         get
         {
             if (key == PlayerDataType.hp) return hp;
+            else if (key == PlayerDataType.maxHp) return maxHp;
+            else if (key == PlayerDataType.mp) return mp;
+            else if (key == PlayerDataType.maxMp) return maxMp;
             else if (key == PlayerDataType.maxHp) return maxHp;
             else if (key == PlayerDataType.exp) return exp;
             else if (key == PlayerDataType.attack) return attack;
@@ -80,6 +102,8 @@ public class PlayerData
         {
             if (key == PlayerDataType.hp) hp = value;
             else if (key == PlayerDataType.maxHp) maxHp = value;
+            else if (key == PlayerDataType.mp) mp = value;
+            else if (key == PlayerDataType.maxMp) maxMp = value;
             else if (key == PlayerDataType.exp) exp = value;
             else if (key == PlayerDataType.attack) attack = value;
             else if (key == PlayerDataType.specialAttackTime) specialAttackTime = value;
@@ -144,12 +168,13 @@ public class PlayerPrefabs
 
     GameObject playerAblities;
     public GameObject bullet;
+    public GameObject attackArea;
+    public GameObject mpAttackArea;
   
 
 
 
-    // 各アイテムのボーナスリストのインデックスを記録するためのDictionary 
-    // メモリを消費しすぎる気がする。。 もっといい方法はないのか？
+    // 各アイテムのボーナスリストのインデックスを記録するためのDictionary
     [SerializeField]
    　Dictionary<string,int> itemCountPair = new Dictionary<string, int>();
 
@@ -160,23 +185,54 @@ public class PlayerPrefabs
         {
             if (key == PlayerPrafabType.playerPermanentAblity) return playerAblities;
             else if (key == PlayerPrafabType.bullet) return bullet;
+            else if (key == PlayerPrafabType.attackArea) return attackArea;
+            else if (key == PlayerPrafabType.mpAttackArea) return mpAttackArea;
             else return null;
         }
         set
         {
             if (key == PlayerPrafabType.playerPermanentAblity) playerAblities = value;
             else if (key == PlayerPrafabType.bullet) bullet = value;
+            else if (key == PlayerPrafabType.mpAttackArea) mpAttackArea = value;
             
         }
 
     }
-
 
     public PlayerPrefabs GetCopy()
     {
         return (PlayerPrefabs)MemberwiseClone();
     }
 
+
+    public void ResetPlayerPrefabs()
+    {
+        itemCountPair.Clear();
+
+        foreach (PlayerPrafabType val in Enum.GetValues(typeof(PlayerPrafabType)))
+        {
+            if (this[val] != null)
+            {
+                var resetItem = this[val].GetComponent<IAtkEffBonusAdder>();
+                if (resetItem != null)
+                {
+                    resetItem.ResetBonus();
+                }
+            }
+
+        }
+
+        foreach(var item in BonusSettings.Instance.playerBonusItems)
+        {
+            var iAtkEffect = item.bonusList[0].BonusOnOneTime[0].bonusItem.GetComponent<IAtkEffect>();
+            if (iAtkEffect != null)
+            {
+                iAtkEffect.ResetLevel();
+            }
+        }
+
+
+    }
 
     /// <summary>
     /// アイテムを入れ替える

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static PlayerManager;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -27,8 +27,10 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] float noramlRunSpeed = 0.0f;
     [SerializeField] float ChargeRunSpeed = 0.0f;
-    [SerializeField] float rotateSpeed = 1.0f;
+    [SerializeField] public float rotateSpeed = 1.0f;
 
+
+    bool lockMovement = false;
 
     [SerializeField]
     float currentSpeed;
@@ -39,13 +41,15 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 playerMovement { get; private set; }
     Vector3 playerAttackMovement;
-    Vector3 playerMovementWorldSpace;
+    public Vector3 playerMovementWorldSpace;
     #endregion
 
 
 
-    [HideInInspector] public Player_HP playerHP;
-    [HideInInspector] public PlayerExp playerExp;
+
+    [HideInInspector] public bool invincibility = false;
+    [HideInInspector] public bool hurtInvincibility = false;
+    [HideInInspector] public float hurtInvincibilityTimeLeft;
 
     static List<GameObject> sp = new List<GameObject>();
 
@@ -55,6 +59,7 @@ public class PlayerManager : MonoBehaviour
     Collider collider;
 
     PlayerAttack playerAttack;
+    PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
 
 
@@ -67,7 +72,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Data Staff")]
     public PlayerData playerData;
     [Header("Player Prefabs Staff")]
-    public PlayerPrefabs playerPrefabs;
+    public PlayerPrefabs playerPrefabs; 
+    public ParticleSystem playerDamageEffect;
+    public Player_HP playerHP;
+    public PlayerExp playerExp;
 
 
 
@@ -94,14 +102,16 @@ public class PlayerManager : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerSensor = GetComponent<PlayerSensor>();
         collider = GetComponent<Collider>();
-        playerAttack = GetComponent<PlayerAttack>();
+        playerAttack = GetComponentInChildren<PlayerAttack>();
+        playerMpAttack = GetComponent<PlayerMpAttack>();    
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
-        playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
+        playerPrefabs = CharacterSettings.Instance.playerPrefabs;
 
-        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = 
-            ObjectPool.Instance.Get(playerAblities,transform.position,transform.rotation);
+
+       
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
         cameraTransform = Camera.main.transform;
 
@@ -125,22 +135,7 @@ public class PlayerManager : MonoBehaviour
     public void GetMoveInput(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        //playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-
-        //カメラの方向に合わせて前方の方向を補正
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.right;
-
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
-
-        Vector3 forwardRelative = moveInput.y * cameraForward;
-        Vector3 rightRelative = moveInput.y * cameraRight;
-
-        Vector3 moveDirection = forwardRelative + rightRelative;
-
-        playerMovement = new Vector3(moveDirection.x, 0f, moveDirection.z);
+        playerMovement = new Vector3(moveInput.x, 0.0f, moveInput.y);   
     }
 
 
@@ -161,12 +156,31 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void GetActionChange(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started && playerAttack.isHold)
+        {
+            lockMovement = !lockMovement;
+        }
+    }
 
+    public void GetMpAttackPressed(InputAction.CallbackContext context)
+    {
+        if(!playerAttack.isHold 
+            && !playerAttack.afterShock 
+            && !playerDash.isDashing)
+        {
+            playerMpAttack.MpAttackReady();
+        }
+        
+    }
 
     #endregion
 
     private void FixedUpdate()
     {
+
+      
 
         playerDash.Dash();
         if (playerDash.isDashing)
@@ -176,16 +190,28 @@ public class PlayerManager : MonoBehaviour
         {
             playerAttack.RangeMove(playerAttackMovement);
             //playerAttack.MoveToTarget(GetCloestEnemy());
-           
-        }
-    
-        
 
-       
+        }
+        else
+        {
+            lockMovement = false;
+        }
+
+
+        HurtInvincibleCheck();
+        invincibility = playerDash.dashIncibility || hurtInvincibility;
+        rotateSpeed = AimSensorCheck(transform) ? 30f : 200f;
+
+
+        CheckPlayerDataState();
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
      
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene(0);
+        }
        
     }
 
@@ -195,7 +221,7 @@ public class PlayerManager : MonoBehaviour
     {
 
    
-        if (moveInput.magnitude == 0)
+        if (moveInput.magnitude == 0 || lockMovement)
         {
             locomotionState = LocomotionState.Idle;
         }else
@@ -251,7 +277,9 @@ public class PlayerManager : MonoBehaviour
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
         
-        playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+        playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -267,10 +295,36 @@ public class PlayerManager : MonoBehaviour
 
     public void Damage()
     {
-        StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
+
+        hurtInvincibility = true;
+        hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
+       
+
+        Instantiate(playerDamageEffect.gameObject, transform.position, transform.rotation);
+        //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
+
     }
     public void Death()
     {
+    }
+
+    public void CheckPlayerDataState()
+    {
+        playerData.hp = (playerData.hp >= playerData.maxHp) ? playerData.maxHp : playerData.hp;
+        playerData.mp = (playerData.mp >= playerData.maxMp) ? playerData.maxMp : playerData.mp;
+
+    }
+
+    public void HurtInvincibleCheck()
+    {
+
+        if (hurtInvincibility)
+        {
+            hurtInvincibilityTimeLeft -= Time.deltaTime;
+            hurtInvincibility = (hurtInvincibilityTimeLeft <= 0) ? false : true;
+
+        }
+
     }
 
 
@@ -336,6 +390,7 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case LocomotionState.Run:
                     animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
+                   // Debug.Log(animator.velocity + "  :  " + playerMovementWorldSpace.magnitude * noramlRunSpeed);
                     break;
             }
 
@@ -363,7 +418,7 @@ public class PlayerManager : MonoBehaviour
         else if (!playerDash.isDashing)
         {
             rigidbody.velocity = animator.velocity;
-         //   Debug.Log(animator.velocity);
+           
         }
     }
 
@@ -371,5 +426,28 @@ public class PlayerManager : MonoBehaviour
     {
         return moveInput;
     }
-   
+
+
+    public bool AimSensorCheck(Transform playerTransform)
+    {
+        Vector3 offset = new Vector3(0.0f, 0.0f, 0.0f);
+        var layermask = 0;
+       
+        layermask = (1 << LayerMask.NameToLayer("Enemy"));
+      
+
+        Debug.DrawRay(playerTransform.position + offset, playerTransform.forward);
+        if (Physics.Raycast(playerTransform.position + offset, playerTransform.forward, out RaycastHit obsHit, 
+                        100.0f, layermask))
+        {
+           // Debug.Log(obsHit.collider.name);
+            if (!obsHit.collider.GetComponent<EnemyBase>())
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

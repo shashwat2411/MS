@@ -10,15 +10,30 @@ public class PlayerDash : MonoBehaviour
 
     [Header("Dash Staff")]
     private float dashTimeLeft = 1.0f;
-    private float lastDash;
+    private float lastDash=0;
     public float dashSpeed;
-    bool dashOrientationFlag;
+    public ParticleSystem dashEffectPref;
+
     Vector3 dashOrientation;
+
+    public bool dashIncibility;
+    public float invincibilityTimeLeft;
+
+
+    bool doubleDash= false;
+    bool doubleDashReady= false;
+    float dashCount;
+    float dashCountMax = 1;
+    
+    float secondDashIntervalTime =0.5f;
+    float secondDashIntervalTimeLeft;
+
+
     public bool isDashing { get; private set; } = false;
     [Header("Dash CD UI Staff")]
     public Image dashCoolDownMask;
 
-
+    
     PlayerData playerData;
     PlayerManager playerManager;
 
@@ -30,10 +45,20 @@ public class PlayerDash : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            if (Time.time > (lastDash + playerData.dashCooldown))
+            if (doubleDashReady && dashCount == 1)
             {
-                ReadyToDash();
+              
+                doubleDash = true;
             }
+            else if (Time.time > (lastDash + playerData.dashCooldown))
+            {
+                dashCount = dashCountMax;
+                ReadyToDash();
+                SecondDashReady();
+              
+            }
+         
+            
         }
     }
 
@@ -61,61 +86,92 @@ public class PlayerDash : MonoBehaviour
 
         if (isDashing)
         {
+            //ダッシュ中
             if (dashTimeLeft > 0)
             {
                 rb.velocity = dashOrientation;
-                if (playerManager.playerMovement.magnitude != 0)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(playerManager.playerMovement, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180);
-                }
+              
+
                 dashTimeLeft -= Time.deltaTime;
 
+                invincibilityTimeLeft -= Time.deltaTime;
 
+                dashIncibility = (invincibilityTimeLeft <= 0)?false:true;
+               
             }
             else
             {
                 isDashing = false;
-
+            }
+        }
+        //ダッシュ終了
+        else
+        {
+            dashEffectPref.Stop();
+            //二回目のダッシュ
+            if (doubleDash)
+            {
+                doubleDash = false;
+                ReadyToDash();
+            }
+            //ダッシュ完全終了
+            else
+            {
+                
+              
+                dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
             }
         }
 
 
-        dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
+        if (doubleDashReady)
+        {
+            secondDashIntervalTimeLeft -= Time.deltaTime;
+            if (secondDashIntervalTimeLeft < 0)
+            {
+                doubleDashReady = false;
+            }
+        }
+       
+
+
     }
 
+    void SecondDashReady()
+    {
+        if(dashCountMax >=2)
+        {
 
+            doubleDashReady = true;
+            secondDashIntervalTimeLeft = secondDashIntervalTime;
+        }
+        
+    }
     void ReadyToDash()
     {
         // TODO:地形の範囲のチェック
-        if (true)
+        if (dashCount>0)
         {
             isDashing = true;
 
-            dashOrientationFlag = true;
 
             dashTimeLeft = playerData.dashTime;
+            
 
-            lastDash = Time.time;
+            invincibilityTimeLeft = 
+                (playerData.dashInvincibilityTime > playerData.dashTime)? 
+                    playerData.dashInvincibilityTime : playerData.dashTime;
+            dashIncibility = true;
+
+            lastDash = Time.time + playerData.dashTime;
 
             dashCoolDownMask.fillAmount = 1.0f;
 
+            dashCount--;
 
-            //ダッシュ方向計算
-            if (playerManager.playerMovement.magnitude != 0)
-            {
-                dashOrientation = new Vector3(dashSpeed * playerManager.playerMovement.x,
-                                            0,
-                                            dashSpeed * playerManager.playerMovement.z);
-            }
-            // プレーヤーが向いている方向にダッシュ
-            else
-            {
-                dashOrientation = new Vector3(dashSpeed * transform.forward.x,
-                                           0,
-                                           dashSpeed * transform.forward.z);
-            }
+            dashEffectPref.Play();
 
+            CalculateAndTurnDir();
         }
         else
         {
@@ -123,5 +179,39 @@ public class PlayerDash : MonoBehaviour
         }
 
     }
+
+
+    void CalculateAndTurnDir()
+    {
+        //ダッシュ方向計算
+        if (playerManager.playerMovement.magnitude != 0)
+        {
+            dashOrientation = new Vector3(dashSpeed * playerManager.playerMovement.x,
+                                        0,
+                                        dashSpeed * playerManager.playerMovement.z);
+        }
+        // プレーヤーが向いている方向にダッシュ
+        else
+        {
+            dashOrientation = new Vector3(dashSpeed * transform.forward.x,
+                                       0,
+                                       dashSpeed * transform.forward.z);
+        }
+        if (playerManager.playerMovement.magnitude != 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(playerManager.playerMovement, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180);
+        }
+
+    }
+
+    public void LevelUp()
+    {
+        dashCountMax++;
+        
+    }
+
+
+
 
 }

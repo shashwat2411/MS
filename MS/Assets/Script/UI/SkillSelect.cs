@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class SkillSelect : MonoBehaviour
@@ -107,8 +108,18 @@ public class SkillSelect : MonoBehaviour
         AnimeCon.SetBool("Bonus2", b2);
         AnimeCon.SetBool("Bonus3", b3);
 
+        for (int i = 0; i < BonusWindow.Count(); i++)
+        {
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+        }
+        //Cursor.SetActive(true);
 
-        //Debug.Log("Time.timeScale=" + Time.timeScale);
+
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6.25f, 6.25f, 1f);
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
+        // Debug.Log("Time.timeScale=" + Time.timeScale);
+
 
     }
     public void BonusChoose(InputAction.CallbackContext context)
@@ -179,19 +190,28 @@ public class SkillSelect : MonoBehaviour
         Time.timeScale = 0;
 
         AnimeStart = true;
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
         RandomBonus();
 
-        
+        AnimeCon.SetBool("Start", AnimeStart);
+        AnimeCon.SetBool("Bonus1", b1);
+        AnimeCon.SetBool("Bonus2", b2);
+        AnimeCon.SetBool("Bonus3", b3);
 
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
 
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
             BonusWindow[i].SetActive(true);
+
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
         }
         //Cursor.SetActive(true);
 
+
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(8f, 8f, 1f);
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
 
     }
 

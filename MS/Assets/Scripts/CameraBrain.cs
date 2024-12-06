@@ -9,6 +9,7 @@ public class CameraBrain : MonoBehaviour
     public float rotationAngle = 20f;
 
     public Vector3 offset;
+    public Vector3 angleOffset;
     public Vector3 zoomInOffset;
     public Vector3 zoomOutOffset;
     private Vector3 originalOffset;
@@ -26,7 +27,7 @@ public class CameraBrain : MonoBehaviour
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
 
-        transform.LookAt(player.transform.position);
+        transform.LookAt(player.transform.position + angleOffset);
 
         float value = player.GetMovementInput().x;
         if(value > 0.3f)
