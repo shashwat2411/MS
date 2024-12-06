@@ -19,6 +19,7 @@ public class GameEffects : MonoBehaviour
     }
     private void Update()
     {
+
         if (hitStop == false && slowMotion == true)
         {
             Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
