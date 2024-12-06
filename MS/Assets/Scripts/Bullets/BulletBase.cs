@@ -30,7 +30,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
         once = true;
         this.damage = damage / factor;
-
+        GetComponent<TrailRenderer>().time = 0.5f;
 
 
         hitPos = hitPosition;
@@ -48,8 +48,9 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
             Debug.Log(other.name);
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             //this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
-            this.transform.position = hitPos + Vector3.up * 0.1f;
+            this.transform.position = hitPos + Vector3.up * 0.05f;
 
+            GetComponent<TrailRenderer>().time = 0f;
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
             if (this.maxAttackSize >= this.damage / factor)
