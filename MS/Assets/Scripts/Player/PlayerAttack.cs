@@ -12,17 +12,13 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
-    public ParticleSystem chargeEffect;
 
     [Header("攻撁E��動篁E��")]
     public float attackMoveRange;
-    public GameObject AssistedAim;
 
-    [HideInInspector] public float attackRangeMoveFactor = 1f;
 
 
     [HideInInspector] public float collisionDamage = 10f;
-
 
 
 
@@ -37,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
     float holdtime = 1.0f;
     public bool isHold = false;
     public bool afterShock = false;
-
+    public float attackRangeMoveFactor = 1.0f;
 
     Transform attackArea;
 
@@ -50,11 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
     Vector3 attackTarget;
 
-    private void OnEnable()
-    {
-        
-
-    }
+    public ParticleSystem chargeEffect;
     void Start()
     {
 
@@ -67,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
 
         #endregion
 
-      
+
         playerManager = GetComponentInParent<PlayerManager>();
         playerData = playerManager.playerData;
         collider = GameObject.Instantiate(playerManager.playerPrefabs.attackArea,
@@ -75,41 +67,46 @@ public class PlayerAttack : MonoBehaviour
                                           this.transform.rotation,
                                           this.transform
                                           );
-        
+
         attackArea = collider.transform;
 
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
 
-        AssistedAim = collider.GetComponentInChildren<AssisitedAiming>().gameObject;
 
         ResetCollider();
-    }
-    
 
+        chargeEffect.Stop();
+    }
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-        if(isHold)
+        if (isHold)
         {
             if (holdtime < playerData.maxChargeTime)
             {
 
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
-          
-                collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime) ;
 
-                
+                collider.GetComponent<Transform>().localScale =
+                    new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
+
+
 
             }
+            else
+            {
+                ParticleSystem.MainModule main = chargeEffect.main;
+                main.loop = false;
+            }
             //MoveToTarget(attackTarget);
-           // GetCloestEnemy();
+            // GetCloestEnemy();
         }
+
+        playerData.charge = holdtime;
     }
 
     /// <summary>
@@ -121,7 +118,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
-            AssistedAim.SetActive(false);
             chargeEffect.Stop();
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
@@ -133,26 +129,31 @@ public class PlayerAttack : MonoBehaviour
             collider.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
 
+            Invoke("ResetCollider", attackTime);
 
-            Invoke("ResetCollider", attackTime);   
-          
-       
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = false;
         }
-      
+
     }
 
 
     void HoldAttack(InputAction.CallbackContext context)
     {
-        if(!afterShock)
+        if (!isHold && !afterShock)
         {
-            AssistedAim.SetActive(true);
             chargeEffect.Play();
             isHold = true;
             collider.GetComponent<MeshRenderer>().enabled = true;
+
+            ParticleSystem.MainModule main = chargeEffect.main;
+            main.loop = true;
+
+            chargeEffect.Play();
+
             //GetCloestEnemy();
         }
-       
+
 
     }
 
@@ -161,7 +162,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("Close Range Attack");
         Invoke("ResetCollider", attackTime);
-    
+
         collider.GetComponent<MeshRenderer>().enabled = true;
         //collider.GetComponent<SphereCollider>().enabled = true;
     }
@@ -174,32 +175,32 @@ public class PlayerAttack : MonoBehaviour
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale =new Vector3( playerData.maxAimSize,0.05f, playerData.maxAimSize);
+        collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, 0.05f, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
         collider.GetComponent<MeshRenderer>().enabled = false;
         //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
-   
+
 
     void ResetCooldown()
     {
-        
+
         shoot = true;
     }
 
-  
+
 
     /// <summary>
     ///  めんこ生戁E
     /// </summary>
     void IniteMenko()
     {
-       
+
         //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
         Vector3 startPoint = chargeEffect.transform.position;
 
-        Vector3 endPoint = new Vector3(collider.transform.position.x,0.0f, collider.transform.position.z);
+        Vector3 endPoint = new Vector3(collider.transform.position.x, 0.0f, collider.transform.position.z);
         float offset = 1.5f;
         if (holdtime < 3.5f)
         {
@@ -209,12 +210,12 @@ public class PlayerAttack : MonoBehaviour
 
         //Debug.Log(holdtime +"  " + endPoint );
 
-        Vector3 dir = endPoint - startPoint ;
+        Vector3 dir = endPoint - startPoint;
         dir.Normalize();
 
 
 
-        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack , holdtime);
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack, holdtime);
 
         ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
@@ -235,16 +236,16 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    Vector3 GetRandomAttackPos(Vector3 initPos,float offset)
+    Vector3 GetRandomAttackPos(Vector3 initPos, float offset)
     {
-       Vector3 endPoint = initPos +
-               new Vector3(
-                            Random.Range(-offset / holdtime, offset / holdtime),
-                            0.0f,
-                            Random.Range(-offset / holdtime, offset / holdtime)
-                        );
+        Vector3 endPoint = initPos +
+                new Vector3(
+                             Random.Range(-offset / holdtime, offset / holdtime),
+                             0.0f,
+                             Random.Range(-offset / holdtime, offset / holdtime)
+                         );
 
-        return endPoint;    
+        return endPoint;
     }
 
 
@@ -252,14 +253,14 @@ public class PlayerAttack : MonoBehaviour
     {
 
 
-      var newPos = new Vector3(  
-                              attackArea.position.x + playerInput.x * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor,
-                              attackArea.position.y,
-                              attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor
-                              );
+        var newPos = new Vector3(
+                                attackArea.position.x + playerInput.x * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor,
+                                attackArea.position.y,
+                                attackArea.position.z + playerInput.z * Time.deltaTime * playerData.atkMoveSpeed * attackRangeMoveFactor
+                                );
 
         var localPoint = transform.InverseTransformPoint(newPos);
-        attackArea.localPosition =  Vector3.ClampMagnitude(localPoint, attackMoveRange);
+        attackArea.localPosition = Vector3.ClampMagnitude(localPoint, attackMoveRange);
 
 
         if (attackArea.localPosition.z < 0.5f)
@@ -278,7 +279,7 @@ public class PlayerAttack : MonoBehaviour
             return false;
         }
 
-        attackArea.transform.position = Vector3.Lerp(attackArea.transform.position, Target, 1.5f*Time.deltaTime);
+        attackArea.transform.position = Vector3.Lerp(attackArea.transform.position, Target, 1.5f * Time.deltaTime);
         attackArea.transform.position = new Vector3(attackArea.transform.position.x, 0.2f, attackArea.transform.position.z);
         return true;
 

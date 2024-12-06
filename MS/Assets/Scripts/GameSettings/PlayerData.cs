@@ -247,7 +247,7 @@ public class PlayerPrefabs
     /// アイテムの一回のボーナスを適用する
     /// </summary>
     /// <param name="item"></param>
-    public void GetTopItemBonus(BonusItem item)
+    public bool GetTopItemBonus(BonusItem item)
     {
  
         if (!itemCountPair.ContainsKey(item.name))
@@ -266,6 +266,11 @@ public class PlayerPrefabs
             // TODO：直接毎回のボーナスの説明文を読み込みのか?
             item.description =  item.bonusList[index].description;
             itemCountPair[item.name]++;
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
     }

@@ -34,6 +34,9 @@ MonoBehaviour:
     - type: 0
       key: 0
       value: 5
+    - type: 0
+      key: 1
+      value: 5
   - name: Hp +5
     description: Hp +5
     icon: {fileID: 0}
@@ -157,6 +160,40 @@ MonoBehaviour:
         bonusItem: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb,
           type: 3}
       description: MultiMenko
+  - name: Healing
+    description: Healing automatically
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
   ItemBonusDatas:
   - name: 
     description: 
