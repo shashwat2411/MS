@@ -6,7 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class TextCore
 {
-    public int number;
 
     [Tooltip("喋っている対象")]
     public string _talkName = "";
@@ -25,5 +24,11 @@ public class TextCore
 
     [Tooltip("選択肢ごとの次のテキストインデックス")]
     public int[] nextIndexes;
+
+    [Tooltip("番号を飛ばすかいなか")]
+    public bool isCheck = false;
+
+    [Tooltip("飛ばすなら何処へ")]
+    public int changeNumber;
 
 }
