@@ -24,7 +24,7 @@ public class Lighting : MonoBehaviour, IAtkEffect
         Destroy(gameObject,lifetime);
         this.damage = damage* factor;
         
-        Debug.Log("Lighting:  "+ damage);
+        Debug.Log("Lighting:  " + factor);
     }
 
     public void LevelUp()
@@ -32,6 +32,12 @@ public class Lighting : MonoBehaviour, IAtkEffect
         factor += 0.2f;
         Debug.Log("LevelUp   " + factor);
     }
+
+    public void ResetLevel()
+    {
+        factor = 1.0f;
+    }
+
 
     // Update is called once per frame
     void Update()

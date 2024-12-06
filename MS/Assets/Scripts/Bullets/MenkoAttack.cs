@@ -17,7 +17,10 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         bulletsCount++;
       
     }
-
+    public void ResetBonus()
+    {
+        bulletsCount = 1;
+    }
 
     public void IniteMultiMenko(Vector3 startPoint,Transform area, float maxAttackSize,float attack,float holdtime)
     {
