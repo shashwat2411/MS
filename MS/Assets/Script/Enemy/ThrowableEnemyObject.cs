@@ -10,6 +10,7 @@ public class ThrowableEnemyObject : MonoBehaviour
     public float timeForImpact;
 
     protected Vector3 target;
+    public Vector3 offset;
     protected Vector3 startPosition;
 
     public AnimationCurve motion;
@@ -35,7 +36,7 @@ public class ThrowableEnemyObject : MonoBehaviour
 
         float y = motion.Evaluate(motionTime);
 
-        Vector3 position = Vector3.Lerp(startPosition, target, motionTime);
+        Vector3 position = Vector3.Lerp(startPosition, target + offset, motionTime);
         position.y = position.y + y;
         transform.position = position;
     }

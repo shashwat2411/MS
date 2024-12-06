@@ -40,6 +40,9 @@ public class PlayerData
     [Header("回復量")]
     public float healthRespons;
 
+    [Header("チャージ量")]
+    public float charge;
+
     [Header("最大チャージ時間")]
     public float maxChargeTime;
 

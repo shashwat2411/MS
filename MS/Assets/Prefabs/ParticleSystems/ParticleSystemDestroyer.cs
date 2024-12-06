@@ -30,7 +30,7 @@ public class ParticleSystemDestroyer : MonoBehaviour
         {
             if(visualEffect.HasAnySystemAwake() == false)
             {
-                Debug.Log("Destroy VFX");
+                //Debug.Log("Destroy VFX");
 
                 if (toDestroy != null) { Destroy(toDestroy); }
                 else { visualEffect.Stop(); }
