@@ -17,16 +17,16 @@ public class GameEffects : MonoBehaviour
     }
     private void Update()
     {
-        if (hitStop == false)
-        {
-            Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        //if (hitStop == false)
+        //{
+        //    Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
+        //    Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
 
-            if (Input.GetKey(KeyCode.T))
-            {
-                DoSlowMotion(1f, 0.1f);
-            }
-        }
+        //    if (Input.GetKey(KeyCode.T))
+        //    {
+        //        DoSlowMotion(1f, 0.1f);
+        //    }
+        //}
     }
 
     public void DoSlowMotion(float duration, float scale)

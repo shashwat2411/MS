@@ -19,6 +19,11 @@ public class SkillSelect : MonoBehaviour
     Animator AnimeCon;
     public bool b1, b2, b3, AnimeStart;
 
+    [SerializeField]
+    float ParameterUpProbability;
+    [SerializeField]
+    float SkillProbability;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +48,12 @@ public class SkillSelect : MonoBehaviour
 
     void RandomBonus()
     {
+        // 1.カードがどのタイプの能力が出るか決める(決めた確率でランダム)
+        // 2.それぞれ乱数で決める(完全ランダム)
+        // 3.それぞれのランダムは別に関数作る
+        // 4.同じやつは出ないようにする
+        // 5.消費能力は後日追加
+        //
         int b1, b2, b3;
         b1 = b2 = b3 = 0;
 
@@ -97,7 +108,7 @@ public class SkillSelect : MonoBehaviour
         AnimeCon.SetBool("Bonus3", b3);
 
 
-        Debug.Log("Time.timeScale=" + Time.timeScale);
+        //Debug.Log("Time.timeScale=" + Time.timeScale);
 
     }
     public void BonusChoose(InputAction.CallbackContext context)
@@ -131,8 +142,8 @@ public class SkillSelect : MonoBehaviour
         if (!context.started) return;
 
         player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+        //player.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
-       
 
         switch (SelectNo)
         {
@@ -152,7 +163,7 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
-        Time.timeScale = 1f;
+       
     }
 
 
@@ -182,8 +193,6 @@ public class SkillSelect : MonoBehaviour
         //Cursor.SetActive(true);
 
 
-
-        Debug.Log("Time=" + Time.timeScale);
     }
 
     public void AnimationReset()
@@ -203,6 +212,8 @@ public class SkillSelect : MonoBehaviour
         {
             BonusWindow[i].SetActive(false);
         }
+
+        Time.timeScale = 1;
     }
 
 }
