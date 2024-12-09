@@ -74,6 +74,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Prefabs Staff")]
     public PlayerPrefabs playerPrefabs; 
     public ParticleSystem playerDamageEffect;
+    public ParticleSystem playerHpRecoveryEffect;
     public Player_HP playerHP;
     public PlayerExp playerExp;
 
@@ -208,8 +209,7 @@ public class PlayerManager : MonoBehaviour
         SwitchPlayerStates();
         SetAnimator();
      
-       
-       
+
     }
 
 
@@ -273,9 +273,12 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
-        
+
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+       playerHP.Damage(50.0f);
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[5]);
+       
+
         playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
@@ -295,12 +298,20 @@ public class PlayerManager : MonoBehaviour
 
         hurtInvincibility = true;
         hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
-       
 
-        Instantiate(playerDamageEffect.gameObject, transform.position, transform.rotation);
+
+        Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }
+
+
+    public void Heal()
+    {
+        playerHP.Heal(playerData.healthRespons);
+        CheckPlayerDataState();
+    }
+
     public void Death()
     {
     }

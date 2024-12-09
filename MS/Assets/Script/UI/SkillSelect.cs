@@ -20,10 +20,14 @@ public class SkillSelect : MonoBehaviour
     Animator AnimeCon;
     public bool b1, b2, b3, AnimeStart;
 
+
+    Vector3 originalSize;
+
     [SerializeField]
     float ParameterUpProbability;
     [SerializeField]
     float SkillProbability;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,8 @@ public class SkillSelect : MonoBehaviour
         {
             BonusWindow[i].GetComponent<SkillWindow>().DrawBonus();
         }
+
+        originalSize = BonusWindow[0].GetComponent<RectTransform>().localScale;
 
     }
 
@@ -163,14 +169,14 @@ public class SkillSelect : MonoBehaviour
 
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
-            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = originalSize;
             BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
         }
         //Cursor.SetActive(true);
 
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = originalSize * 1.15f;
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.cyan;
 
-        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6.25f, 6.25f, 1f);
-        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
         // Debug.Log("Time.timeScale=" + Time.timeScale);
 
 
