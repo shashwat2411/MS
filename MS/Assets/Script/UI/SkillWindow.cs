@@ -9,6 +9,8 @@ public class SkillWindow : MonoBehaviour
 
     public BonusData Bonus;
 
+    public BonusItem Item;
+
     [SerializeField]
     Image Icon;
 
@@ -23,16 +25,31 @@ public class SkillWindow : MonoBehaviour
         
     }
 
-   
+
 
 
     public void DrawBonus()
     {
-        
 
-        Name.text = Bonus.name;
-        Description.text = Bonus.description;
-        Icon.sprite = Bonus.icon;
+        if (Bonus != null)
+        {
+            Name.text = Bonus.name;
+            Description.text = Bonus.description;
+            Icon.sprite = Bonus.icon;
+        }
+
+        if (Item != null)
+        {
+            Name.text = Item.name;
+            Description.text = Item.description;
+            Icon.sprite = Item.icon;
+        }
+    }
+
+    public void CardReset()
+    {
+        Bonus = null;
+        Item = null;
     }
 
   

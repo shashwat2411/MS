@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     //ここでPause、シーン遷移などの管理
     [SerializeField]
-    GameObject FadeIn, FadeOut, PauseMenu;
+    GameObject FadeIn, FadeOut;
 
-    bool IsPause;
     bool SceneChangeflag;
 
     //シーン遷移でのデータ受け渡し
@@ -23,7 +21,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        IsPause = false;
+       
         SceneChangeflag = false;
     }
 
@@ -39,25 +37,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Pause(InputAction.CallbackContext context)
-    {
-        if (!context.started) return;
-
-        IsPause = !IsPause;
-
-        if (IsPause == true)
-        {
-            Time.timeScale = 0;
-
-            PauseMenu.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 1;
-
-            PauseMenu.SetActive(false);
-        }
-    }
+   
 
     public void SceneChange()
     {
@@ -65,6 +45,17 @@ public class GameManager : MonoBehaviour
         FadeOut.SetActive(true);
 
         SceneChangeflag = true;
+    }
+
+
+    public void ReturnTitle()
+    {
+        // FadeIn.GetComponent<Fade>().FadeReset();
+        FadeOut.SetActive(true);
+
+        SceneChangeflag = true;
+
+        NextScene_Name = "MainMenu";
     }
 
     public void StageFadeIn()

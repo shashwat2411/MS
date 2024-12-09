@@ -209,6 +209,7 @@ public class PlayerManager : MonoBehaviour
         SwitchPlayerStates();
         SetAnimator();
      
+
     }
 
 
