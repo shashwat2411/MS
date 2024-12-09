@@ -649,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguePrefab: {fileID: 5027991533774644437, guid: 8aae1bbe53b1ff64d93ed406c119ea65,
     type: 3}
-  nowTalker: {fileID: 1945441955}
+  nowTalker: {fileID: 1296813424}
 --- !u!4 &1589366573
 Transform:
   m_ObjectHideFlags: 0
@@ -660,6 +660,99 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: -1.3339748, z: -0.99952537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1799043602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799043604}
+  - component: {fileID: 1799043603}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1799043603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799043602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a8e7f8b284ea048acb166f87776440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  talkText:
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+  - _talkName: 
+    _talkCharaImage: {fileID: 0}
+    _talkInfo: 
+    select: 0
+    choices: []
+    nextIndexes: 
+    isCheck: 0
+    changeNumber: 0
+--- !u!4 &1799043604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799043602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.31565, y: -0.42429733, z: 4.1213446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -769,3 +862,4 @@ SceneRoots:
   - {fileID: 293187600}
   - {fileID: 1589366573}
   - {fileID: 1945441956}
+  - {fileID: 1799043604}

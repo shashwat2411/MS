@@ -70,6 +70,16 @@ public class TalkCharacterInfoEditor : Editor
             SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
             return CalculateElementHeight(element);
         };
+
+        // 配列に新しい要素を追加するボタン
+        reorderableList.onAddCallback = (ReorderableList list) =>
+        {
+            talkTextArray.InsertArrayElementAtIndex(talkTextArray.arraySize);
+            serializedObject.ApplyModifiedProperties(); // 変更を即時反映
+            InitializeFoldoutStateCreate(talkTextArray.arraySize);
+            Repaint(); // エディターをリフレッシュ
+        };
+
     }
 
     private void InitializeFoldoutStates(int size)
@@ -79,6 +89,17 @@ public class TalkCharacterInfoEditor : Editor
         {
             foldoutStates[i] = false; // 初期状態はすべて閉じた状態
         }
+    }
+
+    private void InitializeFoldoutStateCreate(int size)
+    {
+        bool[] temp = foldoutStates;
+        foldoutStates = new bool[size];
+        for(int i = 0; i < size - 1; i++)
+        {
+            foldoutStates[i] = temp[i];
+        }
+        foldoutStates[size - 1] = false;
     }
 
     private void DrawTextCoreProperties(SerializedProperty element, Rect rect)
@@ -180,6 +201,7 @@ public class TalkCharacterInfoEditor : Editor
     {
         SerializedProperty talkTextArray = serializedObject.FindProperty("talkText");
         talkTextArray.ClearArray();
+
         foreach (var core in loadedData)
         {
             talkTextArray.InsertArrayElementAtIndex(talkTextArray.arraySize);
@@ -201,6 +223,13 @@ public class TalkCharacterInfoEditor : Editor
             element.FindPropertyRelative("isCheck").boolValue = core.isCheck;
             element.FindPropertyRelative("changeNumber").intValue = core.changeNumber;
         }
+
+        serializedObject.ApplyModifiedProperties(); // データ変更を反映
+
+        // FoldoutStatesを現在の配列サイズに同期
+        InitializeFoldoutStates(talkTextArray.arraySize);
+
+        Repaint(); // インスペクターをリフレッシュ
     }
 
     private void ExportDataToJson(string path)
