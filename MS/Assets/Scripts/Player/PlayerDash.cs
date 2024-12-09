@@ -32,6 +32,7 @@ public class PlayerDash : MonoBehaviour
     public bool isDashing { get; private set; } = false;
     [Header("Dash CD UI Staff")]
     public Image dashCoolDownMask;
+    public Image doubleDashCoolDownMask;
 
     
     PlayerData playerData;
@@ -150,7 +151,7 @@ public class PlayerDash : MonoBehaviour
     void ReadyToDash()
     {
         // TODO:地形の範囲のチェック
-        if (dashCount>0)
+        if (dashCount > 0)
         {
             isDashing = true;
 

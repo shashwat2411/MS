@@ -27,6 +27,10 @@ public class Player_HP : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B)) { Recover(20f); }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -77,5 +81,26 @@ public class Player_HP : MonoBehaviour
         player.playerData.hp = Hp_Now;
     }
 
+    public void Recover(float value, bool effect = true)
+    {
+        float result = Hp_Now + value;
+
+        if (result <= Hp_Max)
+        {
+            Hp_Now = result;
+        }
+        else if (result > Hp_Max)
+        {
+            Hp_Now = Hp_Max;
+        }
+
+        player.playerData.hp = Hp_Now;
+
+        if(effect == true)
+        {
+            GameObject recoveryEffect = Instantiate(player.playerHpRecoveryEffect.gameObject, player.transform);
+            recoveryEffect.transform.localPosition = new Vector3(0f, 0.17f, 0f);
+        }
+    }
 
 }
