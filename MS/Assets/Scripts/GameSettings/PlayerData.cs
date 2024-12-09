@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -198,12 +199,40 @@ public class PlayerPrefabs
 
     }
 
-
     public PlayerPrefabs GetCopy()
     {
         return (PlayerPrefabs)MemberwiseClone();
     }
 
+
+    public void ResetPlayerPrefabs()
+    {
+        itemCountPair.Clear();
+
+        foreach (PlayerPrafabType val in Enum.GetValues(typeof(PlayerPrafabType)))
+        {
+            if (this[val] != null)
+            {
+                var resetItem = this[val].GetComponent<IAtkEffBonusAdder>();
+                if (resetItem != null)
+                {
+                    resetItem.ResetBonus();
+                }
+            }
+
+        }
+
+        foreach(var item in BonusSettings.Instance.playerBonusItems)
+        {
+            var iAtkEffect = item.bonusList[0].BonusOnOneTime[0].bonusItem.GetComponent<IAtkEffect>();
+            if (iAtkEffect != null)
+            {
+                iAtkEffect.ResetLevel();
+            }
+        }
+
+
+    }
 
     /// <summary>
     /// アイテムを入れ替える
@@ -218,7 +247,7 @@ public class PlayerPrefabs
     /// アイテムの一回のボーナスを適用する
     /// </summary>
     /// <param name="item"></param>
-    public void GetTopItemBonus(BonusItem item)
+    public bool GetTopItemBonus(BonusItem item)
     {
  
         if (!itemCountPair.ContainsKey(item.name))
@@ -237,6 +266,11 @@ public class PlayerPrefabs
             // TODO：直接毎回のボーナスの説明文を読み込みのか?
             item.description =  item.bonusList[index].description;
             itemCountPair[item.name]++;
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
     }

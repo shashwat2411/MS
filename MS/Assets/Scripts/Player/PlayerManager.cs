@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static PlayerManager;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] float noramlRunSpeed = 0.0f;
     [SerializeField] float ChargeRunSpeed = 0.0f;
-    [SerializeField] float rotateSpeed = 1.0f;
+    [SerializeField] public float rotateSpeed = 1.0f;
 
 
     bool lockMovement = false;
@@ -108,10 +108,11 @@ public class PlayerManager : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();    
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
-        playerPrefabs = CharacterSettings.Instance.playerPrefabs.GetCopy();
+        playerPrefabs = CharacterSettings.Instance.playerPrefabs;
 
-        playerPrefabs[PlayerPrafabType.playerPermanentAblity] =
-                        ObjectPool.Instance.Get(playerAblities, new Vector3(0.0f, -5.0f, 0.0f), transform.rotation);
+
+       
+        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
         cameraTransform = Camera.main.transform;
 
@@ -120,7 +121,7 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
-       animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
 
        #endregion
 
@@ -180,6 +181,8 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
 
+      
+
         playerDash.Dash();
         if (playerDash.isDashing)
             return;
@@ -198,12 +201,14 @@ public class PlayerManager : MonoBehaviour
 
         HurtInvincibleCheck();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
+        rotateSpeed = AimSensorCheck(transform) ? 30f : 200f;
 
+
+        CheckPlayerDataState();
         CaculateInputDirection();
         SwitchPlayerStates();
         SetAnimator();
      
-       
     }
 
 
@@ -267,9 +272,13 @@ public class PlayerManager : MonoBehaviour
     private void Interact()
     {
         // playerPrefabs.ApplyReplace(BonusSettings.Instance.replaceDatas[0]);
-        
+
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+       playerHP.Damage(50.0f);
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[5]);
+       
+
+        playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -294,6 +303,14 @@ public class PlayerManager : MonoBehaviour
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }
+
+
+    public void Heal()
+    {
+        playerHP.Heal(playerData.healthRespons);
+        CheckPlayerDataState();
+    }
+
     public void Death()
     {
     }
@@ -416,5 +433,28 @@ public class PlayerManager : MonoBehaviour
     {
         return moveInput;
     }
-   
+
+
+    public bool AimSensorCheck(Transform playerTransform)
+    {
+        Vector3 offset = new Vector3(0.0f, 0.0f, 0.0f);
+        var layermask = 0;
+       
+        layermask = (1 << LayerMask.NameToLayer("Enemy"));
+      
+
+        Debug.DrawRay(playerTransform.position + offset, playerTransform.forward);
+        if (Physics.Raycast(playerTransform.position + offset, playerTransform.forward, out RaycastHit obsHit, 
+                        100.0f, layermask))
+        {
+           // Debug.Log(obsHit.collider.name);
+            if (!obsHit.collider.GetComponent<EnemyBase>())
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
