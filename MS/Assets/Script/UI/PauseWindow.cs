@@ -32,6 +32,9 @@ public class PauseWindow : MonoBehaviour
 
     string[] Text = new string[2] { "GoToTitle", "OPTION" };
 
+    [SerializeField]
+    GameObject GameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -143,7 +146,21 @@ public class PauseWindow : MonoBehaviour
     {
         if (!context.started) return;
 
+        switch (selectionNo)
+        {
+            case 0:
+                //title
+                GameManager.GetComponent<GameManager>().ReturnTitle();
+                Time.timeScale = 1;
 
+                player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+                break;
+            case 1:
+                //config
+
+                break;
+           
+        }
     }
 
   
@@ -151,7 +168,7 @@ public class PauseWindow : MonoBehaviour
 
     void ReturnToTitle()
     {
-
+        GameManager.GetComponent<GameManager>().ReturnTitle();
     }
 
     void ConfigMenu()

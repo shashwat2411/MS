@@ -208,10 +208,7 @@ public class PlayerManager : MonoBehaviour
         SwitchPlayerStates();
         SetAnimator();
      
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene(0);
-        }
+       
        
     }
 

@@ -13,6 +13,9 @@ public class Player_HP : MonoBehaviour
 
     PlayerManager player;
 
+    [SerializeField]
+    GameObject HPbar2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,5 +80,9 @@ public class Player_HP : MonoBehaviour
         player.playerData.hp = Hp_Now;
     }
 
+    public void HPMaxUp()
+    {
+
+    }
 
 }
