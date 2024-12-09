@@ -74,6 +74,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Prefabs Staff")]
     public PlayerPrefabs playerPrefabs; 
     public ParticleSystem playerDamageEffect;
+    public ParticleSystem playerHpRecoveryEffect;
     public Player_HP playerHP;
     public PlayerExp playerExp;
 
@@ -296,9 +297,9 @@ public class PlayerManager : MonoBehaviour
 
         hurtInvincibility = true;
         hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
-       
 
-        Instantiate(playerDamageEffect.gameObject, transform.position, transform.rotation);
+
+        Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }
