@@ -5,6 +5,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
+
+public enum ChargePhase
+{
+    Entry,
+    Low,
+    Middle,
+    High = 5,
+    Max = 99
+}
+
 public class PlayerAttack : MonoBehaviour
 {
 
@@ -13,10 +23,22 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime = 0.2f;
     public GameObject collider;
 
-    [Header("æ”»æ’E§»å‹•ç¯E›²")]
+    [Header("")]
     public float attackMoveRange;
 
+    [SerializeField]
+    ChargePhase chargePhase = ChargePhase.Entry;
 
+    [Range(0, 100)]
+    public float lowRange;
+
+    [Range(0, 100)]
+    public float middleRange;
+
+    [Range(0, 100)]
+    public float highRange;
+
+   
 
     [HideInInspector] public float collisionDamage = 10f;
 
@@ -107,6 +129,35 @@ public class PlayerAttack : MonoBehaviour
         }
 
         playerData.charge = holdtime;
+        SwitchChargePhase();
+    
+    }
+
+
+    void SwitchChargePhase()
+    {
+        if (isHold)
+        {
+            chargePhase = ChargePhase.Entry;
+            if (holdtime > playerData.maxChargeTime * lowRange / 100.0f)
+            {
+                chargePhase = ChargePhase.Low;
+            }
+            if (holdtime > playerData.maxChargeTime * middleRange / 100.0f)
+            {
+                chargePhase = ChargePhase.Middle;
+            }
+            if (holdtime > playerData.maxChargeTime * highRange / 100.0f)
+            {
+                chargePhase = ChargePhase.High;
+            }
+            if(holdtime >= playerData.maxChargeTime)
+            {
+                chargePhase = ChargePhase.Max;
+            }
+        }
+        
+       
     }
 
     /// <summary>
@@ -215,7 +266,8 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack, holdtime);
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, 
+                                playerData.maxAttackSize, playerData.attack, holdtime,chargePhase);
 
         ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
