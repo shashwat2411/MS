@@ -417,19 +417,58 @@ VisualEffect:
   m_Asset: {fileID: 8926484042661614526, guid: a450b245e81d45e44851437c99a13488, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
-  m_StartSeed: 1233630529
+  m_StartSeed: 140741903
   m_ResetSeedOnPlay: 0
   m_AllowInstancing: 1
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 5
+        m_Name: Duration
+        m_Overridden: 1
+      - m_Value: 0.61
+        m_Name: TornadoCoreDissolve
+        m_Overridden: 1
+      - m_Value: 0.84
+        m_Name: TornadoLayer1Dissolve
+        m_Overridden: 1
+      - m_Value: 2.5
+        m_Name: WobbleIntensity
+        m_Overridden: 1
+      - m_Value: 10
+        m_Name: WobbleSpeed
+        m_Overridden: 1
+      - m_Value: 2.28
+        m_Name: WobbleFrequency
+        m_Overridden: 1
+      - m_Value: 0.066
+        m_Name: WobbleAmount
+        m_Overridden: 1
+      - m_Value: 0.9
+        m_Name: TornadoLayer2Dissolve
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1, y: 0.75, z: 1}
+        m_Name: Scale
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 8.46, z: 0}
+        m_Name: TopRingPosition
+        m_Overridden: 1
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0, y: 0, z: 0, w: 1}
+        m_Name: TornadoCoreColor
+        m_Overridden: 1
+      - m_Value: {x: 7.6815166, y: 10.594588, z: 58.68678, w: 1}
+        m_Name: TornadoLayer1Color
+        m_Overridden: 1
+      - m_Value: {x: 16.062742, y: 178.46695, z: 191.74902, w: 1}
+        m_Name: TornadoLayer2Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -437,7 +476,255 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.8
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1.55
+            inSlope: 2.75
+            outSlope: 2.75
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: DissolveCurve
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 11.637685
+            outSlope: 11.637685
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.087276705
+            value: 1.0156988
+            inSlope: 1.4883379
+            outSlope: 1.4883379
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.2111084
+            value: 0.9824295
+            inSlope: 0.17302972
+            outSlope: 0.17302972
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.33528784
+            value: 1.0335292
+            inSlope: -0.074998766
+            outSlope: -0.074998766
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.4886039
+            value: 1.0019004
+            inSlope: -0.05935902
+            outSlope: -0.05935902
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6361633
+            value: 1.0170599
+            inSlope: -0.016234405
+            outSlope: -0.016234405
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: -0.04688895
+            outSlope: -0.04688895
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: ScaleOverLifeX
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 11.637685
+            outSlope: 11.637685
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.087276705
+            value: 1.0156988
+            inSlope: 1.4883379
+            outSlope: 1.4883379
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.2111084
+            value: 0.9824295
+            inSlope: 0.17302972
+            outSlope: 0.17302972
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.33528784
+            value: 1.0335292
+            inSlope: -0.074998766
+            outSlope: -0.074998766
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.4886039
+            value: 1.0019004
+            inSlope: -0.05935902
+            outSlope: -0.05935902
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6361633
+            value: 1.0170599
+            inSlope: -0.016234405
+            outSlope: -0.016234405
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: -0.04688895
+            outSlope: -0.04688895
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: ScaleOverLifeY
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 11.637685
+            outSlope: 11.637685
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.087276705
+            value: 1.0156988
+            inSlope: 1.4883379
+            outSlope: 1.4883379
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.2111084
+            value: 0.9824295
+            inSlope: 0.17302972
+            outSlope: 0.17302972
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.33528784
+            value: 1.0335292
+            inSlope: -0.074998766
+            outSlope: -0.074998766
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.4886039
+            value: 1.0019004
+            inSlope: -0.05935902
+            outSlope: -0.05935902
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6361633
+            value: 1.0170599
+            inSlope: -0.016234405
+            outSlope: -0.016234405
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: -0.04688895
+            outSlope: -0.04688895
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: ScaleOverLifeZ
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
@@ -453,7 +740,7 @@ Transform:
   m_GameObject: {fileID: 553371922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.79, z: 0.9}
+  m_LocalPosition: {x: -1.3357208, y: -8.42, z: -6.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6128,13 +6415,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.33000004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.33000004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.33000004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10867661
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2606587
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
         type: 3}
@@ -6176,6 +6478,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e3f1f71585695cb48a72e064b0d3c086,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: e3f1f71585695cb48a72e064b0d3c086,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -6191,6 +6498,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 7b6b53eb1f24f4342a5dedb022fffb8e, type: 2}
+    - target: {fileID: -5754084199372789682, guid: e3f1f71585695cb48a72e064b0d3c086,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8842454360301578861, guid: b61a2cb550bae39489d86b811fefaf32,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: e3f1f71585695cb48a72e064b0d3c086,
         type: 3}
       propertyPath: m_Name
