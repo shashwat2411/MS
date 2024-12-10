@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1838144, g: 0.22911313, b: 0.30403206, a: 1}
+  m_IndirectSpecularColor: {r: 0.18381394, g: 0.22911227, b: 0.30403107, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1195,7 +1195,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b15db24d1857c5c47bbcad69788d9750, type: 2}
+      objectReference: {fileID: 2100000, guid: ef2a6b7822117b5468d170c0844c60b2, type: 2}
     - target: {fileID: 7631310416313771774, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -1473,7 +1473,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: fea4408fa5e958c42b810b4e80d19aeb, type: 3}
+  - {fileID: 2100000, guid: ef2a6b7822117b5468d170c0844c60b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1983,7 +1983,7 @@ PrefabInstance:
     - target: {fileID: 1026497112983430962, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_FillAmount
-      value: 0
+      value: 0.769
       objectReference: {fileID: 0}
     - target: {fileID: 2767855398617176545, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -2023,12 +2023,12 @@ PrefabInstance:
     - target: {fileID: 3604074736678314858, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 232
+      value: 576.2
       objectReference: {fileID: 0}
     - target: {fileID: 3604074736678314858, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -385
+      value: -175.5
       objectReference: {fileID: 0}
     - target: {fileID: 6270415496873001212, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -2048,7 +2048,7 @@ PrefabInstance:
     - target: {fileID: 6270415496873001212, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_FillAmount
-      value: 0
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 9093688481716055622, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -2943,6 +2943,4 @@ SceneRoots:
   - {fileID: 7546326418321527640}
   - {fileID: 1903496673714126218}
   - {fileID: 4420652455334329578}
-  - {fileID: 658474336}
   - {fileID: 1118317286}
-
