@@ -20,10 +20,14 @@ public class SkillSelect : MonoBehaviour
     Animator AnimeCon;
     public bool b1, b2, b3, AnimeStart;
 
+
+    Vector3 originalSize;
+
     [SerializeField]
     float ParameterUpProbability;
     [SerializeField]
     float SkillProbability;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,55 +49,110 @@ public class SkillSelect : MonoBehaviour
             BonusWindow[i].GetComponent<SkillWindow>().DrawBonus();
         }
 
+        originalSize = BonusWindow[0].GetComponent<RectTransform>().localScale;
+
     }
 
     void RandomBonus()
     {
         // 1.カードがどのタイプの能力が出るか決める(決めた確率でランダム)
+        // ## bonustype  0:パラメータ系  1:スキル系  2:消費能力
         // 2.それぞれ乱数で決める(完全ランダム)
         // 3.それぞれのランダムは別に関数作る
         // 4.同じやつは出ないようにする
         // 5.消費能力は後日追加
         //
-        int b1, b2, b3;
-        b1 = b2 = b3 = 0;
+        //int b1, b2, b3;
+        //b1 = b2 = b3 = 0;
 
-        int c = BonusSettings.Instance.playerBonusDatas.Count;
+        //int c = BonusSettings.Instance.playerBonusDatas.Count;
 
-        int i = Random.Range(0, c);
+        //int i = Random.Range(0, c);
 
-        b1 = i;
-        //bonus1Œˆ’è
-        i = Random.Range(0, c);
+        //b1 = i;
+        ////bonus1Œˆ’è
+        //i = Random.Range(0, c);
 
-        b2 = i;
-        while (b1 == b2)
+        //b2 = i;
+        //while (b1 == b2)
+        //{
+        //    i = Random.Range(0, c);
+
+        //    b2 = i;
+        //}
+        ////bonus2Œˆ’è
+        //i = Random.Range(0, c);
+
+        //b3 = i;
+        //while (b1 == b3 || b2 == b3)
+        //{
+        //    i = Random.Range(0, c);
+
+        //    b3 = i;
+        //}
+        ////bonus3Œˆ’è
+
+        //BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b1];
+        //BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b2];
+        //BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b3];
+        //for (int j = 0; j < 3; j++)
+        //{
+        //    BonusWindow[j].GetComponent<SkillWindow>().DrawBonus();
+        //}
+
+        for (int i = 0; i < BonusWindow.Count(); i++) 
         {
-            i = Random.Range(0, c);
+            BonusWindow[i].GetComponent<SkillWindow>().CardReset();
 
-            b2 = i;
+            BonusRandom(BonusTypeRandom(), i);
         }
-        //bonus2Œˆ’è
-        i = Random.Range(0, c);
+    }
 
-        b3 = i;
-        while (b1 == b3 || b2 == b3)
+    int BonusTypeRandom()
+    {
+
+        int p, result;
+
+        result = 0;
+
+        p = Random.Range(0, 100);
+
+        if(p<= ParameterUpProbability)
         {
-            i = Random.Range(0, c);
-
-            b3 = i;
+            result = 0;
         }
-        //bonus3Œˆ’è
-
-        BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b1];
-        BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b2];
-        BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b3];
-        for (int j = 0; j < 3; j++)
+        else
         {
-            BonusWindow[j].GetComponent<SkillWindow>().DrawBonus();
+            result = 1;
         }
 
-        // Bonus = BonusSettings.Instance.bonusDatas[i];
+        return result;
+    }
+
+    void BonusRandom(int type,int cardNo)
+    {
+        int i;
+
+        switch (type)
+        {
+            case 0:
+                int c1 = BonusSettings.Instance.playerBonusDatas.Count;
+
+                i = Random.Range(0, c1);
+
+                BonusWindow[cardNo].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[i];
+                break;
+            case 1:
+                int c2 = BonusSettings.Instance.playerBonusItems.Count;
+
+                i = Random.Range(0, c2);
+
+                BonusWindow[cardNo].GetComponent<SkillWindow>().Item = BonusSettings.Instance.playerBonusItems[i];
+                break;
+            case 2:
+                break;
+        }
+
     }
 
 
@@ -110,14 +169,14 @@ public class SkillSelect : MonoBehaviour
 
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
-            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+            BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = originalSize;
             BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
         }
         //Cursor.SetActive(true);
 
+        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = originalSize * 1.15f;
+        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.cyan;
 
-        BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6.25f, 6.25f, 1f);
-        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
         // Debug.Log("Time.timeScale=" + Time.timeScale);
 
 
