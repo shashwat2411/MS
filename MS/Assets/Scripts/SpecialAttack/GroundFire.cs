@@ -12,7 +12,9 @@ public class GroundFire : MonoBehaviour,IAtkEffect
 
     public float declineInterval = 0.6f;
     float curTime = 0;
-    
+
+    int lv = 1;
+
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
     {
         Destroy(gameObject, lifetime * factor);
@@ -22,6 +24,7 @@ public class GroundFire : MonoBehaviour,IAtkEffect
 
     public void LevelUp()
     {
+        lv++;
         factor += 0.4f;
         declineInterval -= 0.1f;
         Debug.Log("LevelUp   " + factor);
@@ -30,6 +33,7 @@ public class GroundFire : MonoBehaviour,IAtkEffect
 
     public void ResetLevel()
     {
+        lv = 1; 
         factor = 5.0f;
         declineInterval = 0.6f;
     }

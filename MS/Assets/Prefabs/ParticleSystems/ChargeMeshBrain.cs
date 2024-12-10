@@ -24,8 +24,6 @@ public class ChargeMeshBrain : MonoBehaviour
     {
         time = (playerManager.playerData.charge - 1f) / (playerManager.playerData.maxChargeTime - 1f);
 
-
-        Debug.Log(time);
         float x = outline.Evaluate(time);
         float y = damp.Evaluate(time);
 
