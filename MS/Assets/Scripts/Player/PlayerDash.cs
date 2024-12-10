@@ -9,7 +9,7 @@ public class PlayerDash : MonoBehaviour
 
 
     [Header("Dash Staff")]
-    public bool isDashing { get; private set; } = false;
+  
     private float dashTimeLeft = 1.0f;
     private float lastDash=0;
     public float dashSpeed;
@@ -20,7 +20,7 @@ public class PlayerDash : MonoBehaviour
     float dashCount;
     float dashCountMax = 1;
 
-
+    public bool isDashing { get; private set; } = false;
 
     Vector3 dashOrientation;
 
