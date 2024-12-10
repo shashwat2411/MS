@@ -50,4 +50,22 @@ public class PlayerSensor : MonoBehaviour
         }
         return false;
     }
+
+    public bool AimSensorCheck(Transform playerTransform)
+    {
+        Vector3 offset = new Vector3(0.0f, 0.5f, 0.0f);
+        Debug.DrawRay(playerTransform.position + offset, playerTransform.forward);
+        if (Physics.Raycast(playerTransform.position + offset, playerTransform.forward, out RaycastHit obsHit))
+        {
+            Debug.Log(obsHit.collider.name);
+            if (!obsHit.collider.GetComponent<EnemyBase>())
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+
 }

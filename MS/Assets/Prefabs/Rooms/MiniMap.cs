@@ -9,7 +9,8 @@ public class MiniMapUI : MonoBehaviour
     public RectTransform miniMapContainer; // ミニマップのUIコンテナ
 
     public RoomData[,] roomDatas;
-    public float roomIconSize = 100f; // 部屋アイコンのサイズ
+    public float roomIconSizeY = 100f; // 部屋アイコンのサイズ
+    public float roomIconSizeX = 100f; // 部屋アイコンのサイズ
 
     public float roomIconDirection = 0f; //部屋アイコンと部屋アイコンの距離
 
@@ -29,6 +30,9 @@ public class MiniMapUI : MonoBehaviour
         roomDatas = roomManager.GetRoomDatas();
         GenerateMiniMap(roomDatas);
         UpdateMiniMap();
+
+
+
 
     }
 
@@ -57,7 +61,7 @@ public class MiniMapUI : MonoBehaviour
                 
 
                 // アイコンの位置を設定
-                rect.anchoredPosition = new Vector2(x * roomIconSize, -y * (rect.sizeDelta.y - 5) );
+                rect.anchoredPosition = new Vector2(x * roomIconSizeX, -y * (rect.sizeDelta.y - 5) );
 
                 //部屋の連結を調べる
                 MakeCorridor(datas, x, y, rect);
@@ -128,8 +132,8 @@ public class MiniMapUI : MonoBehaviour
     void UpdateMiniMap()
     {
         // 現在の部屋の位置を計算
-        float offsetX = nowX * roomIconSize;
-        float offsetY = -nowY * roomIconSize;
+        float offsetX = nowX * roomIconSizeX;
+        float offsetY = -nowY * roomIconSizeY;
 
         // ミニマップコンテナの位置を調整
         miniMapContainer.anchoredPosition = new Vector2(-offsetX, -offsetY);
@@ -165,6 +169,28 @@ public class MiniMapUI : MonoBehaviour
 
         // ミニマップを更新
         UpdateMiniMap();
+    }
+
+    public void DeleteMiniMap()
+    {
+        // ミニマップの全ての子オブジェクトを削除
+        foreach (Transform child in miniMapContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Debug.Log("ミニマップをリセットしました");
+    }
+
+    public void ResetAndGenerateMiniMap(RoomData[,] _datas)
+    {
+        // ミニマップをリセット
+        DeleteMiniMap();
+
+        // ミニマップを再生成
+        GenerateMiniMap(_datas);
+
+        Debug.Log("ミニマップを再生成しました");
     }
 
 }
