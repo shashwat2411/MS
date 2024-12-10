@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class EnemyBomb : ThrowableEnemyObject
 {
-    public ParticleSystem[] explosionSystem;
     private bool grounded = false;
+    private float countdownValue;
+
+    public ParticleSystem[] explosionSystem;
+    public MeshRenderer fuseMaterial;
     protected override void Start()
     {
         base.Start();
 
         grounded = false;
+
+        fuseMaterial.material = Instantiate(fuseMaterial.material);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        countdownValue = (maxLifetime - lifetime) / maxLifetime;
+
+        fuseMaterial.material.SetFloat("_Transparency", countdownValue);
     }
     protected override void OnDestroy()
     {
