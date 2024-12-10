@@ -13,7 +13,7 @@ public class Lighting : MonoBehaviour, IAtkEffect
 
     public float offsetParamater = 3.0f;
 
-    int lv = 1;
+    static int lv = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +38,14 @@ public class Lighting : MonoBehaviour, IAtkEffect
 
         this.damage = damage * damageFactor[index];
 
-        Debug.Log("Lighting:  " + damageFactor);
+        Debug.Log("Lighting:  " + this.damage);
     }
 
     public void LevelUp()
     {
         lv++;
         
-        Debug.Log("LevelUp   " + damageFactor);
+       // Debug.Log("LevelUp   " + damageFactor);
     }
 
     public void ResetLevel()
