@@ -26,6 +26,8 @@ public class PlayerAttack : MonoBehaviour
     [Header("")]
     public float attackMoveRange;
 
+
+    [Header("Charge Phase")]
     [SerializeField]
     ChargePhase chargePhase = ChargePhase.Entry;
 

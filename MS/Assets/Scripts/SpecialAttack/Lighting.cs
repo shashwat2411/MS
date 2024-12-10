@@ -7,9 +7,13 @@ public class Lighting : MonoBehaviour, IAtkEffect
 {
     public float damage;
 
-    static float factor = 1.0f;
+    // list
+    [SerializeField]
+    List<float> damageFactor = new List<float>();
 
     public float offsetParamater = 3.0f;
+
+    int lv = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,20 +29,29 @@ public class Lighting : MonoBehaviour, IAtkEffect
       
         this.transform.localScale = Vector3.one * Mathf.Clamp(damage / 30.0f, 0f, 1f); 
         Destroy(gameObject,lifetime);
-        this.damage = damage* factor;
-        
-        Debug.Log("Lighting:  " + factor);
+
+        var index = lv - 1;
+        if (index >= damageFactor.Count)
+        {
+            index = damageFactor.Count - 1; 
+        }
+
+        this.damage = damage * damageFactor[index];
+
+        Debug.Log("Lighting:  " + damageFactor);
     }
 
     public void LevelUp()
     {
-        factor += 0.2f;
-        Debug.Log("LevelUp   " + factor);
+        lv++;
+        
+        Debug.Log("LevelUp   " + damageFactor);
     }
 
     public void ResetLevel()
     {
-        factor = 1.0f;
+        lv = 1;
+     
     }
 
 
