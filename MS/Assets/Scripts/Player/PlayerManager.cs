@@ -311,7 +311,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Heal()
     {
-        playerHP.Heal(playerData.healthRespons);
+        playerHP.Recover(playerData.healthRespons);
         CheckPlayerDataState();
     }
 
