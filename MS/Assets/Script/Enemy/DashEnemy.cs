@@ -63,15 +63,8 @@ public class DashEnemy : EnemyBase
 
         if(collided.gameObject == player)
         {
-            player.GetComponent<MeshRenderer>().material.color = Color.red;
-
-            if (state != DASHENEMY_STATE.ATTACK)
+            if (state == DASHENEMY_STATE.ATTACK)
             {
-                healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
-            }
-            else
-            {
-                //プレーヤーへのダメージ
                 player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
             }
         }

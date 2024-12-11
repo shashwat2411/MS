@@ -60,11 +60,6 @@ public class ThrowEnemy : EnemyBase
     protected override void OnCollision(GameObject collided)
     {
         base.OnCollision(null);
-
-        if (collided.gameObject == player)
-        {
-
-        }
     }
     public override void Damage(float value)
     {
