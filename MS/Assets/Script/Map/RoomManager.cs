@@ -39,10 +39,10 @@ public class RoomManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) MoveRoom(-1, 0);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) MoveRoom(1, 0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) MoveRoom(0, -1);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) MoveRoom(0, 1);
+        //if (Input.GetKeyDown(KeyCode.UpArrow)) MoveRoom(-1, 0);
+        //if (Input.GetKeyDown(KeyCode.DownArrow)) MoveRoom(1, 0);
+        //if (Input.GetKeyDown(KeyCode.LeftArrow)) MoveRoom(0, -1);
+        //if (Input.GetKeyDown(KeyCode.RightArrow)) MoveRoom(0, 1);
     }
 
     //==================================

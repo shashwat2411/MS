@@ -183,8 +183,11 @@ public class PlayerAttack : MonoBehaviour
             afterShock = true;
             holdtime = 1.0f;
 
-            growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
-            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
+            growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+
             //collider.GetComponent<SphereCollider>().enabled = false;
 
             Invoke("ResetCollider", attackTime);
@@ -203,8 +206,11 @@ public class PlayerAttack : MonoBehaviour
             chargeEffect.Play();
             isHold = true;
 
-            growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
-            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            growth.Activate(growth.GetOuterMaterial(), 0.1f);
+            growth.Activate(growth.GetInnerMaterial(), 0.1f);
 
             growth.SetInitialPosition(growth.GenerateRandomPosition());
 
@@ -225,8 +231,11 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Close Range Attack");
         Invoke("ResetCollider", attackTime);
 
-        growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
-        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+        //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+        //growth.Activate(growth.GetOuterMaterial(), 0.1f);
+        //growth.Activate(growth.GetInnerMaterial(), 0.1f);
         //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
@@ -241,8 +250,9 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
 
-        growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
-        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
+        growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+
         growth.innerCircle.localScale = new Vector3(growth.GetInitialRadius(), growth.innerCircle.localScale.y, growth.GetInitialRadius());
         //collider.GetComponent<SphereCollider>().enabled = false;
     }
