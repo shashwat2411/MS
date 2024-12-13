@@ -211,7 +211,15 @@ public class SkillSelect : MonoBehaviour
     {
         if (!context.started) return;
 
-        player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+        if (BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus != null)
+        {
+            player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+
+        } else if(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item != null)
+        {
+            player.GetComponent<PlayerManager>().playerPrefabs.GetTopItemBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item);
+        }
+        //player.GetComponent<PlayerManager>().playerData.
         //player.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
 
