@@ -48,6 +48,8 @@ public class HPBarManager : MonoBehaviour
             Hpbar2.GetComponent<Player_HP>().Hp_Max = Hp_Max - 100.0f;
 
             Hpbar2.SetActive(true);
+
+            SetSecondHPLength();
         }
         else
         {
@@ -79,6 +81,14 @@ public class HPBarManager : MonoBehaviour
 
     }
 
+    void SetSecondHPLength()
+    {
+        float len;
+
+        len = 0.7f / 100.0f * (Hp_Max - 100.0f);
+
+        Hpbar2.transform.localScale = new Vector3(len, Hpbar2.transform.localScale.y);
+    }
 
     public void Damage(float value)
     {
