@@ -5,6 +5,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
+
+public enum ChargePhase
+{
+    Entry,
+    Low,
+    Middle,
+    High = 5,
+    Max = 99
+}
+
 public class PlayerAttack : MonoBehaviour
 {
 
@@ -12,11 +22,26 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
+    private LockOnGrowth growth;
 
-    [Header("ÊîªÊíÅEßªÂãïÁØÅEõ≤")]
+    [Header("")]
     public float attackMoveRange;
 
 
+    [Header("Charge Phase")]
+    [SerializeField]
+    ChargePhase chargePhase = ChargePhase.Entry;
+
+    [Range(0, 100)]
+    public float lowRange;
+
+    [Range(0, 100)]
+    public float middleRange;
+
+    [Range(0, 100)]
+    public float highRange;
+
+   
 
     [HideInInspector] public float collisionDamage = 10f;
 
@@ -69,6 +94,7 @@ public class PlayerAttack : MonoBehaviour
                                           );
 
         attackArea = collider.transform;
+        growth = collider.GetComponent<LockOnGrowth>();
 
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
@@ -91,9 +117,10 @@ public class PlayerAttack : MonoBehaviour
 
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
 
-                collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
+                //collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
 
+
+                growth.growthValue = Mathf.Lerp(0f, 1f, (holdtime - 1f) / (playerData.maxChargeTime - 1f));
 
 
             }
@@ -107,6 +134,35 @@ public class PlayerAttack : MonoBehaviour
         }
 
         playerData.charge = holdtime;
+        SwitchChargePhase();
+    
+    }
+
+
+    void SwitchChargePhase()
+    {
+        if (isHold)
+        {
+            chargePhase = ChargePhase.Entry;
+            if (holdtime > playerData.maxChargeTime * lowRange / 100.0f)
+            {
+                chargePhase = ChargePhase.Low;
+            }
+            if (holdtime > playerData.maxChargeTime * middleRange / 100.0f)
+            {
+                chargePhase = ChargePhase.Middle;
+            }
+            if (holdtime > playerData.maxChargeTime * highRange / 100.0f)
+            {
+                chargePhase = ChargePhase.High;
+            }
+            if(holdtime >= playerData.maxChargeTime)
+            {
+                chargePhase = ChargePhase.Max;
+            }
+        }
+        
+       
     }
 
     /// <summary>
@@ -126,7 +182,9 @@ public class PlayerAttack : MonoBehaviour
             isHold = false;
             afterShock = true;
             holdtime = 1.0f;
-            collider.GetComponent<MeshRenderer>().enabled = false;
+
+            growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
+            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
             //collider.GetComponent<SphereCollider>().enabled = false;
 
             Invoke("ResetCollider", attackTime);
@@ -144,7 +202,11 @@ public class PlayerAttack : MonoBehaviour
         {
             chargeEffect.Play();
             isHold = true;
-            collider.GetComponent<MeshRenderer>().enabled = true;
+
+            growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            growth.SetInitialPosition(growth.GenerateRandomPosition());
 
             ParticleSystem.MainModule main = chargeEffect.main;
             main.loop = true;
@@ -163,7 +225,8 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Close Range Attack");
         Invoke("ResetCollider", attackTime);
 
-        collider.GetComponent<MeshRenderer>().enabled = true;
+        growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
         //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
@@ -175,9 +238,12 @@ public class PlayerAttack : MonoBehaviour
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, 0.05f, playerData.maxAimSize);
+        collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
-        collider.GetComponent<MeshRenderer>().enabled = false;
+
+        growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
+        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        growth.innerCircle.localScale = new Vector3(growth.GetInitialRadius(), growth.innerCircle.localScale.y, growth.GetInitialRadius());
         //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
@@ -200,12 +266,12 @@ public class PlayerAttack : MonoBehaviour
         //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
         Vector3 startPoint = chargeEffect.transform.position;
 
-        Vector3 endPoint = new Vector3(collider.transform.position.x, 0.0f, collider.transform.position.z);
-        float offset = 1.5f;
-        if (holdtime < 3.5f)
-        {
-            endPoint = GetRandomAttackPos(collider.transform.position, offset);
-        }
+        Vector3 endPoint = new Vector3(growth.innerCircle.position.x, 0.0f, growth.innerCircle.position.z);
+        //float offset = 1.5f;
+        //if (holdtime < 3.5f)
+        //{
+        //      endPoint = GetRandomAttackPos(collider.transform.position, offset);
+        //}
 
 
         //Debug.Log(holdtime +"  " + endPoint );
@@ -215,7 +281,8 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, playerData.maxAttackSize, playerData.attack, holdtime);
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, growth.innerCircle, 
+                                playerData.maxAttackSize, playerData.attack, holdtime,chargePhase);
 
         ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
         //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);

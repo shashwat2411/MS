@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 {
@@ -18,6 +19,8 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     public float damage;
     float maxAttackSize;
 
+    protected ChargePhase chargePhase;
+
     float factor = 10.0f;
 
 
@@ -25,14 +28,15 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
     protected static List<GameObject> sp = new List<GameObject>();
 
-    public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f)
+
+    public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f, ChargePhase chargePhase = ChargePhase.Entry)
     {
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
         once = true;
         this.damage = damage / factor;
+        GetComponent<TrailRenderer>().time = 0.5f;
 
-
-
+        this.chargePhase = chargePhase;
         hitPos = hitPosition;
         this.maxAttackSize = maxAttackSize;
         Invoke("DestroyBullet", lifetime);
@@ -48,8 +52,9 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
             Debug.Log(other.name);
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             //this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
-            this.transform.position = hitPos + Vector3.up * 0.1f;
+            this.transform.position = hitPos + Vector3.up * 0.05f;
 
+            GetComponent<TrailRenderer>().time = 0f;
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
             if (this.maxAttackSize >= this.damage / factor)
@@ -90,6 +95,9 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     public void ApplyBonus(GameObject bonusEffect)
     {
         sp.Add(bonusEffect);
+
+       
+    
     }
 
     public void ResetBonus()

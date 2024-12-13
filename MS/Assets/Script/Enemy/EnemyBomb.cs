@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class EnemyBomb : ThrowableEnemyObject
 {
-    public ParticleSystem[] explosionSystem;
     private bool grounded = false;
+    private float countdownValue;
+    private Vector3 fixedPosition;
+
+    public ParticleSystem[] explosionSystem;
+    public MeshRenderer fuseMaterial;
     protected override void Start()
     {
         base.Start();
 
         grounded = false;
+
+        fuseMaterial.material = Instantiate(fuseMaterial.material);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (grounded == true) { transform.position = fixedPosition; }
+
+        countdownValue = (maxLifetime - lifetime) / maxLifetime;
+        fuseMaterial.material.SetFloat("_Transparency", countdownValue);
     }
     protected override void OnDestroy()
     {
@@ -55,10 +66,15 @@ public class EnemyBomb : ThrowableEnemyObject
 
         if(collision.gameObject.CompareTag("Ground"))
         {
+            fixedPosition = transform.position;
             grounded = true;
+            return;
         }
 
-        Debug.Log("Collision : " + collision.gameObject.tag);
+        if (collision.gameObject == player && owner != player)
+        {
+            Destroy(gameObject);
+        }
 
         Destroy(gameObject);
     }

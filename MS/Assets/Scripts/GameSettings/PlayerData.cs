@@ -275,6 +275,22 @@ public class PlayerPrefabs
     }
 
 
+    public bool CheckItemNotMax(BonusItem item)
+    {
+        if (!itemCountPair.ContainsKey(item.name))
+        {
+            return true;
+        }
+
+        if (item.bonusList.Count < itemCountPair[item.name])
+        {
+            return true;
+        }
+
+
+        return false;
+    }
+    
     /// <summary>
     /// すべてのボーナスを繰り返す
     /// </summary>

@@ -1116,6 +1116,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82b899e5-43d9-4896-be5d-dc85a75773c8
     m_ActionName: Player/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ea57e65-6f70-4353-ba45-503cc3f08d6c
+    m_ActionName: UI/R1[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dcf8bec5-66d4-45c0-8b61-a9b5e98b79dc
+    m_ActionName: UI/L1[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1172,6 +1180,7 @@ MonoBehaviour:
     mpAttackArea: {fileID: 0}
   playerDamageEffect: {fileID: 2845597575105432125, guid: 5d7b2363bb56ec042860fef862b8daf3,
     type: 3}
+  playerHpRecoveryEffect: {fileID: 0}
   playerHP: {fileID: 0}
   playerExp: {fileID: 0}
 --- !u!114 &5328800350277007654
@@ -1189,6 +1198,10 @@ MonoBehaviour:
   attackTime: 0.2
   collider: {fileID: 0}
   attackMoveRange: 2
+  chargePhase: 0
+  lowRange: 22.1
+  middleRange: 51.4
+  highRange: 90
   collisionDamage: 10
   closeRangeAttack: {fileID: 6481758436606181088, guid: f37a0ac7a5eade24c98c8281967e814e,
     type: 3}
@@ -1196,6 +1209,7 @@ MonoBehaviour:
     type: 3}
   isHold: 0
   afterShock: 0
+  attackRangeMoveFactor: 1
   multiBullets: []
   enemies:
   - {fileID: 0}
@@ -1269,6 +1283,7 @@ MonoBehaviour:
   dashIncibility: 0
   invincibilityTimeLeft: 0
   dashCoolDownMask: {fileID: 0}
+  doubleDashCoolDownMask: {fileID: 0}
 --- !u!114 &600899194905104865
 MonoBehaviour:
   m_ObjectHideFlags: 0

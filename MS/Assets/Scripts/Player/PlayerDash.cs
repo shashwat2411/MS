@@ -9,27 +9,37 @@ public class PlayerDash : MonoBehaviour
 
 
     [Header("Dash Staff")]
+  
     private float dashTimeLeft = 1.0f;
     private float lastDash=0;
     public float dashSpeed;
     public ParticleSystem dashEffectPref;
 
+    bool doubleDash = false;
+    bool doubleDashReady = false;
+    float dashCount;
+    float dashCountMax = 1;
+
+    public bool isDashing { get; private set; } = false;
+
     Vector3 dashOrientation;
 
+    [Header("Dash Incibility")]
     public bool dashIncibility;
+    [SerializeField]
     public float invincibilityTimeLeft;
 
 
-    bool doubleDash= false;
-    bool doubleDashReady= false;
-    float dashCount;
-    float dashCountMax = 1;
-    
+ 
+
+    [Header("Double Dash Interval")]
+    [SerializeField]
     float secondDashIntervalTime =0.5f;
+    [SerializeField]
     float secondDashIntervalTimeLeft;
 
 
-    public bool isDashing { get; private set; } = false;
+
     [Header("Dash CD UI Staff")]
     public Image dashCoolDownMask;
     public Image doubleDashCoolDownMask;
@@ -37,7 +47,6 @@ public class PlayerDash : MonoBehaviour
     
     PlayerData playerData;
     PlayerManager playerManager;
-
     Rigidbody rb;
 
 
@@ -108,6 +117,7 @@ public class PlayerDash : MonoBehaviour
         //ダッシュ終了
         else
         {
+            
             dashEffectPref.Stop();
             //二回目のダッシュ
             if (doubleDash)
@@ -119,8 +129,8 @@ public class PlayerDash : MonoBehaviour
             else
             {
                 
-              
-                dashCoolDownMask.fillAmount -= 1.0f / playerData.dashCooldown * Time.deltaTime;
+                dashCoolDownMask.fillAmount += 1.0f / playerData.dashCooldown * Time.deltaTime;
+                doubleDashCoolDownMask.fillAmount += 1.0f / playerData.dashCooldown * Time.deltaTime;
             }
         }
 
@@ -128,10 +138,14 @@ public class PlayerDash : MonoBehaviour
         if (doubleDashReady)
         {
             secondDashIntervalTimeLeft -= Time.deltaTime;
+
+            doubleDashCoolDownMask.fillAmount -= 1f / secondDashIntervalTime * Time.deltaTime;
+
             if (secondDashIntervalTimeLeft < 0)
             {
                 doubleDashReady = false;
             }
+            
         }
        
 
@@ -166,7 +180,7 @@ public class PlayerDash : MonoBehaviour
 
             lastDash = Time.time + playerData.dashTime;
 
-            dashCoolDownMask.fillAmount = 1.0f;
+            dashCoolDownMask.fillAmount = 0.0f;
 
             dashCount--;
 

@@ -63,12 +63,6 @@ public class GunEnemy : EnemyBase
     {
         base.OnCollision(null);
 
-        if (collided.gameObject == player)
-        {
-            player.GetComponent<MeshRenderer>().material.color = Color.red;
-            healthBar.Damage(player.GetComponent<PlayerManager>().playerData.attack);
-            //プレーヤーへのダメージ
-        }
     }
     public override void Damage(float value)
     {
