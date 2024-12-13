@@ -33,6 +33,9 @@ public class PauseWindow : MonoBehaviour
     string[] Text = new string[2] { "GoToTitle", "OPTION" };
 
     [SerializeField]
+    GameObject[] SkillIcon;
+
+    [SerializeField]
     GameObject GameManager;
 
     // Start is called before the first frame update
@@ -96,7 +99,34 @@ public class PauseWindow : MonoBehaviour
         LV.text = "Lv." + Lv.ToString();
         EXP.text = "EXP:" + exp.ToString() + "/" + Nextexp.ToString();
 
-       
+        //---------------------------------------------------------------------
+
+        int count = player.playerPrefabs.itemCountPair.Count;
+        Sprite bonusicon = null;
+        int bonusLv = 0;
+
+        foreach (KeyValuePair<string, int> item in player.playerPrefabs.itemCountPair)
+        {
+            //Lv
+            bonusLv = item.Value;
+
+            //ÉAÉCÉRÉì
+            for(int i=0;i< BonusSettings.Instance.playerBonusItems.Count; i++)
+            {
+                if(item.Key!= BonusSettings.Instance.playerBonusItems[i].name) { continue; }
+
+                bonusicon = BonusSettings.Instance.playerBonusItems[i].icon;
+                break;
+            }
+            
+        }
+
+        for(int a = 0; a < count; a++)
+        {
+            SkillIcon[a].SetActive(true);
+            SkillIcon[a].GetComponent<Image>().sprite = bonusicon;
+            SkillIcon[a].transform.GetChild(0).GetComponent<TextMeshPro>().text = "Lv." + bonusLv.ToString();
+        }
 
     }
 
