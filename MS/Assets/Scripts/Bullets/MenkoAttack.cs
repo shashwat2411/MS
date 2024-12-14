@@ -46,13 +46,12 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
     void One(Vector3 startPoint, Transform area, float maxAttackSize, float attack, float holdtime, ChargePhase chargePhase)
     {
         Vector3 endPoint = new Vector3(area.position.x, 0.0f, area.position.z);
-        float offset = 1.5f;
 
-
-        if (holdtime < 3.5f)
-        {
-            endPoint = GetOffset(area.position, holdtime, offset);
-        }
+        //float offset = 1.5f;
+        //if (holdtime < 3.5f)
+        //{
+        //    endPoint = GetOffset(area.position, holdtime, offset);
+        //}
 
         var dir = endPoint - startPoint;
         dir.Normalize();
@@ -70,13 +69,13 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
     void Two(Vector3 startPoint, Transform area, float maxAttackSize, float attack, float holdtime, ChargePhase chargePhase)
     {
         Vector3 endPoint = new Vector3(area.position.x, 0.0f, area.position.z);
-        float offset = 1.5f;
 
+        //float offset = 1.5f;
+        //if (holdtime < 3.5f)
+        //{
+        //    endPoint = GetOffset(area.position, holdtime, offset);
+        //}
 
-        if (holdtime < 3.5f)
-        {
-            endPoint = GetOffset(area.position, holdtime, offset);
-        }
         var leftEnd  = endPoint - area.right * twoMenkoOffset;
         var rightEnd = endPoint + area.right * twoMenkoOffset;
         
@@ -98,13 +97,13 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
     void Three(Vector3 startPoint, Transform area, float maxAttackSize, float attack, float holdtime, ChargePhase chargePhase)
     {
         Vector3 endPoint = new Vector3(area.position.x, 0.0f, area.position.z);
-        float offset = 1.5f;
 
+        //float offset = 1.5f;
+        //if (holdtime < 3.5f)
+        //{
+        //    endPoint = GetOffset(area.position, holdtime, offset);
+        //}
 
-        if (holdtime < 3.5f)
-        {
-            endPoint = GetOffset(area.position, holdtime, offset);
-        }
         var leftEnd =  endPoint - area.right * threeMenkoOffset;
         var rightEnd = endPoint + area.right * threeMenkoOffset;
 

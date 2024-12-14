@@ -28,10 +28,14 @@ public class SkillSelect : MonoBehaviour
     [SerializeField]
     float SkillProbability;
 
+    bool IsBonusSelect;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        IsBonusSelect = false;
+
         AnimeStart = false;
 
         b1 = b2 = b3 = false;
@@ -105,6 +109,8 @@ public class SkillSelect : MonoBehaviour
             BonusWindow[i].GetComponent<SkillWindow>().CardReset();
 
             BonusRandom(BonusTypeRandom(), i);
+
+            BonusWindow[i].GetComponent<SkillWindow>().DrawBonus();
         }
     }
 
@@ -210,8 +216,18 @@ public class SkillSelect : MonoBehaviour
     public void BonusSelect(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+        if (IsBonusSelect != true) return;
 
-        player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+
+        if (BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus != null)
+        {
+            player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+
+        } else if(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item != null)
+        {
+            player.GetComponent<PlayerManager>().playerPrefabs.GetTopItemBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item);
+        }
+        //player.GetComponent<PlayerManager>().playerData.
         //player.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
 
@@ -231,6 +247,8 @@ public class SkillSelect : MonoBehaviour
 
         Cursor.SetActive(false);
 
+        
+
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
        
@@ -247,6 +265,8 @@ public class SkillSelect : MonoBehaviour
     public void LevelUp()
     {
         Time.timeScale = 0;
+
+        IsBonusSelect = true;
 
         AnimeStart = true;
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
@@ -291,6 +311,8 @@ public class SkillSelect : MonoBehaviour
         {
             BonusWindow[i].SetActive(false);
         }
+
+        IsBonusSelect = false;
 
         Time.timeScale = 1;
     }

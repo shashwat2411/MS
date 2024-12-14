@@ -175,8 +175,7 @@ public class PlayerPrefabs
 
 
     // 各アイテムのボーナスリストのインデックスを記録するためのDictionary
-    [SerializeField]
-   　Dictionary<string,int> itemCountPair = new Dictionary<string, int>();
+    public Dictionary<string,int> itemCountPair = new Dictionary<string, int>();
 
 
     public GameObject this[PlayerPrafabType key]

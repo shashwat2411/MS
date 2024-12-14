@@ -10,6 +10,7 @@ public class PauseWindow : MonoBehaviour
     float Hp, MaxHp, Attack, Defence, exp, Nextexp;
     int Lv;
 
+   
 
     PlayerManager player;
 
@@ -31,6 +32,10 @@ public class PauseWindow : MonoBehaviour
     bool Rt, Lt;
 
     string[] Text = new string[2] { "GoToTitle", "OPTION" };
+
+    [SerializeField]
+    GameObject[] SkillIcon;
+  
 
     [SerializeField]
     GameObject GameManager;
@@ -96,6 +101,37 @@ public class PauseWindow : MonoBehaviour
         LV.text = "Lv." + Lv.ToString();
         EXP.text = "EXP:" + exp.ToString() + "/" + Nextexp.ToString();
 
+        //---------------------------------------------------------------------
+
+        int count = player.playerPrefabs.itemCountPair.Count;
+        Sprite bonusicon = null;
+        int bonusLv = 0;
+        int a = 0;
+
+        foreach (KeyValuePair<string, int> item in player.playerPrefabs.itemCountPair)
+        {
+            if (a < count)
+            {
+                SkillIcon[a].SetActive(true);
+            }
+            //Lv
+            bonusLv = item.Value;
+            SkillIcon[a].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Lv." + bonusLv.ToString();
+
+            //ÉAÉCÉRÉì
+            for (int i=0;i< BonusSettings.Instance.playerBonusItems.Count; i++)
+            {
+                if(item.Key!= BonusSettings.Instance.playerBonusItems[i].name) { continue; }
+
+                bonusicon = BonusSettings.Instance.playerBonusItems[i].icon;
+                break;
+            }
+            SkillIcon[a].GetComponent<Image>().sprite = bonusicon;
+
+           
+            a++;
+        }
+
        
 
     }
@@ -145,6 +181,8 @@ public class PauseWindow : MonoBehaviour
     public void Select(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+
+        if (GetComponent<PauseAnimation>().IsPause != true) return;
 
         switch (selectionNo)
         {

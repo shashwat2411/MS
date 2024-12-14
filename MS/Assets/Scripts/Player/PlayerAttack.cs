@@ -22,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Close Range")]
     public float attackTime = 0.2f;
     public GameObject collider;
+    private LockOnGrowth growth;
 
     [Header("")]
     public float attackMoveRange;
@@ -93,6 +94,7 @@ public class PlayerAttack : MonoBehaviour
                                           );
 
         attackArea = collider.transform;
+        growth = collider.GetComponent<LockOnGrowth>();
 
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
@@ -115,9 +117,10 @@ public class PlayerAttack : MonoBehaviour
 
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
 
-                collider.GetComponent<Transform>().localScale =
-                    new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
+                //collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
 
+
+                growth.growthValue = Mathf.Lerp(0f, 1f, (holdtime - 1f) / (playerData.maxChargeTime - 1f));
 
 
             }
@@ -179,7 +182,12 @@ public class PlayerAttack : MonoBehaviour
             isHold = false;
             afterShock = true;
             holdtime = 1.0f;
-            collider.GetComponent<MeshRenderer>().enabled = false;
+
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
+            growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+
             //collider.GetComponent<SphereCollider>().enabled = false;
 
             Invoke("ResetCollider", attackTime);
@@ -197,7 +205,14 @@ public class PlayerAttack : MonoBehaviour
         {
             chargeEffect.Play();
             isHold = true;
-            collider.GetComponent<MeshRenderer>().enabled = true;
+
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            growth.Activate(growth.GetOuterMaterial(), 0.1f);
+            growth.Activate(growth.GetInnerMaterial(), 0.1f);
+
+            growth.SetInitialPosition(growth.GenerateRandomPosition());
 
             ParticleSystem.MainModule main = chargeEffect.main;
             main.loop = true;
@@ -216,7 +231,11 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Close Range Attack");
         Invoke("ResetCollider", attackTime);
 
-        collider.GetComponent<MeshRenderer>().enabled = true;
+        //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+        //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+        //growth.Activate(growth.GetOuterMaterial(), 0.1f);
+        //growth.Activate(growth.GetInnerMaterial(), 0.1f);
         //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
@@ -228,9 +247,13 @@ public class PlayerAttack : MonoBehaviour
         afterShock = false;
         holdtime = 1.0f;
 
-        collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, 0.05f, playerData.maxAimSize);
+        collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
-        collider.GetComponent<MeshRenderer>().enabled = false;
+
+        growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
+        growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+
+        growth.innerCircle.localScale = new Vector3(growth.GetInitialRadius(), growth.innerCircle.localScale.y, growth.GetInitialRadius());
         //collider.GetComponent<SphereCollider>().enabled = false;
     }
 
@@ -253,12 +276,12 @@ public class PlayerAttack : MonoBehaviour
         //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
         Vector3 startPoint = chargeEffect.transform.position;
 
-        Vector3 endPoint = new Vector3(collider.transform.position.x, 0.0f, collider.transform.position.z);
-        float offset = 1.5f;
-        if (holdtime < 3.5f)
-        {
-            endPoint = GetRandomAttackPos(collider.transform.position, offset);
-        }
+        Vector3 endPoint = new Vector3(growth.innerCircle.position.x, 0.0f, growth.innerCircle.position.z);
+        //float offset = 1.5f;
+        //if (holdtime < 3.5f)
+        //{
+        //      endPoint = GetRandomAttackPos(collider.transform.position, offset);
+        //}
 
 
         //Debug.Log(holdtime +"  " + endPoint );
@@ -268,7 +291,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, collider.transform, 
+        collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, growth.innerCircle, 
                                 playerData.maxAttackSize, playerData.attack, holdtime,chargePhase);
 
         ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);

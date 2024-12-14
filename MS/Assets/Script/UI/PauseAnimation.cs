@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PauseAnimation : MonoBehaviour
 {
-    bool IsPause;
+    public bool IsPause;
 
     public bool AnimeStart, AnimeEnd;
 
