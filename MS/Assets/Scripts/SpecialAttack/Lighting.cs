@@ -1,73 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI;
 
 public class Lighting : MonoBehaviour, IAtkEffect
 {
-    public float damage;
+    public int level = 1;
+    public float totalDamage;
+    public float offset = 3.0f;
+    public AnimationCurve lightningCurve;
 
-    // list
-    [SerializeField]
-    List<float> damageFactor = new List<float>();
+    [Header("Damage Level Color")]
+    [ColorUsage(false, true)] private Color[] color1 = new Color[2];
+    [ColorUsage(false, true)] public Color[] color2 = new Color[2];
+    [ColorUsage(false, true)] public Color[] color3 = new Color[2];
 
-    public float offsetParamater = 3.0f;
+    //Hash Map
+    private int _LightningColor = Shader.PropertyToID("LightningColor");
+    private int _Color = Shader.PropertyToID("Color");
 
-    int lv = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    private VisualEffect lightningVfx;
+    [SerializeField] List<float> damageFactor = new List<float>();
+
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, Transform usedMenko = null)
     {
-        
-    }
+        //Random Position
+        GameObject player = FindFirstObjectByType<PlayerManager>().gameObject;
+        Vector3 direction = (usedMenko.transform.position - player.transform.position).normalized;
+        transform.position = usedMenko.position + direction * offset;
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
-    {
-        var offset = new Vector3(Random.Range(offsetParamater, -offsetParamater), 0, Random.Range(offsetParamater, 0.0f));
-        this.transform.position += offset;
 
-      
-        this.transform.localScale = Vector3.one * Mathf.Clamp(damage / 30.0f, 0f, 1f); 
-        Destroy(gameObject,lifetime);
+        //Damage Setting
+        var index = level - 1;
+        if (index >= damageFactor.Count) { index = damageFactor.Count - 1; }
+        totalDamage *= damageFactor[index];
 
-        var index = lv - 1;
-        if (index >= damageFactor.Count)
+
+        //VFX Setting
+        lightningVfx = GetComponentInChildren<VisualEffect>();
+
+        color1[0] = lightningVfx.GetVector4(_LightningColor);
+        color1[1] = lightningVfx.GetVector4(_Color);
+
+        if (index == 0)
         {
-            index = damageFactor.Count - 1; 
+            lightningVfx.SetVector4(_LightningColor, color1[0]);
+            lightningVfx.SetVector4(_Color, color1[1]);
         }
-
-        this.damage = damage * damageFactor[index];
-
-        Debug.Log("Lighting:  " + damageFactor);
+        else if (index == (damageFactor.Count / 2))
+        {
+            lightningVfx.SetVector4(_LightningColor, color2[0]);
+            lightningVfx.SetVector4(_Color, color2[1]);
+        }
+        else if (index == (damageFactor.Count - 1))
+        {
+            lightningVfx.SetVector4(_LightningColor, color2[0]);
+            lightningVfx.SetVector4(_Color, color2[1]);
+        }
     }
 
-    public void LevelUp()
-    {
-        lv++;
-        
-        Debug.Log("LevelUp   " + damageFactor);
-    }
-
-    public void ResetLevel()
-    {
-        lv = 1;
-     
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void LevelUp() { level++; }
+    public void ResetLevel() { level = 1; }
 
     private void OnTriggerEnter(Collider other)
     {
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
         if (enemy)
         {
-            enemy.Damage(damage);
-        
+            enemy.Damage(totalDamage);
         }
     }
 }

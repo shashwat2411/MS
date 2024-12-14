@@ -45,11 +45,11 @@ public class EnemyBase : MonoBehaviour
         stopMovement = false;
         dead = false;
 
-
         canvas = GetComponentInChildren<Canvas>().gameObject;
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
 
         agent.gameObject.transform.parent = null;
+        agent.gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     virtual protected void FixedUpdate()
@@ -61,13 +61,18 @@ public class EnemyBase : MonoBehaviour
         {
             rigidbody.velocity = agent.velocity;
 
-            transform.LookAt(Vector3.Lerp(transform.position, transform.position + agent.velocity, 0.6f));
+            transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
         }
     }
 
     virtual protected void LateUpdate()
     {
         canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+    }
+
+    virtual protected void OnCollisionEnter(Collision collision)
+    {
+        OnCollision(collision.gameObject);
     }
 
     virtual protected void OnCollision(GameObject collided)
@@ -112,11 +117,6 @@ public class EnemyBase : MonoBehaviour
     virtual public void Knockback(Vector3 direction, float power)
     {
         rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
-    }
-
-    protected void OnCollisionEnter(Collision collision)
-    {
-        OnCollision(collision.gameObject);
     }
 
     //___Gizmos_________________________________________________________________________________________________________________________

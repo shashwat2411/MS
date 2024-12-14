@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IAtkEffect
 {
     
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f);
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, Transform usedMenko = null);
 
     public void LevelUp();
 

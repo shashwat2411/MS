@@ -27,7 +27,7 @@ public class HPBarManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Hp_Max = player.playerData.maxHp;
         Hp_Now = player.playerData.hp;

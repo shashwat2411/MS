@@ -97,8 +97,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 240
-  shieldRipples: {fileID: 8538394309149160078, guid: b5c0831bba0f04f4382b5e43bf8b8917,
-    type: 3}
+  appearAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.9917638
+      outSlope: 2.9917638
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.036858976
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   speed: 0.05
   hitAlpha: 0
   hitFrontColor: {r: 4.237095, g: 0.11991706, b: 3.4540162, a: 1}
