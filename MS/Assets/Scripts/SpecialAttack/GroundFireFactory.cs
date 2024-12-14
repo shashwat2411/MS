@@ -11,7 +11,7 @@ public class GroundFireFactory : SpecialAttackFactory
     {
         
     }
-    public override void Initiate(int count, Vector3 pos, Quaternion rot, float lifetime = 0.8F, float damage = 1, ChargePhase chargePhase = ChargePhase.Entry)
+    public override void Initiate(int count, Vector3 pos, Quaternion rot, float lifetime = 0.8F, float damage = 1, ChargePhase chargePhase = ChargePhase.Entry, Transform usedMenko = null)
     {
         int i = levelData[level].count;
         if (count != 0)
@@ -22,7 +22,7 @@ public class GroundFireFactory : SpecialAttackFactory
         for (int j = 0; j < i; j++)
         {
             var obj = ObjectPool.Instance.Get(spAtk, pos, rot);
-            obj.GetComponent<GroundFire>().Initiate(1.0f, damage * levelData[level].damageFactor, declineIntervalData[level]);
+            obj.GetComponent<GroundFire>().Initiate(1.0f, damage * levelData[level].damageFactor, declineIntervalData[level],usedMenko);
             Debug.Log("sp level:  " + level + " sp damage factor " + levelData[level].damageFactor);
         }
     }

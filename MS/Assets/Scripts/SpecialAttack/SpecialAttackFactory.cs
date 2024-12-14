@@ -39,7 +39,7 @@ public class SpecialAttackFactory : MonoBehaviour
         
     }
 
-    public virtual void Initiate(int count,Vector3 pos,Quaternion rot,float lifetime = 0.8f, float damage = 1.0f,ChargePhase chargePhase = ChargePhase.Entry)
+    public virtual void Initiate(int count,Vector3 pos,Quaternion rot,float lifetime = 0.8f, float damage = 1.0f,ChargePhase chargePhase = ChargePhase.Entry, Transform usedMenko = null)
     {
     }
 

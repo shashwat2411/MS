@@ -21,7 +21,7 @@ public class Bullet : BulletBase
 
             foreach (var g in spFactory)
             {
-                g.Initiate(0, transform.position, transform.rotation, 1.0f, this.damage / 2.0f);
+                g.Initiate(0, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
         //Å@1å¬Ç∏Ç¬
@@ -29,7 +29,7 @@ public class Bullet : BulletBase
         { 
             foreach(var g in spFactory)
             {
-                g.Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f);
+                g.Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
         // ÉâÉìÉ_ÉÄ1å¬
@@ -38,7 +38,7 @@ public class Bullet : BulletBase
             for(int i=0;i<(int)chargePhase;i++)
             {
               var index = Random.Range(0, spFactory.Count);
-               spFactory[index].Initiate(1,transform.position,transform.rotation, 1.0f, this.damage / 2.0f);
+               spFactory[index].Initiate(1,transform.position,transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
                 
             }
         }

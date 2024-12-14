@@ -16,7 +16,7 @@ public class LightingFactory : SpecialAttackFactory
     }
 
 
-    public override void Initiate(int count, Vector3 pos, Quaternion rot, float lifetime = 0.8F, float damage = 1, ChargePhase chargePhase = ChargePhase.Entry)
+    public override void Initiate(int count, Vector3 pos, Quaternion rot, float lifetime = 0.8F, float damage = 1, ChargePhase chargePhase = ChargePhase.Entry, Transform usedMenko = null)
     {
         int i = levelData[level].count;
         if(count !=0)
@@ -27,7 +27,7 @@ public class LightingFactory : SpecialAttackFactory
         for (int j = 0; j < i; j++)
         {
             var obj = ObjectPool.Instance.Get(spAtk, pos, rot);
-            obj.GetComponent<IAtkEffect>().Initiate(1.0f, damage * levelData[level].damageFactor);
+            obj.GetComponent<Lighting>().Initiate(1.0f, damage * levelData[level].damageFactor, level, levelData.Count, usedMenko);
             Debug.Log("sp level:  " + level + " sp damage factor " + levelData[level].damageFactor);
         }
     }

@@ -57,10 +57,11 @@ public class ThrowEnemy : EnemyBase
                 break;
         }
     }
-    protected override void OnCollision(GameObject collided)
+    protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollision(null);
+
     }
+
     public override void Damage(float value)
     {
         base.Damage(value);
