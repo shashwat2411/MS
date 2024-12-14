@@ -129,6 +129,8 @@ public class PlayerManager : MonoBehaviour
         playerHP = FindFirstObjectByType<Player_HP>();
         playerExp = FindFirstObjectByType<PlayerExp>();
 
+        
+
     }
 
 
@@ -276,13 +278,15 @@ public class PlayerManager : MonoBehaviour
 
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
        //playerHP.Damage(50.0f);
-       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
-        if (!test)
-        {
-            playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
-        }
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[6]);
 
-        playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
+        //if (!test)
+        //{
+        //    playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        //}
+
+        //playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{

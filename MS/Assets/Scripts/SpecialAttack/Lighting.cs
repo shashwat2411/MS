@@ -38,7 +38,7 @@ public class Lighting : MonoBehaviour, IAtkEffect
 
         this.damage = damage * damageFactor[index];
 
-        Debug.Log("Lighting:  " + this.damage);
+       
     }
 
     public void LevelUp()
