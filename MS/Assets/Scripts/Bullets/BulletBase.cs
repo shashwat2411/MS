@@ -27,6 +27,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     bool once = true;
 
     protected static List<GameObject> sp = new List<GameObject>();
+    protected static List<SpecialAttackFactory> spFactory = new List<SpecialAttackFactory>();
 
 
     public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f, ChargePhase chargePhase = ChargePhase.Entry)
@@ -96,8 +97,9 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     {
         sp.Add(bonusEffect);
 
-       
-    
+        spFactory.Add(bonusEffect.GetComponent<SpecialAttackFactory>());
+
+
     }
 
     public void ResetBonus()

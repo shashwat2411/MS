@@ -10,5 +10,4 @@ public interface IAtkEffect
     public void LevelUp();
 
     public void ResetLevel();
-} 
-
+}

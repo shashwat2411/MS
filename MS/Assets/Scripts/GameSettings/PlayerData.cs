@@ -318,6 +318,13 @@ public class PlayerPrefabs
             {
                 atkEff.LevelUp();
             }
+
+            var atkFactory = bis.bonusItem.GetComponent<SpecialAttackFactory>();
+            if (atkFactory != null)
+            {
+                atkFactory.LevelUp();
+            }
+
         }
         else  if(bis.type == ItemBonusType.item)
         {

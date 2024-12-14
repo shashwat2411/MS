@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI;
 
-public class Lighting : MonoBehaviour, IAtkEffect
+public class Lighting : MonoBehaviour
 {
     public int level = 1;
     public float totalDamage;
@@ -21,10 +21,12 @@ public class Lighting : MonoBehaviour, IAtkEffect
     private int _Color = Shader.PropertyToID("Color");
 
 
-    private VisualEffect lightningVfx;
-    [SerializeField] List<float> damageFactor = new List<float>();
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, Transform usedMenko = null)
+
+    private VisualEffect lightningVfx;
+  
+
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, int index = 0, int levelDataCount = 0,Transform usedMenko = null)
     {
         //Random Position
         GameObject player = FindFirstObjectByType<PlayerManager>().gameObject;
@@ -33,9 +35,7 @@ public class Lighting : MonoBehaviour, IAtkEffect
 
 
         //Damage Setting
-        var index = level - 1;
-        if (index >= damageFactor.Count) { index = damageFactor.Count - 1; }
-        totalDamage *= damageFactor[index];
+        this.totalDamage = damage ;
 
 
         //VFX Setting
@@ -49,20 +49,19 @@ public class Lighting : MonoBehaviour, IAtkEffect
             lightningVfx.SetVector4(_LightningColor, color1[0]);
             lightningVfx.SetVector4(_Color, color1[1]);
         }
-        else if (index == (damageFactor.Count / 2))
+        else if (index == (levelDataCount / 2))
         {
             lightningVfx.SetVector4(_LightningColor, color2[0]);
             lightningVfx.SetVector4(_Color, color2[1]);
         }
-        else if (index == (damageFactor.Count - 1))
+        else if (index == (levelDataCount - 1))
         {
             lightningVfx.SetVector4(_LightningColor, color2[0]);
             lightningVfx.SetVector4(_Color, color2[1]);
         }
-    }
 
-    public void LevelUp() { level++; }
-    public void ResetLevel() { level = 1; }
+       
+    }
 
     private void OnTriggerEnter(Collider other)
     {

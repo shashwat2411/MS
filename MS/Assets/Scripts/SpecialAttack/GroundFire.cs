@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class GroundFire : MonoBehaviour,IAtkEffect
+public class GroundFire : MonoBehaviour
 {
     List<GameObject> allEnemies = new List<GameObject>();
 
@@ -15,27 +15,12 @@ public class GroundFire : MonoBehaviour,IAtkEffect
 
     int lv = 1;
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, Transform usedMenko = null)
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f,float declineInterval = 1.0f,Transform usedMenko = null)
     {
         Destroy(gameObject, lifetime * factor);
 
-        this.damage = 2.0f;
-    }
-
-    public void LevelUp()
-    {
-        lv++;
-        factor += 0.4f;
-        declineInterval -= 0.1f;
-        Debug.Log("LevelUp   " + factor);
-    }
-
-
-    public void ResetLevel()
-    {
-        lv = 1; 
-        factor = 5.0f;
-        declineInterval = 0.6f;
+        this.damage = damage;
+        this.declineInterval = declineInterval;
     }
 
     private void OnTriggerEnter(Collider other)
