@@ -15,7 +15,7 @@ public class GroundFire : MonoBehaviour,IAtkEffect
 
     int lv = 1;
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, Transform usedMenko = null)
     {
         Destroy(gameObject, lifetime * factor);
 

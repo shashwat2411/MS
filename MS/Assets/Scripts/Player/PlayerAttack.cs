@@ -185,8 +185,8 @@ public class PlayerAttack : MonoBehaviour
 
             //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
             //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
-            growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+            StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
+            StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
 
             //collider.GetComponent<SphereCollider>().enabled = false;
 
@@ -209,8 +209,8 @@ public class PlayerAttack : MonoBehaviour
             //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
             //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
 
-            growth.Activate(growth.GetOuterMaterial(), 0.1f);
-            growth.Activate(growth.GetInnerMaterial(), 0.1f);
+            StartCoroutine(growth.Activate(growth.GetOuterMaterial()));
+            StartCoroutine(growth.Activate(growth.GetInnerMaterial()));
 
             growth.SetInitialPosition(growth.GenerateRandomPosition());
 
@@ -250,8 +250,8 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
 
-        growth.Deactivate(growth.GetOuterMaterial(), 0.1f);
-        growth.Deactivate(growth.GetInnerMaterial(), 0.1f);
+        //StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
+        //StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
 
         growth.innerCircle.localScale = new Vector3(growth.GetInitialRadius(), growth.innerCircle.localScale.y, growth.GetInitialRadius());
         //collider.GetComponent<SphereCollider>().enabled = false;
