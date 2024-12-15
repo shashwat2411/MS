@@ -13,187 +13,33 @@ MonoBehaviour:
   m_Name: BonusSettings
   m_EditorClassIdentifier: 
   playerBonusDatas:
-  - name: Hp +5
-    description: Hp +5
+  - name: 
+    description: 
     icon: {fileID: 0}
-    bonuses:
-    - type: 0
-      key: 0
-      value: 5
-  - name: atk+10%
-    description: atk+10%
-    icon: {fileID: 0}
-    bonuses:
-    - type: 1
-      key: 3
-      value: 0.1
-  - name: Hp +5
-    description: Hp +5
-    icon: {fileID: 0}
-    bonuses:
-    - type: 0
-      key: 0
-      value: 5
-    - type: 0
-      key: 1
-      value: 5
-  - name: Hp +5
-    description: Hp +5
-    icon: {fileID: 0}
-    bonuses:
-    - type: 0
-      key: 0
-      value: 5
-  - name: Hp +5
-    description: Hp +5
-    icon: {fileID: 0}
-    bonuses:
-    - type: 0
-      key: 0
-      value: 5
+    bonuses: []
   playerBonusItems:
-  - name: Electric Strike
-    description: "\u30E1\u30F3\u30B3\u30B9\u30DE\u30C3\u30B7\u30E5\u3068\u5171\u306B\u96F7\u3092\u843D\u3068\u3059"
+  - name: GroundFire
+    description: GroundFire power +
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:
       - key: 1
         type: 1
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      description: Add lighting to mennko+
-    - BonusOnOneTime:
-      - key: 1
-        type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      description: Lighting power +
-    - BonusOnOneTime:
-      - key: 1
-        type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      description: Lighting power +
-    - BonusOnOneTime:
-      - key: 1
-        type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      description: Lighting power +
-    - BonusOnOneTime:
-      - key: 1
-        type: 1
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      - key: 1
-        type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 57406d15176966346a404eaa1122aa3a,
-          type: 3}
-      description: One more lighting +
-  - name: Flames
-    description: "\u5730\u9762\u306B\u708E\u306E\u5F8C\u3092\u6B8B\u3059"
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 1
-        type: 1
-        bonusItem: {fileID: 3207222013639785080, guid: 854401b3008a65f4c9a40632dbdef6d2,
+        bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
       description: Add GroundFire to mennko+
     - BonusOnOneTime:
       - key: 1
         type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 854401b3008a65f4c9a40632dbdef6d2,
+        bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
       description: GroundFire power +
     - BonusOnOneTime:
       - key: 1
         type: 0
-        bonusItem: {fileID: 3207222013639785080, guid: 854401b3008a65f4c9a40632dbdef6d2,
+        bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
       description: GroundFire power +
-  - name: Shield
-    description: "\u6575\u306E\u5F3E\u3092\u8DF3\u306D\u8FD4\u3059"
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
-          type: 3}
-      description: Add a Shield
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
-          type: 3}
-      description: Add a Shield
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
-          type: 3}
-      description: Add a Shield
-  - name: Double Dash
-    description: "\u30C0\u30C3\u30B7\u30E5\u30922\u56DE\u9023\u7D9A\u884C\u3048\u308B"
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63,
-          type: 3}
-      description: Player can dash twice
-  - name: Multi Menko
-    description: "\u30E1\u30F3\u30B3\u3092\u51FA\u3059\u91CF\u3092\u5897\u52A0"
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 2
-        type: 1
-        bonusItem: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb,
-          type: 3}
-      description: MultiMenko
-    - BonusOnOneTime:
-      - key: 2
-        type: 1
-        bonusItem: {fileID: 6598491007561421007, guid: efe54c837e5325d4ca64d816643d62eb,
-          type: 3}
-      description: MultiMenko
-  - name: Heal
-    description: "\u56DE\u5FA9"
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
-          type: 3}
-      description: Healing automatically
-    - BonusOnOneTime:
-      - key: 0
-        type: 0
-        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
-          type: 3}
-      description: Healing automatically
-    - BonusOnOneTime:
-      - key: 0
-        type: 0
-        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
-          type: 3}
-      description: Healing automatically
-    - BonusOnOneTime:
-      - key: 0
-        type: 0
-        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
-          type: 3}
-      description: Healing automatically
-    - BonusOnOneTime:
-      - key: 0
-        type: 0
-        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
-          type: 3}
-      description: Healing automatically
   ItemBonusDatas:
   - name: 
     description: 
