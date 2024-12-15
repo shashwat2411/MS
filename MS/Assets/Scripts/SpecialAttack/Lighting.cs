@@ -6,9 +6,11 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Lighting : MonoBehaviour
 {
+    private int order = 0;
     public int level = 1;
     public float totalDamage;
     public float offset = 3.0f;
+    public float horizontalOffset = 2.0f;
     public AnimationCurve lightningCurve;
 
     [Header("Damage Level Color")]
@@ -20,18 +22,13 @@ public class Lighting : MonoBehaviour
     private int _LightningColor = Shader.PropertyToID("LightningColor");
     private int _Color = Shader.PropertyToID("Color");
 
-
-
-
     private VisualEffect lightningVfx;
   
 
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f, int index = 0, int levelDataCount = 0,Transform usedMenko = null)
     {
-        //Random Position
-        GameObject player = FindFirstObjectByType<PlayerManager>().gameObject;
-        Vector3 direction = (usedMenko.transform.position - player.transform.position).normalized;
-        transform.position = usedMenko.position + direction * offset;
+        //Position
+        PositionCalculator(usedMenko);
 
 
         //Damage Setting
@@ -44,20 +41,20 @@ public class Lighting : MonoBehaviour
         color1[0] = lightningVfx.GetVector4(_LightningColor);
         color1[1] = lightningVfx.GetVector4(_Color);
 
-        if (index == 0)
+        if (index == 0 || index == 1)
         {
             lightningVfx.SetVector4(_LightningColor, color1[0]);
             lightningVfx.SetVector4(_Color, color1[1]);
         }
-        else if (index == (levelDataCount / 2))
+        else if (index == 2 || index == 3)
         {
             lightningVfx.SetVector4(_LightningColor, color2[0]);
             lightningVfx.SetVector4(_Color, color2[1]);
         }
-        else if (index == (levelDataCount - 1))
+        else
         {
-            lightningVfx.SetVector4(_LightningColor, color2[0]);
-            lightningVfx.SetVector4(_Color, color2[1]);
+            lightningVfx.SetVector4(_LightningColor, color3[0]);
+            lightningVfx.SetVector4(_Color, color3[1]);
         }
 
        
@@ -69,6 +66,42 @@ public class Lighting : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(totalDamage);
+        }
+    }
+
+    public void SetOrder(int value) { order = value; }
+
+    private void PositionCalculator(Transform usedMenko)
+    {
+        GameObject player = FindFirstObjectByType<PlayerManager>().gameObject;
+        Vector3 direction = (usedMenko.transform.position - player.transform.position).normalized;
+        direction.y = 0f;
+
+        Vector3 position = usedMenko.position + direction * offset;
+
+        switch (order)
+        {
+            case 0:
+                {
+                    transform.position = position;
+                    break;
+                }
+            case 1:
+                {
+                    Vector3 sideDirection = Vector3.Cross(Vector3.up, direction);
+                    transform.position = position + sideDirection * horizontalOffset;
+                    break;
+                }
+            case 2:
+                {
+                    Vector3 sideDirection = Vector3.Cross(direction, Vector3.up);
+                    transform.position = position + sideDirection * horizontalOffset;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
         }
     }
 }

@@ -6,11 +6,6 @@ public class GroundFireFactory : SpecialAttackFactory
 {
     public List<float> declineIntervalData = new List<float>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public override void Initiate(int count, Vector3 pos, Quaternion rot, float lifetime = 0.8F, float damage = 1, ChargePhase chargePhase = ChargePhase.Entry, Transform usedMenko = null)
     {
         int i = levelData[level].count;
@@ -25,18 +20,5 @@ public class GroundFireFactory : SpecialAttackFactory
             obj.GetComponent<GroundFire>().Initiate(1.0f, damage * levelData[level].damageFactor, declineIntervalData[level],usedMenko);
             Debug.Log("sp level:  " + level + " sp damage factor " + levelData[level].damageFactor);
         }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public override void LevelUp()
-    {
-        base.LevelUp();
-        
     }
 }

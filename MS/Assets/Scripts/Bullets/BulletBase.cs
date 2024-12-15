@@ -58,6 +58,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
             GetComponent<TrailRenderer>().time = 0f;
             impactArea.SetActive(true);
             impactEffect.SetActive(true);
+
             if (this.maxAttackSize >= this.damage / factor)
             {
                 impactArea.transform.localScale = Vector3.one * this.damage / factor;
@@ -67,10 +68,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
             {
                 impactArea.transform.localScale = Vector3.one * this.maxAttackSize;
                 impactEffect.transform.localScale = new Vector3(this.maxAttackSize, this.maxAttackSize, this.maxAttackSize / 2);
-
             }
-
-            // Debug.Log(this.totalDamage / factor);
 
             DoSpecialThings();
             Invoke("DestroyBullet", lifetime);
@@ -98,8 +96,6 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         sp.Add(bonusEffect);
 
         spFactory.Add(bonusEffect.GetComponent<SpecialAttackFactory>());
-
-
     }
 
     public void ResetBonus()

@@ -7,20 +7,46 @@ public class GroundFire : MonoBehaviour
 {
     List<GameObject> allEnemies = new List<GameObject>();
 
-    public float damage;
     static float factor = 5.0f;
+    private float curTime = 0;
 
-    public float declineInterval = 0.6f;
-    float curTime = 0;
+    public float damage;
+    public float damageInterval = 0.6f;
 
-    int lv = 1;
+    [Header("ParticleEffectReference")]
+    public ParticleSystem groundMark_01;
+    public ParticleSystem groundMark_02;
+    public ParticleSystem groundMark_03;
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f,float declineInterval = 1.0f,Transform usedMenko = null)
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, float declineInterval = 1.0f, Transform usedMenko = null)
     {
-        Destroy(gameObject, lifetime * factor);
+        lifetime = factor * declineInterval;
+
+        ChangeDuration(groundMark_01, lifetime);
+        ChangeDuration(groundMark_02, lifetime);
+        ChangeDuration(groundMark_02, lifetime);
+
+        var systems = GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem system in systems)
+        {
+            if (system != null)
+            {
+                system.Play();
+            }
+        }
+
+        Destroy(gameObject, lifetime);
 
         this.damage = damage;
-        this.declineInterval = declineInterval;
+    }
+    void FixedUpdate()
+    {
+        curTime += Time.deltaTime;
+        if (curTime >= damageInterval)
+        {
+            DamageAllEnemies();
+            curTime = 0;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,19 +57,14 @@ public class GroundFire : MonoBehaviour
             allEnemies.Add(enemy.gameObject);
         }
     }
-
-    void FixedUpdate()
+    private void OnTriggerExit(Collider other)
     {
-        curTime += Time.deltaTime;
-        if (curTime >= declineInterval)
+        EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
+        if (enemy && allEnemies.Contains(other.gameObject))
         {
-            DamageAllEnemies();
-            curTime = 0;
+            allEnemies.Remove(enemy.gameObject);
         }
-
-
     }
-
 
     void DamageAllEnemies()
     {
@@ -61,19 +82,14 @@ public class GroundFire : MonoBehaviour
                     enemyBase.Damage(this.damage);
                 }
             }
-           
-           
-           
         }
     }
 
-
-    private void OnTriggerExit(Collider other)
+    private void ChangeDuration(ParticleSystem system, float lifetime)
     {
-        EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
-        if (enemy && allEnemies.Contains(other.gameObject))
-        {
-            allEnemies.Remove(enemy.gameObject);
-        }
+        ParticleSystem.MainModule main = system.main;
+
+        main.duration = lifetime;
+        main.startLifetime = lifetime * 0.95f;
     }
 }
