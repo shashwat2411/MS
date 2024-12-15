@@ -24,23 +24,13 @@ public class SpecialAttackFactory : MonoBehaviour
    
     protected static int level = 0;
 
-    List<GameObject> spAtks = new List<GameObject>();
+    //List<GameObject> spAtks = new List<GameObject>();
     public GameObject spAtk;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public virtual void Initiate(int count,Vector3 pos,Quaternion rot,float lifetime = 0.8f, float damage = 1.0f,ChargePhase chargePhase = ChargePhase.Entry, Transform usedMenko = null)
     {
+
     }
 
     public virtual void LevelUp()
@@ -57,6 +47,5 @@ public class SpecialAttackFactory : MonoBehaviour
         spAtk.GetComponent<IAtkEffect>().ResetLevel();
         level = 0;
     }
-
 
 }

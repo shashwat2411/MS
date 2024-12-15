@@ -10,39 +10,34 @@ public class Bullet : BulletBase
 {
     public override void DoSpecialThings() 
     {
+        if (spFactory.Count <= 0) { return; }
 
-        if (spFactory.Count <= 0)
-        {
-            return;
-        }
-        // 全部
+        // 全部 || Level 3+
         if (chargePhase == ChargePhase.Max || chargePhase == ChargePhase.High)
         {
-
             foreach (var g in spFactory)
             {
                 g.Initiate(0, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
-        //　1個ずつ
+
+        //　1個ずつ || Level 2
         else if (chargePhase == ChargePhase.Middle)
-        { 
-            foreach(var g in spFactory)
+        {
+            foreach (var g in spFactory)
             {
                 g.Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
-        // ランダム1個
-        else if(chargePhase == ChargePhase.Low)
+
+        // ランダム1個 || Level 1
+        else if (chargePhase == ChargePhase.Low)
         {
-            for(int i=0;i<(int)chargePhase;i++)
+            for (int i = 0; i < (int)chargePhase; i++)
             {
-              var index = Random.Range(0, spFactory.Count);
-               spFactory[index].Initiate(1,transform.position,transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
-                
+                var index = Random.Range(0, spFactory.Count);
+                spFactory[index].Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
-
-
     }
 }
