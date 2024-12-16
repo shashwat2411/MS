@@ -17,7 +17,7 @@ public class Bullet : BulletBase
         {
             foreach (var g in spFactory)
             {
-                g.Initiate(0, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
+                g.Initiate(0, transform.position, Quaternion.Euler(0.0f,transform.rotation.eulerAngles.y,0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
 
@@ -26,7 +26,7 @@ public class Bullet : BulletBase
         {
             foreach (var g in spFactory)
             {
-                g.Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
+                g.Initiate(1, transform.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
 
@@ -36,7 +36,7 @@ public class Bullet : BulletBase
             for (int i = 0; i < (int)chargePhase; i++)
             {
                 var index = Random.Range(0, spFactory.Count);
-                spFactory[index].Initiate(1, transform.position, transform.rotation, 1.0f, this.damage / 2.0f, chargePhase, transform);
+                spFactory[index].Initiate(1, transform.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
     }

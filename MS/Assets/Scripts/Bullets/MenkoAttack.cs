@@ -56,7 +56,7 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         var dir = endPoint - startPoint;
         dir.Normalize();
 
-        var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
+        var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation );
        // var multiEndPos = GetOffset(endPoint, holdtime,8.0f);
    
 
