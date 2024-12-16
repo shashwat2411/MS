@@ -7,7 +7,7 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
 {
     GameObject bullet;
 
-    static float bulletsCount = 1;
+    static int bulletsCount = 1;
 
     public float twoMenkoOffset = 1.2f;
     public float threeMenkoOffset = 2.2f;
@@ -25,9 +25,12 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
     public void IniteMultiMenko(Vector3 startPoint,Transform area, float maxAttackSize,float attack,float holdtime,ChargePhase chargePhase = ChargePhase.Entry)
     {
         Debug.Log(chargePhase);
-        switch (bulletsCount)
+        int bulletsNum = (int)chargePhase > bulletsCount? bulletsCount : (int)chargePhase;
+
+        switch (bulletsNum)
         {
             case 0:
+                One(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
                 break;
             case 1:
                 One(startPoint,area,maxAttackSize,attack,holdtime, chargePhase);
@@ -56,7 +59,7 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         var dir = endPoint - startPoint;
         dir.Normalize();
 
-        var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
+        var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation );
        // var multiEndPos = GetOffset(endPoint, holdtime,8.0f);
    
 

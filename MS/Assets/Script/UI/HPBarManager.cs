@@ -5,10 +5,10 @@ using UnityEngine;
 public class HPBarManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject Hpbar1;
+    Player_HP Hpbar1;
 
     [SerializeField]
-    GameObject Hpbar2;
+    Player_HP Hpbar2;
 
     PlayerManager player;
 
@@ -27,15 +27,12 @@ public class HPBarManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Hp_Max = player.playerData.maxHp;
         Hp_Now = player.playerData.hp;
 
         SetPlayerHP();
-
-
-       
     }
 
     public void SetPlayerHP()
@@ -43,40 +40,40 @@ public class HPBarManager : MonoBehaviour
 
         if (Hp_Max > 100)
         {
-            Hpbar1.GetComponent<Player_HP>().Hp_Max = 100.0f;
+            Hpbar1.Hp_Max = 100.0f;
 
-            Hpbar2.GetComponent<Player_HP>().Hp_Max = Hp_Max - 100.0f;
+            Hpbar2.Hp_Max = Hp_Max - 100.0f;
 
-            Hpbar2.SetActive(true);
+            Hpbar2.gameObject.SetActive(true);
 
             SetSecondHPLength();
         }
         else
         {
-            Hpbar1.GetComponent<Player_HP>().Hp_Max = Hp_Max;
+            Hpbar1.Hp_Max = Hp_Max;
 
-            Hpbar2.GetComponent<Player_HP>().Hp_Max = 0.0f;
+            Hpbar2.Hp_Max = 0.0f;
 
-            Hpbar2.SetActive(false);
+            Hpbar2.gameObject.SetActive(false);
         }
 
         if (Hp_Now > 100)
         {
-            Hpbar1.GetComponent<Player_HP>().Hp_Now = 100.0f;
-                        
-            Hpbar2.GetComponent<Player_HP>().Hp_Now = Hp_Now - 100.0f;
+            Hpbar1.Hp_Now = 100.0f;
+                   
+            Hpbar2.Hp_Now = Hp_Now - 100.0f;
 
-            Hpbar1.GetComponent<Player_HP>().active = false;
-            Hpbar2.GetComponent<Player_HP>().active = true;
+            Hpbar1.active = false;
+            Hpbar2.active = true;
         }
         else
         {            
-            Hpbar1.GetComponent<Player_HP>().Hp_Now = Hp_Now;
-                        
-            Hpbar2.GetComponent<Player_HP>().Hp_Now = 0.0f;
+            Hpbar1.Hp_Now = Hp_Now;
+                  
+            Hpbar2.Hp_Now = 0.0f;
 
-            Hpbar1.GetComponent<Player_HP>().active = true;
-            Hpbar2.GetComponent<Player_HP>().active = false;
+            Hpbar1.active = true;
+            Hpbar2.active = false;
         }
 
     }
@@ -133,13 +130,4 @@ public class HPBarManager : MonoBehaviour
             recoveryEffect.transform.localPosition = new Vector3(0f, 0.17f, 0f);
         }
     }
-
-    public void Heal(float value)
-    {
-
-        Hp_Now = Hp_Now + value;
-
-        player.playerData.hp = Hp_Now;
-    }
-
 }

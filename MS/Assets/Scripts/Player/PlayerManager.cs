@@ -75,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerPrefabs playerPrefabs; 
     public ParticleSystem playerDamageEffect;
     public ParticleSystem playerHpRecoveryEffect;
-    public Player_HP playerHP;
+    public HPBarManager playerHP;
     public PlayerExp playerExp;
 
 
@@ -126,8 +126,10 @@ public class PlayerManager : MonoBehaviour
        #endregion
 
 
-        playerHP = FindFirstObjectByType<Player_HP>();
+        playerHP = FindFirstObjectByType<HPBarManager>();
         playerExp = FindFirstObjectByType<PlayerExp>();
+
+        
 
     }
 
@@ -276,13 +278,15 @@ public class PlayerManager : MonoBehaviour
 
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
        //playerHP.Damage(50.0f);
-       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
-        if (!test)
-        {
-            playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
-        }
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
 
-        playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
+        //if (!test)
+        //{
+        //    playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[1]);
+        //}
+
+        //playerData.ApplyBonus(BonusSettings.Instance.playerBonusDatas[1]);
 
         //if (playerSensor.SensorCheck(transform, playerMovementWorldSpace,SENSORTYPE.INTERACT))
         //{
@@ -301,7 +305,6 @@ public class PlayerManager : MonoBehaviour
 
         hurtInvincibility = true;
         hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
-
 
         Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));

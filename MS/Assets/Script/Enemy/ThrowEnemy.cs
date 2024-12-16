@@ -24,6 +24,8 @@ public class ThrowEnemy : EnemyBase
     public GameObject enemyItem;
     public Transform spawnPoint;
     public float itemLifetime;
+    public int numOfItems = 1;
+    public float spawnInterval = 0f;
     private float cooldown = 0f;
 
 
@@ -57,13 +59,14 @@ public class ThrowEnemy : EnemyBase
                 break;
         }
     }
-    protected override void OnCollision(GameObject collided)
+    protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollision(null);
+
     }
-    public override void Damage(float value)
+
+    public override void Damage(float value, bool killingBlow = false)
     {
-        base.Damage(value);
+        base.Damage(value, killingBlow);
         StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
     }
 
@@ -112,11 +115,16 @@ public class ThrowEnemy : EnemyBase
 
         if (attacked == false)
         {
-            ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+            for (int i = 0; i < numOfItems; i++)
+            {
+                StartCoroutine(SpawnItem(spawnInterval * (float)i));
+            }
+            //ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
-            item.SetTarget(player.transform.position);
-            item.SetOwner(gameObject);
-            item.SetMaxLifetime(itemLifetime);
+            //item.SetTarget(player.transform.position);
+            //item.SetOwner(gameObject);
+            //item.SetDamage(attackPower);
+            //item.SetMaxLifetime(itemLifetime);
 
             attacked = true;
         }
@@ -147,6 +155,18 @@ public class ThrowEnemy : EnemyBase
         {
             agent.gameObject.transform.position = transform.position;
         }
+    }
+
+    IEnumerator SpawnItem(float interval)
+    {
+        yield return new WaitForSeconds(interval);
+
+        ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+
+        item.SetTarget(player.transform.position);
+        item.SetOwner(gameObject);
+        item.SetDamage(attackPower);
+        item.SetMaxLifetime(itemLifetime);
     }
     //____________________________________________________________________________________________________________________________
 

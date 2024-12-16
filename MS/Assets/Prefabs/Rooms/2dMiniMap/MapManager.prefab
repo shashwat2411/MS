@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2506476085765396690}
-  - component: {fileID: 8148400013405573940}
-  - component: {fileID: 4191267254493431939}
   - component: {fileID: 4681858016611626071}
   - component: {fileID: 7551150823374406880}
   - component: {fileID: 160706606369121290}
@@ -37,50 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8148400013405573940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636253005132544894}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda21c5e0a8f359409b8388f04f09617, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rows: 5
-  cols: 3
-  roomPrefabs:
-  - {fileID: 5445176777787779796, guid: fbce4a68028778a41b2d1a23d25e1c29, type: 3}
-  - {fileID: 5445176777787779796, guid: 09d5ee40f5b3cd44b8e5af2d313b84ec, type: 3}
-  - {fileID: 5445176777787779796, guid: 283b8d7d29e8483409e56d8f121b36f1, type: 3}
-  entrancePrefab: {fileID: 5445176777787779796, guid: f5fa0a8585c9f12418794c125a16f335,
-    type: 3}
-  exitPrefab: {fileID: 5445176777787779796, guid: ebf9c41b574bcf14fa628465b8851fe4,
-    type: 3}
---- !u!114 &4191267254493431939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636253005132544894}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3da9780814013e42a14542c6dc4069f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rows: 5
-  cols: 5
-  roomPrefabs:
-  - {fileID: 5445176777787779796, guid: fbce4a68028778a41b2d1a23d25e1c29, type: 3}
-  - {fileID: 5445176777787779796, guid: 09d5ee40f5b3cd44b8e5af2d313b84ec, type: 3}
-  - {fileID: 5445176777787779796, guid: 283b8d7d29e8483409e56d8f121b36f1, type: 3}
-  entrancePrefab: {fileID: 5445176777787779796, guid: f5fa0a8585c9f12418794c125a16f335,
-    type: 3}
-  exitPrefab: {fileID: 5445176777787779796, guid: ebf9c41b574bcf14fa628465b8851fe4,
-    type: 3}
 --- !u!114 &4681858016611626071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +98,8 @@ MonoBehaviour:
   LeftRightPrefab: {fileID: 9070102540820270973, guid: 526850d7bc65b7645833847ef36559c3,
     type: 3}
   miniMapContainer: {fileID: 0}
-  roomIconSize: 95
+  roomIconSizeY: 70
+  roomIconSizeX: 95
   roomIconDirection: 0
   PlayerIconPrefab: {fileID: 0}
   StartIconPrefab: {fileID: 0}

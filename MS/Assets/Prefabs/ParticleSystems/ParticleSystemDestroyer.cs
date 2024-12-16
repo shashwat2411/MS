@@ -12,7 +12,8 @@ public class ParticleSystemDestroyer : MonoBehaviour
     {
         paritcleSystem = GetComponent<ParticleSystem>();
 
-        if (paritcleSystem == null) { visualEffect = GetComponent<VisualEffect>(); visualEffect.Play(); }
+        if (paritcleSystem == null) { visualEffect = GetComponent<VisualEffect>(); 
+            visualEffect.Play(); }
     }
     private void FixedUpdate()
     {
@@ -30,7 +31,7 @@ public class ParticleSystemDestroyer : MonoBehaviour
         {
             if(visualEffect.HasAnySystemAwake() == false)
             {
-                //Debug.Log("Destroy VFX");
+                Debug.Log("Destroy VFX");
 
                 if (toDestroy != null) { Destroy(toDestroy); }
                 else { visualEffect.Stop(); }

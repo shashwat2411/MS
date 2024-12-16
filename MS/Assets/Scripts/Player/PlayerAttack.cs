@@ -72,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
     Vector3 attackTarget;
 
     public ParticleSystem chargeEffect;
+    private ChargeMeshBrain chargeMesh;
     void Start()
     {
 
@@ -86,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
 
 
         playerManager = GetComponentInParent<PlayerManager>();
+        chargeMesh = FindFirstObjectByType<ChargeMeshBrain>();
         playerData = playerManager.playerData;
         collider = GameObject.Instantiate(playerManager.playerPrefabs.attackArea,
                                           this.transform.position + (3.0f * this.transform.forward),
@@ -120,7 +122,6 @@ public class PlayerAttack : MonoBehaviour
                 //collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
 
 
-                growth.growthValue = Mathf.Lerp(0f, 1f, (holdtime - 1f) / (playerData.maxChargeTime - 1f));
 
 
             }
@@ -134,6 +135,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         playerData.charge = holdtime;
+        growth.growthValue = Mathf.Lerp(0f, 1f, (playerData.charge - 1f) / (playerData.maxChargeTime - 1f));
         SwitchChargePhase();
     
     }
@@ -175,6 +177,7 @@ public class PlayerAttack : MonoBehaviour
         if (isHold && !afterShock)
         {
             chargeEffect.Stop();
+            chargeMesh.PlayAnimation(false);
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
@@ -183,8 +186,11 @@ public class PlayerAttack : MonoBehaviour
             afterShock = true;
             holdtime = 1.0f;
 
-            growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
-            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
+            StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
+
             //collider.GetComponent<SphereCollider>().enabled = false;
 
             Invoke("ResetCollider", attackTime);
@@ -203,8 +209,11 @@ public class PlayerAttack : MonoBehaviour
             chargeEffect.Play();
             isHold = true;
 
-            growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
-            growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+            //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            StartCoroutine(growth.Activate(growth.GetOuterMaterial()));
+            StartCoroutine(growth.Activate(growth.GetInnerMaterial()));
 
             growth.SetInitialPosition(growth.GenerateRandomPosition());
 
@@ -212,7 +221,7 @@ public class PlayerAttack : MonoBehaviour
             main.loop = true;
 
             chargeEffect.Play();
-
+            chargeMesh.PlayAnimation(true);
             //GetCloestEnemy();
         }
 
@@ -225,8 +234,11 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Close Range Attack");
         Invoke("ResetCollider", attackTime);
 
-        growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
-        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
+        //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+        //growth.Activate(growth.GetOuterMaterial(), 0.1f);
+        //growth.Activate(growth.GetInnerMaterial(), 0.1f);
         //collider.GetComponent<SphereCollider>().enabled = true;
     }
 
@@ -241,8 +253,9 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
 
-        growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
-        growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
+        //StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
+
         growth.innerCircle.localScale = new Vector3(growth.GetInitialRadius(), growth.innerCircle.localScale.y, growth.GetInitialRadius());
         //collider.GetComponent<SphereCollider>().enabled = false;
     }

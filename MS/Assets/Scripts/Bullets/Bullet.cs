@@ -10,32 +10,34 @@ public class Bullet : BulletBase
 {
     public override void DoSpecialThings() 
     {
+        if (spFactory.Count <= 0) { return; }
 
-        if(chargePhase == ChargePhase.Max)
+        // ëSïî || Level 3+
+        if (chargePhase == ChargePhase.Max || chargePhase == ChargePhase.High)
         {
-
-            foreach (var g in sp)
+            foreach (var g in spFactory)
             {
-                var obj = ObjectPool.Instance.Get(g, transform.position, transform.rotation);
-                obj.GetComponent<IAtkEffect>().Initiate(1.0f, this.damage / 2.0f);
-            }
-        }
-        else
-        {
-            for(int i=0;i<(int)chargePhase;i++)
-            {
-                if (i >= sp.Count)
-                {
-                    break;
-                }
-                else
-                {
-                    var obj = ObjectPool.Instance.Get(sp[i], transform.position, transform.rotation);
-                    obj.GetComponent<IAtkEffect>().Initiate(1.0f, this.damage / 2.0f);
-                }
+                g.Initiate(0, transform.position, Quaternion.Euler(0.0f,transform.rotation.eulerAngles.y,0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
             }
         }
 
+        //Å@1å¬Ç∏Ç¬ || Level 2
+        else if (chargePhase == ChargePhase.Middle)
+        {
+            foreach (var g in spFactory)
+            {
+                g.Initiate(1, transform.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
+            }
+        }
 
+        // ÉâÉìÉ_ÉÄ1å¬ || Level 1
+        else if (chargePhase == ChargePhase.Low)
+        {
+            for (int i = 0; i < (int)chargePhase; i++)
+            {
+                var index = Random.Range(0, spFactory.Count);
+                spFactory[index].Initiate(1, transform.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f), 1.0f, this.damage / 2.0f, chargePhase, transform);
+            }
+        }
     }
 }

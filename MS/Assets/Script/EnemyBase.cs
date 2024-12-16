@@ -23,6 +23,7 @@ public class EnemyBase : MonoBehaviour
     protected GameObject player;
     protected Rigidbody rigidbody;
     protected NavMeshAgent agent;
+    protected EnemyDialogue dialogue;
     private GameObject canvas;
 
     [Header("Attack")]
@@ -45,23 +46,22 @@ public class EnemyBase : MonoBehaviour
         stopMovement = false;
         dead = false;
 
-
         canvas = GetComponentInChildren<Canvas>().gameObject;
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
+        dialogue = canvas.GetComponentInChildren<EnemyDialogue>();
 
         agent.gameObject.transform.parent = null;
+        agent.gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     virtual protected void FixedUpdate()
     {
         rigidbody.angularVelocity = Vector3.zero;
 
-        //RotateTowards();
         if (stopMovement == false)
         {
             rigidbody.velocity = agent.velocity;
-
-            transform.LookAt(Vector3.Lerp(transform.position, transform.position + agent.velocity, 0.6f));
+            transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
         }
     }
 
@@ -69,6 +69,13 @@ public class EnemyBase : MonoBehaviour
     {
         canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
+
+    virtual protected void OnCollisionEnter(Collision collision)
+    {
+        OnCollision(collision.gameObject);
+    }
+
+
 
     virtual protected void OnCollision(GameObject collided)
     {
@@ -97,9 +104,9 @@ public class EnemyBase : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    virtual public void Damage(float value)
+    virtual public void Damage(float value, bool killingBlow = false)
     {
-        healthBar.Damage(value);
+        healthBar.Damage(value, killingBlow);
     }
 
     virtual public void Death()
@@ -112,11 +119,6 @@ public class EnemyBase : MonoBehaviour
     virtual public void Knockback(Vector3 direction, float power)
     {
         rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
-    }
-
-    protected void OnCollisionEnter(Collision collision)
-    {
-        OnCollision(collision.gameObject);
     }
 
     //___Gizmos_________________________________________________________________________________________________________________________

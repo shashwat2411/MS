@@ -1,64 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI;
 
-public class Lighting : MonoBehaviour, IAtkEffect
+public class Lighting : MonoBehaviour
 {
-    public float damage;
+    private int order = 0;
+    public int level = 1;
+    public float totalDamage;
+    public float offset = 3.0f;
+    public float horizontalOffset = 2.0f;
+    public AnimationCurve lightningCurve;
 
-    // list
-    [SerializeField]
-    List<float> damageFactor = new List<float>();
+    [Header("Damage Level Color")]
+    [ColorUsage(false, true)] private Color[] color1 = new Color[2];
+    [ColorUsage(false, true)] public Color[] color2 = new Color[2];
+    [ColorUsage(false, true)] public Color[] color3 = new Color[2];
 
-    public float offsetParamater = 3.0f;
+    //Hash Map
+    private int _LightningColor = Shader.PropertyToID("LightningColor");
+    private int _Color = Shader.PropertyToID("Color");
 
-    int lv = 1;
+    private VisualEffect lightningVfx;
+  
 
-    // Start is called before the first frame update
-    void Start()
+    public void Initiate(float lifetime = 0.8f, float damage = 1.0f, int index = 0, int levelDataCount = 0,Transform usedMenko = null)
     {
-        
-    }
+        //Position
+        PositionCalculator(usedMenko);
 
-    public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
-    {
-        var offset = new Vector3(Random.Range(offsetParamater, -offsetParamater), 0, Random.Range(offsetParamater, 0.0f));
-        this.transform.position += offset;
 
-      
-        this.transform.localScale = Vector3.one * Mathf.Clamp(damage / 30.0f, 0f, 1f); 
-        Destroy(gameObject,lifetime);
+        //Damage Setting
+        this.totalDamage = damage ;
 
-        var index = lv - 1;
-        if (index >= damageFactor.Count)
+
+        //VFX Setting
+        lightningVfx = GetComponentInChildren<VisualEffect>();
+
+        color1[0] = lightningVfx.GetVector4(_LightningColor);
+        color1[1] = lightningVfx.GetVector4(_Color);
+
+        if (index == 0 || index == 1)
         {
-            index = damageFactor.Count - 1; 
+            lightningVfx.SetVector4(_LightningColor, color1[0]);
+            lightningVfx.SetVector4(_Color, color1[1]);
+        }
+        else if (index == 2 || index == 3)
+        {
+            lightningVfx.SetVector4(_LightningColor, color2[0]);
+            lightningVfx.SetVector4(_Color, color2[1]);
+        }
+        else
+        {
+            lightningVfx.SetVector4(_LightningColor, color3[0]);
+            lightningVfx.SetVector4(_Color, color3[1]);
         }
 
-        this.damage = damage * damageFactor[index];
-
-        Debug.Log("Lighting:  " + damageFactor);
-    }
-
-    public void LevelUp()
-    {
-        lv++;
-        
-        Debug.Log("LevelUp   " + damageFactor);
-    }
-
-    public void ResetLevel()
-    {
-        lv = 1;
-     
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,8 +65,43 @@ public class Lighting : MonoBehaviour, IAtkEffect
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
         if (enemy)
         {
-            enemy.Damage(damage);
-        
+            enemy.Damage(totalDamage);
+        }
+    }
+
+    public void SetOrder(int value) { order = value; }
+
+    private void PositionCalculator(Transform usedMenko)
+    {
+        GameObject player = FindFirstObjectByType<PlayerManager>().gameObject;
+        Vector3 direction = (usedMenko.transform.position - player.transform.position).normalized;
+        direction.y = 0f;
+
+        Vector3 position = usedMenko.position + direction * offset;
+
+        switch (order)
+        {
+            case 0:
+                {
+                    transform.position = position;
+                    break;
+                }
+            case 1:
+                {
+                    Vector3 sideDirection = Vector3.Cross(Vector3.up, direction);
+                    transform.position = position + sideDirection * horizontalOffset;
+                    break;
+                }
+            case 2:
+                {
+                    Vector3 sideDirection = Vector3.Cross(direction, Vector3.up);
+                    transform.position = position + sideDirection * horizontalOffset;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
         }
     }
 }
