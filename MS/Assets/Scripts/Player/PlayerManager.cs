@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
     PlayerSensor playerSensor;
     Collider collider;
 
-    PlayerAttack playerAttack;
+    public PlayerAttack playerAttack;
     PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
 
