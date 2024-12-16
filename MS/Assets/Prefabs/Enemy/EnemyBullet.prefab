@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4437791820119433384}
-  - component: {fileID: 7998808643692532218}
+  - component: {fileID: 8119853616344466147}
   - component: {fileID: -1141341971899318750}
   - component: {fileID: 3539278109266169088}
   m_Layer: 8
@@ -35,8 +35,8 @@ Transform:
   - {fileID: 2255350388601235417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7998808643692532218
-SphereCollider:
+--- !u!65 &8119853616344466147
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -45,16 +45,16 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 1527
+    m_Bits: 1271
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 6656
+    m_Bits: 6912
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.6
+  m_Size: {x: 1.75, y: 1.75, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-1141341971899318750
 Rigidbody:
@@ -96,7 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeForImpact: 2
+  speed: 0.1
   offset: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
   motion:
     serializedVersion: 2
     m_Curve:
@@ -132,17 +134,17 @@ PrefabInstance:
     - target: {fileID: 3642590565930279295, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3642590565930279295, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3642590565930279295, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3642590565930279295, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
         type: 3}
@@ -194,6 +196,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4243884713616332766, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1865056248366311061, guid: 50bf523265a5d9942a73762bb01a89d8,
+        type: 3}
     - target: {fileID: 8762165494710300739, guid: ab9fb90a51eb4d44e8e185f7e8bfeb1c,
         type: 3}
       propertyPath: m_Name

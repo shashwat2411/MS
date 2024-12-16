@@ -277,9 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1920f7a7b25d4684190c074fb3b33827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  RedBar: {fileID: 9141104834813269880}
-  GreenBar: {fileID: 5414363804584264775}
+  Hp_Now: 100
+  Hp_Max: 100
+  shiftSpeed: 0.1
+  shiftBar: {fileID: 3965626668296414644}
+  baseBar: {fileID: 6254416257124736745}
+  active: 0
 --- !u!1 &9141104834813269880
 GameObject:
   m_ObjectHideFlags: 0

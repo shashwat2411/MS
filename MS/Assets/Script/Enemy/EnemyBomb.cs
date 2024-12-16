@@ -76,7 +76,17 @@ public class EnemyBomb : ThrowableEnemyObject
 
         if (collision.gameObject == player && owner != player)
         {
+            player.GetComponent<PlayerManager>().playerHP.Damage(damage);
             Destroy(gameObject);
+        }
+        else if(owner == player)
+        {
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            if(enemy != null)
+            {
+                enemy.Damage(damage);
+                Destroy(gameObject);
+            }
         }
 
         Destroy(gameObject);

@@ -9,7 +9,7 @@ public class EnemyBullet : ThrowableEnemyObject
         base.Start();
 
         moveOn = true;
-        transform.LookAt(target);
+        transform.LookAt(new Vector3(target.x, 0f, target.z));
     }
 
     protected override void FixedUpdate()
@@ -22,13 +22,25 @@ public class EnemyBullet : ThrowableEnemyObject
         base.OnDestroy();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.GetComponent<ShieldAbility>() != null) { return; }
 
         if (collision.gameObject == player && owner != player)
         {
+            player.GetComponent<PlayerManager>().playerHP.Damage(damage);
             Destroy(gameObject);
         }
+        else if (owner == player)
+        {
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Damage(damage);
+                Destroy(gameObject);
+            }
+        }
+
+        Destroy(gameObject);
     }
 }

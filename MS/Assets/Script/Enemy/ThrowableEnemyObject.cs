@@ -7,15 +7,17 @@ public class ThrowableEnemyObject : MonoBehaviour
 {
     protected bool moveOn;
 
+    protected float damage;
     protected float motionTime;
     protected float lifetime;
     protected float maxLifetime;
     public float timeForImpact;
+    public float speed; //moveOn Ç™falseÇÃèÍçáÇæÇØ
 
     protected Vector3 target;
     public Vector3 offset;
     protected Vector3 startPosition;
-    protected Vector3 velocity;
+    public Vector3 direction;
 
     public AnimationCurve motion;
     protected GameObject player;
@@ -31,8 +33,8 @@ public class ThrowableEnemyObject : MonoBehaviour
         player = FindFirstObjectByType<PlayerManager>().gameObject;
 
         Vector3 position = Vector3.Lerp(startPosition, target + offset, Time.deltaTime / timeForImpact);
-        velocity = (position - transform.position);
-        velocity.y = 0f;
+        direction = (position - transform.position).normalized;
+        direction.y = 0f;
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class ThrowableEnemyObject : MonoBehaviour
             }
             else
             {
-                Vector3 position = transform.position + velocity;
+                Vector3 position = transform.position + speed * direction;
                 transform.position = position;
             }
         }
@@ -74,6 +76,7 @@ public class ThrowableEnemyObject : MonoBehaviour
     }
 
     public void SetMaxLifetime(float value) { maxLifetime = value; }
+    public void SetDamage(float value) { damage = value; }
     public void SetTarget(Vector3 value) { target = value; }
     public void SetOwner(GameObject value) { owner = value; }
     public void SetPlayer(GameObject value) { player = value; }
