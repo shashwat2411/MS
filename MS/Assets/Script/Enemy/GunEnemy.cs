@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static DashEnemy;
 using static ThrowEnemy;
+using static UnityEditor.Progress;
 
 public class GunEnemy : EnemyBase
 {
@@ -64,9 +65,9 @@ public class GunEnemy : EnemyBase
         base.OnCollision(null);
 
     }
-    public override void Damage(float value)
+    public override void Damage(float value, bool killingBlow = false)
     {
-        base.Damage(value);
+        base.Damage(value, killingBlow);
         StartCoroutine(ChangeState(GUNENEMY_STATE.HURT, 0f));
     }
 
@@ -114,9 +115,12 @@ public class GunEnemy : EnemyBase
 
         if (attacked == false)
         {
-            GameObject bullet = Instantiate(enemyBullet, spawnPoint.position, spawnPoint.rotation);
-            bullet.GetComponent<Rigidbody>().velocity = direction.normalized * attackSpeed * Time.deltaTime;
-            StartCoroutine(DestroyBullet(bullet));
+            ThrowableEnemyObject bullet = Instantiate(enemyBullet, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+
+            //bullet.SetTarget(player.transform.position);
+            //bullet.SetOwner(gameObject);
+            //bullet.SetMaxLifetime(itemLifetime);
+
             attacked = true;
         }
         else

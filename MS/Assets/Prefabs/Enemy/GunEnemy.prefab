@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 473514516856759252}
   - component: {fileID: 1203494528194557842}
   - component: {fileID: 3943161976091351980}
-  - component: {fileID: 7035160633722755027}
+  - component: {fileID: 7746579840061114784}
   m_Layer: 0
   m_Name: GunEnemy
   m_TagString: Untagged
@@ -570,7 +570,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &7035160633722755027
+--- !u!114 &7746579840061114784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -579,20 +579,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6870146018940722811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c9a8c7dd242bb4da0630edcae782fd, type: 3}
+  m_Script: {fileID: 11500000, guid: de7488cc29584cb4e91fe4a72ae71b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 9.55
   attackPower: 20
   attackSpeed: 800
+  dead: 0
   state: 0
   idleTime: 1
   attackCooldownTime: 1
   hurtTime: 0.5
-  enemyBullet: {fileID: 1482367862101678638, guid: 294f17d36c98ea94492994a2a6c5a9ca,
+  enemyItem: {fileID: 1482367862101678638, guid: 294f17d36c98ea94492994a2a6c5a9ca,
     type: 3}
   spawnPoint: {fileID: 8720512636622788918}
-  bulletLifetime: 5
+  itemLifetime: 5
 --- !u!1 &8496060815975790247
 GameObject:
   m_ObjectHideFlags: 0

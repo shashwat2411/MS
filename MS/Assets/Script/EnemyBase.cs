@@ -56,11 +56,9 @@ public class EnemyBase : MonoBehaviour
     {
         rigidbody.angularVelocity = Vector3.zero;
 
-        //RotateTowards();
         if (stopMovement == false)
         {
             rigidbody.velocity = agent.velocity;
-
             transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
         }
     }
@@ -74,6 +72,8 @@ public class EnemyBase : MonoBehaviour
     {
         OnCollision(collision.gameObject);
     }
+
+
 
     virtual protected void OnCollision(GameObject collided)
     {
@@ -102,9 +102,9 @@ public class EnemyBase : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    virtual public void Damage(float value)
+    virtual public void Damage(float value, bool killingBlow = false)
     {
-        healthBar.Damage(value);
+        healthBar.Damage(value, killingBlow);
     }
 
     virtual public void Death()

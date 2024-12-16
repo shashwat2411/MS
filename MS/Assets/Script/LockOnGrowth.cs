@@ -67,7 +67,7 @@ public class LockOnGrowth : MonoBehaviour
         float min = material.GetFloat("_MinDissolve");
         float max = material.GetFloat("_MaxDissolve");
 
-        while(time < waitTime)
+        while(time <= waitTime)
         {
             float y = Mathf.Lerp(min, max, time / waitTime);
             material.SetFloat("_Dissolve", y);
@@ -90,7 +90,7 @@ public class LockOnGrowth : MonoBehaviour
         float max = material.GetFloat("_MaxDissolve");
         float min = material.GetFloat("_MinDissolve");
 
-        while (time < waitTime)
+        while (time <= waitTime)
         {
             float y = Mathf.Lerp(max, min, time / waitTime);
             material.SetFloat("_Dissolve", y);
