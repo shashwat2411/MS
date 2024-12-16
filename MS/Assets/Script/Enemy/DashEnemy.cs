@@ -119,6 +119,7 @@ public class DashEnemy : EnemyBase
     {
         if (attacked == false)
         {
+            dialogue.ActivateDialogue();
             rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
             attacked = true;
         }

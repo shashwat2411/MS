@@ -79,14 +79,14 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GetComponent<TrailRenderer>().time = 0f;
 
         //Scale
-        GameObject effect = Instantiate(impactEffect, transform.position, transform.rotation);
+        GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
         Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
 
         float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
         float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
 
         effect.transform.localScale = finalScale * localScale;
-        effect.transform.position = transform.position + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
+        effect.transform.position = hitPos + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
         //if (scale <= this.maxAttackSize) {  }
         //else { effect.transform.localScale = this.maxAttackSize * localScale; }
 
@@ -95,8 +95,9 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
         //Invoke Stuff
         DoSpecialThings();
-        Invoke("DestroyBullet", lifetime);
+        //Invoke("DestroyBullet", lifetime);
         once = false;
+        Destroy(gameObject);
     }
 
     void DestroyBullet()
