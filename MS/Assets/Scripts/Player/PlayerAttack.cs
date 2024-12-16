@@ -122,7 +122,6 @@ public class PlayerAttack : MonoBehaviour
                 //collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
 
 
-                growth.growthValue = Mathf.Lerp(0f, 1f, (holdtime - 1f) / (playerData.maxChargeTime - 1f));
 
 
             }
@@ -136,6 +135,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         playerData.charge = holdtime;
+        growth.growthValue = Mathf.Lerp(0f, 1f, (playerData.charge - 1f) / (playerData.maxChargeTime - 1f));
         SwitchChargePhase();
     
     }
