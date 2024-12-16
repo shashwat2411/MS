@@ -23,6 +23,7 @@ public class EnemyBase : MonoBehaviour
     protected GameObject player;
     protected Rigidbody rigidbody;
     protected NavMeshAgent agent;
+    protected EnemyDialogue dialogue;
     private GameObject canvas;
 
     [Header("Attack")]
@@ -47,6 +48,7 @@ public class EnemyBase : MonoBehaviour
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
+        dialogue = canvas.GetComponentInChildren<EnemyDialogue>();
 
         agent.gameObject.transform.parent = null;
         agent.gameObject.GetComponent<MeshRenderer>().enabled = false;

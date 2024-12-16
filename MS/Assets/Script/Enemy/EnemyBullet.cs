@@ -40,7 +40,5 @@ public class EnemyBullet : ThrowableEnemyObject
                 Destroy(gameObject);
             }
         }
-
-        Destroy(gameObject);
     }
 }
