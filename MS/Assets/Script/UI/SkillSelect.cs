@@ -59,50 +59,7 @@ public class SkillSelect : MonoBehaviour
 
     void RandomBonus()
     {
-        // 1.カードがどのタイプの能力が出るか決める(決めた確率でランダム)
-        // ## bonustype  0:パラメータ系  1:スキル系  2:消費能力
-        // 2.それぞれ乱数で決める(完全ランダム)
-        // 3.それぞれのランダムは別に関数作る
-        // 4.同じやつは出ないようにする
-        // 5.消費能力は後日追加
-        //
-        //int b1, b2, b3;
-        //b1 = b2 = b3 = 0;
-
-        //int c = BonusSettings.Instance.playerBonusDatas.Count;
-
-        //int i = Random.Range(0, c);
-
-        //b1 = i;
-        ////bonus1Œˆ’è
-        //i = Random.Range(0, c);
-
-        //b2 = i;
-        //while (b1 == b2)
-        //{
-        //    i = Random.Range(0, c);
-
-        //    b2 = i;
-        //}
-        ////bonus2Œˆ’è
-        //i = Random.Range(0, c);
-
-        //b3 = i;
-        //while (b1 == b3 || b2 == b3)
-        //{
-        //    i = Random.Range(0, c);
-
-        //    b3 = i;
-        //}
-        ////bonus3Œˆ’è
-
-        //BonusWindow[0].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b1];
-        //BonusWindow[1].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b2];
-        //BonusWindow[2].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[b3];
-        //for (int j = 0; j < 3; j++)
-        //{
-        //    BonusWindow[j].GetComponent<SkillWindow>().DrawBonus();
-        //}
+        
 
         for (int i = 0; i < BonusWindow.Count(); i++) 
         {
@@ -152,6 +109,11 @@ public class SkillSelect : MonoBehaviour
                 int c2 = BonusSettings.Instance.playerBonusItems.Count;
 
                 i = Random.Range(0, c2);
+
+                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i])) 
+                {
+                    i = Random.Range(0, c2);
+                }
 
                 BonusWindow[cardNo].GetComponent<SkillWindow>().Item = BonusSettings.Instance.playerBonusItems[i];
                 break;
@@ -299,6 +261,8 @@ public class SkillSelect : MonoBehaviour
         AnimeStart = false;
 
         b1 = b2 = b3 = false;
+
+        Debug.Log("false");
     }
 
     public void BonusScelectEnd()
