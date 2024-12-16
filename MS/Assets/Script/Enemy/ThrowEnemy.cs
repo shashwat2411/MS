@@ -115,6 +115,7 @@ public class ThrowEnemy : EnemyBase
 
         if (attacked == false)
         {
+            dialogue.ActivateDialogue();
             for (int i = 0; i < numOfItems; i++)
             {
                 StartCoroutine(SpawnItem(spawnInterval * (float)i));
