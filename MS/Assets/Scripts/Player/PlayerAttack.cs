@@ -72,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
     Vector3 attackTarget;
 
     public ParticleSystem chargeEffect;
+    private ChargeMeshBrain chargeMesh;
     void Start()
     {
 
@@ -86,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
 
 
         playerManager = GetComponentInParent<PlayerManager>();
+        chargeMesh = FindFirstObjectByType<ChargeMeshBrain>();
         playerData = playerManager.playerData;
         collider = GameObject.Instantiate(playerManager.playerPrefabs.attackArea,
                                           this.transform.position + (3.0f * this.transform.forward),
@@ -175,6 +177,7 @@ public class PlayerAttack : MonoBehaviour
         if (isHold && !afterShock)
         {
             chargeEffect.Stop();
+            chargeMesh.PlayAnimation(false);
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
@@ -218,7 +221,7 @@ public class PlayerAttack : MonoBehaviour
             main.loop = true;
 
             chargeEffect.Play();
-
+            chargeMesh.PlayAnimation(true);
             //GetCloestEnemy();
         }
 

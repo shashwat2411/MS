@@ -10,6 +10,9 @@ public class EnemyBomb : ThrowableEnemyObject
 
     public ParticleSystem[] explosionSystem;
     public MeshRenderer fuseMaterial;
+
+    //Hash Map
+    private int _Transparency = Shader.PropertyToID("_Transparency");
     protected override void Start()
     {
         base.Start();
@@ -26,7 +29,7 @@ public class EnemyBomb : ThrowableEnemyObject
         if (grounded == true) { transform.position = fixedPosition; }
 
         countdownValue = (maxLifetime - lifetime) / maxLifetime;
-        fuseMaterial.material.SetFloat("_Transparency", countdownValue);
+        fuseMaterial.material.SetFloat(_Transparency, countdownValue);
     }
     protected override void OnDestroy()
     {

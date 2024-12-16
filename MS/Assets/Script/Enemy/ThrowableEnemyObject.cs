@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 
 public class ThrowableEnemyObject : MonoBehaviour
 {
+    protected bool moveOn;
+
     protected float motionTime;
     protected float lifetime;
     protected float maxLifetime;
@@ -12,17 +15,24 @@ public class ThrowableEnemyObject : MonoBehaviour
     protected Vector3 target;
     public Vector3 offset;
     protected Vector3 startPosition;
+    protected Vector3 velocity;
 
     public AnimationCurve motion;
     protected GameObject player;
     protected GameObject owner;
     virtual protected void Start()
     {
+        moveOn = false;
+
         motionTime = 0f;
         lifetime = 0f;
 
         startPosition = transform.position;
         player = FindFirstObjectByType<PlayerManager>().gameObject;
+
+        Vector3 position = Vector3.Lerp(startPosition, target + offset, Time.deltaTime / timeForImpact);
+        velocity = (position - transform.position);
+        velocity.y = 0f;
     }
 
     // Update is called once per frame
@@ -36,9 +46,20 @@ public class ThrowableEnemyObject : MonoBehaviour
 
         float y = motion.Evaluate(motionTime);
 
-        Vector3 position = Vector3.Lerp(startPosition, target + offset, motionTime);
-        position.y = position.y + y;
-        transform.position = position;
+        if (motionTime <= 1f)
+        {
+            if (moveOn == false)
+            {
+                Vector3 position = Vector3.Lerp(startPosition, target + offset, motionTime);
+                position.y = position.y + y;
+                transform.position = position;
+            }
+            else
+            {
+                Vector3 position = transform.position + velocity;
+                transform.position = position;
+            }
+        }
     }
     virtual protected void OnDestroy()
     {

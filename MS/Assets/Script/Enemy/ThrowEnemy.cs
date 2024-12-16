@@ -62,9 +62,9 @@ public class ThrowEnemy : EnemyBase
 
     }
 
-    public override void Damage(float value)
+    public override void Damage(float value, bool killingBlow = false)
     {
-        base.Damage(value);
+        base.Damage(value, killingBlow);
         StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
     }
 

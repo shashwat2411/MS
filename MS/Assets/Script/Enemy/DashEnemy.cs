@@ -69,9 +69,9 @@ public class DashEnemy : EnemyBase
             }
         }
     }
-    public override void Damage(float value)
+    public override void Damage(float value, bool killingBlow = false)
     {
-        base.Damage(value);
+        base.Damage(value, killingBlow);
         StartCoroutine(ChangeState(DASHENEMY_STATE.HURT, 0f));
     }
 
@@ -141,7 +141,7 @@ public class DashEnemy : EnemyBase
         yield return new WaitForSeconds(delayTime);
         state = value;
 
-        if (value == DASHENEMY_STATE.IDLE)
+        if (value == DASHENEMY_STATE.IDLE || value == DASHENEMY_STATE.CHARGE)
         {
             agent.gameObject.transform.position = transform.position;
         }
