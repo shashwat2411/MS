@@ -44,9 +44,22 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    void FixedUpdate()
     {
 
+        if (transform.position.y < -0.8f)
+        {
+            CollisionProcess();
+        }
+
+        if (once)
+        {
+            transform.Rotate(Vector3.right * 500.0f * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (once && other.CompareTag("Ground"))
         {
             Debug.Log(other.name);
@@ -78,6 +91,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
             Invoke("DestroyBullet", lifetime);
             once = false;
         }
+       
     }
 
     void DestroyBullet()
