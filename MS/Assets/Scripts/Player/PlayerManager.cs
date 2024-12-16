@@ -279,7 +279,7 @@ public class PlayerManager : MonoBehaviour
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
        //playerHP.Damage(50.0f);
        var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[0]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[5]);
+       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
 
         //if (!test)
         //{
