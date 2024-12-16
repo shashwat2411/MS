@@ -5,6 +5,11 @@ using UnityEngine.VFX;
 
 public class MenkoExplosion : MonoBehaviour
 {
+    [HideInInspector] public float damage;
+
+    public float cameraShakeDuration = 0.1f;
+    public float cameraShakeIntensity = 5f;
+
     private VisualEffect sparkParticles;
     private Animator animator;
 
@@ -25,5 +30,9 @@ public class MenkoExplosion : MonoBehaviour
     private void StartExplosion()
     {
         sparkParticles.Play();
+
+        float duration = Mathf.Lerp(cameraShakeDuration * 0.8f, cameraShakeDuration * 1.2f, damage);
+        float intensity = Mathf.Lerp(cameraShakeIntensity * 0.2f, cameraShakeIntensity, damage);
+        StartCoroutine(Camera.main.GetComponent<CameraBrain>().CameraShake(duration, intensity));
     }
 }

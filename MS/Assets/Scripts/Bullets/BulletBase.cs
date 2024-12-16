@@ -5,26 +5,21 @@ using static UnityEditor.Progress;
 
 public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 {
+    public float damage;
     public float speed = 3f;
     public float lifetime = 10f;
+    public float effectSize = 1f;
+
+    bool once = true;
+    float maxAttackSize;
     protected Vector3 hitPos = Vector3.zero;
+    protected ChargePhase chargePhase;
 
-    Collider collider;
 
-    [SerializeField]
-    GameObject impactArea;
     [SerializeField]
     GameObject impactEffect;
 
-    public float damage;
-    float maxAttackSize;
-
-    protected ChargePhase chargePhase;
-
-    float factor = 10.0f;
-
-
-    bool once = true;
+    private PlayerManager player;
 
     protected static List<GameObject> sp = new List<GameObject>();
     protected static List<SpecialAttackFactory> spFactory = new List<SpecialAttackFactory>();
@@ -32,20 +27,20 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
     public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f, ChargePhase chargePhase = ChargePhase.Entry)
     {
-        GetComponent<Rigidbody>().velocity = direction.normalized * speed;
         once = true;
-        this.damage = damage / factor;
-        GetComponent<TrailRenderer>().time = 0.5f;
-        
 
-       
-
-
-        this.chargePhase = chargePhase;
         hitPos = hitPosition;
+
+        this.damage = damage;
+        this.chargePhase = chargePhase;
         this.maxAttackSize = maxAttackSize;
+
+        GetComponent<Rigidbody>().velocity = direction.normalized * speed;
+        GetComponent<TrailRenderer>().time = 0.5f;
+
         Invoke("DestroyBullet", lifetime);
 
+        player = FindFirstObjectByType<PlayerManager>();
     }
 
 
@@ -68,7 +63,32 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         if (once && other.CompareTag("Ground"))
         {
             Debug.Log(other.name);
-            CollisionProcess();
+            
+            //Position
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.transform.position = hitPos + Vector3.up * 0.05f;
+
+            //Trail
+            GetComponent<TrailRenderer>().time = 0f;
+
+            //Scale
+            GameObject effect = Instantiate(impactEffect, transform.position, transform.rotation);
+            Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
+
+            float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
+            float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
+
+            effect.transform.localScale = finalScale * localScale;
+            effect.transform.position = transform.position + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
+            //if (scale <= this.maxAttackSize) {  }
+            //else { effect.transform.localScale = this.maxAttackSize * localScale; }
+
+            effect.GetComponent<MenkoExplosion>().damage = scale;
+            effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
+
+            //Invoke Stuff
+            DoSpecialThings();
+            Invoke("DestroyBullet", lifetime);
             once = false;
         }
        
@@ -77,47 +97,16 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     void DestroyBullet()
     {
         CancelInvoke();
-        impactArea.SetActive(false);
-        impactEffect.SetActive(false);
+
         ObjectPool.Instance.Push(gameObject);
-
-
-        //Destroy(impactArea);
-        //Destroy(impactEffect);
-        //Destroy(gameObject);
     }
+
     public virtual void DoSpecialThings() { }
 
 
-    void CollisionProcess()
-    {
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
-        this.transform.position = hitPos + Vector3.up * 0.05f;
-        this.transform.rotation = Quaternion.Euler(90, Random.Range(-30,30), 0);
-
-        GetComponent<TrailRenderer>().time = 0f;
-        impactArea.SetActive(true);
-        impactEffect.SetActive(true);
-
-        if (this.maxAttackSize >= this.damage / factor)
-        {
-            impactArea.transform.localScale = Vector3.one * this.damage / factor;
-            impactEffect.transform.localScale = new Vector3(this.damage / factor, this.damage / factor, this.damage / (2 * factor));
-        }
-        else
-        {
-            impactArea.transform.localScale = Vector3.one * this.maxAttackSize;
-            impactEffect.transform.localScale = new Vector3(this.maxAttackSize, this.maxAttackSize, this.maxAttackSize / 2);
-        }
-
-        DoSpecialThings();
-        Invoke("DestroyBullet", lifetime);
-    }
     public void ApplyBonus(GameObject bonusEffect)
     {
         sp.Add(bonusEffect);
-
         spFactory.Add(bonusEffect.GetComponent<SpecialAttackFactory>());
     }
 
