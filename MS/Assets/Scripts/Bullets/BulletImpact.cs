@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class BulletImpact : MonoBehaviour
 {
+    public float damage;
+
     private void OnTriggerEnter(Collider other)
     {
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
         if (enemy)
         {
-            var damage = GetComponentInParent<BulletBase>().damage;
             enemy.Damage(damage, true);
         }
     }

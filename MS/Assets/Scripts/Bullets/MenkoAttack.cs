@@ -30,7 +30,7 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
             case 0:
                 break;
             case 1:
-                One(startPoint,area,maxAttackSize,attack,holdtime, chargePhase);
+                One(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
                 break;
             case 2:
                 Two(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
