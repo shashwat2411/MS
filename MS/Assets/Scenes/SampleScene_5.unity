@@ -1244,6 +1244,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1618365216}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1607869580
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607869574}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fb4811f56f195a4f880965888763299, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1618365216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1252,6 +1273,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2287109665810063236, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
+        type: 3}
+      propertyPath: alphaSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2744185754954669476, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1301,6 +1327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553199769833987517, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
+        type: 3}
+      propertyPath: m_Name
+      value: Menko
       objectReference: {fileID: 0}
     - target: {fileID: 9208218050119292896, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
         type: 3}
@@ -1355,7 +1386,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7553199769833987517, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607869580}
   m_SourcePrefab: {fileID: 100100000, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a, type: 3}
 --- !u!198 &1618365220 stripped
 ParticleSystem:
@@ -1804,6 +1839,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 209539833373478361, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 514571682100506660, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: GameManager
@@ -1813,6 +1853,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FillAmount
       value: 0.769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329105923769195588, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2667938264448815253, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -1863,6 +1908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -103
+      objectReference: {fileID: 0}
+    - target: {fileID: 3299950550609396726, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3604074736678314858, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
