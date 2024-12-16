@@ -440,6 +440,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &641855447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1026497112983430962, guid: 635abd798f48b584b88f870d4b380e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3014776037018072395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &831783310 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6276768223062250852, guid: 635abd798f48b584b88f870d4b380e37,
@@ -671,6 +683,11 @@ PrefabInstance:
       propertyPath: dashCoolDownMask
       value: 
       objectReference: {fileID: 1145192543}
+    - target: {fileID: -4880630771805904516, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: doubleDashCoolDownMask
+      value: 
+      objectReference: {fileID: 641855447}
     - target: {fileID: 647273031843841806, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: playerHP
@@ -1208,6 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444bfca9ce9612a4890e7b0447fb726a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPause: 0
   AnimeStart: 0
   AnimeEnd: 0
 --- !u!114 &2029613078 stripped
