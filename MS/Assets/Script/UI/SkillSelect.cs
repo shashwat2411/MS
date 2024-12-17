@@ -30,6 +30,9 @@ public class SkillSelect : MonoBehaviour
 
     bool IsBonusSelect;
 
+    List<int> bonustype1 = new List<int>();
+    List<int> bonustype2 = new List<int>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +106,12 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c1);
 
+                while (CheckBonusIsUsed(type, i))
+                {
+                    i = Random.Range(0, c1);
+                }
+                bonustype1.Add(i);
+
                 BonusWindow[cardNo].GetComponent<SkillWindow>().Bonus = BonusSettings.Instance.playerBonusDatas[i];
                 break;
             case 1:
@@ -110,10 +119,12 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c2);
 
-                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i])) 
+                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) && CheckBonusIsUsed(type, i))  
                 {
                     i = Random.Range(0, c2);
                 }
+
+                bonustype2.Add(i);
 
                 BonusWindow[cardNo].GetComponent<SkillWindow>().Item = BonusSettings.Instance.playerBonusItems[i];
                 break;
@@ -121,6 +132,24 @@ public class SkillSelect : MonoBehaviour
                 break;
         }
 
+    }
+
+    bool CheckBonusIsUsed(int type,int No)
+    {
+        switch (type)
+        {
+            case 0:
+                return bonustype1.Contains(No);
+                
+            case 1:
+                return bonustype2.Contains(No);
+                
+            case 2:
+                return false;
+                
+        }
+
+        return false;
     }
 
 
@@ -213,7 +242,10 @@ public class SkillSelect : MonoBehaviour
 
         player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
-       
+
+        bonustype1.Clear();
+        bonustype2.Clear();
+
     }
 
 
