@@ -28,12 +28,6 @@ public class PlayerData
     [Header("UŒ‚—Í")]
     public float attack;
 
-    [Header("¡‚ÌÁ”ï”\—Í‚Ì‰ñ”")]
-    public float specialAttackTime;
-
-    [Header("¡‚ÌÁ”ï”\—Í‚Ì‰ñ”")]
-    public float maxSpecialAttackTime;
-
     [Header("–hŒä—Í")]
     public float defence;
 
@@ -83,8 +77,6 @@ public class PlayerData
             else if (key == PlayerDataType.maxHp) return maxHp;
             else if (key == PlayerDataType.exp) return exp;
             else if (key == PlayerDataType.attack) return attack;
-            else if (key == PlayerDataType.specialAttackTime) return specialAttackTime;
-            else if (key == PlayerDataType.maxSpecialAttackTime) return maxSpecialAttackTime;
             else if (key == PlayerDataType.defence) return defence;
             else if (key == PlayerDataType.healthRespons) return healthRespons;
             else if (key == PlayerDataType.maxChargeTime) return maxChargeTime;
@@ -106,8 +98,6 @@ public class PlayerData
             else if (key == PlayerDataType.maxMp) maxMp = value;
             else if (key == PlayerDataType.exp) exp = value;
             else if (key == PlayerDataType.attack) attack = value;
-            else if (key == PlayerDataType.specialAttackTime) specialAttackTime = value;
-            else if (key == PlayerDataType.maxSpecialAttackTime) maxSpecialAttackTime = value;
             else if (key == PlayerDataType.defence) defence = value;
             else if (key == PlayerDataType.healthRespons) healthRespons = value;
             else if (key == PlayerDataType.maxChargeTime) maxChargeTime = value;

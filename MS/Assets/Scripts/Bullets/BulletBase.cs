@@ -19,6 +19,11 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     [SerializeField]
     GameObject impactEffect;
 
+    [Header("SE")]
+    public string nameSE;
+
+
+
     private PlayerManager player;
 
     protected static List<GameObject> sp = new List<GameObject>();
@@ -101,6 +106,8 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
                 break;
             }
         }
+        //Sound Effect
+        GameObject.FindAnyObjectByType<SoundsManager>().PlaySE(nameSE);
 
         //Invoke Stuff
         DoSpecialThings();
