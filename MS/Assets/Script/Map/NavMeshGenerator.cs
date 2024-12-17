@@ -10,7 +10,7 @@ public class NavMeshGenerator : MonoBehaviour
     {
         NavMesh.RemoveAllNavMeshData();
 
-        NavMeshSurface navMeshSurface = stage.transform.GetChild(1).gameObject.GetComponent<NavMeshSurface>();
+        NavMeshSurface navMeshSurface = stage.GetComponentInChildren<NavMeshSurface>();
 
         if (navMeshSurface == null)
         {
