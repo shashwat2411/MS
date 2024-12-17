@@ -189,7 +189,7 @@ public class PlayerAttack : MonoBehaviour
             // Reset
             isHold = false;
             afterShock = true;
-            holdtime = 1.0f;
+            holdtime = 0.0f;
 
             //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
             //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -253,7 +253,7 @@ public class PlayerAttack : MonoBehaviour
     {
 
         afterShock = false;
-        holdtime = 1.0f;
+        holdtime = 0.0f;
 
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
