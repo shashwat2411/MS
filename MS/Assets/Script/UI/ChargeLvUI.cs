@@ -81,7 +81,7 @@ public class ChargeLvUI : MonoBehaviour
             if(player.playerData.charge > player.playerData.maxChargeTime * highRange / 100.0f)
             {
                 chargeLv_now = 3;
-                ChargeBar[2].GetComponent<Image>().color= Color.HSVToRGB(Time.time * 2 % 1, 1, 1);
+                ChargeBar[2].GetComponent<Image>().color = Color.HSVToRGB(Time.time * 2 % 1, 1, 1);
             }
 
 
