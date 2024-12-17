@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GroundFire : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class GroundFire : MonoBehaviour
     public ParticleSystem groundMark_02;
     public ParticleSystem groundMark_03;
 
+    private PlayerManager player;
+
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f, float declineInterval = 1.0f, Transform usedMenko = null)
     {
         lifetime = factor * declineInterval;
@@ -26,16 +29,24 @@ public class GroundFire : MonoBehaviour
         ChangeDuration(groundMark_02, lifetime);
         ChangeDuration(groundMark_02, lifetime);
 
+        player = FindFirstObjectByType<PlayerManager>();
+
+        float scale = (player.playerData.charge + 1f) / player.playerData.maxChargeTime;
+        float finalScale = Mathf.Lerp(1.0f, 1.8f, scale);
+
         var systems = GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem system in systems)
         {
             if (system != null)
             {
                 system.Play();
+                Vector3 localScale = system.transform.localScale;
+                system.transform.localScale = localScale * finalScale;
             }
         }
 
         Destroy(gameObject, lifetime);
+
 
         this.damage = damage;
     }
