@@ -25,7 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 7bd7027e292f23e4caf3dd02a4429427, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8b312c817770b1444a4d8bfcbfd0e8e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_09da318bdf454ff2b1b8af4eb593e699_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: fe96ba859c3f8f84e9fc3b8e180e31a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -42,12 +46,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClimping: 1
+    - _AlphaClimping: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _TwirlFrequency: 0
+    - _TwirlLength: 0
     m_Colors:
-    - _Color_1: {r: 0.6724119, g: 0.4811319, b: 1, a: 0}
-    - _Color_2: {r: 1, g: 1, b: 1, a: 0}
+    - _Color_1: {r: 0, g: 7.185953, b: 11.984315, a: 0}
+    - _Color_2: {r: 0.031888925, g: 0, b: 1.9622642, a: 0}
     - _MainTexSpeed: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4355279149098709597
