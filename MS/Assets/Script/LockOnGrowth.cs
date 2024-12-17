@@ -19,7 +19,7 @@ public class LockOnGrowth : MonoBehaviour
     void Start()
     {
         SetInitialPosition(innerCircle.localPosition);
-        initialRadius = innerCircle.localScale.x;
+        initialRadius = 0.2f;
 
         innerCircleMaterial = Instantiate(innerCircle.GetComponent<MeshRenderer>().material);
         outerCircleMaterial = Instantiate(outerCircle.GetComponent<MeshRenderer>().material);
