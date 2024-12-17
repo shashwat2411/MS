@@ -13,6 +13,9 @@ public class Lighting : MonoBehaviour
     public float horizontalOffset = 2.0f;
     public AnimationCurve lightningCurve;
 
+    [Header("SE")]
+    public string nameSE;
+
     [Header("Damage Level Color")]
     [ColorUsage(false, true)] private Color[] color1 = new Color[2];
     [ColorUsage(false, true)] public Color[] color2 = new Color[2];
@@ -59,6 +62,13 @@ public class Lighting : MonoBehaviour
 
        
     }
+
+    private void Awake()
+    {
+        //Sound Effect
+        GameObject.FindAnyObjectByType<SoundsManager>().PlaySE(nameSE);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

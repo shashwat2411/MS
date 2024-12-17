@@ -73,6 +73,12 @@ public class PlayerAttack : MonoBehaviour
 
     public ParticleSystem chargeEffect;
     private ChargeMeshBrain chargeMesh;
+
+
+    [Header("Charge SE")]
+    public string nameSE;
+    SoundsManager soundsManager;
+
     void Start()
     {
 
@@ -94,6 +100,8 @@ public class PlayerAttack : MonoBehaviour
                                           this.transform.rotation,
                                           this.transform
                                           );
+
+        soundsManager = GameObject.FindAnyObjectByType<SoundsManager>();    
 
         attackArea = collider.transform;
         growth = collider.GetComponent<LockOnGrowth>();
@@ -120,10 +128,6 @@ public class PlayerAttack : MonoBehaviour
                 holdtime += Time.deltaTime * playerData.chargeSpeed;
 
                 //collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize / holdtime, 0.2f, playerData.maxAimSize / holdtime);
-
-
-
-
             }
             else
             {
@@ -178,6 +182,7 @@ public class PlayerAttack : MonoBehaviour
         {
             chargeEffect.Stop();
             chargeMesh.PlayAnimation(false);
+
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
