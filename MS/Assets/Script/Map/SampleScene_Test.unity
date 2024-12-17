@@ -129,6 +129,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3014776037018072395}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &99812871 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1146751679061912503, guid: 705c8e1dc38b8cf48958b50e1460a003,
+    type: 3}
+  m_PrefabInstance: {fileID: 1182008312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &149902004 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2261627394807972140, guid: 7ac956bd36e53c74484ef84291ca43de,
@@ -329,6 +335,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3014776037018072395}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &886689903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6270415496873001212, guid: 635abd798f48b584b88f870d4b380e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3014776037018072395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1177558483
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +428,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3271327849397061683, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: dashEffectPref
+      value: 
+      objectReference: {fileID: 99812871}
+    - target: {fileID: 3271327849397061683, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: dashCoolDownMask
+      value: 
+      objectReference: {fileID: 1902018728}
+    - target: {fileID: 3271327849397061683, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: doubleDashCoolDownMask
+      value: 
+      objectReference: {fileID: 886689903}
     - target: {fileID: 5125295916261589202, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -460,6 +493,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6535310836067697525, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: chargeEffect
+      value: 
+      objectReference: {fileID: 1377510855}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -470,6 +508,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5125295916261589202, guid: 705c8e1dc38b8cf48958b50e1460a003,
     type: 3}
   m_PrefabInstance: {fileID: 1182008312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1377510855 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5576429432615984177, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1618365216}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1618365216
 PrefabInstance:
@@ -706,6 +750,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1902018728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1026497112983430962, guid: 635abd798f48b584b88f870d4b380e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3014776037018072395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2094981521
 PrefabInstance:
   m_ObjectHideFlags: 0
