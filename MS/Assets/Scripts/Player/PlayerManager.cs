@@ -431,8 +431,8 @@ public class PlayerManager : MonoBehaviour
         }
         else if (!playerDash.isDashing)
         {
-            rigidbody.velocity = animator.velocity;
-           
+            rigidbody.velocity = animator.velocity / 4.2f;
+            Debug.Log(rigidbody.velocity);      
         }
     }
 
