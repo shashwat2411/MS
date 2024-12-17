@@ -93,6 +93,15 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
 
+        foreach(SpecialAttackFactory sp in spFactory)
+        {
+            if(sp.gameObject.GetComponent<GroundFireFactory>() != null)
+            {
+                effect.GetComponent<MenkoExplosion>().SwitchColors();
+                break;
+            }
+        }
+
         //Invoke Stuff
         DoSpecialThings();
         //Invoke("DestroyBullet", lifetime);

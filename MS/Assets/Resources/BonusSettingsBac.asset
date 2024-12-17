@@ -13,13 +13,47 @@ MonoBehaviour:
   m_Name: BonusSettingsBac
   m_EditorClassIdentifier: 
   playerBonusDatas:
-  - name: 
-    description: 
+  - name: Hp +5
+    description: Hp +5
     icon: {fileID: 0}
-    bonuses: []
+    bonuses:
+    - type: 0
+      key: 0
+      value: 5
+  - name: atk+10%
+    description: atk+10%
+    icon: {fileID: 0}
+    bonuses:
+    - type: 1
+      key: 3
+      value: 0.1
+  - name: Hp +5
+    description: Hp +5
+    icon: {fileID: 0}
+    bonuses:
+    - type: 0
+      key: 0
+      value: 5
+    - type: 0
+      key: 1
+      value: 5
+  - name: Hp +5
+    description: Hp +5
+    icon: {fileID: 0}
+    bonuses:
+    - type: 0
+      key: 0
+      value: 5
+  - name: Hp +5
+    description: Hp +5
+    icon: {fileID: 0}
+    bonuses:
+    - type: 0
+      key: 0
+      value: 5
   playerBonusItems:
   - name: GroundFire
-    description: GroundFire power +
+    description: Add GroundFire to mennko+
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:
@@ -40,6 +74,120 @@ MonoBehaviour:
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
       description: GroundFire power +
+  - name: Shield
+    description: Add a Shield
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
+          type: 3}
+      description: Add a Shield
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
+          type: 3}
+      description: Add a Shield
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
+          type: 3}
+      description: Add a Shield
+  - name: DoubleDash
+    description: Player can dash twice
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63,
+          type: 3}
+      description: Player can dash twice
+  - name: MultiMenko
+    description: MultiMenko
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 2
+        type: 1
+        bonusItem: {fileID: 0}
+      description: MultiMenko
+    - BonusOnOneTime:
+      - key: 2
+        type: 1
+        bonusItem: {fileID: 0}
+      description: MultiMenko
+  - name: Healing
+    description: Healing automatically
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 0
+        type: 1
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 0
+        type: 0
+        bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
+          type: 3}
+      description: Healing automatically
+  - name: testLighting
+    description: Healing automatically
+    icon: {fileID: 0}
+    bonusList:
+    - BonusOnOneTime:
+      - key: 1
+        type: 1
+        bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 1
+        type: 0
+        bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 1
+        type: 0
+        bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 1
+        type: 0
+        bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
+          type: 3}
+      description: Healing automatically
+    - BonusOnOneTime:
+      - key: 1
+        type: 0
+        bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
+          type: 3}
+      description: Healing automatically
   ItemBonusDatas:
   - name: 
     description: 
@@ -50,5 +198,4 @@ MonoBehaviour:
     description: 
     icon: {fileID: 0}
     key: 0
-    replaceItem: {fileID: 6598491007561421007, guid: e5d9ff7c80f018b40befa002b4209640,
-      type: 3}
+    replaceItem: {fileID: 0}
