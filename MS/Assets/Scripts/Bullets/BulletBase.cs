@@ -41,7 +41,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         this.maxAttackSize = maxAttackSize;
 
         GetComponent<Rigidbody>().velocity = direction.normalized * speed;
-        GetComponent<TrailRenderer>().time = 0.5f;
+  
 
         Invoke("DestroyBullet", lifetime);
 
@@ -80,8 +80,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = hitPos + Vector3.up * 0.05f;
 
-        //Trail
-        GetComponent<TrailRenderer>().time = 0f;
+
 
         //Scale
         GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
