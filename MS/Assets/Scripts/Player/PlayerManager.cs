@@ -185,18 +185,19 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+     
       
 
         playerDash.Dash();
-        if (playerDash.isDashing)
-            return;
+        invincibility = playerDash.dashIncibility || hurtInvincibility;
+        Debug.Log(invincibility);
+     
+
 
         if (playerAttack.isHold)
         {
             playerAttack.RangeMove(playerAttackMovement);
             //playerAttack.MoveToTarget(GetCloestEnemy());
-
         }
         else
         {
@@ -205,9 +206,14 @@ public class PlayerManager : MonoBehaviour
 
 
         HurtInvincibleCheck();
-        invincibility = playerDash.dashIncibility || hurtInvincibility;
+      
         rotateSpeed = AimSensorCheck(transform) ? 30f : 200f;
 
+
+
+
+        if (playerDash.isDashing)
+            return;
 
         CheckPlayerDataState();
         CaculateInputDirection();
