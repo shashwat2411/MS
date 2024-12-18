@@ -23,10 +23,13 @@ public class EnemyPoison : ThrowableEnemyObject
         }
         if (collision.gameObject == player && owner != player)
         {
-            //player@‚ğ“Åó‘Ô‚É•ÏX
-            //other.GetComponent<MeshRenderer>().material.color = Color.green;
+            PlayerManager playerManager = player.GetComponent<PlayerManager>();
+            EnemyBase enemyBase = player.GetComponent<EnemyBase>();
+
+            if (playerManager != null) { playerManager.playerHP.Damage(damage); }
+            else if (enemyBase != null) { enemyBase.Damage(damage); }
+
             Destroy(gameObject);
-            return;
         }
     }
 }
