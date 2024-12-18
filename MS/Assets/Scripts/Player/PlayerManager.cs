@@ -25,8 +25,9 @@ public class PlayerManager : MonoBehaviour
 
     LocomotionState locomotionState = LocomotionState.Idle;
 
-    [SerializeField] float noramlRunSpeed = 0.0f;
-    [SerializeField] float ChargeRunSpeed = 0.0f;
+    [SerializeField] float SpeedFactor = 1.0f;
+     float noramlRunSpeed = 60.0f;
+     float ChargeRunSpeed = 0.0f;
     [SerializeField] public float rotateSpeed = 1.0f;
 
 
@@ -124,7 +125,7 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
-        animator.SetFloat("ScaleFactor",0.5f/animator.humanScale);
+        animator.SetFloat("ScaleFactor",1.0f/animator.humanScale);
 
        #endregion
 
@@ -442,7 +443,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if (!playerDash.isDashing)
         {
-            rigidbody.velocity = animator.velocity / 4.2f;
+            rigidbody.velocity = animator.velocity / SpeedFactor;
            // Debug.Log(rigidbody.velocity);      
         }
     }
