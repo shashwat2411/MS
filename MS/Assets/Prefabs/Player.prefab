@@ -148,7 +148,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5775865398287329665, guid: 70aafaa4a4dab844fb28b872efba7f38, type: 3}
+  - {fileID: 2100000, guid: 178b03db2d5120a41b3bf345963b862d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -636,7 +636,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5775865398287329665, guid: 70aafaa4a4dab844fb28b872efba7f38, type: 3}
+  - {fileID: 2100000, guid: e0bd8fd5234a0944badd33ba028f1f14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -732,7 +732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2721429829093261982}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.12, y: -0.08, z: -2.878}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -1142,6 +1142,7 @@ MonoBehaviour:
     type: 3}
   playerHP: {fileID: 0}
   playerExp: {fileID: 0}
+  hurtSE: PlayerDamage
 --- !u!114 &6535310836067697525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,7 +1176,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   chargeEffect: {fileID: 0}
-  nameSE: 
+  loopPercentageSE: 0.28
+  audioSource: {fileID: 0}
 --- !u!114 &3271327849397061683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,13 +1191,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 25
-  dashEffectPref: {fileID: 0}
+  dashEffectPref: {fileID: 1146751679061912503}
   dashIncibility: 0
   invincibilityTimeLeft: 0
   secondDashIntervalTime: 0.5
   secondDashIntervalTimeLeft: 0
   dashCoolDownMask: {fileID: 0}
   doubleDashCoolDownMask: {fileID: 0}
+  nameSE: "\u30EA\u30A2\u30EB\u98A8\u5207\u97F3"
 --- !u!114 &966902783268590086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1271,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5775865398287329665, guid: 70aafaa4a4dab844fb28b872efba7f38, type: 3}
+  - {fileID: 2100000, guid: 92a9ef79c3aa7314d9ae8cd7a53ecb8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2027,7 +2030,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5775865398287329665, guid: 70aafaa4a4dab844fb28b872efba7f38, type: 3}
+  - {fileID: 2100000, guid: c8ae015945f7c614987e6db539559743, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2240,7 +2243,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5775865398287329665, guid: 70aafaa4a4dab844fb28b872efba7f38, type: 3}
+  - {fileID: 2100000, guid: 9c6419341907c5544a546eb13c67d569, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2427,6 +2430,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfda1d05ba466e418bba676a9f1060d, type: 3}
+--- !u!198 &1146751679061912503 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4430418842459646653, guid: 7dfda1d05ba466e418bba676a9f1060d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3645126122063020298}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7574033806904954279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6596165398516649133, guid: 7dfda1d05ba466e418bba676a9f1060d,

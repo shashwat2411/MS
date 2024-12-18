@@ -71,14 +71,14 @@ public class MiniMapUI : MonoBehaviour
                 // 特定の位置にアイコンを作製する
                 if (roomType == 1)
                 {
-                    icon.transform.GetComponent<Image>().color = Color.black; // スタート地点
+                    //icon.transform.GetComponent<Image>().color = Color.black; // スタート地点
                     nowX = x;
                     nowY = y;
                 }
-                else if (roomType == 99) icon.transform.GetComponent<Image>().color = Color.black; // ゴール地点
+                else if (roomType == 99) { /*icon.transform.GetComponent<Image>().color = Color.black;*/ }// ゴール地点
                 else
                 {
-                    icon.transform.GetComponent <Image>().color = Color.black;
+                    //icon.transform.GetComponent<Image>().color = Color.black;
                 }
             }
         }
