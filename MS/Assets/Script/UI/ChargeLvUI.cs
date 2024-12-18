@@ -110,7 +110,7 @@ public class ChargeLvUI : MonoBehaviour
 
                 for (int i = 0; i < ChargeBar.Length; i++)
                 {
-                    ChargeBar[i].color = Color.Lerp(ChargeBar[i].color, ColorMax, 0.2f);
+                    ChargeBar[i].color = Color.Lerp(ChargeBar[i].color, ColorMax, 0.1f);
                 }
             }
         }
@@ -142,8 +142,5 @@ public class ChargeLvUI : MonoBehaviour
         chargeLv_before = chargeLv_now;
     }
 
-    public void AnimeEnd()
-    {
-        LvUp = false;
-    }
+    public void AnimeEnd() { LvUp = false; }
 }
