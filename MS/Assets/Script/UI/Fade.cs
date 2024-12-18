@@ -46,6 +46,8 @@ public class Fade : MonoBehaviour
 
             if (ElapsedTime >= transitiontime + 0.5f)
             {
+                SoundManager.Instance.PlayBGM("BGM_1");
+
                 Fade_End = true;
                 this.gameObject.SetActive(false);
             }
@@ -56,7 +58,7 @@ public class Fade : MonoBehaviour
 
             if (ElapsedTime >= transitiontime)
             {
-
+                SoundManager.Instance.StopBGM();
                 //this.gameObject.SetActive(false);
                 Fade_End = true;
             }

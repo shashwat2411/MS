@@ -10,7 +10,7 @@ public class EnemyBomb : ThrowableEnemyObject
 
     public ParticleSystem[] explosionSystem;
     public MeshRenderer fuseMaterial;
-
+    public string nameSE;
     //Hash Map
     private int _Transparency = Shader.PropertyToID("_Transparency");
     protected override void Start()
@@ -34,6 +34,8 @@ public class EnemyBomb : ThrowableEnemyObject
     protected override void OnDestroy()
     {
         base.OnDestroy();
+
+        SoundManager.Instance.PlaySE(nameSE);
 
         if (grounded == true)
         {

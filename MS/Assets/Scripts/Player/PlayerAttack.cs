@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -76,8 +77,12 @@ public class PlayerAttack : MonoBehaviour
 
 
     [Header("Charge SE")]
-    public string nameSE;
-    SoundsManager soundsManager;
+
+    public float loopPercentageSE = 0.1f;
+    public AudioSource audioSource;
+
+    private float loopStartTime;
+    private float loopEndTime;
 
     void Start()
     {
@@ -101,7 +106,7 @@ public class PlayerAttack : MonoBehaviour
                                           this.transform
                                           );
 
-        soundsManager = GameObject.FindAnyObjectByType<SoundsManager>();    
+  
 
         attackArea = collider.transform;
         growth = collider.GetComponent<LockOnGrowth>();
@@ -114,6 +119,15 @@ public class PlayerAttack : MonoBehaviour
         ResetCollider();
 
         chargeEffect.Stop();
+
+
+        // Calculate loop part of SE
+        if (audioSource != null && audioSource.clip != null)
+        {
+            loopEndTime = audioSource.clip.length;
+            loopStartTime = loopEndTime * (1 - loopPercentageSE);
+        }
+
     }
 
 
@@ -122,6 +136,17 @@ public class PlayerAttack : MonoBehaviour
     {
         if (isHold)
         {
+            // audio check
+            if (audioSource.isPlaying)
+            {
+                Debug.Log(audioSource.time);
+                if (audioSource.time >= loopEndTime * 0.95f)
+                {
+                    audioSource.time = loopStartTime;
+                }
+            }
+
+
             if (holdtime < playerData.maxChargeTime)
             {
 
@@ -172,7 +197,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// trigger���������A�߂񂱔���
+    /// triggerを放したら、めんこ発射
     /// </summary>
     /// <param name="context"></param>
     void AttackFinish(InputAction.CallbackContext context)
@@ -186,6 +211,8 @@ public class PlayerAttack : MonoBehaviour
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             IniteMenko();
 
+
+            audioSource.Stop();
             // Reset
             isHold = false;
             afterShock = true;
@@ -216,6 +243,9 @@ public class PlayerAttack : MonoBehaviour
 
             //growth.outerCircle.GetComponent<MeshRenderer>().enabled = true;
             //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+
+            audioSource.Play();
 
             StartCoroutine(growth.Activate(growth.GetOuterMaterial()));
             StartCoroutine(growth.Activate(growth.GetInnerMaterial()));
@@ -276,7 +306,7 @@ public class PlayerAttack : MonoBehaviour
 
 
     /// <summary>
-    ///  めんこ生戁E
+    ///  繧√ｓ縺鍋函謌・
     /// </summary>
     void IniteMenko()
     {

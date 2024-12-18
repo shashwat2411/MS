@@ -66,7 +66,7 @@ public class Lighting : MonoBehaviour
     private void Awake()
     {
         //Sound Effect
-        GameObject.FindAnyObjectByType<SoundsManager>().PlaySE(nameSE);
+        SoundManager.Instance.PlaySE(nameSE);
     }
 
 
