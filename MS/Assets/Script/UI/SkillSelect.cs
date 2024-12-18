@@ -62,8 +62,6 @@ public class SkillSelect : MonoBehaviour
 
     void RandomBonus()
     {
-        
-
         for (int i = 0; i < BonusWindow.Count(); i++) 
         {
             BonusWindow[i].GetComponent<SkillWindow>().CardReset();

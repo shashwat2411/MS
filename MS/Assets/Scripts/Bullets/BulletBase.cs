@@ -17,7 +17,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
 
     [SerializeField]
-    GameObject impactEffect;
+    GameObject impactEffectBlue, impactEffectRed;
 
     [Header("SE")]
     public string nameSE;
@@ -80,7 +80,15 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = hitPos + Vector3.up * 0.05f;
 
-
+        GameObject impactEffect = impactEffectBlue;
+        foreach (SpecialAttackFactory sp in spFactory)
+        {
+            if (sp is GroundFireFactory)
+            {
+                impactEffect = impactEffectRed;
+                break;
+            }
+        }
 
         //Scale
         GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
@@ -97,14 +105,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
 
-        foreach(SpecialAttackFactory sp in spFactory)
-        {
-            if(sp.gameObject.GetComponent<GroundFireFactory>() != null)
-            {
-                effect.GetComponent<MenkoExplosion>().SwitchColors();
-                break;
-            }
-        }
+
         //Sound Effect
         GameObject.FindAnyObjectByType<SoundsManager>().PlaySE(nameSE);
 
