@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: BonusSettings
   m_EditorClassIdentifier: 
   playerBonusDatas:
-  - name: Hp +5
-    description: Hp +5
-    icon: {fileID: 0}
+  - name: Max HP
+    description: Max HP +10
+    icon: {fileID: 21300000, guid: f6d6ef4664fec2b41806766e7770b748, type: 3}
     bonuses:
     - type: 0
       key: 0
-      value: 5
+      value: 10
+    - type: 0
+      key: 1
+      value: 10
   - name: atk+10%
     description: atk+10%
     icon: {fileID: 0}
@@ -75,8 +78,8 @@ MonoBehaviour:
           type: 3}
       description: GroundFire power +
   - name: Shield
-    description: Add a Shield
-    icon: {fileID: 0}
+    description: Reflect Enemy Projectiles
+    icon: {fileID: 21300000, guid: d13a1eb4f823f3d438321ace0f51d156, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 0
@@ -120,9 +123,9 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 0}
       description: MultiMenko
-  - name: Healing
-    description: Healing automatically
-    icon: {fileID: 0}
+  - name: Heal
+    description: "HP\u3092\u5C11\u3057\u305A\u3064\u56DE\u5FA9"
+    icon: {fileID: 21300000, guid: ac6077879848f7149919ec822d93f4ff, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 0
@@ -154,9 +157,9 @@ MonoBehaviour:
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
       description: Healing automatically
-  - name: testLighting
-    description: Healing automatically
-    icon: {fileID: 0}
+  - name: Lightning
+    description: Summon Lightning
+    icon: {fileID: 21300000, guid: 6a318cf102f06754b856f66722ece3a5, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 1
