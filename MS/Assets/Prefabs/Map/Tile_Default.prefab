@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1149319534359749270}
   - component: {fileID: 4061384381655231795}
   - component: {fileID: 2285604137065372153}
-  - component: {fileID: 451265438234282271}
+  - component: {fileID: 8970975512859769017}
+  - component: {fileID: 870389023901959234}
   m_Layer: 0
   m_Name: Tile_Default
   m_TagString: Untagged
@@ -84,7 +85,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &451265438234282271
+--- !u!114 &8970975512859769017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340273192413067308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fff89cdfbbcaa24cbae8518c257b75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quality: 0.2
+--- !u!64 &870389023901959234
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,8 +115,8 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2624042325105683408, guid: e729c79437b028046baded7ca3511b1a, type: 3}
