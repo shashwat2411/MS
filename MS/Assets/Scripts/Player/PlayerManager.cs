@@ -78,6 +78,9 @@ public class PlayerManager : MonoBehaviour
     public HPBarManager playerHP;
     public PlayerExp playerExp;
 
+    [Header("Player SE")]
+    public string hurtSE;
+
 
 
     #region Animator StateMachine Hash
@@ -306,6 +309,8 @@ public class PlayerManager : MonoBehaviour
         hurtInvincibility = true;
         hurtInvincibilityTimeLeft = playerData.hurtInvincibilityTime;
 
+        SoundManager.Instance.PlaySE(hurtSE);
+
         Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
@@ -432,7 +437,7 @@ public class PlayerManager : MonoBehaviour
         else if (!playerDash.isDashing)
         {
             rigidbody.velocity = animator.velocity / 4.2f;
-            Debug.Log(rigidbody.velocity);      
+           // Debug.Log(rigidbody.velocity);      
         }
     }
 

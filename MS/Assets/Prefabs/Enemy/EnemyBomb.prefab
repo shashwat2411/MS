@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeForImpact: 2
+  speed: 0
   offset: {x: 0, y: -1, z: 0}
+  direction: {x: 0, y: 0, z: 0}
   motion:
     serializedVersion: 2
     m_Curve:
@@ -137,6 +139,7 @@ MonoBehaviour:
   - {fileID: 975297542984369274}
   - {fileID: 8682079220716130465}
   fuseMaterial: {fileID: 3675651145956279577}
+  nameSE: PoisonAcid
 --- !u!1001 &2648992479249553821
 PrefabInstance:
   m_ObjectHideFlags: 0

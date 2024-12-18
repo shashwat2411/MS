@@ -73,6 +73,8 @@ public class SoundsManager : MonoBehaviour
     }
 }
 
+
+
 //ÉJÉXÉ^ÉÄ
 #if UNITY_EDITOR
 [CustomEditor(typeof(SoundsManager))]

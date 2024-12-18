@@ -44,7 +44,9 @@ public class PlayerDash : MonoBehaviour
     public Image dashCoolDownMask;
     public Image doubleDashCoolDownMask;
 
-    
+    [Header("Dash SE")]
+    public string nameSE;
+
     PlayerData playerData;
     PlayerManager playerManager;
     Rigidbody rb;
@@ -185,6 +187,7 @@ public class PlayerDash : MonoBehaviour
             dashCount--;
 
             dashEffectPref.Play();
+            SoundManager.Instance.PlaySE(nameSE);
 
             CalculateAndTurnDir();
         }

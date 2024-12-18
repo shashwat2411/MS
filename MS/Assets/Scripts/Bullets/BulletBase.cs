@@ -107,7 +107,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
 
         //Sound Effect
-        GameObject.FindAnyObjectByType<SoundsManager>().PlaySE(nameSE);
+        SoundManager.Instance.PlaySE(nameSE);
 
         //Invoke Stuff
         DoSpecialThings();
