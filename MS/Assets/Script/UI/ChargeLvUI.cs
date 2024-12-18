@@ -1,38 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChargeLvUI : MonoBehaviour
 {
-    [SerializeField]
-    GameObject[] ChargeBar;
-
-    Vector2 BarScale;
-
-    PlayerManager player;
+    bool LvUp;
 
     public int chargeLv_now;
     int chargeLv_before;
 
-    float lowRange, middleRange, highRange;
-
-    bool LvUp;
+    float lowRange;
+    float middleRange;
+    float highRange;
+    public float outlineOffset = 1.2f;
 
     Animator anime;
-
-    // HDRカラーピッカー
-    [ColorUsage(true, true), SerializeField] private Color ColorLv1;
-    [ColorUsage(true, true), SerializeField] private Color ColorLv2;
-    [ColorUsage(true, true), SerializeField] private Color ColorLv3;
+    PlayerManager player;
 
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Image[] ChargeBar = new Image[3];
+    [SerializeField] private Image[] OutlineBar = new Image[3];
+
+    //ImageのカラーはBaseColorだからHDRを入れても反映されない
+    [SerializeField] private Color ColorLv1;
+    [SerializeField] private Color ColorLv2;
+    [SerializeField] private Color ColorLv3;
+    [SerializeField] private Color ColorMax;
+
+
+    private void Start()
     {
         anime = GetComponent<Animator>();
-
-        player = player = FindFirstObjectByType<PlayerManager>();
+        player = FindFirstObjectByType<PlayerManager>();
 
         chargeLv_now = 0;
         chargeLv_before = 0;
@@ -41,11 +42,20 @@ public class ChargeLvUI : MonoBehaviour
         middleRange = player.playerAttack.middleRange;
         highRange = player.playerAttack.highRange;
 
+        Image[] bars = transform.GetComponentsInChildren<Image>();
+
+        OutlineBar[0] = bars[0];
+        OutlineBar[1] = bars[1];
+        OutlineBar[2] = bars[2];
+        ChargeBar[0] = bars[3];
+        ChargeBar[1] = bars[4];
+        ChargeBar[2] = bars[5];
+
         for(int i = 0; i < ChargeBar.Length; i++)
         {
-            ChargeBar[i].GetComponent<Image>().fillAmount = 0;
+            ChargeBar[i].fillAmount = 0;
+            OutlineBar[i].fillAmount = 0;
         }
-
     }
 
     // Update is called once per frame
@@ -53,49 +63,67 @@ public class ChargeLvUI : MonoBehaviour
     {
         if (player.playerAttack.isHold == true)
         {
+            float charge = player.playerData.charge;
+            float maxCharge = player.playerData.maxChargeTime;
 
-            if (player.playerData.charge <= player.playerData.maxChargeTime * lowRange / 100.0f) 
+            float lowRangeCharge = maxCharge * lowRange / 100.0f;
+            float middleRangeCharge = maxCharge * middleRange / 100.0f;
+            float highRangeCharge = maxCharge * highRange / 100.0f;
+
+            //Level 1
+            if (charge <= maxCharge * lowRange / 100.0f) 
             {
-                ChargeBar[0].GetComponent<Image>().color = ColorLv1;
-                ChargeBar[0].GetComponent<Image>().fillAmount = player.playerData.charge / (player.playerData.maxChargeTime * lowRange / 100.0f);
+                ChargeBar[0].color = ColorLv1;
+                ChargeBar[0].fillAmount = charge / lowRangeCharge;
+
+                OutlineBar[0].fillAmount = charge / lowRangeCharge * outlineOffset;
 
             }
-            if (player.playerData.charge > player.playerData.maxChargeTime * lowRange / 100.0f
-                && player.playerData.charge <= player.playerData.maxChargeTime * middleRange / 100.0f) 
+            //Level 2
+            if (charge > lowRangeCharge && charge <= middleRangeCharge) 
             {
                 chargeLv_now = 1;
-                ChargeBar[0].GetComponent<Image>().fillAmount = 1.0f;
-                ChargeBar[1].GetComponent<Image>().color = ColorLv2;
-                ChargeBar[1].GetComponent<Image>().fillAmount = (player.playerData.charge - (player.playerData.maxChargeTime * lowRange / 100.0f))
-                    / (player.playerData.maxChargeTime * middleRange / 100.0f - player.playerData.maxChargeTime * lowRange / 100.0f);
+                ChargeBar[0].fillAmount = 1.0f;
+
+                ChargeBar[1].color = ColorLv2;
+                ChargeBar[1].fillAmount = (charge - lowRangeCharge) / (middleRangeCharge - lowRangeCharge);
+
+                OutlineBar[0].fillAmount = 1.0f;
+                OutlineBar[1].fillAmount = (charge - lowRangeCharge) / (middleRangeCharge - lowRangeCharge) * outlineOffset;
             }
-            if (player.playerData.charge <= player.playerData.maxChargeTime * highRange / 100.0f 
-                && player.playerData.charge > player.playerData.maxChargeTime * middleRange / 100.0f)
+            //Level 3
+            if (charge <= highRangeCharge && charge > middleRangeCharge)
             {
                 chargeLv_now = 2;
-                ChargeBar[1].GetComponent<Image>().fillAmount = 1.0f;
-                ChargeBar[2].GetComponent<Image>().color = ColorLv3;
-                ChargeBar[2].GetComponent<Image>().fillAmount = (player.playerData.charge - (player.playerData.maxChargeTime * middleRange / 100.0f))
-                    / (player.playerData.maxChargeTime * highRange / 100.0f - player.playerData.maxChargeTime * middleRange / 100.0f);
+                ChargeBar[1].fillAmount = 1.0f;
+
+                ChargeBar[2].color = ColorLv3;
+                ChargeBar[2].fillAmount = (charge - middleRangeCharge) / (highRangeCharge - middleRangeCharge);
+
+                OutlineBar[1].fillAmount = 1.0f;
+                OutlineBar[2].fillAmount = (charge - middleRangeCharge) / (highRangeCharge - middleRangeCharge) * outlineOffset;
             }
-            if(player.playerData.charge > player.playerData.maxChargeTime * highRange / 100.0f)
+            //Level Max
+            if(charge > maxCharge * highRange / 100.0f)
             {
                 chargeLv_now = 3;
-                ChargeBar[2].GetComponent<Image>().color = Color.HSVToRGB(Time.time * 2 % 1, 1, 1);
+
+                for (int i = 0; i < ChargeBar.Length; i++)
+                {
+                    ChargeBar[i].color = Color.Lerp(ChargeBar[i].color, ColorMax, 0.1f);
+                }
             }
-
-
         }
         else
         {
             for (int i = 0; i < ChargeBar.Length; i++)
             {
-                ChargeBar[i].GetComponent<Image>().fillAmount = 0;
+                ChargeBar[i].fillAmount = 0;
+                OutlineBar[i].fillAmount = 0;
                 chargeLv_now = 0;
                 chargeLv_before = 0;
             }
         }
-
 
         CheckLvUp();
     }
@@ -114,8 +142,5 @@ public class ChargeLvUI : MonoBehaviour
         chargeLv_before = chargeLv_now;
     }
 
-    public void AnimeEnd()
-    {
-        LvUp = false;
-    }
+    public void AnimeEnd() { LvUp = false; }
 }
