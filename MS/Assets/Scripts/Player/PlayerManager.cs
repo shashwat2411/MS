@@ -15,8 +15,6 @@ public class PlayerManager : MonoBehaviour
         Run,
         Walk
     };
-
-
     public enum PlayerState
     {
         Normal,

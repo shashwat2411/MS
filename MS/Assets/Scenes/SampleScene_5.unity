@@ -289,7 +289,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2073438525}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &138022455 stripped
 Camera:
@@ -302,12 +302,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2261627394807972140, guid: 7ac956bd36e53c74484ef84291ca43de,
     type: 3}
   m_PrefabInstance: {fileID: 4417784510810067838}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &169639501 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1146751679061912503, guid: 705c8e1dc38b8cf48958b50e1460a003,
-    type: 3}
-  m_PrefabInstance: {fileID: 9047676264548940614}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
@@ -427,12 +421,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &774381842 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4306739152820804410, guid: 635abd798f48b584b88f870d4b380e37,
-    type: 3}
-  m_PrefabInstance: {fileID: 3014776037018072395}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &774381843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 514571682100506660, guid: 635abd798f48b584b88f870d4b380e37,
@@ -1772,6 +1760,81 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a1fc0f065882551468c43a886d616a08, type: 3}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[2].name
+      value: PlayerDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ebab77b3141a65c4f961b4e6077bb520, type: 3}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[3].name
+      value: CollectExp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a14207ca5ed6f94aae26ce4a5a45b41, type: 3}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[4].name
+      value: Lighting
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 446534646703e9e4fa0ef364718c171a, type: 3}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[5].name
+      value: PoisonAcid
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fd3161ad14ef1b54ab0215186551ca7e, type: 3}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[6].name
+      value: Error
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[2].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[4].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[5].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[6].volume
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6235546439691239576, guid: a8f8e73a919dd994798a87ebce3901eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2133,6 +2196,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498160901931344256, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: levelupSE
+      value: MenkoSmash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498160901931344256, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: collectExpSE
+      value: CollectExp
       objectReference: {fileID: 0}
     - target: {fileID: 7355124844197475844, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -2996,7 +3069,7 @@ PrefabInstance:
     - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
       propertyPath: SpeedFactor
-      value: 4.2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
@@ -3123,3 +3196,4 @@ SceneRoots:
   - {fileID: 1611047772741532978}
   - {fileID: 1190276357}
   - {fileID: 1404206362697930}
+  - {fileID: 80865459}
