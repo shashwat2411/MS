@@ -15,8 +15,6 @@ public class PlayerManager : MonoBehaviour
         Run,
         Walk
     };
-
-
     public enum PlayerState
     {
         Normal,
@@ -81,6 +79,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Player SE")]
     public string hurtSE;
+    public string dashSE;
 
 
 

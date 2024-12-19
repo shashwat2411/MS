@@ -44,8 +44,8 @@ public class PlayerDash : MonoBehaviour
     public Image dashCoolDownMask;
     public Image doubleDashCoolDownMask;
 
-    [Header("Dash SE")]
-    public string nameSE;
+
+     string nameSE;
 
     PlayerData playerData;
     PlayerManager playerManager;
@@ -80,6 +80,7 @@ public class PlayerDash : MonoBehaviour
         rb = GetComponent<Rigidbody>();  
         playerManager = GetComponent<PlayerManager>();  
         playerData =playerManager.playerData;
+        nameSE = playerManager.dashSE;
     }
 
     // Update is called once per frame

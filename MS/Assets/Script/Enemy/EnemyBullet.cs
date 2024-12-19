@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EnemyBullet : ThrowableEnemyObject
 {
+    [SerializeField]
+    string nameSE;
     protected override void Start()
     {
         base.Start();
+
+        SoundManager.Instance.PlaySE(nameSE);
 
         moveOn = true;
         transform.LookAt(new Vector3(target.x, 0f, target.z));

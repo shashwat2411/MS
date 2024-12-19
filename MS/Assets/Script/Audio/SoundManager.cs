@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     public string nowBGMName = "defaultBGM";
     public string nowSEName = "defaultSE";
 
+    bool lowBGM=false;
 
     public void PlayBGM(string name)
     {
@@ -103,6 +104,20 @@ public class SoundManager : MonoBehaviour
     {
         bgmAudioSource.Stop();
     }
+
+    public void SwitchBGMVolume()
+    {
+        if (lowBGM)
+        {
+            bgmAudioSource.volume +=0.1f;
+        }
+        else
+        {
+            bgmAudioSource.volume -= 0.1f;
+        }
+        
+    }
+
 
     public void StopAllSE()
     {

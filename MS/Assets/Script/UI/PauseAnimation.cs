@@ -13,6 +13,11 @@ public class PauseAnimation : MonoBehaviour
 
     PlayerManager player;
 
+    [Header("Audio")]
+    public string pauseInSE;
+    public string pauseOutSE;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,12 +54,14 @@ public class PauseAnimation : MonoBehaviour
 
     public void PauseAnimationStart()
     {
+        SoundManager.Instance.PlaySE(pauseInSE);
         AnimeStart = true;
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void PauseAnimationEnd()
     {
+        SoundManager.Instance.PlaySE(pauseOutSE);
         AnimeEnd = true;
     }
 
@@ -69,12 +76,14 @@ public class PauseAnimation : MonoBehaviour
 
         if (IsPause)
         {
+            
             Time.timeScale = 0;
             player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
             PauseAnimationStart();
         }
         else
         {
+
             PauseAnimationEnd();
             player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
             Time.timeScale = 1;
