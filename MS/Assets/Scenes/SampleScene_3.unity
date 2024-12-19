@@ -689,6 +689,11 @@ PrefabInstance:
       propertyPath: dashCoolDownMask
       value: 
       objectReference: {fileID: 1145192543}
+    - target: {fileID: -4880630771805904516, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: doubleDashCoolDownMask
+      value: 
+      objectReference: {fileID: 641855447}
     - target: {fileID: 432499160411229936, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -729,16 +734,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.10981825
       objectReference: {fileID: 0}
-    - target: {fileID: -4880630771805904516, guid: 7537abae4a13d694fb7a6089945f1806,
-        type: 3}
-      propertyPath: doubleDashCoolDownMask
-      value: 
-      objectReference: {fileID: 641855447}
     - target: {fileID: 647273031843841806, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: playerHP
       value: 
-      objectReference: {fileID: 1817736638}
+      objectReference: {fileID: 0}
     - target: {fileID: 647273031843841806, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: playerExp
@@ -1289,6 +1289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: bangbu
       objectReference: {fileID: 0}
+    - target: {fileID: 8324634354448140029, guid: 7537abae4a13d694fb7a6089945f1806,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8441769948234924317, guid: 7537abae4a13d694fb7a6089945f1806,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -1602,18 +1607,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &1817736638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5492630102344980117, guid: 635abd798f48b584b88f870d4b380e37,
-    type: 3}
-  m_PrefabInstance: {fileID: 3014776037018072395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1920f7a7b25d4684190c074fb3b33827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2029613072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4306739152820804410, guid: 635abd798f48b584b88f870d4b380e37,
@@ -3758,7 +3751,6 @@ SceneRoots:
   - {fileID: 3286622509534342065}
   - {fileID: 3014776037018072395}
   - {fileID: 1618365216}
-  - {fileID: 1190276357}
   - {fileID: 3034069216511838913}
   - {fileID: 5863880814194899769}
   - {fileID: 7077990716214554560}
@@ -3773,3 +3765,4 @@ SceneRoots:
   - {fileID: 1118317286}
   - {fileID: 4420652455334329578}
   - {fileID: 555899471}
+  - {fileID: 1190276357}

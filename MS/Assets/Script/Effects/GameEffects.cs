@@ -46,6 +46,8 @@ public class GameEffects : MonoBehaviour
 
     public IEnumerator HitStop(float duration)
     {
+        if (hitStop == true) { yield return null; }
+
         timeScaleBackUp = Time.timeScale;
         Time.timeScale = 0f;
         hitStop = true;

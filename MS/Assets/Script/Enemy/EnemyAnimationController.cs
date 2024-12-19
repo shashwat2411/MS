@@ -24,12 +24,12 @@ public class EnemyAnimationController : MonoBehaviour
     void FixedUpdate()
     {
 
-        Debug.Log(parent.state);
+        
         if(parent.state == ThrowEnemy.THROWENEMY_STATE.MOVE)
         {
             animator.SetBool(moveHash, true);
         }
-        else
+        else if (parent.state == ThrowEnemy.THROWENEMY_STATE.IDLE)
         {
             animator.SetBool(moveHash, false);
         }

@@ -28,11 +28,18 @@ public class ThrowEnemy : EnemyBase
     public float spawnInterval = 0f;
     private float cooldown = 0f;
 
+    [Header("Material")]
+    public EnemyMaterial megaphone;
+    public EnemyMaterial body;
+
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void Start()
     {
         base.Start();
+
+        megaphone.InstantiateMaterial();
+        body.InstantiateMaterial();
 
         state = THROWENEMY_STATE.IDLE;
     }
