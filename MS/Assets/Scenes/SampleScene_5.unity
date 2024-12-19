@@ -289,7 +289,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2073438525}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &138022455 stripped
 Camera:
@@ -302,12 +302,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2261627394807972140, guid: 7ac956bd36e53c74484ef84291ca43de,
     type: 3}
   m_PrefabInstance: {fileID: 4417784510810067838}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &169639501 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1146751679061912503, guid: 705c8e1dc38b8cf48958b50e1460a003,
-    type: 3}
-  m_PrefabInstance: {fileID: 9047676264548940614}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
@@ -427,12 +421,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &774381842 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4306739152820804410, guid: 635abd798f48b584b88f870d4b380e37,
-    type: 3}
-  m_PrefabInstance: {fileID: 3014776037018072395}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &774381843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 514571682100506660, guid: 635abd798f48b584b88f870d4b380e37,
@@ -3023,6 +3011,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LvEffect1
       objectReference: {fileID: 0}
+    - target: {fileID: 4470120965204980051, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4470203443663573326, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
       propertyPath: m_Camera
@@ -3123,3 +3116,4 @@ SceneRoots:
   - {fileID: 1611047772741532978}
   - {fileID: 1190276357}
   - {fileID: 1404206362697930}
+  - {fileID: 80865459}

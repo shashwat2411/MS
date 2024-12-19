@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ChargeLvUI : MonoBehaviour
 {
     bool LvUp;
+    bool LvUp2;
+    bool LvUp3;
 
     public int chargeLv_now;
     int chargeLv_before;
@@ -134,13 +136,32 @@ public class ChargeLvUI : MonoBehaviour
     {
         if (chargeLv_now != chargeLv_before)
         {
-            LvUp = true;
+            if (chargeLv_now == 1)
+            {
+                LvUp = true;
+            }
+            if (chargeLv_now == 2)
+            {
+                LvUp2 = true;
+            }
+            if (chargeLv_now == 3)
+            {
+                LvUp3 = true;
+            }
+
         }
 
         anime.SetBool("LvUp", LvUp);
+        anime.SetBool("LvUp2", LvUp2);
+        anime.SetBool("LvUp3", LvUp3);
 
         chargeLv_before = chargeLv_now;
     }
 
-    public void AnimeEnd() { LvUp = false; }
+    public void AnimeEnd()
+    {
+        LvUp = false;
+        LvUp2 = false;
+        LvUp3 = false;
+    }
 }
