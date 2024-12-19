@@ -10,4 +10,9 @@ public class AttackEvent : MonoBehaviour
     {
         owner.AttackInstantiate();
     }
+
+    public void AttackOver()
+    {
+        owner.AttackOver();
+    }
 }

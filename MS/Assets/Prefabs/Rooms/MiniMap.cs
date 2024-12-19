@@ -37,15 +37,6 @@ public class MiniMapUI : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) MovePlayer(0, -1);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) MovePlayer(0, 1);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) MovePlayer(-1, 0);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) MovePlayer(1, 0);
-
-    }
-
     void GenerateMiniMap(RoomData[,] datas )
     {
         for (int y = 0; y < datas.GetLength(0); y++)

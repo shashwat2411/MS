@@ -10,8 +10,7 @@ public class EnemyBase : MonoBehaviour
     [System.Serializable]
     public struct EnemyMaterial
     {
-
-        public MeshRenderer renderer;
+        public Renderer renderer;
         [ColorUsage(false, true)] public Color color;
 
 
@@ -71,7 +70,7 @@ public class EnemyBase : MonoBehaviour
     public float attackDistance;
     public float attackPower;
     public float attackSpeed;
-    protected bool attacked;
+    [SerializeField] protected bool attacked;
 
     public bool dead = false;
 

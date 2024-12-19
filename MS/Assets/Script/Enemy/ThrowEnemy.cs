@@ -26,26 +26,18 @@ public class ThrowEnemy : EnemyBase
     public float itemLifetime;
     public int numOfItems = 1;
     public float spawnInterval = 0f;
-    private float cooldown = 0f;
-
-    [Header("Material")]
-    public EnemyMaterial megaphone;
-    public EnemyMaterial body;
+    [SerializeField] protected float cooldown = 0f;
+    protected ThrowableEnemyObject itemReference;
 
     //Hash Map
-    private static int _Idle = Animator.StringToHash("_Idle");
-    private static int _Attack = Animator.StringToHash("_Attack");
-    private static int _Walk = Animator.StringToHash("_Walk");
+    protected static int _Attack = Animator.StringToHash("_Attack");
+    protected static int _Walk = Animator.StringToHash("_Walk");
 
     //___仮想関数のOverride_________________________________________________________________________________________________________________________
     protected override void Start()
     {
         base.Start();
 
-        megaphone.InstantiateMaterial();
-        body.InstantiateMaterial();
-
-        animator.SetBool(_Idle, true);
         animator.SetBool(_Attack, false);
         animator.SetBool(_Walk, false);
 
@@ -54,6 +46,16 @@ public class ThrowEnemy : EnemyBase
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (attacked == true)
+        {
+            cooldown += Time.deltaTime;
+            if (cooldown >= attackCooldownTime)
+            {
+                cooldown = 0f;
+                attacked = false;
+            }
+        }
 
         switch (state)
         {
@@ -73,6 +75,8 @@ public class ThrowEnemy : EnemyBase
                 Hurt();
                 break;
         }
+
+
     }
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -82,7 +86,7 @@ public class ThrowEnemy : EnemyBase
     public override void Damage(float value, bool killingBlow = false)
     {
         base.Damage(value, killingBlow);
-        StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
+        //StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
     }
 
     public override void Death()
@@ -94,24 +98,21 @@ public class ThrowEnemy : EnemyBase
 
 
     //____ステート________________________________________________________________________________________________________________________
-    void Idle()
+    protected void Idle()
     {
         stopRotation = false;   //回転再会
         stopMovement = false;
 
-        animator.SetBool(_Idle, true);
-        animator.SetBool(_Attack, false);
-        animator.SetBool(_Walk, false);
-
-        StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
+        //StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
+        CheckState();
     }
     protected override void Move()
     {
-        base.Move();
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            base.Move();
+        }
 
-        animator.SetBool(_Idle, true);
-        animator.SetBool(_Attack, false);
-        animator.SetBool(_Walk, true);
         //direction = player.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //プレーヤーに向けて移動
@@ -123,50 +124,58 @@ public class ThrowEnemy : EnemyBase
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
             rigidbody.velocity = Vector3.zero;
-            StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, idleTime));
+            if (attacked == false)
+            {
+                animator.SetBool(_Attack, true);
+                animator.SetBool(_Walk, false);
+                RotateTowards(player.transform.position);
+                StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, 0f));
+            }
+            else
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, false);
+                StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
+            }
         }
     }
-    void Attack()
+    protected void Attack()
     {
-        animator.SetBool(_Idle, true);
-        animator.SetBool(_Attack, true);
-        animator.SetBool(_Walk, false);
 
-        RotateTowards(player.transform.position);
+        //if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash == _Attack)
+        //{
+        //    AttackOver();
+        //}
+        //RotateTowards(player.transform.position);
 
-        direction = player.transform.position - gameObject.transform.position;
-        if (direction.magnitude >= attackDistance)
-        {
-            StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
-        }
+        //direction = player.transform.position - gameObject.transform.position;
+        //if (direction.magnitude >= attackDistance)
+        //{
+        //    StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
+        //}
 
-        if (attacked == false)
-        {
-            //dialogue.ActivateDialogue();
-            for (int i = 0; i < numOfItems; i++)
-            {
-                //StartCoroutine(SpawnItem(spawnInterval * (float)i));
-            }
-            //ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+        //if (attacked == false)
+        //{
+        //    //dialogue.ActivateDialogue();
+        //    for (int i = 0; i < numOfItems; i++)
+        //    {
+        //        //StartCoroutine(SpawnItem(spawnInterval * (float)i));
+        //    }
+        //    //ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
-            //item.SetTarget(player.transform.position);
-            //item.SetOwner(gameObject);
-            //item.SetDamage(attackPower);
-            //item.SetMaxLifetime(itemLifetime);
+        //    //item.SetTarget(player.transform.position);
+        //    //item.SetOwner(gameObject);
+        //    //item.SetDamage(attackPower);
+        //    //item.SetMaxLifetime(itemLifetime);
 
-            attacked = true;
-        }
-        else
-        {
-            cooldown += Time.deltaTime;
-            if (cooldown >= attackCooldownTime)
-            {
-                cooldown = 0f;
-                attacked = false;
-            }
-        }
+        //    attacked = true;
+        //}
+        //else
+        //{
+
+        //}
     }
-    void Hurt()
+    protected void Hurt()
     {
         StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, hurtTime));
     }
@@ -174,19 +183,57 @@ public class ThrowEnemy : EnemyBase
     public void AttackInstantiate()
     {
         dialogue.ActivateDialogue();
-        ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+        itemReference = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
-        item.SetTarget(player.transform.position);
-        item.SetOwner(gameObject);
-        item.SetDamage(attackPower);
-        item.SetMaxLifetime(itemLifetime);
+        itemReference.SetTarget(player.transform.position);
+        itemReference.SetOwner(gameObject);
+        itemReference.SetDamage(attackPower);
+        itemReference.SetMaxLifetime(itemLifetime);
+    }
+
+    protected void CheckState()
+    {
+        if(attacked == true)
+        {
+            animator.SetBool(_Attack, false);
+            animator.SetBool(_Walk, false);
+            StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
+        }
+        else
+        {
+            direction = player.transform.position - gameObject.transform.position;
+            if (direction.magnitude >= attackDistance)
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, true);
+                StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, 0f));
+            }
+            else
+            {
+                animator.SetBool(_Attack, true);
+                animator.SetBool(_Walk, false);
+                RotateTowards(player.transform.position);
+                StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, 0f));
+            }
+        }
+    }
+
+    public void AttackOver()
+    {
+        attacked = true;
+        cooldown = 0f;
+
+
+        CheckState();
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Coroutines_________________________________________________________________________________________________________________________
-    IEnumerator ChangeState(THROWENEMY_STATE value, float delayTime)
+    protected IEnumerator ChangeState(THROWENEMY_STATE value, float delayTime)
     {
+        if (state == value) { yield return null; }
+
         yield return new WaitForSeconds(delayTime);
         state = value;
 
@@ -196,7 +243,7 @@ public class ThrowEnemy : EnemyBase
         }
     }
 
-    IEnumerator SpawnItem(float interval)
+    protected IEnumerator SpawnItem(float interval)
     {
         yield return new WaitForSeconds(interval);
 

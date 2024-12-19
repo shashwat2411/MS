@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBomb : ThrowableEnemyObject
 {
+    [HideInInspector] public bool start = false;
     private bool grounded = false;
     private float countdownValue;
     private Vector3 fixedPosition;
@@ -11,12 +12,18 @@ public class EnemyBomb : ThrowableEnemyObject
     public ParticleSystem[] explosionSystem;
     public MeshRenderer fuseMaterial;
     public string nameSE;
+
+    public AnimationCurve expansion;
+    private float expansionCounter = 0f;
+    private Vector3 localScale;
+
     //Hash Map
     private int _Transparency = Shader.PropertyToID("_Transparency");
     protected override void Start()
     {
         base.Start();
 
+        localScale = new Vector3(1.5f, 1.5f, 1.5f);
         grounded = false;
 
         fuseMaterial.material = Instantiate(fuseMaterial.material);
@@ -24,12 +31,23 @@ public class EnemyBomb : ThrowableEnemyObject
 
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
+        if (start == true)
+        {
+            base.FixedUpdate();
 
-        if (grounded == true) { transform.position = fixedPosition; }
+            if (grounded == true) { transform.position = fixedPosition; }
 
-        countdownValue = (maxLifetime - lifetime) / maxLifetime;
-        fuseMaterial.material.SetFloat(_Transparency, countdownValue);
+            countdownValue = (maxLifetime - lifetime) / maxLifetime;
+            fuseMaterial.material.SetFloat(_Transparency, countdownValue);
+        }
+        else
+        {
+            if (expansionCounter < 1f) { expansionCounter += Time.deltaTime; }
+            else { expansionCounter = 1f; }
+
+            float size = expansion.Evaluate(expansionCounter);
+            transform.localScale = localScale * size;
+        }
     }
     protected override void OnDestroy()
     {
