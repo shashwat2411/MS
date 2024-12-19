@@ -1656,7 +1656,7 @@ PrefabInstance:
         type: 3}
       propertyPath: body.renderer
       value: 
-      objectReference: {fileID: 2067047469}
+      objectReference: {fileID: 0}
     - target: {fileID: 7746579840061114784, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: spawnInterval
@@ -1666,7 +1666,7 @@ PrefabInstance:
         type: 3}
       propertyPath: megaphone.renderer
       value: 
-      objectReference: {fileID: 1796335052}
+      objectReference: {fileID: 0}
     - target: {fileID: 7990254950051183862, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -1960,12 +1960,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!23 &1796335052 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3652471986769601307, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
-    type: 3}
-  m_PrefabInstance: {fileID: 1399081279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1860317714 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 9199341376899969071, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
@@ -1984,12 +1978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &2067047469 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3010260474694353357, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
-    type: 3}
-  m_PrefabInstance: {fileID: 1399081279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2094981521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2072,6 +2060,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[7].name
+      value: EnemyBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754935150925760409, guid: a8f8e73a919dd994798a87ebce3901eb,
+        type: 3}
+      propertyPath: se.Array.data[8].name
+      value: EnemyBomb
+      objectReference: {fileID: 0}
     - target: {fileID: 6235546439691239576, guid: a8f8e73a919dd994798a87ebce3901eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2211,7 +2209,7 @@ PrefabInstance:
     - target: {fileID: 1806617273697734657, guid: 98fda54d135de9f47912c9810fbfd39e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8629256779356058312, guid: 98fda54d135de9f47912c9810fbfd39e,
         type: 3}
@@ -2419,11 +2417,31 @@ PrefabInstance:
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 149902004}
+    - target: {fileID: 1887721915047917248, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887721915047917248, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: pauseInSE
+      value: PauseIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887721915047917248, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: pauseOutSE
+      value: PauseOut
+      objectReference: {fileID: 0}
     - target: {fileID: 2476706548043862120, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 138022455}
+    - target: {fileID: 6498160901931344256, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: levelupSE
+      value: LevelUp
+      objectReference: {fileID: 0}
     - target: {fileID: 6812814143210243150, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2453,6 +2471,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104427662873574103, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: pasuseInSE
+      value: Pasu
       objectReference: {fileID: 0}
     - target: {fileID: 7355124844197475844, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -2953,7 +2976,7 @@ PrefabInstance:
     - target: {fileID: 601121622043439549, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1005937473671674289, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
@@ -3325,6 +3348,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
+      propertyPath: dashSE
+      value: PlayerDash
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: hurtSE
+      value: PlayerHurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
       propertyPath: playerHP
       value: 
       objectReference: {fileID: 3014776037018072397}
@@ -3357,6 +3390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271327849397061683, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
+      propertyPath: nameSE
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3271327849397061683, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}

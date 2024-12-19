@@ -10,12 +10,14 @@ public class EnemyAnimationController : MonoBehaviour
     int attackHash;
     Animator animator;
     ThrowEnemy.THROWENEMY_STATE state;
+    Rigidbody rb;
+
 
     // Start is called before the first frame update
     void Start()
     {
-       
-        animator = GetComponent<Animator>();
+        rb = parent.GetComponent<Rigidbody>();
+         animator = GetComponent<Animator>();
         moveHash = Animator.StringToHash("Move");
         attackHash = Animator.StringToHash("Attack");
     }
@@ -25,11 +27,11 @@ public class EnemyAnimationController : MonoBehaviour
     {
 
         
-        if(parent.state == ThrowEnemy.THROWENEMY_STATE.MOVE)
+        if(rb.velocity.magnitude>=0.01f)
         {
             animator.SetBool(moveHash, true);
         }
-        else if (parent.state == ThrowEnemy.THROWENEMY_STATE.IDLE)
+        else 
         {
             animator.SetBool(moveHash, false);
         }

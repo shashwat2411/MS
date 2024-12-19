@@ -79,6 +79,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Player SE")]
     public string hurtSE;
+    public string dashSE;
 
 
 
