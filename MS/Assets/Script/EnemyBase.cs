@@ -7,6 +7,46 @@ using UnityEngine.Rendering;
 
 public class EnemyBase : MonoBehaviour
 {
+    [System.Serializable]
+    public struct EnemyMaterial
+    {
+
+        public MeshRenderer renderer;
+        [ColorUsage(false, true)] public Color color;
+
+
+        [HideInInspector] public float dissolve;
+        [HideInInspector] public float minDissolve;
+        [HideInInspector] public float maxDissolve;
+        [HideInInspector, ColorUsage(false, true)] public Color originalColor;
+        [HideInInspector] public Material material;
+
+        //Hash Map
+        [HideInInspector] public int _Color;
+        [HideInInspector] public int _Dissolve;
+        [HideInInspector] public int _MinDissolve;
+        [HideInInspector] public int _MaxDissolve;
+
+        public void InstantiateMaterial()
+        {
+            if (renderer != null)
+            {
+                material = Instantiate(renderer.material);
+                renderer.material = material;
+
+                _Color = Shader.PropertyToID("_Color");
+                _Dissolve = Shader.PropertyToID("_Dissolve");
+                _MinDissolve = Shader.PropertyToID("_MinDissolve");
+                _MaxDissolve = Shader.PropertyToID("_MaxDissolve");
+
+                dissolve = material.GetFloat(_Dissolve);
+                minDissolve = material.GetFloat(_MinDissolve);
+                maxDissolve = material.GetFloat(_MaxDissolve);
+                originalColor = material.GetColor(_Color);
+            }
+        }
+    };
+
     [Header("Health")]
     protected float hp = 100f;
     protected float maxHp = 100f;
@@ -19,6 +59,7 @@ public class EnemyBase : MonoBehaviour
     protected bool stopMovement;
 
     [Header("References")]
+    [SerializeField] protected Animator animator;
     protected HealthBar healthBar;
     protected GameObject player;
     protected Rigidbody rigidbody;
@@ -51,7 +92,8 @@ public class EnemyBase : MonoBehaviour
         dialogue = canvas.GetComponentInChildren<EnemyDialogue>();
 
         agent.gameObject.transform.parent = null;
-        agent.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        Destroy(agent.GetComponent<MeshRenderer>());
+        Destroy(agent.GetComponent<MeshFilter>());
     }
 
     virtual protected void FixedUpdate()

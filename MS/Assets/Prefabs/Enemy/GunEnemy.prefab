@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7488cc29584cb4e91fe4a72ae71b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   attackDistance: 9.55
   attackPower: 20
   attackSpeed: 800
@@ -598,6 +599,30 @@ MonoBehaviour:
   itemLifetime: 5
   numOfItems: 3
   spawnInterval: 0.2
+  megaphone:
+    renderer: {fileID: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
+  body:
+    renderer: {fileID: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
 --- !u!1 &8496060815975790247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1148,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: megaphome_main_model
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2223639932434330405, guid: 803c41785b32ebb48b1714da6fcf44d9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
