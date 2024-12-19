@@ -23,40 +23,40 @@ MonoBehaviour:
     - type: 0
       key: 1
       value: 10
-  - name: atk+10%
-    description: atk+10%
+  - name: Attack + 10%
+    description: All Damage + 10%
     icon: {fileID: 0}
     bonuses:
     - type: 1
       key: 3
       value: 0.1
-  - name: Hp +5
-    description: Hp +5
+  - name: Charge Speed
+    description: Decrease Charge Speed
     icon: {fileID: 0}
     bonuses:
-    - type: 0
-      key: 0
-      value: 5
-    - type: 0
-      key: 1
-      value: 5
-  - name: Hp +5
-    description: Hp +5
+    - type: 1
+      key: 11
+      value: -0.2
+  - name: Attack Size
+    description: Increase Attack Size
     icon: {fileID: 0}
     bonuses:
-    - type: 0
-      key: 0
-      value: 5
-  - name: Hp +5
-    description: Hp +5
+    - type: 1
+      key: 10
+      value: 0.2
+    - type: 1
+      key: 8
+      value: 0.1
+  - name: Dash Cooldown
+    description: Decrease Dash Cooldown
     icon: {fileID: 0}
     bonuses:
-    - type: 0
-      key: 0
-      value: 5
+    - type: 1
+      key: 14
+      value: -0.2
   playerBonusItems:
   - name: GroundFire
-    description: Add GroundFire to mennko+
+    description: Menko Smash Burns the Ground
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:
@@ -64,21 +64,21 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: Add GroundFire to mennko+
+      description: Burn Time Increased
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: GroundFire power +
+      description: Burn Time Increased
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: GroundFire power +
+      description: Burn Time Increased
   - name: Shield
-    description: Reflect Enemy Projectiles
+    description: Have 1 Shield
     icon: {fileID: 21300000, guid: d13a1eb4f823f3d438321ace0f51d156, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -86,45 +86,35 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Add a Shield
+      description: Have 1 Shield
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Add a Shield
+      description: Have 2 Shields
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Add a Shield
-  - name: DoubleDash
-    description: Player can dash twice
-    icon: {fileID: 0}
-    bonusList:
-    - BonusOnOneTime:
-      - key: 0
-        type: 1
-        bonusItem: {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63,
-          type: 3}
-      description: Player can dash twice
-  - name: MultiMenko
-    description: MultiMenko
+      description: Have 3 Shields
+  - name: Multiple Menko
+    description: Throw +1 Menko
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:
       - key: 2
         type: 1
         bonusItem: {fileID: 0}
-      description: MultiMenko
+      description: Throw 2 Menkos
     - BonusOnOneTime:
       - key: 2
         type: 1
         bonusItem: {fileID: 0}
-      description: MultiMenko
-  - name: Heal
-    description: "HP\u3092\u5C11\u3057\u305A\u3064\u56DE\u5FA9"
+      description: Throw 3 Menkos
+  - name: Healing
+    description: Healing Over Time
     icon: {fileID: 21300000, guid: ac6077879848f7149919ec822d93f4ff, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -132,33 +122,33 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing automatically
+      description: Healing Over Time
     - BonusOnOneTime:
       - key: 0
         type: 0
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing automatically
+      description: Healing Over Time
     - BonusOnOneTime:
       - key: 0
         type: 0
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing automatically
+      description: Healing Over Time
     - BonusOnOneTime:
       - key: 0
         type: 0
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing automatically
+      description: Healing Over Time
     - BonusOnOneTime:
       - key: 0
         type: 0
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing automatically
+      description: Healing Over Time
   - name: Lightning
-    description: Summon Lightning
+    description: Summon 1 Lightning
     icon: {fileID: 21300000, guid: 6a318cf102f06754b856f66722ece3a5, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -166,31 +156,31 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Healing automatically
+      description: Summon 1 Lightning
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Healing automatically
+      description: Increase Lightning Damage
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Healing automatically
+      description: Summon 2 Lightning
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Healing automatically
+      description: Increase Lightning Damage
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Healing automatically
+      description: Summon 3 Lightning
   ItemBonusDatas:
   - name: 
     description: 

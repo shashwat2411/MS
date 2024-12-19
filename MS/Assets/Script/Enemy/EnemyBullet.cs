@@ -9,7 +9,9 @@ public class EnemyBullet : ThrowableEnemyObject
         base.Start();
 
         moveOn = true;
-        transform.LookAt(new Vector3(target.x, 0f, target.z));
+        //transform.LookAt(new Vector3(target.x, 0f, target.z));
+
+        transform.rotation = Quaternion.LookRotation(owner.transform.forward);
     }
 
     protected override void FixedUpdate()

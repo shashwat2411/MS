@@ -6,6 +6,7 @@ using UnityEngine;
 public class ThrowableEnemyObject : MonoBehaviour
 {
     protected bool moveOn;
+    public bool moveInFacedDirection = false;
 
     protected float damage;
     protected float motionTime;
@@ -32,9 +33,17 @@ public class ThrowableEnemyObject : MonoBehaviour
         startPosition = transform.position;
         player = FindFirstObjectByType<PlayerManager>().gameObject;
 
-        Vector3 position = Vector3.Lerp(startPosition, target + offset, Time.deltaTime / timeForImpact);
-        direction = (position - transform.position).normalized;
-        direction.y = 0f;
+        if (moveInFacedDirection == false)
+        {
+            Vector3 position = Vector3.Lerp(startPosition, target + offset, Time.deltaTime / timeForImpact);
+            direction = (position - transform.position).normalized;
+            direction.y = 0f;
+        }
+        else
+        {
+            direction = transform.forward;
+            direction.y = 0f;
+        }
     }
 
     // Update is called once per frame
