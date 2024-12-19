@@ -32,6 +32,10 @@ public class ThrowEnemy : EnemyBase
     public EnemyMaterial megaphone;
     public EnemyMaterial body;
 
+    //Hash Map
+    private static int _Idle = Animator.StringToHash("_Idle");
+    private static int _Attack = Animator.StringToHash("_Attack");
+    private static int _Walk = Animator.StringToHash("_Walk");
 
     //___仮想関数のOverride_________________________________________________________________________________________________________________________
     protected override void Start()
@@ -40,6 +44,10 @@ public class ThrowEnemy : EnemyBase
 
         megaphone.InstantiateMaterial();
         body.InstantiateMaterial();
+
+        animator.SetBool(_Idle, true);
+        animator.SetBool(_Attack, false);
+        animator.SetBool(_Walk, false);
 
         state = THROWENEMY_STATE.IDLE;
     }
@@ -91,15 +99,23 @@ public class ThrowEnemy : EnemyBase
         stopRotation = false;   //回転再会
         stopMovement = false;
 
+        animator.SetBool(_Idle, true);
+        animator.SetBool(_Attack, false);
+        animator.SetBool(_Walk, false);
+
         StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
     }
     protected override void Move()
     {
         base.Move();
+
+        animator.SetBool(_Idle, true);
+        animator.SetBool(_Attack, false);
+        animator.SetBool(_Walk, true);
         //direction = player.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //プレーヤーに向けて移動
-       // Debug.Log("Distance : " + agent.remainingDistance);
+        // Debug.Log("Distance : " + agent.remainingDistance);
 
         direction = player.transform.position - gameObject.transform.position;
         if (direction.magnitude < attackDistance)
@@ -112,6 +128,10 @@ public class ThrowEnemy : EnemyBase
     }
     void Attack()
     {
+        animator.SetBool(_Idle, true);
+        animator.SetBool(_Attack, true);
+        animator.SetBool(_Walk, false);
+
         RotateTowards(player.transform.position);
 
         direction = player.transform.position - gameObject.transform.position;
@@ -122,10 +142,10 @@ public class ThrowEnemy : EnemyBase
 
         if (attacked == false)
         {
-            dialogue.ActivateDialogue();
+            //dialogue.ActivateDialogue();
             for (int i = 0; i < numOfItems; i++)
             {
-                StartCoroutine(SpawnItem(spawnInterval * (float)i));
+                //StartCoroutine(SpawnItem(spawnInterval * (float)i));
             }
             //ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
@@ -149,6 +169,17 @@ public class ThrowEnemy : EnemyBase
     void Hurt()
     {
         StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, hurtTime));
+    }
+
+    public void AttackInstantiate()
+    {
+        dialogue.ActivateDialogue();
+        ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
+
+        item.SetTarget(player.transform.position);
+        item.SetOwner(gameObject);
+        item.SetDamage(attackPower);
+        item.SetMaxLifetime(itemLifetime);
     }
     //____________________________________________________________________________________________________________________________
 

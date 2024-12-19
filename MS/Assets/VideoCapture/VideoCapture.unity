@@ -1696,7 +1696,7 @@ PrefabInstance:
         type: 3}
       propertyPath: body.renderer
       value: 
-      objectReference: {fileID: 2067047469}
+      objectReference: {fileID: 0}
     - target: {fileID: 7746579840061114784, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: spawnInterval
@@ -1706,7 +1706,7 @@ PrefabInstance:
         type: 3}
       propertyPath: megaphone.renderer
       value: 
-      objectReference: {fileID: 1796335052}
+      objectReference: {fileID: 0}
     - target: {fileID: 7990254950051183862, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -2005,12 +2005,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!23 &1796335052 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3652471986769601307, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
-    type: 3}
-  m_PrefabInstance: {fileID: 1399081279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1860317714 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 9199341376899969071, guid: 01631e6ae5c6b204d9f49b8cd3d9ea0a,
@@ -2029,12 +2023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &2067047469 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3010260474694353357, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
-    type: 3}
-  m_PrefabInstance: {fileID: 1399081279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2094981521
 PrefabInstance:
   m_ObjectHideFlags: 0
