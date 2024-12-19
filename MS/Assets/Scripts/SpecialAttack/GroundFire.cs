@@ -19,6 +19,9 @@ public class GroundFire : MonoBehaviour
     public ParticleSystem groundMark_02;
     public ParticleSystem groundMark_03;
 
+    [Header("SE")]
+    public string groundFireSE;
+
     private PlayerManager player;
 
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f, float declineInterval = 1.0f, Transform usedMenko = null)
@@ -58,6 +61,11 @@ public class GroundFire : MonoBehaviour
             DamageAllEnemies();
             curTime = 0;
         }
+    }
+
+    private void Awake()
+    {
+        SoundManager.Instance.PlaySE(groundFireSE);
     }
 
     private void OnTriggerEnter(Collider other)

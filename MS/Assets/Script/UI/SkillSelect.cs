@@ -28,6 +28,8 @@ public class SkillSelect : MonoBehaviour
     [SerializeField]
     float SkillProbability;
 
+    public string selectSE;
+
     bool IsBonusSelect;
 
     List<int> bonustype1 = new List<int>();
@@ -181,6 +183,7 @@ public class SkillSelect : MonoBehaviour
        
         if (!context.started) return;
 
+        SoundManager.Instance.PlaySE(selectSE);
 
         Vector2 moveInput = context.ReadValue<Vector2>();
 

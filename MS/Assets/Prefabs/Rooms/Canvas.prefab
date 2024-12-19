@@ -3280,6 +3280,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  levelupSE: Levelup
+  collectExpSE: CollectExp
+  collectExpCDTime: 2
   baseColor: {r: 1, g: 1, b: 1, a: 0}
   shiftColor: {r: 0, g: 0.9474337, b: 1, a: 1}
   borderColor: {r: 0, g: 0, b: 0, a: 1}
@@ -4080,10 +4083,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7309303231838258241, guid: e32ac2affb4616c4297c3caca6715372,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1887721915047917248}
-    - targetCorrespondingSourceObject: {fileID: 7309303231838258241, guid: e32ac2affb4616c4297c3caca6715372,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7104427662873574103}
   m_SourcePrefab: {fileID: 100100000, guid: e32ac2affb4616c4297c3caca6715372, type: 3}
 --- !u!1 &4306739152820804410 stripped
@@ -4092,21 +4091,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6821617396255760251}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1887721915047917248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4306739152820804410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 444bfca9ce9612a4890e7b0447fb726a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsPause: 0
-  AnimeStart: 0
-  AnimeEnd: 0
 --- !u!114 &7104427662873574103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,6 +4106,8 @@ MonoBehaviour:
   IsPause: 0
   AnimeStart: 0
   AnimeEnd: 0
+  pauseInSE: PauseIn
+  pauseOutSE: PauseOut
 --- !u!224 &6877083678201016310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 133717975818432653, guid: e32ac2affb4616c4297c3caca6715372,
