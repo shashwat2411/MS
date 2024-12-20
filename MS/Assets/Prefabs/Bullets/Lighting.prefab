@@ -82,8 +82,8 @@ MonoBehaviour:
   - {r: 2.0078428, g: 23.968628, b: 8.342573, a: 0}
   - {r: 10.159344, g: 59.16981, b: 12.967718, a: 0}
   color3:
-  - {r: 33.57512, g: 3.2308125, b: 4.375883, a: 0}
-  - {r: 95.118675, g: 1.9741591, b: 4.6354475, a: 0}
+  - {r: 26.612543, g: 6.2104335, b: 55.78868, a: 0}
+  - {r: 20.084349, g: 4.0156856, b: 47.937256, a: 0}
 --- !u!1 &5171088066468460837
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4685859696694937989}
   - component: {fileID: 2589053774182563893}
   - component: {fileID: 8714543566187941954}
+  - component: {fileID: 8950306715626602113}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -236,3 +237,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toDestroy: {fileID: 3207222013639785080}
+--- !u!114 &8950306715626602113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5171088066468460837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f4a77703997f648a92a2f8224a602d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
