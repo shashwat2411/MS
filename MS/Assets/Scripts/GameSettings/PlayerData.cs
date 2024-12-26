@@ -138,7 +138,7 @@ public class PlayerData
         }
         else if(bs.type == PlayerBonusType.multiple)
         {
-            this[bs.key] *= (1 + bs.value);
+            this[bs.key] *= (1f + bs.value);
         }
 
     }

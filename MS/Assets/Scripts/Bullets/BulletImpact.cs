@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletImpact : MonoBehaviour
 {
-    public float damage;
+    [HideInInspector] public float damage;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +12,13 @@ public class BulletImpact : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(damage, true);
+            return;
+        }
+
+        BossEnemy boss = other.gameObject.GetComponent<BossEnemy>();
+        if(boss)
+        {
+            boss.Damage(damage, true);
         }
     }
 }

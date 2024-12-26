@@ -98,7 +98,7 @@ public class HPBarManager : MonoBehaviour
         if (result > 0f)
         {
             Hp_Now = result;
-            player.Damage();
+            player.Damage(value);
         }
         else if (result <= 0f)
         {

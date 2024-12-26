@@ -91,6 +91,10 @@ public class SoundManager : MonoBehaviour
             {
                 audioSource.clip = s.clip;
                 audioSource.volume = s.volume;
+
+                if (s.changeFrequency == true) { audioSource.pitch = (float)Random.Range(8, 13) / 10f; }
+                else { audioSource.pitch = 1f; }
+
                 audioSource.Play();
                 return;
             }

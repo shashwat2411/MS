@@ -86,7 +86,6 @@ public class ThrowEnemy : EnemyBase
     public override void Damage(float value, bool killingBlow = false)
     {
         base.Damage(value, killingBlow);
-        //StartCoroutine(ChangeState(THROWENEMY_STATE.HURT, 0f));
     }
 
     public override void Death()
@@ -103,7 +102,6 @@ public class ThrowEnemy : EnemyBase
         stopRotation = false;   //âÒì]çƒâÔ
         stopMovement = false;
 
-        //StartCoroutine(ChangeState(THROWENEMY_STATE.MOVE, idleTime));
         CheckState();
     }
     protected override void Move()
@@ -112,11 +110,6 @@ public class ThrowEnemy : EnemyBase
         {
             base.Move();
         }
-
-        //direction = player.transform.position - gameObject.transform.position;
-        //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
-        //ÉvÉåÅ[ÉÑÅ[Ç…å¸ÇØÇƒà⁄ìÆ
-        // Debug.Log("Distance : " + agent.remainingDistance);
 
         direction = player.transform.position - gameObject.transform.position;
         if (direction.magnitude < attackDistance)
@@ -142,38 +135,6 @@ public class ThrowEnemy : EnemyBase
     protected void Attack()
     {
 
-        //if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash == _Attack)
-        //{
-        //    AttackOver();
-        //}
-        //RotateTowards(player.transform.position);
-
-        //direction = player.transform.position - gameObject.transform.position;
-        //if (direction.magnitude >= attackDistance)
-        //{
-        //    StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
-        //}
-
-        //if (attacked == false)
-        //{
-        //    //dialogue.ActivateDialogue();
-        //    for (int i = 0; i < numOfItems; i++)
-        //    {
-        //        //StartCoroutine(SpawnItem(spawnInterval * (float)i));
-        //    }
-        //    //ThrowableEnemyObject item = Instantiate(enemyItem, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
-
-        //    //item.SetTarget(player.transform.position);
-        //    //item.SetOwner(gameObject);
-        //    //item.SetDamage(attackPower);
-        //    //item.SetMaxLifetime(itemLifetime);
-
-        //    attacked = true;
-        //}
-        //else
-        //{
-
-        //}
     }
     protected void Hurt()
     {
