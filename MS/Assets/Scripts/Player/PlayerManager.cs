@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     bool lockMovement = false;
 
     [SerializeField]
-    float currentSpeed;
+    float currentSpeed, cameraShakeIntensity;
     float targetSpeed;
 
     #region 入力値
@@ -309,7 +309,7 @@ public class PlayerManager : MonoBehaviour
  
 
 
-    public void Damage()
+    public void Damage(float damage)
     {
 
         hurtInvincibility = true;
@@ -318,6 +318,7 @@ public class PlayerManager : MonoBehaviour
         SoundManager.Instance.PlaySE(hurtSE);
 
         Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
+        StartCoroutine(Camera.main.GetComponent<CameraBrain>().CameraShake(0.1f, damage / playerData.maxHp * cameraShakeIntensity));
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }

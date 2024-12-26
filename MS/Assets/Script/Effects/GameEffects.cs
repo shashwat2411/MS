@@ -19,7 +19,6 @@ public class GameEffects : MonoBehaviour
     }
     private void Update()
     {
-
         if (hitStop == false && slowMotion == true)
         {
             Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
@@ -46,7 +45,7 @@ public class GameEffects : MonoBehaviour
 
     public IEnumerator HitStop(float duration)
     {
-        if (hitStop == true) { yield return null; }
+        if (hitStop == true) { yield break; }
 
         timeScaleBackUp = Time.timeScale;
         Time.timeScale = 0f;

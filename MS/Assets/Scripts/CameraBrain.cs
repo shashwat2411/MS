@@ -8,6 +8,9 @@ public class CameraBrain : MonoBehaviour
     public float smoothTime = 0.25f;
     public float rotationAngle = 20f;
 
+    private float shakeIntensity = 0.8f;
+    private float shakeTime = 0.2f;
+
     public Vector3 offset;
     public Vector3 angleOffset;
     public Vector3 zoomInOffset;
@@ -42,7 +45,7 @@ public class CameraBrain : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(0.15f, 0.4f)); }
+        if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
     }
@@ -53,14 +56,17 @@ public class CameraBrain : MonoBehaviour
 
         float elapsed = 0f;
 
-        while(elapsed < duration)
+        while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            if (Time.timeScale > 0)
+            {
+                float x = Random.Range(-1f, 1f) * magnitude;
+                float y = Random.Range(-1f, 1f) * magnitude;
 
-            transform.localPosition = new Vector3(x, y, originalPosition.z);
+                transform.localPosition = new Vector3(x, y, originalPosition.z);
 
-            elapsed += Time.deltaTime;
+                elapsed += Time.unscaledDeltaTime;
+            }
 
             yield return null;
         }

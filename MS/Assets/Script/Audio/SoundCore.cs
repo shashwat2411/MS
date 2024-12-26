@@ -15,5 +15,7 @@ public class SoundCore
     public float volume;
     [Tooltip("Loop‚·‚é‚©‚Ç‚¤‚©")]
     public bool loop;
+    [Tooltip("–Â‚ç‚·‚Æ‚«‚É­‚µ’²®‚·‚é‚©")]
+    public bool changeFrequency;
 
 }

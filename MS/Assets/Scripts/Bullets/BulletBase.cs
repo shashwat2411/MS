@@ -105,7 +105,6 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
 
-
         //Sound Effect
         SoundManager.Instance.PlaySE(nameSE);
 

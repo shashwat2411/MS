@@ -37,9 +37,6 @@ public class EnemyBullet : ThrowableEnemyObject
             PlayerManager playerManager = player.GetComponent<PlayerManager>();
             EnemyBase enemyBase = player.GetComponent<EnemyBase>();
 
-            // Player–³“GŽžŠÔ
-            if (playerManager.invincibility) { return; }
-
             if (playerManager != null) { playerManager.playerHP.Damage(damage); }
             else if (enemyBase != null) { enemyBase.Damage(damage); }
 

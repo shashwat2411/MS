@@ -36,7 +36,7 @@ MonoBehaviour:
     bonuses:
     - type: 1
       key: 11
-      value: -0.2
+      value: 0.2
   - name: Attack Size
     description: Increase Attack Size
     icon: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
       value: -0.2
   playerBonusItems:
   - name: GroundFire
-    description: Menko Smash Burns the Ground
+    description: Burn Time Increased
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:
@@ -100,7 +100,7 @@ MonoBehaviour:
           type: 3}
       description: Have 3 Shields
   - name: Multiple Menko
-    description: Throw +1 Menko
+    description: Throw 2 Menkos
     icon: {fileID: 0}
     bonusList:
     - BonusOnOneTime:

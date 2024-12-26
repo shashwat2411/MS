@@ -13,5 +13,13 @@ public class LookAtCamera : MonoBehaviour
     virtual protected void LateUpdate()
     {
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
+
+        //Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+        //directionToCamera.y = 0f;
+
+        //if (directionToCamera.sqrMagnitude > 0.01f)
+        //{
+        //    transform.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+        //}
     }
 }
