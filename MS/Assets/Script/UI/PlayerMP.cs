@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-[ExecuteAlways]
+//[ExecuteAlways]
 public class PlayerMP : MonoBehaviour
 {
     [Header("MP")]

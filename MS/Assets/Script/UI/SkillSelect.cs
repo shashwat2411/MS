@@ -83,7 +83,7 @@ public class SkillSelect : MonoBehaviour
 
         p = Random.Range(0, 100);
 
-        if(p<= ParameterUpProbability)
+        if(p < ParameterUpProbability)
         {
             result = 0;
         }
@@ -119,7 +119,7 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c2);
 
-                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) && CheckBonusIsUsed(type, i))  
+                while (player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) == false && CheckBonusIsUsed(type, i))  
                 {
                     i = Random.Range(0, c2);
                 }

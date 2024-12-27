@@ -44,6 +44,39 @@ public class EnemyBase : MonoBehaviour
                 originalColor = material.GetColor(_Color);
             }
         }
+
+        public IEnumerator DissolveOut(float duration)
+        {
+            float elapsedTime = 0f;
+
+            while(elapsedTime < duration)
+            {
+                dissolve = Mathf.Lerp(maxDissolve, minDissolve, elapsedTime / duration);
+                material.SetFloat(_Dissolve, dissolve);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            dissolve = minDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
+        public IEnumerator DissolveIn(float duration)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                dissolve = Mathf.Lerp(minDissolve, maxDissolve, elapsedTime / duration);
+                material.SetFloat(_Dissolve, dissolve);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            dissolve = maxDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
     };
 
     [Header("Health")]

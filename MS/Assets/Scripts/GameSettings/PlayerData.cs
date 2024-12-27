@@ -267,9 +267,9 @@ public class PlayerPrefabs
 
     public bool CheckItemNotMax(BonusItem item)
     {
-        if (!itemCountPair.ContainsKey(item.name))
+        if (itemCountPair.ContainsKey(item.name) == false)
         {
-            return true;
+            return false;
         }
 
         if (item.bonusList.Count < itemCountPair[item.name])
