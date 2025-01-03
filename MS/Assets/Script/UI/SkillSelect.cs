@@ -30,6 +30,8 @@ public class SkillSelect : MonoBehaviour
 
     bool IsBonusSelect;
 
+    bool IsAllSkillLvMax;
+
     List<int> bonustype1 = new List<int>();
     List<int> bonustype2 = new List<int>();
 
@@ -37,6 +39,8 @@ public class SkillSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IsAllSkillLvMax = false;
+
         IsBonusSelect = false;
 
         AnimeStart = false;
@@ -72,6 +76,25 @@ public class SkillSelect : MonoBehaviour
         }
     }
 
+    bool CheckIsAllSkillLvMax()
+    {
+        for (int i = 0; i < BonusSettings.Instance.playerBonusItems.Count; i++) 
+        {
+            if (player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]))
+            {
+                return false;
+            }
+
+            if(i== (BonusSettings.Instance.playerBonusItems.Count - 1))
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
     int BonusTypeRandom()
     {
 
@@ -87,7 +110,14 @@ public class SkillSelect : MonoBehaviour
         }
         else
         {
-            result = 1;
+            if (CheckIsAllSkillLvMax())
+            {
+                result = 0;
+            }
+            else
+            {
+                result = 1;
+            }
         }
 
         return result;
@@ -117,7 +147,7 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c2);
 
-                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) && CheckBonusIsUsed(type, i))  
+                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) || CheckBonusIsUsed(type, i))  
                 {
                     i = Random.Range(0, c2);
                 }

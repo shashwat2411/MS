@@ -17,15 +17,16 @@ public class SkillWindow : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI Name, Description;
 
+    PlayerManager player;
 
-  
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = FindFirstObjectByType<PlayerManager>();
+       
     }
 
-
+   
 
 
     public void DrawBonus()
@@ -41,9 +42,28 @@ public class SkillWindow : MonoBehaviour
         if (Item != null)
         {
             Name.text = Item.name;
-            Description.text = Item.description;
+            Description.text = Item.bonusList[GetSkillLv(Item)].description;
             Icon.sprite = Item.icon;
         }
+    }
+
+    int GetSkillLv(BonusItem item)
+    {
+        player = FindFirstObjectByType<PlayerManager>();
+
+        int skilllv = 0;
+
+        if (player.playerPrefabs.itemCountPair.ContainsKey(item.name))
+        {
+            skilllv = player.playerPrefabs.itemCountPair[item.name];
+        }
+        else
+        {
+            skilllv = 0;
+        }
+
+
+        return skilllv;
     }
 
     public void CardReset()

@@ -272,7 +272,7 @@ public class PlayerPrefabs
             return true;
         }
 
-        if (item.bonusList.Count < itemCountPair[item.name])
+        if (item.bonusList.Count > itemCountPair[item.name])
         {
             return true;
         }
