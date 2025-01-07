@@ -33,6 +33,15 @@ public class DashEnemy : EnemyBase
     protected static int _Walk = Animator.StringToHash("_Walk");
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
+    protected override void ScaleUp()
+    {
+        base.ScaleUp();
+
+        float scale = transform.localScale.x;
+        computer.SetMaxDissolveScale(scale);
+        body.SetMaxDissolveScale(scale);
+        screen.SetMaxDissolveScale(scale);
+    }
     protected override void Start()
     {
         base.Start();
@@ -45,6 +54,8 @@ public class DashEnemy : EnemyBase
         animator.SetBool(_Walk, false);
 
         state = DASHENEMY_STATE.IDLE;
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {

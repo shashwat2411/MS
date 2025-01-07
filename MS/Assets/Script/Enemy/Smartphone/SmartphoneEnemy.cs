@@ -12,6 +12,15 @@ public class SmartphoneEnemy : ThrowEnemy
     public EnemyMaterial phone;
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
+    protected override void ScaleUp()
+    {
+        base.ScaleUp();
+
+        float scale = transform.localScale.x;
+        hand.SetMaxDissolveScale(scale);
+        screen.SetMaxDissolveScale(scale);
+        phone.SetMaxDissolveScale(scale);
+    }
     protected override void Start()
     {
         base.Start();
@@ -19,6 +28,8 @@ public class SmartphoneEnemy : ThrowEnemy
         hand.InstantiateMaterial();
         screen.InstantiateMaterial();
         phone.InstantiateMaterial();
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {

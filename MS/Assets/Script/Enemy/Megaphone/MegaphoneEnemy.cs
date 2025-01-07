@@ -11,12 +11,23 @@ public class MegaphoneEnemy : ThrowEnemy
     public EnemyMaterial body;
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
+    protected override void ScaleUp()
+    {
+        base.ScaleUp();
+
+        float scale = transform.localScale.x;
+        megaphone.SetMaxDissolveScale(scale);
+        body.SetMaxDissolveScale(scale);
+    }
+
     protected override void Start()
     {
         base.Start();
 
         megaphone.InstantiateMaterial();
         body.InstantiateMaterial();
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {
