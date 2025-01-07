@@ -23,32 +23,22 @@ public class PlayerMpAttack : MonoBehaviour
     PlayerManager playerManager;
     PlayerData playerData;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-
-
         lastAttack = 0;
 
         playerManager = GetComponentInParent<PlayerManager>();
         playerData = playerManager.playerData;
-    
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        if(mpAttackReady)
        {
            MpAttack();
        }
-       else
-       {
-          
-       }
-        mpAttackCoolDownLeft -= Time.deltaTime;
 
+        mpAttackCoolDownLeft -= Time.deltaTime;
     }
 
     public void MpAttackReady()
@@ -56,16 +46,13 @@ public class PlayerMpAttack : MonoBehaviour
         if (Time.time > (lastAttack + mpAttackCoolDown))
         {
             mpAttackReady = true;
-
         }
     }
 
- 
-
     void MpAttack()
     {
-        float resMp = playerData.mp - mpConsumption;
-        if (resMp > 0)
+        float resMp = 50f;//playerData.mp - mpConsumption;
+        if (resMp >= 0)
         {
             playerData.mp = resMp;
         }
@@ -79,6 +66,8 @@ public class PlayerMpAttack : MonoBehaviour
         isMpAttacking = true;
         mpAttackArea = ObjectPool.Instance.Get(playerManager.playerPrefabs.mpAttackArea, transform.position, transform.rotation);
 
+        mpAttackArea.GetComponentInChildren<KnockBack>().Initiate(0f, 0f);
+
         mpAttackCoolDownLeft = mpAttackCoolDown;
 
         Invoke("ResetAttackArea", mpAttackTime);
@@ -86,15 +75,13 @@ public class PlayerMpAttack : MonoBehaviour
         lastAttack = Time.time;
     }
 
-
- 
-
-
     private void ResetAttackArea()
     {
-        
         isMpAttacking = false;
-        ObjectPool.Instance.Push(mpAttackArea);
 
+        //if (mpAttackArea != null)
+        //{
+        //    ObjectPool.Instance.Push(mpAttackArea);
+        //}
     }
 }

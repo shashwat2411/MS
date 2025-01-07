@@ -98,6 +98,7 @@ public class EnemyBase : MonoBehaviour
     protected NavMeshAgent agent;
     protected EnemyDialogue dialogue;
     private GameObject canvas;
+    protected Vector3 extraForce;
 
     [Header("Attack")]
     public float attackDistance;
@@ -130,11 +131,13 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void FixedUpdate()
     {
+        extraForce *= 0.95f;
+
         rigidbody.angularVelocity = Vector3.zero;
 
         if (stopMovement == false)
         {
-            rigidbody.velocity = agent.velocity;
+            rigidbody.velocity = agent.velocity + extraForce;
             transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
         }
     }
@@ -192,7 +195,8 @@ public class EnemyBase : MonoBehaviour
 
     virtual public void Knockback(Vector3 direction, float power)
     {
-        rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
+        extraForce = direction.normalized * power;
+        //rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
     }
 
     //___Gizmos_________________________________________________________________________________________________________________________
