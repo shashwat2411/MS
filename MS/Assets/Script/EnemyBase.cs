@@ -45,6 +45,31 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
+        public bool GetDissolvedOut()
+        {
+            if (dissolve <= minDissolve) { return true; }
+            else { return false; }
+        }
+        public bool GetDissolvedIn()
+        {
+            if (dissolve >= maxDissolve) { return true; }
+            else { return false; }
+        }
+
+        public void SetDissolveToMax()
+        {
+            dissolve = maxDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
+        public void SetDissolveToMin()
+        {
+            dissolve = minDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
+
+        public void SetMaxDissolveScale(float scale) { maxDissolve *= scale; material.SetFloat(_MaxDissolve, maxDissolve); }
+        public void SetMinDissolveScale(float scale) { minDissolve *= scale; material.SetFloat(_MinDissolve, minDissolve); }
+
         public IEnumerator DissolveOut(float duration)
         {
             float elapsedTime = 0f;
@@ -60,6 +85,7 @@ public class EnemyBase : MonoBehaviour
 
             dissolve = minDissolve;
             material.SetFloat(_Dissolve, dissolve);
+            yield return null;
         }
         public IEnumerator DissolveIn(float duration)
         {
@@ -76,6 +102,7 @@ public class EnemyBase : MonoBehaviour
 
             dissolve = maxDissolve;
             material.SetFloat(_Dissolve, dissolve);
+            yield return null;
         }
     };
 
@@ -197,6 +224,15 @@ public class EnemyBase : MonoBehaviour
     {
         extraForce = direction.normalized * power;
         //rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
+    }
+
+    virtual protected void ScaleUp()
+    {
+        float scale = transform.localScale.x;
+
+        attackDistance *= scale;
+        healthBar.maxHealth *= scale;
+        healthBar.health = healthBar.maxHealth;
     }
 
     //___Gizmos_________________________________________________________________________________________________________________________

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.XR;
 using static GunEnemy;
 using static ThrowEnemy;
@@ -24,6 +25,13 @@ public class KamikazeEnemy : EnemyBase
     public EnemyMaterial body;
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
+    protected override void ScaleUp()
+    {
+        base.ScaleUp();
+
+        float scale = transform.localScale.x;
+        body.SetMaxDissolveScale(scale);
+    }
     protected override void Start()
     {
         base.Start();
@@ -31,6 +39,8 @@ public class KamikazeEnemy : EnemyBase
         body.InstantiateMaterial();
 
         state = KAMIKAZEENEMY_STATE.IDLE;
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {

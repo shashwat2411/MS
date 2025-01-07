@@ -26,13 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453540897452376373}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017380565, y: -0.020786941, z: 0.7068932, w: -0.7068011}
-  m_LocalPosition: {x: 6.306, y: -0.73, z: 0.038}
-  m_LocalScale: {x: 0.14, y: 0.14, z: 0.14}
+  m_LocalRotation: {x: 0.48721892, y: 0.51416, z: -0.51246244, w: 0.48542717}
+  m_LocalPosition: {x: 6.17, y: -0.73, z: 0.047}
+  m_LocalScale: {x: 0.18000002, y: 0.18000002, z: 0.18000002}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 342743634982178203}
   m_Father: {fileID: 7078077406070552050}
-  m_LocalEulerAnglesHint: {x: 360.276, y: -41.148, z: -90}
+  m_LocalEulerAnglesHint: {x: 90.2, y: 3.093, z: -90}
 --- !u!2083052967 &702461866451573773
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -51,7 +52,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 30
+      - m_Value: 120
         m_Name: Duration
         m_Overridden: 1
       - m_Value: 0.61
@@ -117,7 +118,7 @@ VisualEffect:
             inWeight: 0
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.95
+            time: 0.98
             value: 1
             inSlope: 0
             outSlope: 0
@@ -128,8 +129,8 @@ VisualEffect:
           - serializedVersion: 3
             time: 1
             value: 1.55
-            inSlope: 10.999996
-            outSlope: 10.999996
+            inSlope: 27.500025
+            outSlope: 27.500025
             tangentMode: 34
             weightedMode: 0
             inWeight: 0.33333334
@@ -145,14 +146,14 @@ VisualEffect:
           - serializedVersion: 3
             time: 0
             value: 0
-            inSlope: 11.637685
-            outSlope: 11.637685
+            inSlope: 58.79009
+            outSlope: 58.79009
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.087276705
+            time: 0.0172767
             value: 1.0156988
             inSlope: 1.4883379
             outSlope: 1.4883379
@@ -203,7 +204,7 @@ VisualEffect:
             outSlope: -0.04688895
             tangentMode: 34
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.33333334
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -216,14 +217,14 @@ VisualEffect:
           - serializedVersion: 3
             time: 0
             value: 0
-            inSlope: 11.637685
-            outSlope: 11.637685
+            inSlope: 58.79009
+            outSlope: 58.79009
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.087276705
+            time: 0.0172767
             value: 1.0156988
             inSlope: 1.4883379
             outSlope: 1.4883379
@@ -274,7 +275,7 @@ VisualEffect:
             outSlope: -0.04688895
             tangentMode: 34
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.33333334
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -287,14 +288,14 @@ VisualEffect:
           - serializedVersion: 3
             time: 0
             value: 0
-            inSlope: 11.637685
-            outSlope: 11.637685
+            inSlope: 58.79009
+            outSlope: 58.79009
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.087276705
+            time: 0.0172767
             value: 1.0156988
             inSlope: 1.4883379
             outSlope: 1.4883379
@@ -345,7 +346,7 @@ VisualEffect:
             outSlope: -0.04688895
             tangentMode: 34
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.33333334
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -481,6 +482,59 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2885282030761538561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342743634982178203}
+  - component: {fileID: 6372719862326521344}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &342743634982178203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2885282030761538561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 7.89, z: -0}
+  m_LocalScale: {x: 7.073, y: 2.9024, z: 5.7227}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8454691174283182593}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6372719862326521344
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2885282030761538561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5127271999548792839
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7078077406070552050}
+  - component: {fileID: 7647212756523005893}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -588,7 +643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598048981280485192}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7101176, z: -0, w: 0.70408314}
+  m_LocalRotation: {x: 0, y: 0.7101177, z: 0, w: 0.70408297}
   m_LocalPosition: {x: -14.79, y: 4.06, z: 49.15}
   m_LocalScale: {x: 3.17, y: 3.17, z: 3.17}
   m_ConstrainProportionsScale: 1
@@ -598,3 +653,17 @@ Transform:
   - {fileID: 8454691174283182593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90.489, z: 0}
+--- !u!114 &7647212756523005893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598048981280485192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e269070f678e77f49a101a303198dfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vortex: {fileID: 702461866451573773}
+  box: {fileID: 6372719862326521344}
