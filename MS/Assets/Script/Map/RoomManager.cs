@@ -8,6 +8,7 @@ public class RoomManager : MonoBehaviour
     // ルーム情報取得
     //==================================
     public RoomInfo roomInfo;
+    public GameObject existingRoom;
 
     //==================================
     // CSVファイル読み込みなど
@@ -175,6 +176,7 @@ public class RoomManager : MonoBehaviour
         }
 
         // 部屋を作製
+        if (existingRoom) { Destroy(existingRoom); }
         GameObject room = Instantiate(r.room, new Vector3(0, 0, 0), Quaternion.identity);
         //上下左右に部屋があるかどうか確認
 
