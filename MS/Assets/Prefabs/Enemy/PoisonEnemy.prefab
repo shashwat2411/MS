@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6039047403977919535}
   - component: {fileID: 1717013911378190029}
   - component: {fileID: 8036582990815492397}
+  - component: {fileID: 307770816887279091}
   m_Layer: 0
   m_Name: PoisonEnemy
   m_TagString: Untagged
@@ -182,9 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7488cc29584cb4e91fe4a72ae71b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7136216398954283130}
   attackDistance: 7
   attackPower: 20
   attackSpeed: 800
+  attacked: 0
   dead: 0
   state: 0
   idleTime: 1
@@ -196,8 +199,38 @@ MonoBehaviour:
   itemLifetime: 4
   numOfItems: 1
   spawnInterval: 0
-  megaphone:
-    renderer: {fileID: 0}
+  cooldown: 0
+--- !u!114 &307770816887279091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601121622043439549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8a4bc36cb050947b74d4eb77c04ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  attackDistance: 7
+  attackPower: 20
+  attackSpeed: 800
+  attacked: 0
+  dead: 0
+  state: 0
+  idleTime: 1
+  attackCooldownTime: 2
+  hurtTime: 0.5
+  enemyItem: {fileID: 2793944749754590356, guid: 7520fb2dbb5677c4f9a3e25ebb3c0479,
+    type: 3}
+  spawnPoint: {fileID: 7818597051293821371}
+  itemLifetime: 4
+  numOfItems: 1
+  spawnInterval: 0
+  cooldown: 0
+  hand:
+    renderer: {fileID: 5177551567430105897}
     color: {r: 0, g: 0, b: 0, a: 0}
     dissolve: 0
     minDissolve: 0
@@ -208,8 +241,20 @@ MonoBehaviour:
     _Dissolve: 0
     _MinDissolve: 0
     _MaxDissolve: 0
-  body:
-    renderer: {fileID: 0}
+  screen:
+    renderer: {fileID: 75807629673143605}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
+  phone:
+    renderer: {fileID: 1292260371320986681}
     color: {r: 0, g: 0, b: 0, a: 0}
     dissolve: 0
     minDissolve: 0
@@ -1139,8 +1184,57 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc68a98c6bc2b241842dd1bad596213,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7136216398954283130}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc68a98c6bc2b241842dd1bad596213, type: 3}
+--- !u!23 &75807629673143605 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7573104429640693766, guid: 3bc68a98c6bc2b241842dd1bad596213,
+    type: 3}
+  m_PrefabInstance: {fileID: 7499690721868588339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1292260371320986681 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -433674805072103158, guid: 3bc68a98c6bc2b241842dd1bad596213,
+    type: 3}
+  m_PrefabInstance: {fileID: 7499690721868588339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5177551567430105897 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5778651249969390054, guid: 3bc68a98c6bc2b241842dd1bad596213,
+    type: 3}
+  m_PrefabInstance: {fileID: 7499690721868588339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7265758826115635298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc68a98c6bc2b241842dd1bad596213,
+    type: 3}
+  m_PrefabInstance: {fileID: 7499690721868588339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7136216398954283130
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265758826115635298}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 213a1cdd0a71a5f4db60c1d17cda979b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &8043140332092146392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3bc68a98c6bc2b241842dd1bad596213,
