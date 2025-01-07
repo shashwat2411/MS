@@ -87,58 +87,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgm:
   - name: BGM_1
-    clip: {fileID: 8300000, guid: dcbd9717063be034696d717a47366c12, type: 3}
-    volume: 0.15
+    clip: {fileID: 8300000, guid: a9cf845f273b8f443b11f6a208c8454b, type: 3}
+    volume: 0.8
     loop: 1
+    changeFrequency: 0
   se:
   - name: MenkoSmash
     clip: {fileID: 8300000, guid: 3afca8af6a680a94ab5ef45291da91b8, type: 3}
     volume: 0.6
     loop: 0
+    changeFrequency: 0
   - name: PlayerDash
     clip: {fileID: 8300000, guid: 3c9dc636b61b756499add964f9dfe278, type: 3}
     volume: 0.8
     loop: 0
+    changeFrequency: 1
   - name: PlayerHurt
     clip: {fileID: 8300000, guid: 98cbd5cf23315e740949f3c5ae34296a, type: 3}
     volume: 0.2
     loop: 0
+    changeFrequency: 1
   - name: BonusSelect
     clip: {fileID: 8300000, guid: 26c2598d68aed10468edb0a83370b27f, type: 3}
     volume: 0.2
     loop: 0
+    changeFrequency: 0
   - name: CollectExp
     clip: {fileID: 8300000, guid: ebab77b3141a65c4f961b4e6077bb520, type: 3}
     volume: 0.2
     loop: 0
+    changeFrequency: 1
   - name: LevelUp
     clip: {fileID: 8300000, guid: 04d9e4ee26a393446b3741f875280829, type: 3}
     volume: 0.8
     loop: 0
+    changeFrequency: 0
   - name: Lighting
-    clip: {fileID: 8300000, guid: 1a14207ca5ed6f94aae26ce4a5a45b41, type: 3}
+    clip: {fileID: 8300000, guid: 618e7e0cf83553d42b1640bc073cff82, type: 3}
     volume: 0.4
     loop: 0
+    changeFrequency: 1
   - name: EarthHit
     clip: {fileID: 8300000, guid: fdbd898b6deb34c4c97e342bc5e138e7, type: 3}
     volume: 0.8
     loop: 0
+    changeFrequency: 0
   - name: EnemyBullet
     clip: {fileID: 8300000, guid: fd3161ad14ef1b54ab0215186551ca7e, type: 3}
     volume: 0.2
     loop: 0
+    changeFrequency: 0
   - name: EnemyBomb
     clip: {fileID: 8300000, guid: 446534646703e9e4fa0ef364718c171a, type: 3}
     volume: 0.2
     loop: 0
+    changeFrequency: 0
   - name: PauseIn
     clip: {fileID: 8300000, guid: 35f019aef6bab324ab44c1d7d8e1fe07, type: 3}
     volume: 0.4
     loop: 0
+    changeFrequency: 0
   - name: PauseOut
     clip: {fileID: 8300000, guid: a8da54d9360cbec4e862939f607ac283, type: 3}
     volume: 0.4
     loop: 0
+    changeFrequency: 0
 --- !u!1 &1252929903502507444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1093,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.25
   Loop: 0
   Mute: 0
   Spatialize: 0
