@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 using static GunEnemy;
+using static ThrowEnemy;
 
 public class KamikazeEnemy : EnemyBase
 {
     public enum KAMIKAZEENEMY_STATE
     {
         IDLE,
-        MOVE,
-        HURT,
+        MOVE
     }
 
     [Header("State Time")]
@@ -19,11 +20,15 @@ public class KamikazeEnemy : EnemyBase
     public float idleTime;
     public float hurtTime;
 
+    [Header("Material")]
+    public EnemyMaterial body;
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void Start()
     {
         base.Start();
+
+        body.InstantiateMaterial();
 
         state = KAMIKAZEENEMY_STATE.IDLE;
     }
@@ -39,10 +44,6 @@ public class KamikazeEnemy : EnemyBase
 
             case KAMIKAZEENEMY_STATE.MOVE:
                 Move();
-                break;
-
-            case KAMIKAZEENEMY_STATE.HURT:
-                Hurt();
                 break;
         }
     }
@@ -62,7 +63,6 @@ public class KamikazeEnemy : EnemyBase
     public override void Damage(float value, bool killingBlow = false)
     {
         base.Damage(value, killingBlow);
-        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.HURT, 0f));
     }
 
     public override void Death()
@@ -86,6 +86,7 @@ public class KamikazeEnemy : EnemyBase
         StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.IDLE, hurtTime));
     }
     //____________________________________________________________________________________________________________________________
+
 
 
     //___Coroutines_________________________________________________________________________________________________________________________

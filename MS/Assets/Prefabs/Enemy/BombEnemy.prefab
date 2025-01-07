@@ -494,9 +494,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7488cc29584cb4e91fe4a72ae71b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   attackDistance: 15
   attackPower: 20
   attackSpeed: 800
+  attacked: 0
   dead: 0
   state: 0
   idleTime: 1
@@ -506,6 +508,9 @@ MonoBehaviour:
     type: 3}
   spawnPoint: {fileID: 6473353261036188965}
   itemLifetime: 2.05
+  numOfItems: 1
+  spawnInterval: 0
+  cooldown: 0
 --- !u!1 &7157850675277148246
 GameObject:
   m_ObjectHideFlags: 0

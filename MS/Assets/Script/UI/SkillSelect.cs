@@ -106,7 +106,7 @@ public class SkillSelect : MonoBehaviour
 
         p = Random.Range(0, 100);
 
-        if(p<= ParameterUpProbability)
+        if(p < ParameterUpProbability)
         {
             result = 0;
         }

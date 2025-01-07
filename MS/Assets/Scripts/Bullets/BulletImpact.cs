@@ -14,11 +14,5 @@ public class BulletImpact : MonoBehaviour
             enemy.Damage(damage, true);
             return;
         }
-
-        BossEnemy boss = other.gameObject.GetComponent<BossEnemy>();
-        if(boss)
-        {
-            boss.Damage(damage, true);
-        }
     }
 }

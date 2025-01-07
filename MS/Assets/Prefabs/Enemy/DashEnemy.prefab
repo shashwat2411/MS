@@ -508,15 +508,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37748268147733648bf7d4c50b0a25cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 5346768252441374842}
   attackDistance: 4
   attackPower: 20
   attackSpeed: 15
+  attacked: 0
   dead: 0
   state: 0
   idleTime: 0.4
   chargeTime: 0.5
   attackCooldownTime: 1
   hurtTime: 0.3
+  cooldown: 0
+  computer:
+    renderer: {fileID: 4374301659968457888}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
+  body:
+    renderer: {fileID: 8509296815294983821}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
+  screen:
+    renderer: {fileID: 8256015153206267889}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 0
+    minDissolve: 0
+    maxDissolve: 0
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+    material: {fileID: 0}
+    _Color: 0
+    _Dissolve: 0
+    _MinDissolve: 0
+    _MaxDissolve: 0
 --- !u!1 &8043821627367766159
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,11 +1003,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6f53ce0faf775a47b0fb051449bf681,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5346768252441374842}
   m_SourcePrefab: {fileID: 100100000, guid: a6f53ce0faf775a47b0fb051449bf681, type: 3}
+--- !u!23 &4374301659968457888 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6872291445273419169, guid: a6f53ce0faf775a47b0fb051449bf681,
+    type: 3}
+  m_PrefabInstance: {fileID: 7200108496307097857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7233157012724741866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a6f53ce0faf775a47b0fb051449bf681,
+    type: 3}
+  m_PrefabInstance: {fileID: 7200108496307097857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8010361493636066384 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a6f53ce0faf775a47b0fb051449bf681,
+    type: 3}
+  m_PrefabInstance: {fileID: 7200108496307097857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5346768252441374842
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010361493636066384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9e5f6bf39ddcfb84aa04dbf45f0b71f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &8256015153206267889 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7964424017409859856, guid: a6f53ce0faf775a47b0fb051449bf681,
+    type: 3}
+  m_PrefabInstance: {fileID: 7200108496307097857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8509296815294983821 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7638961654567452788, guid: a6f53ce0faf775a47b0fb051449bf681,
     type: 3}
   m_PrefabInstance: {fileID: 7200108496307097857}
   m_PrefabAsset: {fileID: 0}

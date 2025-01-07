@@ -79,7 +79,7 @@ public class CameraBrain : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
-        StartCoroutine(NormalZoom(2f));
+        yield return StartCoroutine(NormalZoom(2f));
     }
     public IEnumerator ZoomOut(float time)
     {
@@ -87,7 +87,7 @@ public class CameraBrain : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
-        StartCoroutine(NormalZoom(2f));
+        yield return StartCoroutine(NormalZoom(2f));
     }
     public IEnumerator NormalZoom(float time)
     {

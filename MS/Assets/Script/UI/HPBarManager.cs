@@ -18,6 +18,9 @@ public class HPBarManager : MonoBehaviour
     [SerializeField, Range(0.0f, 100.0f)]
     float MaxScale;
 
+    //Poison
+    private bool poisoned = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -128,6 +131,18 @@ public class HPBarManager : MonoBehaviour
         {
             GameObject recoveryEffect = Instantiate(player.playerHpRecoveryEffect.gameObject, player.transform);
             recoveryEffect.transform.localPosition = new Vector3(0f, 0.17f, 0f);
+        }
+    }
+
+    public IEnumerator Poison(float duration, float damagePerTick)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            Damage(damagePerTick);
+            yield return new WaitForSeconds(1f);
+            elapsedTime += 1f;
         }
     }
 }

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ThrowEnemy;
+using static EnemyBase;
 using static UnityEngine.Rendering.DebugUI;
 
-public class BossEnemy : MonoBehaviour
+public class BossEnemy : EnemyBase
 {
     public enum BOSSENEMY_STATE
     {
@@ -17,14 +17,8 @@ public class BossEnemy : MonoBehaviour
         MAX
     }
 
-    [Header("Health")]
-    protected float hp = 100f;
-    protected float maxHp = 100f;
-
     [Header("References")]
-    protected GameObject player;
-    protected HealthBar healthBar;
-    private GameObject canvas;
+    public HealthBar bossHealthBar;
 
     [Header("Attack")]
     public float slapAttackPower;
@@ -46,8 +40,13 @@ public class BossEnemy : MonoBehaviour
     private bool currentPhaseOver;
     private bool countDownStart = false;
 
-    //Animation
-    public Animator animator;
+
+    [Header("Material")]
+    public EnemyMaterial eyeball;
+    public EnemyMaterial gums;
+    public EnemyMaterial teeth;
+    public EnemyMaterial hands;
+    public EnemyMaterial tongue;
 
     //Hash Map
     protected static int _Scream = Animator.StringToHash("_Scream");
@@ -55,11 +54,9 @@ public class BossEnemy : MonoBehaviour
     protected static int _Smash = Animator.StringToHash("_Smash");
     protected static int _SummonLightning = Animator.StringToHash("_SummonLightning");
 
-    private void Start()
+    protected override void Start()
     {
-        canvas = GetComponentInChildren<Canvas>().gameObject;
-        canvas.GetComponent<Canvas>().worldCamera = Camera.main;
-        healthBar = canvas.GetComponentInChildren<HealthBar>();
+        healthBar = bossHealthBar;
 
         countDownStart = false;
         currentPhaseOver = false;
@@ -68,62 +65,97 @@ public class BossEnemy : MonoBehaviour
 
         ReturnToIdle();
         StartCoroutine(ChangeState(BOSSENEMY_STATE.SCREAM));
+
+        healthBar.Stimulate();
+        healthBar.disappear = false;
+
+        eyeball.InstantiateMaterial();
+        gums.InstantiateMaterial();
+        teeth.InstantiateMaterial();
+        hands.InstantiateMaterial();
+        tongue.InstantiateMaterial();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        if(countDownStart == true && currentPhaseOver == false)
+        if (dead == false)
         {
-            if (countDown < nextPhaseTime) { countDown += Time.deltaTime; }
-            else if (IsCurrentAnimationOver())
+            if (countDownStart == true && currentPhaseOver == false)
             {
-                countDown = 0f;
-                countDownStart = false;
-                currentPhaseOver = true;
+                if (countDown < nextPhaseTime) { countDown += Time.deltaTime; }
+                else if (IsCurrentAnimationOver())
+                {
+                    countDown = 0f;
+                    countDownStart = false;
+                    currentPhaseOver = true;
+                }
+            }
+
+            if (currentPhaseOver == true)
+            {
+                StartCoroutine(ChangeState(nextState));
+            }
+
+            switch (currentState)
+            {
+                case BOSSENEMY_STATE.IDLE:
+                    Idle();
+                    break;
+
+                case BOSSENEMY_STATE.SCREAM:
+                    Scream();
+                    break;
+
+                case BOSSENEMY_STATE.SLAP:
+                    Slap();
+                    break;
+
+                case BOSSENEMY_STATE.SMASH:
+                    Smash();
+                    break;
+
+                case BOSSENEMY_STATE.SUMMONLIGHTNING:
+                    SummonLightning();
+                    break;
             }
         }
-
-        if(currentPhaseOver == true)
-        {
-            StartCoroutine(ChangeState(nextState));
-        }
-
-        switch (currentState)
-        {
-            case BOSSENEMY_STATE.IDLE:
-                Idle();
-                break;
-
-            case BOSSENEMY_STATE.SCREAM:
-                Scream();
-                break;
-
-            case BOSSENEMY_STATE.SLAP:
-                Slap();
-                break;
-
-            case BOSSENEMY_STATE.SMASH:
-                Smash();
-                break;
-
-            case BOSSENEMY_STATE.SUMMONLIGHTNING:
-                SummonLightning();
-                break;
-        }
     }
-    virtual protected void LateUpdate()
+
+    protected override void LateUpdate()
     {
-        canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
 
     //HP Related-----------------------------------------
-    public void Damage(float value, bool killingBlow = false)
+    //public void Damage(float value, bool killingBlow = false)
+    //{
+    //    healthBar.Damage(value, killingBlow);
+    //}
+
+    public override void Death()
     {
-        healthBar.Damage(value, killingBlow);
+        dead = true;
+
+        animator.StopPlayback();
+
+        animator.SetBool(_Scream, true);
+        animator.SetBool(_Slap, false);
+        animator.SetBool(_Smash, false);
+        animator.SetBool(_SummonLightning, false);
+        animator.Play("Scream");
+
+        StartCoroutine(eyeball.DissolveOut(2f));
+        StartCoroutine(gums.DissolveOut(2f));
+        StartCoroutine(teeth.DissolveOut(2f));
+        StartCoroutine(hands.DissolveOut(2f));
+        StartCoroutine(tongue.DissolveOut(2f));
+
+        StartCoroutine(DeathCall(2f));
     }
 
-    public void Death()
+    public IEnumerator DeathCall(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         Destroy(gameObject);
     }
     //----------------------------------------------------
@@ -189,7 +221,7 @@ public class BossEnemy : MonoBehaviour
     }
     //____________________________________________________________________________________________________________________________
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         PlayerManager player = collision.gameObject.GetComponent<PlayerManager>();
         if(player)

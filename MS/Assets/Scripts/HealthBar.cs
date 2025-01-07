@@ -97,6 +97,14 @@ public class HealthBar : MonoBehaviour
 
                 EnemyBase owner = GetComponentInParent<EnemyBase>();
                 if (owner != null) { owner.Death(); }
+                else
+                {
+                    BossEnemy boss = GameObject.FindAnyObjectByType<BossEnemy>();
+                    if(boss != null)
+                    {
+                        boss.Death();
+                    }
+                }
             }
             else
             {

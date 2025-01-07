@@ -21,18 +21,44 @@ public class DashEnemy : EnemyBase
     public float chargeTime;
     public float attackCooldownTime;
     public float hurtTime;
+    [SerializeField] protected float cooldown = 0f;
 
+    [Header("Material")]
+    public EnemyMaterial computer;
+    public EnemyMaterial body;
+    public EnemyMaterial screen;
+
+    //Hash Map
+    protected static int _Attack = Animator.StringToHash("_Attack");
+    protected static int _Walk = Animator.StringToHash("_Walk");
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void Start()
     {
         base.Start();
 
+        computer.InstantiateMaterial();
+        body.InstantiateMaterial();
+        screen.InstantiateMaterial();
+
+        animator.SetBool(_Attack, false);
+        animator.SetBool(_Walk, false);
+
         state = DASHENEMY_STATE.IDLE;
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (attacked == true)
+        {
+            cooldown += Time.deltaTime;
+            if (cooldown >= attackCooldownTime)
+            {
+                cooldown = 0f;
+                attacked = false;
+            }
+        }
 
         switch (state)
         {
@@ -72,7 +98,6 @@ public class DashEnemy : EnemyBase
     public override void Damage(float value, bool killingBlow = false)
     {
         base.Damage(value, killingBlow);
-        StartCoroutine(ChangeState(DASHENEMY_STATE.HURT, 0f));
     }
 
     public override void Death()
@@ -89,21 +114,34 @@ public class DashEnemy : EnemyBase
         stopRotation = false;   //âÒì]çƒâÔ
         stopMovement = false;
 
-        RotateTowards(player.transform.position);
-
-        StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, idleTime));
+        CheckState();
     }
     protected override void Move()
     {
-        base.Move();
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            base.Move();
+        }
 
         direction = player.transform.position - gameObject.transform.position;
-        if (direction.magnitude <= attackDistance)
+        if (direction.magnitude < attackDistance)
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
             rigidbody.velocity = Vector3.zero;
-            StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
+            if (attacked == false)
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, false);
+                RotateTowards(player.transform.position);
+                StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
+            }
+            else
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, false);
+                StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, 0f));
+            }
         }
     }
     void Charge()
@@ -133,6 +171,32 @@ public class DashEnemy : EnemyBase
     {
         StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, hurtTime));
     }
+    protected void CheckState()
+    {
+        if (attacked == true)
+        {
+            animator.SetBool(_Attack, false);
+            animator.SetBool(_Walk, false);
+            StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, 0f));
+        }
+        else
+        {
+            direction = player.transform.position - gameObject.transform.position;
+            if (direction.magnitude >= attackDistance)
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, true);
+                StartCoroutine(ChangeState(DASHENEMY_STATE.MOVE, 0f));
+            }
+            else
+            {
+                animator.SetBool(_Attack, false);
+                animator.SetBool(_Walk, false);
+                RotateTowards(player.transform.position);
+                StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
+            }
+        }
+    }
     //____________________________________________________________________________________________________________________________
 
 
@@ -145,6 +209,12 @@ public class DashEnemy : EnemyBase
         if (value == DASHENEMY_STATE.IDLE || value == DASHENEMY_STATE.CHARGE)
         {
             agent.gameObject.transform.position = transform.position;
+        }
+
+        if(value  == DASHENEMY_STATE.ATTACK)
+        {
+            animator.SetBool(_Attack, true);
+            animator.SetBool(_Walk, false);
         }
     }
     //____________________________________________________________________________________________________________________________
