@@ -4,81 +4,52 @@ using UnityEngine;
 
 public class KnockBack : MonoBehaviour
 {
-    List<GameObject> allEnemies = new List<GameObject>();
+    static float factor = 1.0f;
 
-    public float damage;
-    static float factor = 5.0f;
-    [SerializeField] float knockForce = 3000.0f;
+    [SerializeField] private float damage;
+    [SerializeField] private float lifetime;
+    [SerializeField] private float size;
+    [SerializeField] private float knockForce = 3000.0f;
 
-    float curTime = 0;
-
+    public AnimationCurve colliderGrowth;
+    private float counter = 0f;
 
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
     {
-        Destroy(gameObject, lifetime * factor);
+        Destroy(gameObject, this.lifetime * factor);
 
-        this.damage = 2.0f;
+        transform.parent.localScale = size * factor * Vector3.one;
+        counter = 0f;
+
+        transform.localScale = Vector3.zero;
     }
 
     public void LevelUp()
     {
-        factor += 0.4f;
-        
-        Debug.Log("LevelUp   " + factor);
+        factor *= 1.2f;
+    }
+
+    private void FixedUpdate()
+    {
+        if (counter < 1f) { counter += Time.deltaTime / (lifetime * factor); }
+        else { counter = 1f; }
+
+        float y = colliderGrowth.Evaluate(counter);
+        transform.localScale = y * Vector3.one;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
-        if (enemy && !allEnemies.Contains(other.gameObject))
+        EnemyBase enemy = other.GetComponent<EnemyBase>();
+        if(enemy)
         {
-            allEnemies.Add(enemy.gameObject);
-        }
-    }
+            Vector3 direction = enemy.transform.position - transform.position;
+            direction.Normalize();
+            direction.y = 0f;
 
-    void FixedUpdate()
-    {
-        KnockBackAllEnemies();
-
-    }
-
-
-    void KnockBackAllEnemies()
-    {
-        for (int i = allEnemies.Count - 1; i >= 0; i--)
-        {
-            if (allEnemies[i] != null)
-            {
-                var enemyBase = allEnemies[i].GetComponent<EnemyBase>();
-                if (!enemyBase.dead)
-                {
-                    var enemyRigidBody = enemyBase.GetComponent<Rigidbody>();
-                    var startPos = this.transform.position;
-                    var dir = enemyBase.transform.position - startPos;
-                    dir.y = 0.0f;
-                    dir.Normalize();
-
-                    enemyRigidBody.AddForce(dir * knockForce);
-
-                    enemyBase.Damage(this.damage);
-                    
-                }
-                  
-              
-                allEnemies.Remove(allEnemies[i]);
-            }
-        }
-
-       // Destroy(this.gameObject);
-    }
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
-        if (enemy && allEnemies.Contains(other.gameObject))
-        {
-            allEnemies.Remove(enemy.gameObject);
+            //enemy.GetComponent<Rigidbody>().AddForce(direction * knockForce * factor);
+            enemy.Knockback(direction, knockForce * factor);
+            enemy.Damage(damage * factor);
         }
     }
 }
