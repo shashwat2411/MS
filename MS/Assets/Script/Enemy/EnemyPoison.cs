@@ -14,19 +14,22 @@ public class EnemyPoison : ThrowableEnemyObject
         base.FixedUpdate();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Ground") == true)
+        if (collision.gameObject.CompareTag("Ground") == true)
         {
             Destroy(gameObject);
             return;
         }
-        if (other.gameObject == player && owner != player)
+        if (collision.gameObject == player && owner != player)
         {
-            //playerÅ@Çì≈èÛë‘Ç…ïœçX
-            //other.GetComponent<MeshRenderer>().material.color = Color.green;
+            PlayerManager playerManager = player.GetComponent<PlayerManager>();
+            EnemyBase enemyBase = player.GetComponent<EnemyBase>();
+
+            if (playerManager != null) { playerManager.playerHP.Damage(damage); }
+            else if (enemyBase != null) { enemyBase.Damage(damage); }
+
             Destroy(gameObject);
-            return;
         }
     }
 }

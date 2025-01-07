@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyBullet : ThrowableEnemyObject
+{
+    [SerializeField]
+    string nameSE;
+    protected override void Start()
+    {
+        base.Start();
+
+        SoundManager.Instance.PlaySE(nameSE);
+
+        moveOn = true;
+        //transform.LookAt(new Vector3(target.x, 0f, target.z));
+
+        transform.rotation = Quaternion.LookRotation(owner.transform.forward);
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.GetComponent<ShieldAbility>() != null) { return; }
+
+        if (collision.gameObject == player && owner != player)
+        {
+            PlayerManager playerManager = player.GetComponent<PlayerManager>();
+            EnemyBase enemyBase = player.GetComponent<EnemyBase>();
+
+            if (playerManager != null) { playerManager.playerHP.Damage(damage); }
+            else if (enemyBase != null) { enemyBase.Damage(damage); }
+
+            Destroy(gameObject);
+        }
+        else if (owner == player)
+        {
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Damage(damage);
+                Destroy(gameObject);
+            }
+        }
+    }
+}

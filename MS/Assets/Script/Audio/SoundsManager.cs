@@ -66,7 +66,14 @@ public class SoundsManager : MonoBehaviour
     {
         bgmAudioSource.Stop();
     }
+
+    public void StopSE()
+    {
+        seAudioSource.Stop();
+    }
 }
+
+
 
 //ÉJÉXÉ^ÉÄ
 #if UNITY_EDITOR

@@ -82,7 +82,7 @@ public class HealthBar : MonoBehaviour
         shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);
     }
 
-    public void Damage(float value)
+    public void Damage(float value, bool killingBlow = false)
     {
         Stimulate();
 
@@ -91,10 +91,25 @@ public class HealthBar : MonoBehaviour
         if (result > 0) { health = result; }
         else
         {
-            health = 0;
+            if (killingBlow == true)
+            {
+                health = 0;
 
-            EnemyBase owner = GetComponentInParent<EnemyBase>();
-            if (owner != null) { owner.Death(); }
+                EnemyBase owner = GetComponentInParent<EnemyBase>();
+                if (owner != null) { owner.Death(); }
+                else
+                {
+                    BossEnemy boss = GameObject.FindAnyObjectByType<BossEnemy>();
+                    if(boss != null)
+                    {
+                        boss.Death();
+                    }
+                }
+            }
+            else
+            {
+                health = 1;
+            }
         }
 
         baseBar.fillAmount = health / maxHealth;

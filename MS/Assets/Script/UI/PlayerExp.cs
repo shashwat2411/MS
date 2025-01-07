@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-[ExecuteAlways]
+//[ExecuteAlways]
 public class PlayerExp : MonoBehaviour
 {
     [Header("Exp")]
@@ -14,7 +14,13 @@ public class PlayerExp : MonoBehaviour
     public float shiftSpeed = 0.3f;
 
     public AnimationCurve nextExpCurve;
-
+    
+    [Header("Audio")]
+   
+    public string levelupSE;
+    public string collectExpSE;
+    public float collectExpCDTime = 2f;
+    bool canPlayCollectExp = true;  
 
     [Header("Color")]
     public Color baseColor = Color.white;
@@ -44,13 +50,13 @@ public class PlayerExp : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            ExpFill(30f);
+            ExpFill(3f);
         }
 
         exp = player.playerData.exp;
         maxExp = player.playerData.nextExp;
 
-        baseBar.fillAmount = exp / maxExp * 0.5f;
+        baseBar.fillAmount = exp / (maxExp <= 0f ? 1f : maxExp) * 0.5f;
         shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);
     }
 
@@ -58,10 +64,18 @@ public class PlayerExp : MonoBehaviour
     {
         float result = exp + value;
 
+        if(canPlayCollectExp)
+        {
+            StartCoroutine(PlayCollectExpSE());
+        }
+
         if (result < maxExp) { exp = result; }
         else
         {
             exp = result - maxExp;
+
+
+            SoundManager.Instance.PlaySE(levelupSE);
 
             FindFirstObjectByType<SkillSelect>().LevelUp();
             player.playerData.nextExp = maxExp * 1.2f;
@@ -69,6 +83,18 @@ public class PlayerExp : MonoBehaviour
 
         player.playerData.exp = exp;
     }
+
+
+    IEnumerator PlayCollectExpSE()
+    {
+        SoundManager.Instance.PlaySE(collectExpSE);
+        canPlayCollectExp = false;
+     
+        yield return new WaitForSeconds(collectExpCDTime);
+
+        canPlayCollectExp = true;
+    }
+
 
 #if UNITY_EDITOR
     private void OnValidate()

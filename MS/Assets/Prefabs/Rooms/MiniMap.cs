@@ -9,12 +9,14 @@ public class MiniMapUI : MonoBehaviour
     public RectTransform miniMapContainer; // ミニマップのUIコンテナ
 
     public RoomData[,] roomDatas;
-    public float roomIconSize = 100f; // 部屋アイコンのサイズ
+    public float roomIconSizeY = 100f; // 部屋アイコンのサイズ
+    public float roomIconSizeX = 100f; // 部屋アイコンのサイズ
 
     public float roomIconDirection = 0f; //部屋アイコンと部屋アイコンの距離
 
     //アイコンのPrefabs
     public GameObject PlayerIconPrefab;
+    public RectTransform PlayerIconContainer;
     public GameObject StartIconPrefab;
     public GameObject ExitIconPrefab;
 
@@ -30,14 +32,8 @@ public class MiniMapUI : MonoBehaviour
         GenerateMiniMap(roomDatas);
         UpdateMiniMap();
 
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) MovePlayer(0, -1);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) MovePlayer(0, 1);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) MovePlayer(-1, 0);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) MovePlayer(1, 0);
+
 
     }
 
@@ -57,7 +53,7 @@ public class MiniMapUI : MonoBehaviour
                 
 
                 // アイコンの位置を設定
-                rect.anchoredPosition = new Vector2(x * roomIconSize, -y * (rect.sizeDelta.y - 5) );
+                rect.anchoredPosition = new Vector2(x * roomIconSizeX, -y * (rect.sizeDelta.y - 5) );
 
                 //部屋の連結を調べる
                 MakeCorridor(datas, x, y, rect);
@@ -66,19 +62,38 @@ public class MiniMapUI : MonoBehaviour
                 // 特定の位置にアイコンを作製する
                 if (roomType == 1)
                 {
-                    icon.transform.GetChild(2).GetComponent<Image>().color = Color.green; // スタート地点
+                    //icon.transform.GetComponent<Image>().color = Color.black; // スタート地点
                     nowX = x;
                     nowY = y;
-
-                    //// プレイヤーアイコン生成
-                    //GameObject playerIcon = Instantiate(PlayerIconPrefab, miniMapContainer);
-                    //RectTransform playerRect = playerIcon.GetComponent<RectTransform>();
-                    //playerRect.anchoredPosition = new Vector2(nowX * roomIconSize, -nowY * roomIconSize);
-                    //playerIcon.name = "PlayerIcon";
                 }
-                if (roomType == 99) icon.transform.GetChild(2).GetComponent<Image>().color = Color.red; // ゴール地点
+                else if (roomType == 99) { /*icon.transform.GetComponent<Image>().color = Color.black;*/ }// ゴール地点
+                else
+                {
+                    //icon.transform.GetComponent<Image>().color = Color.black;
+                }
             }
         }
+        for (int y = 0; y < datas.GetLength(0); y++)
+        {
+            for (int x = 0; x < datas.GetLength(1); x++)
+            {
+                int roomType = datas[y, x].roomNumber;
+                if (roomType == 0) continue; // 部屋が存在しない場合はスキップ
+                // 特別な部屋のアイコンに色を付ける 
+                // 特定の位置にアイコンを作製する
+                if (roomType == 1)
+                {
+                    // プレイヤーアイコン生成
+                    GameObject playerIcon = Instantiate(PlayerIconPrefab, miniMapContainer);
+                    RectTransform playerRect = playerIcon.GetComponent<RectTransform>();
+                    playerRect.anchoredPosition = new Vector2(nowX * roomIconSizeX, -nowY * roomIconSizeY);
+                    playerIcon.name = "PlayerIcon";
+                }
+            }
+        }
+
+
+        
     }
 
     void MakeCorridor(RoomData[,] roomDatas, int nx, int ny, RectTransform rf)
@@ -128,8 +143,8 @@ public class MiniMapUI : MonoBehaviour
     void UpdateMiniMap()
     {
         // 現在の部屋の位置を計算
-        float offsetX = nowX * roomIconSize;
-        float offsetY = -nowY * roomIconSize;
+        float offsetX = nowX * roomIconSizeX;
+        float offsetY = -nowY * roomIconSizeY;
 
         // ミニマップコンテナの位置を調整
         miniMapContainer.anchoredPosition = new Vector2(-offsetX, -offsetY);
@@ -159,12 +174,34 @@ public class MiniMapUI : MonoBehaviour
         nowY = newY;
 
         // プレイヤーアイコンの位置を更新
-        //RectTransform playerIcon = miniMapContainer.Find("PlayerIcon").GetComponent<RectTransform>();
-        //playerIcon.anchoredPosition = new Vector2(nowX * roomIconSize, -nowY * roomIconSize);
+        RectTransform playerIcon = miniMapContainer.Find("PlayerIcon").GetComponent<RectTransform>();
+        playerIcon.anchoredPosition = new Vector2(nowX * roomIconSizeX, -nowY * roomIconSizeY);
 
 
         // ミニマップを更新
         UpdateMiniMap();
+    }
+
+    public void DeleteMiniMap()
+    {
+        // ミニマップの全ての子オブジェクトを削除
+        foreach (Transform child in miniMapContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Debug.Log("ミニマップをリセットしました");
+    }
+
+    public void ResetAndGenerateMiniMap(RoomData[,] _datas)
+    {
+        // ミニマップをリセット
+        DeleteMiniMap();
+
+        // ミニマップを再生成
+        GenerateMiniMap(_datas);
+
+        Debug.Log("ミニマップを再生成しました");
     }
 
 }

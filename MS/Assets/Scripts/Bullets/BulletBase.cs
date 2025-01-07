@@ -1,92 +1,139 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 {
+    public float damage;
     public float speed = 3f;
     public float lifetime = 10f;
-    protected Vector3 hitPos = Vector3.zero;
-
-    Collider collider;
-
-    [SerializeField]
-    GameObject impactArea;
-    [SerializeField]
-    GameObject impactEffect;
-
-    public float damage;
-    float maxAttackSize;
-
-    float factor = 10.0f;
-
+    public float effectSize = 1f;
 
     bool once = true;
+    float maxAttackSize;
+    protected Vector3 hitPos = Vector3.zero;
+    protected ChargePhase chargePhase;
+
+
+    [SerializeField]
+    GameObject impactEffectBlue, impactEffectRed;
+
+    [Header("SE")]
+    public string nameSE;
+
+
+
+    private PlayerManager player;
 
     protected static List<GameObject> sp = new List<GameObject>();
+    protected static List<SpecialAttackFactory> spFactory = new List<SpecialAttackFactory>();
 
-    public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f)
+
+    public void Initiate(Vector3 direction, Vector3 hitPosition, float maxAttackSize = 100.0f, float damage = 1.0f, ChargePhase chargePhase = ChargePhase.Entry)
     {
-        GetComponent<Rigidbody>().velocity = direction.normalized * speed;
         once = true;
-        this.damage = damage / factor;
-        //Debug.Log(this.damage);
+
         hitPos = hitPosition;
+
+        this.damage = damage;
+        this.chargePhase = chargePhase;
         this.maxAttackSize = maxAttackSize;
+
+        GetComponent<Rigidbody>().velocity = direction.normalized * speed;
+  
+
         Invoke("DestroyBullet", lifetime);
 
+        player = FindFirstObjectByType<PlayerManager>();
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    void FixedUpdate()
     {
 
+        if (transform.position.y < -0.8f)
+        {
+            CollisionProcess();
+        }
+
+        if (once)
+        {
+            transform.Rotate(Vector3.right * 500.0f * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (once && other.CompareTag("Ground"))
         {
             Debug.Log(other.name);
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //this.transform.position = new Vector3(this.transform.position.x, 0.2f, this.transform.position.z);
-            this.transform.position = hitPos + Vector3.up * 0.1f;
 
-            impactArea.SetActive(true);
-            impactEffect.SetActive(true);
-            if (this.maxAttackSize >= this.damage / factor)
-            {
-                impactArea.transform.localScale = Vector3.one * this.damage / factor;
-                impactEffect.transform.localScale = new Vector3(this.damage / factor, this.damage / factor, this.damage / (2 * factor));
-            }
-            else
-            {
-                impactArea.transform.localScale = Vector3.one * this.maxAttackSize;
-                impactEffect.transform.localScale = new Vector3(this.maxAttackSize, this.maxAttackSize, this.maxAttackSize / 2);
-
-            }
-
-            Debug.Log(this.damage / factor);
-
-            DoSpecialThings();
-            Invoke("DestroyBullet", lifetime);
-            once = false;
+            CollisionProcess();
         }
+       
+    }
+
+    private void CollisionProcess()
+    {
+        //Position
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        this.transform.position = hitPos + Vector3.up * 0.05f;
+
+        GameObject impactEffect = impactEffectBlue;
+        foreach (SpecialAttackFactory sp in spFactory)
+        {
+            if (sp is GroundFireFactory)
+            {
+                impactEffect = impactEffectRed;
+                break;
+            }
+        }
+
+        //Scale
+        GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
+        Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
+
+        float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
+        float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
+
+        effect.transform.localScale = finalScale * localScale;
+        effect.transform.position = hitPos + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
+        //if (scale <= this.maxAttackSize) {  }
+        //else { effect.transform.localScale = this.maxAttackSize * localScale; }
+
+        effect.GetComponent<MenkoExplosion>().damage = scale;
+        effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
+
+        //Sound Effect
+        SoundManager.Instance.PlaySE(nameSE);
+
+        //Invoke Stuff
+        DoSpecialThings();
+        //Invoke("DestroyBullet", lifetime);
+        once = false;
+        Destroy(gameObject);
     }
 
     void DestroyBullet()
     {
         CancelInvoke();
-        impactArea.SetActive(false);
-        impactEffect.SetActive(false);
+
         ObjectPool.Instance.Push(gameObject);
-
-
-        //Destroy(impactArea);
-        //Destroy(impactEffect);
-        //Destroy(gameObject);
     }
+
     public virtual void DoSpecialThings() { }
 
 
     public void ApplyBonus(GameObject bonusEffect)
     {
         sp.Add(bonusEffect);
+        spFactory.Add(bonusEffect.GetComponent<SpecialAttackFactory>());
     }
+
+    public void ResetBonus()
+    {
+        sp.Clear();
+    }
+
 }

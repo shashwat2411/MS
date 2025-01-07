@@ -36,15 +36,6 @@ public class RoomManager : MonoBehaviour
         currentRoom = MakeRoom(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) MoveRoom(-1, 0);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) MoveRoom(1, 0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) MoveRoom(0, -1);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) MoveRoom(0, 1);
-    }
-
     //==================================
     // CSVÉtÉ@ÉCÉãì«Ç›çûÇ›
     //==================================
@@ -90,7 +81,7 @@ public class RoomManager : MonoBehaviour
                         nowW = j;
                     }
 
-                    print(value);
+                    //print(value);
                 }
                 else
                 {

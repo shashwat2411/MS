@@ -7,6 +7,78 @@ using UnityEngine.Rendering;
 
 public class EnemyBase : MonoBehaviour
 {
+    [System.Serializable]
+    public struct EnemyMaterial
+    {
+        public Renderer renderer;
+        [ColorUsage(false, true)] public Color color;
+
+
+        [HideInInspector] public float dissolve;
+        [HideInInspector] public float minDissolve;
+        [HideInInspector] public float maxDissolve;
+        [HideInInspector, ColorUsage(false, true)] public Color originalColor;
+        [HideInInspector] public Material material;
+
+        //Hash Map
+        [HideInInspector] public int _Color;
+        [HideInInspector] public int _Dissolve;
+        [HideInInspector] public int _MinDissolve;
+        [HideInInspector] public int _MaxDissolve;
+
+        public void InstantiateMaterial()
+        {
+            if (renderer != null)
+            {
+                material = Instantiate(renderer.material);
+                renderer.material = material;
+
+                _Color = Shader.PropertyToID("_Color");
+                _Dissolve = Shader.PropertyToID("_Dissolve");
+                _MinDissolve = Shader.PropertyToID("_MinDissolve");
+                _MaxDissolve = Shader.PropertyToID("_MaxDissolve");
+
+                dissolve = material.GetFloat(_Dissolve);
+                minDissolve = material.GetFloat(_MinDissolve);
+                maxDissolve = material.GetFloat(_MaxDissolve);
+                originalColor = material.GetColor(_Color);
+            }
+        }
+
+        public IEnumerator DissolveOut(float duration)
+        {
+            float elapsedTime = 0f;
+
+            while(elapsedTime < duration)
+            {
+                dissolve = Mathf.Lerp(maxDissolve, minDissolve, elapsedTime / duration);
+                material.SetFloat(_Dissolve, dissolve);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            dissolve = minDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
+        public IEnumerator DissolveIn(float duration)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                dissolve = Mathf.Lerp(minDissolve, maxDissolve, elapsedTime / duration);
+                material.SetFloat(_Dissolve, dissolve);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            dissolve = maxDissolve;
+            material.SetFloat(_Dissolve, dissolve);
+        }
+    };
+
     [Header("Health")]
     protected float hp = 100f;
     protected float maxHp = 100f;
@@ -19,17 +91,22 @@ public class EnemyBase : MonoBehaviour
     protected bool stopMovement;
 
     [Header("References")]
+    [SerializeField] protected Animator animator;
     protected HealthBar healthBar;
     protected GameObject player;
     protected Rigidbody rigidbody;
     protected NavMeshAgent agent;
+    protected EnemyDialogue dialogue;
     private GameObject canvas;
+    protected Vector3 extraForce;
 
     [Header("Attack")]
     public float attackDistance;
     public float attackPower;
     public float attackSpeed;
-    protected bool attacked;
+    [SerializeField] protected bool attacked;
+
+    public bool dead = false;
 
     virtual protected void Start()
     {
@@ -41,23 +118,27 @@ public class EnemyBase : MonoBehaviour
         attacked = false;
         stopRotation = false;
         stopMovement = false;
+        dead = false;
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
+        dialogue = canvas.GetComponentInChildren<EnemyDialogue>();
 
         agent.gameObject.transform.parent = null;
+        Destroy(agent.GetComponent<MeshRenderer>());
+        Destroy(agent.GetComponent<MeshFilter>());
     }
 
     virtual protected void FixedUpdate()
     {
+        extraForce *= 0.95f;
+
         rigidbody.angularVelocity = Vector3.zero;
 
-        //RotateTowards();
         if (stopMovement == false)
         {
-            rigidbody.velocity = agent.velocity;
-
-            transform.LookAt(Vector3.Lerp(transform.position, transform.position + agent.velocity, 0.6f));
+            rigidbody.velocity = agent.velocity + extraForce;
+            transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
         }
     }
 
@@ -65,6 +146,13 @@ public class EnemyBase : MonoBehaviour
     {
         canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
+
+    virtual protected void OnCollisionEnter(Collision collision)
+    {
+        OnCollision(collision.gameObject);
+    }
+
+
 
     virtual protected void OnCollision(GameObject collided)
     {
@@ -93,24 +181,22 @@ public class EnemyBase : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    virtual public void Damage(float value)
+    virtual public void Damage(float value, bool killingBlow = false)
     {
-        healthBar.Damage(value);
+        healthBar.Damage(value, killingBlow);
     }
 
     virtual public void Death()
     {
+        dead = true;
         Destroy(agent.gameObject);
+        Instantiate(Camera.main.transform.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
     }
 
     virtual public void Knockback(Vector3 direction, float power)
     {
-        rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
-    }
-
-    protected void OnCollisionEnter(Collision collision)
-    {
-        OnCollision(collision.gameObject);
+        extraForce = direction.normalized * power;
+        //rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
     }
 
     //___Gizmos_________________________________________________________________________________________________________________________

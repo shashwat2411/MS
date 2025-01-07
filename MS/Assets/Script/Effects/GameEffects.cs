@@ -8,19 +8,22 @@ public class GameEffects : MonoBehaviour
     public float slowDownLength = 1f;
 
     private bool hitStop;
+    private bool slowMotion;
     private float timeScaleBackUp;
 
     private void Start()
     {
         hitStop = false;
+        slowMotion = false;
         timeScaleBackUp = Time.timeScale;
     }
     private void Update()
     {
-        if (hitStop == false)
+        if (hitStop == false && slowMotion == true)
         {
             Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+            if (Time.timeScale >= 0.999f) { slowMotion = false; }
 
             if (Input.GetKey(KeyCode.T))
             {
@@ -36,10 +39,14 @@ public class GameEffects : MonoBehaviour
 
         Time.timeScale = slowDownFactor;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+        slowMotion = true;
     }
 
     public IEnumerator HitStop(float duration)
     {
+        if (hitStop == true) { yield break; }
+
         timeScaleBackUp = Time.timeScale;
         Time.timeScale = 0f;
         hitStop = true;
