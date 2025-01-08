@@ -9,6 +9,12 @@ public class MonitorManager : MonoBehaviour
     public float dissolveDuration = 0.75f;
     public float commentSpeed = 1f;
 
+    [Header("Movement")]
+    public AnimationCurve movementCurve;
+    public float displacement;
+    private float curve = 0f;
+    private float movementSpeed = 1f;
+
     public EnemyMaterial screen1;
     public EnemyMaterial screen2;
 
@@ -22,8 +28,11 @@ public class MonitorManager : MonoBehaviour
     private void Start()
     {
         commentSpeed *= Random.Range(-1.2f, 1.2f);
+        movementSpeed *= Random.Range(0.1f, 1f);
+        displacement *= Random.Range(-1.2f, 1.2f);
 
         offset = 0f;
+        curve = 0f;
 
         screen1.InstantiateMaterial();
         screen2.InstantiateMaterial();
@@ -36,6 +45,13 @@ public class MonitorManager : MonoBehaviour
         if (offset < 1f) { offset += Time.deltaTime * commentSpeed; }
         else { offset -= 1f; }
         screen1.material.SetVector(_Offset, new Vector4(-offset, 0f, 0f, 0f));
+
+        if (curve < 1f) { curve += Time.deltaTime * movementSpeed; }
+        else { curve -= 1f; }
+        float y = movementCurve.Evaluate(curve);
+        Vector3 position = transform.GetChild(0).transform.localPosition;
+        position.y = y * displacement;
+        transform.GetChild(0).localPosition = position;
     }
 
     private void ChangeScreen()

@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public Vector2 range;
 
-    private void Start()
+    private void Awake()
     {
         EnemyBase[] enemies = GetComponentsInChildren<EnemyBase>();
 

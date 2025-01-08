@@ -136,8 +136,10 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c1);
 
-                while (CheckBonusIsUsed(type, i))
+                int max = 20;
+                while (CheckBonusIsUsed(type, i) && max > 0)
                 {
+                    max--;
                     i = Random.Range(0, c1);
                 }
                 bonustype1.Add(i);

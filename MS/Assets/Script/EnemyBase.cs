@@ -67,8 +67,17 @@ public class EnemyBase : MonoBehaviour
             material.SetFloat(_Dissolve, dissolve);
         }
 
-        public void SetMaxDissolveScale(float scale) { maxDissolve *= scale; material.SetFloat(_MaxDissolve, maxDissolve); }
-        public void SetMinDissolveScale(float scale) { minDissolve *= scale; material.SetFloat(_MinDissolve, minDissolve); }
+        public void SetMaxDissolveScale(float scale) 
+        { 
+            maxDissolve *= scale; 
+            material.SetFloat(_MaxDissolve, maxDissolve);
+            SetDissolveToMax();
+        }
+        public void SetMinDissolveScale(float scale) 
+        { 
+            minDissolve *= scale; 
+            material.SetFloat(_MinDissolve, minDissolve); 
+        }
 
         public IEnumerator DissolveOut(float duration)
         {
@@ -124,6 +133,7 @@ public class EnemyBase : MonoBehaviour
     protected Rigidbody rigidbody;
     protected NavMeshAgent agent;
     protected EnemyDialogue dialogue;
+    protected Transform areaChecker;
     private GameObject canvas;
     protected Vector3 extraForce;
 
@@ -154,6 +164,8 @@ public class EnemyBase : MonoBehaviour
         agent.gameObject.transform.parent = null;
         Destroy(agent.GetComponent<MeshRenderer>());
         Destroy(agent.GetComponent<MeshFilter>());
+
+        areaChecker = transform;
     }
 
     virtual protected void FixedUpdate()

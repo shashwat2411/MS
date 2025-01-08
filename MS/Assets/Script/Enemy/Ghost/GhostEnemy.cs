@@ -18,6 +18,12 @@ public class GhostEnemy : ThrowEnemy
     {
         base.ScaleUp();
 
+        ears.InstantiateMaterial();
+        hands.InstantiateMaterial();
+        body.InstantiateMaterial();
+        tv.InstantiateMaterial();
+        screen.InstantiateMaterial();
+
         float scale = transform.localScale.x;
         ears.SetMaxDissolveScale(scale);
         hands.SetMaxDissolveScale(scale);
@@ -28,12 +34,6 @@ public class GhostEnemy : ThrowEnemy
     protected override void Start()
     {
         base.Start();
-
-        ears.InstantiateMaterial();
-        hands.InstantiateMaterial();
-        body.InstantiateMaterial();
-        tv.InstantiateMaterial();
-        screen.InstantiateMaterial();
 
         ScaleUp();
     }
