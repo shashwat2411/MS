@@ -67,23 +67,23 @@ public class EnemyBase : MonoBehaviour
             material.SetFloat(_Dissolve, dissolve);
         }
 
-        public void SetMaxDissolveScale(float scale) 
-        { 
-            maxDissolve *= scale; 
+        public void SetMaxDissolveScale(float scale)
+        {
+            maxDissolve *= scale;
             material.SetFloat(_MaxDissolve, maxDissolve);
             SetDissolveToMax();
         }
-        public void SetMinDissolveScale(float scale) 
-        { 
-            minDissolve *= scale; 
-            material.SetFloat(_MinDissolve, minDissolve); 
+        public void SetMinDissolveScale(float scale)
+        {
+            minDissolve *= scale;
+            material.SetFloat(_MinDissolve, minDissolve);
         }
 
         public IEnumerator DissolveOut(float duration)
         {
             float elapsedTime = 0f;
 
-            while(elapsedTime < duration)
+            while (elapsedTime < duration)
             {
                 dissolve = Mathf.Lerp(maxDissolve, minDissolve, elapsedTime / duration);
                 material.SetFloat(_Dissolve, dissolve);
@@ -246,6 +246,8 @@ public class EnemyBase : MonoBehaviour
         healthBar.maxHealth *= scale;
         healthBar.health = healthBar.maxHealth;
     }
+
+    public GameObject GetPlayer() { return player; }
 
     //___Gizmos_________________________________________________________________________________________________________________________
     virtual protected void OnDrawGizmosSelected()
