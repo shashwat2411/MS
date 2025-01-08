@@ -29,6 +29,8 @@ public class KamikazeEnemy : EnemyBase
     {
         base.ScaleUp();
 
+        body.InstantiateMaterial();
+
         float scale = transform.localScale.x;
         body.SetMaxDissolveScale(scale);
     }
@@ -36,11 +38,9 @@ public class KamikazeEnemy : EnemyBase
     {
         base.Start();
 
-        body.InstantiateMaterial();
+        ScaleUp();
 
         state = KAMIKAZEENEMY_STATE.IDLE;
-
-        ScaleUp();
     }
     protected override void FixedUpdate()
     {

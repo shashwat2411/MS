@@ -22,6 +22,7 @@ public class DashEnemy : EnemyBase
     public float attackCooldownTime;
     public float hurtTime;
     [SerializeField] protected float cooldown = 0f;
+    public Transform area;
 
     [Header("Material")]
     public EnemyMaterial computer;
@@ -37,6 +38,10 @@ public class DashEnemy : EnemyBase
     {
         base.ScaleUp();
 
+        computer.InstantiateMaterial();
+        body.InstantiateMaterial();
+        screen.InstantiateMaterial();
+
         float scale = transform.localScale.x;
         computer.SetMaxDissolveScale(scale);
         body.SetMaxDissolveScale(scale);
@@ -46,14 +51,12 @@ public class DashEnemy : EnemyBase
     {
         base.Start();
 
-        computer.InstantiateMaterial();
-        body.InstantiateMaterial();
-        screen.InstantiateMaterial();
-
         animator.SetBool(_Attack, false);
         animator.SetBool(_Walk, false);
 
         state = DASHENEMY_STATE.IDLE;
+
+        areaChecker = area;
 
         ScaleUp();
     }
@@ -66,7 +69,6 @@ public class DashEnemy : EnemyBase
             cooldown += Time.deltaTime;
             if (cooldown >= attackCooldownTime)
             {
-                cooldown = 0f;
                 attacked = false;
             }
         }
@@ -134,7 +136,7 @@ public class DashEnemy : EnemyBase
             base.Move();
         }
 
-        direction = player.transform.position - gameObject.transform.position;
+        direction = player.transform.position - areaChecker.position;
         if (direction.magnitude < attackDistance)
         {
             agent.isStopped = true;
@@ -142,7 +144,7 @@ public class DashEnemy : EnemyBase
             rigidbody.velocity = Vector3.zero;
             if (attacked == false)
             {
-                animator.SetBool(_Attack, false);
+                animator.SetBool(_Attack, true);
                 animator.SetBool(_Walk, false);
                 RotateTowards(player.transform.position);
                 StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
@@ -157,26 +159,39 @@ public class DashEnemy : EnemyBase
     }
     void Charge()
     {
-        stopMovement = true;
         RotateTowards(player.transform.position);
+        stopMovement = true;
 
-        direction = player.transform.position - gameObject.transform.position;
-        attacked = false;
-        StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, chargeTime));
+        direction = player.transform.position - areaChecker.position;
     }
     void Attack()
     {
+
+    }
+
+    public void ChangeToAttack()
+    {
+        attacked = false;
+        StartCoroutine(ChangeState(DASHENEMY_STATE.ATTACK, 0f));
+    }
+    public void InitiateDash()
+    {
         if (attacked == false)
         {
-            dialogue.ActivateDialogue();
-            rigidbody.AddForce(direction.normalized * attackSpeed, ForceMode.Impulse);
             attacked = true;
-        }
+            stopMovement = false;
 
-        if (rigidbody.velocity.magnitude <= 0.01f)
-        {
-            StartCoroutine(ChangeState(DASHENEMY_STATE.IDLE, attackCooldownTime));
+            dialogue.ActivateDialogue();
+            Knockback(direction.normalized, attackSpeed);
         }
+    }
+
+    public void AttackOver()
+    {
+        attacked = true;
+        cooldown = 0f;
+
+        CheckState();
     }
     void Hurt()
     {
@@ -192,7 +207,7 @@ public class DashEnemy : EnemyBase
         }
         else
         {
-            direction = player.transform.position - gameObject.transform.position;
+            direction = player.transform.position - areaChecker.position;
             if (direction.magnitude >= attackDistance)
             {
                 animator.SetBool(_Attack, false);
@@ -201,7 +216,7 @@ public class DashEnemy : EnemyBase
             }
             else
             {
-                animator.SetBool(_Attack, false);
+                animator.SetBool(_Attack, true);
                 animator.SetBool(_Walk, false);
                 RotateTowards(player.transform.position);
                 StartCoroutine(ChangeState(DASHENEMY_STATE.CHARGE, 0f));
@@ -221,16 +236,16 @@ public class DashEnemy : EnemyBase
         {
             agent.gameObject.transform.position = transform.position;
         }
-
-        if(value  == DASHENEMY_STATE.ATTACK)
-        {
-            animator.SetBool(_Attack, true);
-            animator.SetBool(_Walk, false);
-        }
     }
     //____________________________________________________________________________________________________________________________
 
 
     //___Gizmos_________________________________________________________________________________________________________________________
+    protected override void OnDrawGizmosSelected()
+    {
+        areaChecker = area;
+        Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
+        Gizmos.DrawSphere(areaChecker.position, attackDistance);
+    }
     //____________________________________________________________________________________________________________________________
 }

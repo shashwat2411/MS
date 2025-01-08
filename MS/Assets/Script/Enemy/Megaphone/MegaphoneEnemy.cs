@@ -15,6 +15,9 @@ public class MegaphoneEnemy : ThrowEnemy
     {
         base.ScaleUp();
 
+        megaphone.InstantiateMaterial();
+        body.InstantiateMaterial();
+
         float scale = transform.localScale.x;
         megaphone.SetMaxDissolveScale(scale);
         body.SetMaxDissolveScale(scale);
@@ -23,9 +26,6 @@ public class MegaphoneEnemy : ThrowEnemy
     protected override void Start()
     {
         base.Start();
-
-        megaphone.InstantiateMaterial();
-        body.InstantiateMaterial();
 
         ScaleUp();
     }
