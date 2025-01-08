@@ -98,15 +98,15 @@ public class DashEnemy : EnemyBase
     }
     protected override void OnCollision(GameObject collided)
     {
-        base.OnCollision(null);
+        //base.OnCollision(null);
 
-        if(collided.gameObject == player)
-        {
-            if (state == DASHENEMY_STATE.ATTACK)
-            {
-                player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
-            }
-        }
+        //if(collided.gameObject == player)
+        //{
+        //    if (state == DASHENEMY_STATE.ATTACK)
+        //    {
+        //        player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+        //    }
+        //}
     }
     public override void Damage(float value, bool killingBlow = false)
     {
