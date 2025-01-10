@@ -408,20 +408,18 @@ public class PlayerManager : MonoBehaviour
     {
         if (playerAttack.throwAnimPlay)
         {
-           
-            animator.SetFloat(postureHash, 3f);
             switch (playerAttack.chargePhase)
             {
                 case ChargePhase.Middle:
-                    animator.SetFloat(ThrowWayHash, 0);
+                    animator.SetBool("ThrowMiddle", true);
                     break;
                 case ChargePhase.High:
-                    animator.SetFloat(ThrowWayHash, 0);
+                    animator.SetBool("ThrowMiddle", true);
                     break;
                 case ChargePhase.Max:
-                    animator.SetFloat(ThrowWayHash, 1);
+                    animator.SetBool("ThrowMax", true);
+                    //animator.MatchTarget()
                     break;
-        
             }
         }
         else if (playerAttack.afterShock) // afterShock posture

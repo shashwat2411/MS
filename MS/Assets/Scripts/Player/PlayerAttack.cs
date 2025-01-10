@@ -79,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
 
     public ParticleSystem chargeEffect;
     private ChargeMeshBrain chargeMesh;
-
+    Animator animator;
 
     [Header("Charge SE")]
 
@@ -118,7 +118,7 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = collider.transform;
         growth = collider.GetComponent<LockOnGrowth>();
-
+        animator = GetComponent<Animator>();
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
@@ -218,8 +218,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
-            chargeEffect.Stop();
-            chargeMesh.PlayAnimation(false);
+          
 
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
 
@@ -308,6 +307,9 @@ public class PlayerAttack : MonoBehaviour
         throwAnimPlay = false;
 
 
+        animator.SetBool("ThrowMiddle", false);
+        animator.SetBool("ThrowMax", false);
+
 
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
@@ -328,10 +330,14 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     void IniteMenko()
     {
+
         if (shooted)
         {
             return;
         }
+
+        chargeEffect.Stop();
+        chargeMesh.PlayAnimation(false);
 
         shooted = true;
 
