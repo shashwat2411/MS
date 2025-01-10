@@ -91,6 +91,7 @@ public class PlayerManager : MonoBehaviour
     int moveSpeedHash;
     int turnSpeedHash;
     int aimHash;
+    int ThrowWayHash;
 
     #endregion
 
@@ -127,6 +128,8 @@ public class PlayerManager : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");
         aimHash = Animator.StringToHash("Aim");
+        ThrowWayHash = Animator.StringToHash("ThrowWay");
+
         animator.SetFloat("ScaleFactor",1.0f/animator.humanScale);
 
        #endregion
@@ -136,7 +139,6 @@ public class PlayerManager : MonoBehaviour
         playerExp = FindFirstObjectByType<PlayerExp>();
 
         
-
     }
 
 
@@ -221,8 +223,6 @@ public class PlayerManager : MonoBehaviour
         CheckPlayerDataState();
         CaculateInputDirection();
         SwitchPlayerStates();
-
-        Debug.Log(animator.GetFloat(postureHash));
 
     }
 
@@ -406,13 +406,31 @@ public class PlayerManager : MonoBehaviour
 
     void SetAnimator()
     {
-        if (playerAttack.afterShock)
+        if (playerAttack.throwAnimPlay)
         {
-            animator.SetFloat(postureHash, 2f, 0.1f, Time.deltaTime);
+           
+            animator.SetFloat(postureHash, 3f);
+            switch (playerAttack.chargePhase)
+            {
+                case ChargePhase.Middle:
+                    animator.SetFloat(ThrowWayHash, 0);
+                    break;
+                case ChargePhase.High:
+                    animator.SetFloat(ThrowWayHash, 0);
+                    break;
+                case ChargePhase.Max:
+                    animator.SetFloat(ThrowWayHash, 1);
+                    break;
+        
+            }
         }
-        else if(!playerDash.isDashing) 
+        else if (playerAttack.afterShock) // afterShock posture
         {
-            animator.SetFloat(postureHash, 1f);
+
+        }
+        else if(!playerDash.isDashing) // normal posture
+        {
+            animator.SetFloat(postureHash, 1f, 0.2f, Time.deltaTime);
             switch (locomotionState)
             {
                 case LocomotionState.Idle:
@@ -423,16 +441,12 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case LocomotionState.Run:
                     animator.SetFloat(moveSpeedHash, playerMovementWorldSpace.magnitude * noramlRunSpeed, 0.1f, Time.deltaTime);
-                   // Debug.Log(animator.velocity + "  :  " + playerMovementWorldSpace.magnitude * noramlRunSpeed);
                     break;
             }
-
         }
-        else
-        {
-            
-            animator.SetFloat(postureHash, 3f);
-           
+        else // dash posture
+        {  
+            animator.SetFloat(postureHash, 2f);
         }
 
         // attacking layer
@@ -489,4 +503,6 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+
+  
 }
