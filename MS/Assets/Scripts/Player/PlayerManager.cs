@@ -190,7 +190,7 @@ public class PlayerManager : MonoBehaviour
 
         playerDash.Dash();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
-        Debug.Log(invincibility);
+        //Debug.Log(invincibility);
      
 
 

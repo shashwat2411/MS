@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00920137, g: 0.008627497, b: 0.026958382, a: 1}
+  m_IndirectSpecularColor: {r: 0.009201546, g: 0.008627201, b: 0.026958702, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -343,6 +343,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4417784510810067838}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &194547460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5896127479472893568, guid: 635abd798f48b584b88f870d4b380e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3014776037018072395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &237284208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5974,11 +5986,21 @@ PrefabInstance:
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 149902004}
+    - target: {fileID: 1329105923769195588, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2476706548043862120, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 138022455}
+    - target: {fileID: 2476706548043862120, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3748654050090937196, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_Color.b

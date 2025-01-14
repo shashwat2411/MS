@@ -55,12 +55,12 @@ public class SkillSelect : MonoBehaviour
         
         SelectNo = 0;
 
-        RandomBonus();
+        //RandomBonus();
 
-        for (int i = 0; i < 3; i++)
-        {
-            BonusWindow[i].GetComponent<SkillWindow>().DrawBonus();
-        }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    BonusWindow[i].GetComponent<SkillWindow>().DrawBonus();
+        //}
 
         originalSize = BonusWindow[0].GetComponent<RectTransform>().localScale;
 
@@ -327,7 +327,7 @@ public class SkillSelect : MonoBehaviour
 
         b1 = b2 = b3 = false;
 
-        Debug.Log("false");
+        
     }
 
     public void BonusScelectEnd()
