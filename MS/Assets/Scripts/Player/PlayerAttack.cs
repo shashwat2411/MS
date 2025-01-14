@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using static UnityEditor.Recorder.OutputPath;
 
 
 public enum ChargePhase
@@ -12,8 +13,8 @@ public enum ChargePhase
     Entry,
     Low,
     Middle,
-    High = 5,
-    Max = 99
+    High,
+    Max
 }
 
 public class PlayerAttack : MonoBehaviour
@@ -31,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Charge Phase")]
     [SerializeField]
-    ChargePhase chargePhase = ChargePhase.Entry;
+    public ChargePhase chargePhase = ChargePhase.Entry;
 
     [Range(0, 100)]
     public float lowRange;
@@ -49,7 +50,9 @@ public class PlayerAttack : MonoBehaviour
 
 
     GameObject bullet;
-    private bool shoot = true;
+    private bool shooted = false;
+       
+
 
     [Header("InputSystem")]
     public InputActionReference closeRangeAttack;
@@ -60,6 +63,8 @@ public class PlayerAttack : MonoBehaviour
     public bool isHold = false;
     public bool afterShock = false;
     public float attackRangeMoveFactor = 1.0f;
+    public bool throwAnimPlay = false;
+
 
     Transform attackArea;
 
@@ -74,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
 
     public ParticleSystem chargeEffect;
     private ChargeMeshBrain chargeMesh;
-
+    Animator animator;
 
     [Header("Charge SE")]
 
@@ -83,6 +88,9 @@ public class PlayerAttack : MonoBehaviour
 
     private float loopStartTime;
     private float loopEndTime;
+
+
+
 
     void Start()
     {
@@ -110,7 +118,7 @@ public class PlayerAttack : MonoBehaviour
 
         attackArea = collider.transform;
         growth = collider.GetComponent<LockOnGrowth>();
-
+        animator = GetComponent<Animator>();
         collider.GetComponent<MenkoAttack>().Initiate(playerManager.playerPrefabs.bullet);
 
         initLocalPosition = attackArea.localPosition;
@@ -139,7 +147,7 @@ public class PlayerAttack : MonoBehaviour
             // audio check
             if (audioSource.isPlaying)
             {
-                Debug.Log(audioSource.time);
+               // Debug.Log(audioSource.time);
                 if (audioSource.time >= loopEndTime * 0.95f)
                 {
                     audioSource.time = loopStartTime;
@@ -162,6 +170,7 @@ public class PlayerAttack : MonoBehaviour
             //MoveToTarget(attackTarget);
             // GetCloestEnemy();
         }
+  
 
         playerData.charge = holdtime;
         growth.growthValue = Mathf.Lerp(0f, 1f, (playerData.charge - 1f) / (playerData.maxChargeTime - 1f));
@@ -205,11 +214,20 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
-            chargeEffect.Stop();
-            chargeMesh.PlayAnimation(false);
+          
 
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
-            IniteMenko();
+
+            if(chargePhase == ChargePhase.Entry  || chargePhase == ChargePhase.Low)
+            {
+               IniteMenko();
+               Invoke("ResetCollider", attackTime);
+            }
+            else
+            {
+                throwAnimPlay = true;
+            }
+
 
 
             audioSource.Stop();
@@ -225,12 +243,18 @@ public class PlayerAttack : MonoBehaviour
 
             //collider.GetComponent<SphereCollider>().enabled = false;
 
-            Invoke("ResetCollider", attackTime);
+           
 
             ParticleSystem.MainModule main = chargeEffect.main;
             main.loop = false;
         }
 
+    }
+
+    void AfterShockReset()
+    {
+        afterShock = false;
+      
     }
 
 
@@ -281,9 +305,15 @@ public class PlayerAttack : MonoBehaviour
     //TODO:: To be called by menko attack animaton events
     void ResetCollider()
     {
-
-        afterShock = false;
+        shooted = false;
+        //afterShock = false;
         holdtime = 0.0f;
+        throwAnimPlay = false;
+        Invoke("AfterShockReset", 0.2f);
+
+        animator.SetBool("ThrowMiddle", false);
+        animator.SetBool("ThrowMax", false);
+
 
         collider.GetComponent<Transform>().localScale = new Vector3(playerData.maxAimSize, playerData.maxAimSize, playerData.maxAimSize);
         collider.GetComponent<Transform>().localPosition = initLocalPosition;
@@ -297,12 +327,6 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-    void ResetCooldown()
-    {
-
-        shoot = true;
-    }
-
 
 
     /// <summary>
@@ -311,18 +335,21 @@ public class PlayerAttack : MonoBehaviour
     void IniteMenko()
     {
 
+        if (shooted)
+        {
+            return;
+        }
+
+        chargeEffect.Stop();
+        chargeMesh.PlayAnimation(false);
+
+        shooted = true;
+
         //Vector3 startPoint = this.transform.position + Vector3.up * 1.0f;
         Vector3 startPoint = chargeEffect.transform.position;
 
         Vector3 endPoint = new Vector3(growth.innerCircle.position.x, 0.0f, growth.innerCircle.position.z);
-        //float offset = 1.5f;
-        //if (holdtime < 3.5f)
-        //{
-        //      endPoint = GetRandomAttackPos(collider.transform.position, offset);
-        //}
 
-
-        //Debug.Log(holdtime +"  " + endPoint );
 
         Vector3 dir = endPoint - startPoint;
         dir.Normalize();
@@ -332,23 +359,13 @@ public class PlayerAttack : MonoBehaviour
         collider.GetComponent<MenkoAttack>().IniteMultiMenko(startPoint, growth.innerCircle, 
                                 playerData.maxAttackSize, playerData.attack, holdtime,chargePhase);
 
-        ////Instantiate(bullet, startPoint, collider.transform.rotation).GetComponent<Bullet>().Initiate(dir, playerData.attack);
-        //var obj = ObjectPool.Instance.Get(playerManager.playerPrefabs.bullet, startPoint, collider.transform.rotation);
-        //obj.GetComponent<BulletBase>().Initiate(dir, endPoint,playerData.maxAttackSize,playerData.attack * holdtime);
+
+    }
 
 
-        //foreach(GameObject b in MenkoAttack.bullets)
-        //{
-        //    obj = ObjectPool.Instance.Get(b, startPoint, collider.transform.rotation);
-
-        //    var multiEndPos = GetRandomAttackPos(endPoint, 10.0f);
-        //    dir = multiEndPos - startPoint;
-        //    dir.Normalize();
-
-        //    obj.GetComponent<BulletBase>().Initiate(dir, multiEndPos, playerData.maxAttackSize, playerData.attack * holdtime);
-
-        //}
-
+    public void MaxChargrMenkoAnim()
+    {
+       
     }
 
     Vector3 GetRandomAttackPos(Vector3 initPos, float offset)
