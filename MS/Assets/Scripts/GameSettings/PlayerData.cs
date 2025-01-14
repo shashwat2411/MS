@@ -269,7 +269,7 @@ public class PlayerPrefabs
     {
         if (itemCountPair.ContainsKey(item.name) == false)
         {
-            return false;
+            return true;
         }
 
         if (item.bonusList.Count > itemCountPair[item.name])
