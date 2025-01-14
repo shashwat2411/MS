@@ -38,6 +38,8 @@ public class PlayerManager : MonoBehaviour
     float currentSpeed, cameraShakeIntensity;
     float targetSpeed;
 
+    float menkoHeight;
+
     #region 入力値
     Vector2 moveInput;
 
@@ -138,7 +140,7 @@ public class PlayerManager : MonoBehaviour
         playerHP = FindFirstObjectByType<HPBarManager>();
         playerExp = FindFirstObjectByType<PlayerExp>();
 
-        
+
     }
 
 
@@ -412,19 +414,34 @@ public class PlayerManager : MonoBehaviour
             {
                 case ChargePhase.Middle:
                     animator.SetBool("ThrowMiddle", true);
+            
                     break;
                 case ChargePhase.High:
                     animator.SetBool("ThrowMiddle", true);
+                   
                     break;
                 case ChargePhase.Max:
                     animator.SetBool("ThrowMax", true);
-                    //animator.MatchTarget()
+                   
                     break;
             }
+
+
+
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log(info.ToString());
+
+            if (info.IsName("Middle") && info.IsName("Max"))
+            {
+                var pos = new Vector3(2.0f,50f,1f);
+                animator.MatchTarget(pos, Quaternion.identity,
+                             AvatarTarget.Body, new MatchTargetWeightMask(new Vector3(0f,1f,0f), 0f), 0.2f, 0.51f);
+            }
+
         }
         else if (playerAttack.afterShock) // afterShock posture
         {
-
+            animator.SetFloat(moveSpeedHash, 0, 0.1f, Time.deltaTime);
         }
         else if(!playerDash.isDashing) // normal posture
         {
@@ -457,12 +474,20 @@ public class PlayerManager : MonoBehaviour
             animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
             transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
         }
+
+
     }
 
 
     private void OnAnimatorMove()
     {
-        if (playerAttack.afterShock)
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("Middle"))
+        {
+            rigidbody.velocity = Vector3.zero;
+            animator.ApplyBuiltinRootMotion();
+        }
+        else if (playerAttack.afterShock)
         {
             rigidbody.velocity = Vector3.zero;
         }
@@ -471,6 +496,8 @@ public class PlayerManager : MonoBehaviour
             rigidbody.velocity = animator.velocity / SpeedFactor;
            // Debug.Log(rigidbody.velocity);      
         }
+
+       
     }
 
     public Vector2 GetMovementInput()

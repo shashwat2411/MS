@@ -142,10 +142,6 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
-        Debug.Log(shooted);
-
         if (isHold)
         {
             // audio check
@@ -232,6 +228,8 @@ public class PlayerAttack : MonoBehaviour
                 throwAnimPlay = true;
             }
 
+
+
             audioSource.Stop();
             // Reset
             isHold = false;
@@ -251,6 +249,12 @@ public class PlayerAttack : MonoBehaviour
             main.loop = false;
         }
 
+    }
+
+    void AfterShockReset()
+    {
+        afterShock = false;
+      
     }
 
 
@@ -302,10 +306,10 @@ public class PlayerAttack : MonoBehaviour
     void ResetCollider()
     {
         shooted = false;
-        afterShock = false;
+        //afterShock = false;
         holdtime = 0.0f;
         throwAnimPlay = false;
-
+        Invoke("AfterShockReset", 0.2f);
 
         animator.SetBool("ThrowMiddle", false);
         animator.SetBool("ThrowMax", false);
