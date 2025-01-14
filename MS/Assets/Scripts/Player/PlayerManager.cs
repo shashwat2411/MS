@@ -197,7 +197,6 @@ public class PlayerManager : MonoBehaviour
 
         playerDash.Dash();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
-     //   Debug.Log(invincibility);
      
 
 
@@ -467,7 +466,7 @@ public class PlayerManager : MonoBehaviour
         // attacking layer
         animator.SetBool(aimHash, playerAttack.isHold);
 
-        if (!playerDash.isDashing)
+        if (!playerDash.isDashing && !playerAttack.throwAnimPlay )
         {
             // Rotate
             float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);

@@ -16,7 +16,10 @@ public class BossLightning : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (lightning.culled) { Debug.Log("Culled"); }
+        if (lightning.culled) 
+        { 
+            Debug.Log("Culled"); 
+        }
 
         if (lightning.HasAnySystemAwake() == false)
         {
