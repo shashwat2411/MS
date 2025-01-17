@@ -236,12 +236,11 @@ public class PlayerAttack : MonoBehaviour
             // Reset
             isHold = false;
             afterShock = true;
-            holdtime = 0.0f;
+       
 
             //growth.outerCircle.GetComponent<MeshRenderer>().enabled = false;
             //growth.innerCircle.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
-            StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
+    
 
             //collider.GetComponent<SphereCollider>().enabled = false;
 
@@ -256,7 +255,7 @@ public class PlayerAttack : MonoBehaviour
     void AfterShockReset()
     {
         afterShock = false;
-      
+        holdtime = 0.0f;
     }
 
 
@@ -309,11 +308,12 @@ public class PlayerAttack : MonoBehaviour
     {
         shooted = false;
         //afterShock = false;
-        holdtime = 0.0f;
+       
         throwAnimPlay = false;
         jumpEffect.SetActive(false);
-
-        Invoke("AfterShockReset", 0.2f);
+       
+        //AfterShockReset();
+        Invoke("AfterShockReset", 0.1f);
 
         animator.SetBool("ThrowMiddle", false);
         animator.SetBool("ThrowMax", false);
@@ -338,11 +338,15 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     void IniteMenko()
     {
-
+    
         if (shooted)
         {
             return;
         }
+
+        StartCoroutine(growth.Deactivate(growth.GetOuterMaterial()));
+        StartCoroutine(growth.Deactivate(growth.GetInnerMaterial()));
+
 
         chargeEffect.Stop();
         chargeMesh.PlayAnimation(false);
