@@ -59,10 +59,9 @@ public class PlayerDash : MonoBehaviour
         {
             if (doubleDashReady && dashCount == 1)
             {
-              
                 doubleDash = true;
             }
-            else if (Time.time > (lastDash + playerData.dashCooldown))
+            else if (Time.time > (lastDash + playerData.dashCooldown) && !playerManager.playerAttack.throwAnimPlay)
             {
                 dashCount = dashCountMax;
                 ReadyToDash();

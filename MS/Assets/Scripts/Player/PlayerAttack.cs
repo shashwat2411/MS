@@ -89,8 +89,8 @@ public class PlayerAttack : MonoBehaviour
     private float loopStartTime;
     private float loopEndTime;
 
-
-
+    [SerializeField]
+    GameObject jumpEffect;
 
     void Start()
     {
@@ -136,6 +136,7 @@ public class PlayerAttack : MonoBehaviour
             loopStartTime = loopEndTime * (1 - loopPercentageSE);
         }
 
+       
     }
 
 
@@ -226,6 +227,7 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 throwAnimPlay = true;
+                jumpEffect.SetActive(true);
             }
 
 
@@ -309,6 +311,8 @@ public class PlayerAttack : MonoBehaviour
         //afterShock = false;
         holdtime = 0.0f;
         throwAnimPlay = false;
+        jumpEffect.SetActive(false);
+
         Invoke("AfterShockReset", 0.2f);
 
         animator.SetBool("ThrowMiddle", false);
