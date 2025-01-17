@@ -121,16 +121,6 @@ public class BossEnemy : EnemyBase
         }
     }
 
-    protected override void LateUpdate()
-    {
-    }
-
-    //HP Related-----------------------------------------
-    //public void Damage(float value, bool killingBlow = false)
-    //{
-    //    healthBar.Damage(value, killingBlow);
-    //}
-
     public override void Death()
     {
         dead = true;
@@ -149,7 +139,7 @@ public class BossEnemy : EnemyBase
         StartCoroutine(hands.DissolveOut(2f));
         StartCoroutine(tongue.DissolveOut(2f));
 
-        StartCoroutine(DeathCall(2f));
+        Destroy(gameObject, 2.2f);
     }
 
     public IEnumerator DeathCall(float delay)

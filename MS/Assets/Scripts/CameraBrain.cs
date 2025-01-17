@@ -19,11 +19,19 @@ public class CameraBrain : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     private PlayerManager player;
+    [SerializeField] private TeleportOutCutScene teleportOut;
+
+    public AnimationCurve zoomInY;
+    public AnimationCurve zoomInZ;
+    private float zoomInCounter = 0f;
+    public bool zoomIn = false;
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
 
         originalOffset = offset;
+        zoomInCounter = 0f;
+        zoomIn = false;
     }
     void FixedUpdate()
     {
@@ -41,6 +49,18 @@ public class CameraBrain : MonoBehaviour
         {
             transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
         }
+
+        if(zoomIn == true)
+        {
+            if (zoomInCounter < 1f) { zoomInCounter += Time.deltaTime; }
+            else { zoomInCounter = 1f; }
+            float y = zoomInY.Evaluate(zoomInCounter);
+            float z = zoomInZ.Evaluate(zoomInCounter);
+
+            Vector3 position = transform.localPosition;
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            position += new Vector3(0f, direction.y * y, direction.z * z);
+        }
     }
 
     private void Update()
@@ -48,6 +68,15 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+    }
+
+    public void TriggerPlayerDissolveOut()
+    {
+        teleportOut.TriggerPlayerDissolveOut();
+    }
+    public void TriggerPlayerDissolveIn()
+    {
+        teleportOut.TriggerPlayerDissolveIn();
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)
