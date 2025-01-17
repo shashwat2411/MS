@@ -11,13 +11,24 @@ public class Goal : MonoBehaviour
     private bool once = false;
     private EnemyManager enemyManager;
 
+    public bool debug = false;
+
     private void Start()
     {
         enemyManager = FindFirstObjectByType<EnemyManager>();
 
-        vortex.Stop();
-        box.gameObject.SetActive(false);
-        once = false;
+        if (debug == false)
+        {
+            vortex.Stop();
+            box.gameObject.SetActive(false);
+            once = false;
+        }
+        else
+        {
+            once = true;
+            vortex.Play();
+            box.gameObject.SetActive(true);
+        }
     }
     private void FixedUpdate()
     {
