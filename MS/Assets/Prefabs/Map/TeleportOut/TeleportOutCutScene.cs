@@ -61,9 +61,9 @@ public class TeleportOutCutScene : MonoBehaviour
         canvas.SetBool("in", true);
         canvas.SetBool("out", false);
 
-        //camera.SetBool("zoomIn", true);
-        //camera.SetBool("zoomOut", false);
-        camera.gameObject.GetComponent<CameraBrain>().zoomIn = true;
+        camera.SetBool("zoomIn", true);
+        camera.SetBool("zoomOut", false);
+        camera.gameObject.GetComponent<CameraBrain>().ZoomInTrigger();
 
         input.enabled = false;
     }
