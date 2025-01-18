@@ -18,12 +18,23 @@ public class CameraBrain : MonoBehaviour
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
+    public Vector3 zoomInFactor;
+    public Vector3 direction;
+
     private PlayerManager player;
+    [SerializeField] private TeleportOutCutScene teleportOut;
+
+    public AnimationCurve zoomInY;
+    public AnimationCurve zoomInZ;
+    private float zoomInCounter = 0f;
+    public bool zoomIn = false;
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
 
         originalOffset = offset;
+        zoomInCounter = 0f;
+        zoomIn = false;
     }
     void FixedUpdate()
     {
@@ -41,6 +52,26 @@ public class CameraBrain : MonoBehaviour
         {
             transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
         }
+
+        if(zoomIn == true)
+        {
+            if (zoomInCounter < 1f) 
+            { 
+                zoomInCounter += Time.deltaTime;
+
+                float y = zoomInY.Evaluate(zoomInCounter);
+                float z = zoomInZ.Evaluate(zoomInCounter);
+
+                Vector3 position = transform.localPosition;
+                direction = (player.transform.position - transform.localPosition).normalized;
+                Vector3 displacement = new Vector3(0f, direction.y * y * zoomInFactor.y, direction.z * z * zoomInFactor.z);
+
+                position += displacement;
+
+                transform.localPosition = position;
+            }
+            else { zoomInCounter = 1f; }
+        }
     }
 
     private void Update()
@@ -48,6 +79,20 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+    }
+
+    public void ZoomInTrigger()
+    {
+        zoomIn = true;
+    }
+
+    public void TriggerPlayerDissolveOut()
+    {
+        teleportOut.TriggerPlayerDissolveOut();
+    }
+    public void TriggerPlayerDissolveIn()
+    {
+        teleportOut.TriggerPlayerDissolveIn();
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)

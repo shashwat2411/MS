@@ -24,22 +24,24 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
 
     public void IniteMultiMenko(Vector3 startPoint,Transform area, float maxAttackSize,float attack,float holdtime,ChargePhase chargePhase = ChargePhase.Entry)
     {
-        Debug.Log(chargePhase);
+        Debug.Log("attack: " + attack + "  hold time: "+ holdtime);
         int bulletsNum = (int)chargePhase > bulletsCount? bulletsCount : (int)chargePhase;
+        float damage = attack * ((int)chargePhase + 1) / 5;
+
 
         switch (bulletsNum)
         {
             case 0:
-                One(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
+                One(startPoint, area, maxAttackSize, damage, holdtime, chargePhase);
                 break;
             case 1:
-                One(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
+                One(startPoint, area, maxAttackSize, damage, holdtime, chargePhase);
                 break;
             case 2:
-                Two(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
+                Two(startPoint, area, maxAttackSize, damage, holdtime, chargePhase);
                 break;
             default:
-                Three(startPoint, area, maxAttackSize, attack, holdtime, chargePhase);
+                Three(startPoint, area, maxAttackSize, damage, holdtime, chargePhase);
                 break;
         }
           
@@ -60,10 +62,10 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         dir.Normalize();
 
         var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation );
-       // var multiEndPos = GetOffset(endPoint, holdtime,8.0f);
-   
+        // var multiEndPos = GetOffset(endPoint, holdtime,8.0f);
 
-       obj.GetComponent<BulletBase>().Initiate(dir, endPoint, maxAttackSize, attack * holdtime, chargePhase);
+       
+       obj.GetComponent<BulletBase>().Initiate(dir, endPoint, maxAttackSize, attack, chargePhase);
 
         
     }
@@ -88,13 +90,13 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         var rightDir = rightEnd - startPoint;
         rightDir.Normalize();
 
+        float damage = attack * ((int)chargePhase + 1) / 5;
 
-
-       var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
-       obj.GetComponent<BulletBase>().Initiate(leftDir, leftEnd, maxAttackSize, attack * holdtime, chargePhase );
+        var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
+       obj.GetComponent<BulletBase>().Initiate(leftDir, leftEnd, maxAttackSize, attack , chargePhase );
 
        obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
-       obj.GetComponent<BulletBase>().Initiate(rightDir, rightEnd, maxAttackSize, attack * holdtime, chargePhase);
+       obj.GetComponent<BulletBase>().Initiate(rightDir, rightEnd, maxAttackSize, attack , chargePhase);
     }
    
     void Three(Vector3 startPoint, Transform area, float maxAttackSize, float attack, float holdtime, ChargePhase chargePhase)
@@ -120,13 +122,13 @@ public class MenkoAttack : MonoBehaviour, IAtkEffBonusAdder
         dir.Normalize();
 
         var obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
-        obj.GetComponent<BulletBase>().Initiate(dir, endPoint, maxAttackSize, attack * holdtime, chargePhase);
+        obj.GetComponent<BulletBase>().Initiate(dir, endPoint, maxAttackSize, attack , chargePhase);
 
         obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
-        obj.GetComponent<BulletBase>().Initiate(leftDir, leftEnd, maxAttackSize, attack * holdtime, chargePhase);
+        obj.GetComponent<BulletBase>().Initiate(leftDir, leftEnd, maxAttackSize, attack , chargePhase);
 
         obj = ObjectPool.Instance.Get(bullet, startPoint, area.rotation);
-        obj.GetComponent<BulletBase>().Initiate(rightDir, rightEnd, maxAttackSize, attack * holdtime, chargePhase);
+        obj.GetComponent<BulletBase>().Initiate(rightDir, rightEnd, maxAttackSize, attack , chargePhase);
     }
 
 

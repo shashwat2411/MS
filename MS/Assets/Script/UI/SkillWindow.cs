@@ -19,6 +19,7 @@ public class SkillWindow : MonoBehaviour
 
     PlayerManager player;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,17 +27,19 @@ public class SkillWindow : MonoBehaviour
        
     }
 
-   
+ 
 
 
     public void DrawBonus()
     {
+        
 
         if (Bonus != null)
         {
             Name.text = Bonus.name;
             Description.text = Bonus.description;
             Icon.sprite = Bonus.icon;
+
         }
 
         if (Item != null)
@@ -44,7 +47,11 @@ public class SkillWindow : MonoBehaviour
             Name.text = Item.name;
             Description.text = Item.bonusList[GetSkillLv(Item)].description;
             Icon.sprite = Item.icon;
+
+
         }
+
+        if (Icon.sprite != null) { Debug.Log(gameObject.name + "-DrawBonus-" + Icon.sprite.name); }
     }
 
     int GetSkillLv(BonusItem item)

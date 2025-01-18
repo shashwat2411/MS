@@ -7,7 +7,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class Lighting : MonoBehaviour
 {
     private int order = 0;
-    public int level = 1;
+    //public int level = 1;
     public float totalDamage;
     public float offset = 3.0f;
     public float horizontalOffset = 2.0f;
