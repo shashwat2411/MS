@@ -44,7 +44,7 @@ public class SpecialAttackFactory : MonoBehaviour
 
     public virtual void ResetLevel()
     {
-        spAtk.GetComponent<IAtkEffect>().ResetLevel();
+       // spAtk.GetComponent<SpecialAttackFactory>().ResetLevel();
         level = 0;
     }
 

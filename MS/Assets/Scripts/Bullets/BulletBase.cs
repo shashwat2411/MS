@@ -94,21 +94,24 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
         Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
 
-        float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
+        // float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
+        
+        float scale = (this.damage + 40.0f ) / 100.0f; // Default damage(0,100)
         float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
 
-        effect.transform.localScale = finalScale * localScale;
+        effect.transform.localScale = scale * localScale;
         effect.transform.position = hitPos + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
         //if (scale <= this.maxAttackSize) {  }
         //else { effect.transform.localScale = this.maxAttackSize * localScale; }
 
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
+        Debug.Log("real damage:"+ damage + "   scale:" + scale + " final:" + finalScale);
 
         //Sound Effect
         SoundManager.Instance.PlaySE(nameSE);
 
-        //Invoke Stuff
+     
         DoSpecialThings();
         //Invoke("DestroyBullet", lifetime);
         once = false;

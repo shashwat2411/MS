@@ -182,6 +182,7 @@ public class PlayerPrefabs
         {
             if (key == PlayerPrafabType.playerPermanentAblity) playerAblities = value;
             else if (key == PlayerPrafabType.bullet) bullet = value;
+            else if (key == PlayerPrafabType.attackArea) attackArea = value;
             else if (key == PlayerPrafabType.mpAttackArea) mpAttackArea = value;
             
         }
@@ -211,12 +212,18 @@ public class PlayerPrefabs
 
         }
 
-        foreach(var item in BonusSettings.Instance.playerBonusItems)
+        foreach (var item in BonusSettings.Instance.playerBonusItems)
         {
-            var iAtkEffect = item.bonusList[0].BonusOnOneTime[0].bonusItem.GetComponent<IAtkEffect>();
-            if (iAtkEffect != null)
+            var iAtkEffect = item.bonusList[0].BonusOnOneTime[0].bonusItem;
+            if(iAtkEffect == null)
             {
-                iAtkEffect.ResetLevel();
+                return;
+            }
+
+            var factory = iAtkEffect.GetComponent<SpecialAttackFactory>();
+            if (factory != null)
+            {
+                factory.ResetLevel();
             }
         }
 

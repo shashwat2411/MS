@@ -225,6 +225,11 @@ public class PlayerManager : MonoBehaviour
         CaculateInputDirection();
         SwitchPlayerStates();
 
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            SceneManager.LoadScene(0);
+        }
+        
     }
 
 
@@ -295,8 +300,8 @@ public class PlayerManager : MonoBehaviour
 
         //playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
        //playerHP.Damage(50.0f);
-       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[5]);
-       playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[3]);
+       var test = playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[2]);
+    //   playerPrefabs.GetTopItemBonus(BonusSettings.Instance.playerBonusItems[4]);
 
         //if (!test)
         //{
@@ -407,7 +412,7 @@ public class PlayerManager : MonoBehaviour
 
     void SetAnimator()
     {
-        if (playerAttack.throwAnimPlay)
+        if (playerAttack.throwAnimPlay) // throw posture
         {
             switch (playerAttack.chargePhase)
             {
@@ -427,15 +432,15 @@ public class PlayerManager : MonoBehaviour
 
 
 
-            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-            Debug.Log(info.ToString());
+           // AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+           //// Debug.Log(info.ToString());
 
-            if (info.IsName("Middle") && info.IsName("Max"))
-            {
-                var pos = new Vector3(2.0f,50f,1f);
-                animator.MatchTarget(pos, Quaternion.identity,
-                             AvatarTarget.Body, new MatchTargetWeightMask(new Vector3(0f,1f,0f), 0f), 0.2f, 0.51f);
-            }
+           // if (info.IsName("Middle") && info.IsName("Max"))
+           // {
+           //     var pos = new Vector3(2.0f,50f,1f);
+           //     animator.MatchTarget(pos, Quaternion.identity,
+           //                  AvatarTarget.Body, new MatchTargetWeightMask(new Vector3(0f,1f,0f), 0f), 0.2f, 0.51f);
+           // }
 
         }
         else if (playerAttack.afterShock) // afterShock posture
@@ -466,9 +471,9 @@ public class PlayerManager : MonoBehaviour
         // attacking layer
         animator.SetBool(aimHash, playerAttack.isHold);
 
-        if (!playerDash.isDashing && !playerAttack.throwAnimPlay )
+        // Rotate  
+        if (!playerDash.isDashing && !playerAttack.throwAnimPlay)
         {
-            // Rotate
             float rad = Mathf.Atan2(playerMovementWorldSpace.x, playerMovementWorldSpace.z);
             animator.SetFloat(turnSpeedHash, rad, 0.5f, Time.deltaTime);
             transform.Rotate(0, rad * rotateSpeed * Time.deltaTime, 0f);
@@ -481,7 +486,7 @@ public class PlayerManager : MonoBehaviour
     private void OnAnimatorMove()
     {
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-        if (info.IsName("Middle"))
+        if (info.IsName("Middle") || info.IsName("Max"))
         {
             rigidbody.velocity = Vector3.zero;
             animator.ApplyBuiltinRootMotion();
