@@ -135,6 +135,7 @@ public class EnemyBase : MonoBehaviour
     protected EnemyDialogue dialogue;
     protected Transform areaChecker;
     private GameObject canvas;
+    private Transform mainCamera;
     protected Vector3 extraForce;
 
     [Header("Attack")]
@@ -151,6 +152,7 @@ public class EnemyBase : MonoBehaviour
         player = FindFirstObjectByType<PlayerManager>().gameObject;
         rigidbody = GetComponent<Rigidbody>();
         agent = GetComponentInChildren<NavMeshAgent>();
+        mainCamera = Camera.main.transform;
 
         attacked = false;
         stopRotation = false;
@@ -183,7 +185,7 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void LateUpdate()
     {
-        canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        canvas.transform.LookAt(canvas.transform.position + mainCamera.rotation * Vector3.forward, mainCamera.rotation * Vector3.up);
     }
 
     virtual protected void OnCollisionEnter(Collision collision)
@@ -229,7 +231,7 @@ public class EnemyBase : MonoBehaviour
     {
         dead = true;
         Destroy(agent.gameObject);
-        Instantiate(Camera.main.transform.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
+        Instantiate(mainCamera.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
     }
 
     virtual public void Knockback(Vector3 direction, float power)

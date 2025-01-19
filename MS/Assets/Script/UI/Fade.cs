@@ -25,7 +25,7 @@ public class Fade : MonoBehaviour
     [SerializeField]
     bool IsFade_In;
 
-    public bool Fade_End;
+    public bool Fade_End { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -74,11 +74,6 @@ public class Fade : MonoBehaviour
         StartCoroutine(BeginTransition());
     }
 
-    public void SetSprite()
-    {
-
-    }
-
     IEnumerator BeginTransition()
     {
         yield return Animate(_transitionIn, transitiontime);
@@ -98,7 +93,7 @@ public class Fade : MonoBehaviour
         {
             while (current < time)
             {
-                material.SetFloat("_Alpha",1- current / time);
+                material.SetFloat("_Alpha",1 - current / time);
                 yield return new WaitForEndOfFrame();
                 current += Time.deltaTime;
             }
