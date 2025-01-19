@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    protected Camera mainCamera;
+    protected Transform mainCamera;
 
     protected void Awake()
     {
-        mainCamera = Camera.main;
+        mainCamera = Camera.main.transform;
     }
     virtual protected void LateUpdate()
     {

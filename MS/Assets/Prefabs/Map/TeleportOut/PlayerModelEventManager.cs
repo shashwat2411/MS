@@ -6,6 +6,7 @@ using static EnemyBase;
 public class PlayerModelEventManager : MonoBehaviour
 {
     public TeleportOutCutScene teleporter;
+    public ScreenShatter shatterer;
 
     [Header("Material")]
     public EnemyMaterial limbs;
@@ -27,5 +28,10 @@ public class PlayerModelEventManager : MonoBehaviour
     {
         teleporter.player.SetBool("dissolveOut", false);
         teleporter.player.SetBool("dissolveIn", false);
+    }
+
+    public void StartScreenShatter()
+    {
+        StartCoroutine(shatterer.ShatterScreenInitate());
     }
 }
