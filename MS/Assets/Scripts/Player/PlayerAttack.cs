@@ -227,7 +227,10 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 throwAnimPlay = true;
-                jumpEffect.SetActive(true);
+
+                //jumpEffect.SetActive(true);
+                jumpEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                jumpEffect.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             }
 
 
@@ -310,8 +313,11 @@ public class PlayerAttack : MonoBehaviour
         //afterShock = false;
        
         throwAnimPlay = false;
-        jumpEffect.SetActive(false);
-       
+
+        //jumpEffect.SetActive(false);
+        jumpEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+        jumpEffect.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
+
         //AfterShockReset();
         Invoke("AfterShockReset", 0.1f);
 

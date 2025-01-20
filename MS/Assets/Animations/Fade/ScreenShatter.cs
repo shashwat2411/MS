@@ -33,7 +33,8 @@ public class ScreenShatter : MonoBehaviour
 
         captureCamera.gameObject.SetActive(true);
         mainCanvas.worldCamera = captureCamera;
-        StartCoroutine(ShatterReverseScreenInitate());
+
+        yield return ShatterReverseScreenInitate();
     }
 
     private void Update()
@@ -88,7 +89,7 @@ public class ScreenShatter : MonoBehaviour
                 //shards[i].SetBool("in", false);
                 //shards[i].SetBool("out", true);
                 shards[i].Play("shatter", -1, 0f);
-                yield return new WaitForSecondsRealtime(transitionSpeed);
+                yield return new WaitForSeconds(transitionSpeed);
             }
         }
     }
@@ -117,7 +118,7 @@ public class ScreenShatter : MonoBehaviour
             else
             {
                 shards[i].Play("shatterReverse", -1, 0f);
-                yield return new WaitForSecondsRealtime(transitionSpeed);
+                yield return new WaitForSeconds(transitionSpeed);
             }
         }
     }
