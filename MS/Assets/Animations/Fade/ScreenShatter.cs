@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScreenShatter : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class ScreenShatter : MonoBehaviour
     private bool reset;
     private bool fadeIn;
 
+    public string loadLevel;
+
     private void Awake()
     {
         System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
@@ -25,6 +28,8 @@ public class ScreenShatter : MonoBehaviour
     }
     private IEnumerator DelayCall()
     {
+        mainCamera.farClipPlane = 0f;
+
         fadeIn = true;
         ResetScreen();
         plane.SetActive(true);
@@ -33,7 +38,8 @@ public class ScreenShatter : MonoBehaviour
 
         captureCamera.gameObject.SetActive(true);
         mainCanvas.worldCamera = captureCamera;
-        StartCoroutine(ShatterReverseScreenInitate());
+
+        yield return ShatterReverseScreenInitate();
     }
 
     private void Update()
@@ -47,6 +53,13 @@ public class ScreenShatter : MonoBehaviour
                 fadeIn = false;
                 ResetScreen();
                 plane.SetActive(false);
+            }
+        }
+        else
+        {
+            if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatter") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                SceneManager.LoadScene(loadLevel);
             }
         }
 
@@ -88,7 +101,7 @@ public class ScreenShatter : MonoBehaviour
                 //shards[i].SetBool("in", false);
                 //shards[i].SetBool("out", true);
                 shards[i].Play("shatter", -1, 0f);
-                yield return new WaitForSecondsRealtime(transitionSpeed);
+                yield return new WaitForSeconds(transitionSpeed);
             }
         }
     }
@@ -100,6 +113,7 @@ public class ScreenShatter : MonoBehaviour
 
         //mainCamera.gameObject.SetActive(false);
         mainCamera.enabled = false;
+        mainCamera.farClipPlane = 1000f;
         //captureCamera.gameObject.SetActive(false);
         shatterCamera.gameObject.SetActive(true);
 
@@ -117,7 +131,7 @@ public class ScreenShatter : MonoBehaviour
             else
             {
                 shards[i].Play("shatterReverse", -1, 0f);
-                yield return new WaitForSecondsRealtime(transitionSpeed);
+                yield return new WaitForSeconds(transitionSpeed);
             }
         }
     }

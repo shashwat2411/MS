@@ -185,7 +185,10 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void LateUpdate()
     {
-        canvas.transform.LookAt(canvas.transform.position + mainCamera.rotation * Vector3.forward, mainCamera.rotation * Vector3.up);
+        if (canvas != null)
+        {
+            canvas.transform.LookAt(canvas.transform.position + mainCamera.rotation * Vector3.forward, mainCamera.rotation * Vector3.up);
+        }
     }
 
     virtual protected void OnCollisionEnter(Collision collision)

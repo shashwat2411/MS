@@ -1,4 +1,4 @@
-using UniSense;
+﻿using UniSense;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -58,7 +58,6 @@ namespace DualSenseSample.Inputs
             foreach (var listener in listeners)
             {
                 listener.OnConnect(dualSense);
-                Debug.Log("DualSense_OnConnested");
             }
         }
 
@@ -67,7 +66,6 @@ namespace DualSenseSample.Inputs
             foreach (var listener in listeners)
             {
                 listener.OnDisconnect();
-                Debug.Log("DualSense_NotOnConnested!!!!!");
             }
         }
     }

@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static DashEnemy;
 using static ThrowEnemy;
-using static UnityEditor.Progress;
 
 public class GunEnemy : EnemyBase
 {
