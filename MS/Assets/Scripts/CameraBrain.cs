@@ -18,6 +18,9 @@ public class CameraBrain : MonoBehaviour
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
+    public Vector3 zoomInFactor;
+    public Vector3 direction;
+
     private PlayerManager player;
     [SerializeField] private TeleportOutCutScene teleportOut;
 
@@ -52,14 +55,22 @@ public class CameraBrain : MonoBehaviour
 
         if(zoomIn == true)
         {
-            if (zoomInCounter < 1f) { zoomInCounter += Time.deltaTime; }
-            else { zoomInCounter = 1f; }
-            float y = zoomInY.Evaluate(zoomInCounter);
-            float z = zoomInZ.Evaluate(zoomInCounter);
+            if (zoomInCounter < 1f) 
+            { 
+                zoomInCounter += Time.deltaTime;
 
-            Vector3 position = transform.localPosition;
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            position += new Vector3(0f, direction.y * y, direction.z * z);
+                float y = zoomInY.Evaluate(zoomInCounter);
+                float z = zoomInZ.Evaluate(zoomInCounter);
+
+                Vector3 position = transform.localPosition;
+                direction = (player.transform.position - transform.localPosition).normalized;
+                Vector3 displacement = new Vector3(0f, direction.y * y * zoomInFactor.y, direction.z * z * zoomInFactor.z);
+
+                position += displacement;
+
+                transform.localPosition = position;
+            }
+            else { zoomInCounter = 1f; }
         }
     }
 
@@ -68,6 +79,11 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+    }
+
+    public void ZoomInTrigger()
+    {
+        zoomIn = true;
     }
 
     public void TriggerPlayerDissolveOut()

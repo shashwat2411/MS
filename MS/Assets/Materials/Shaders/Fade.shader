@@ -3,8 +3,8 @@ Shader "Unlit/Fade"
     Properties
     {
 		[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-		_Color("Tint", Color) = (1,1,1,1)
-		_Alpha("Time", Range(0, 1)) = 0
+		[HDR] _Color("Tint", Color) = (1,1,1,1)
+		_Fade("Fade", Range(0, 1)) = 0
     }
     SubShader
     {
@@ -45,7 +45,7 @@ Shader "Unlit/Fade"
 			};
 
 			fixed4 _Color;
-			fixed _Alpha;
+			fixed _Fade;
 			sampler2D _MainTex;
 
 			// 頂点シェーダーの基本
@@ -64,7 +64,7 @@ Shader "Unlit/Fade"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				half alpha = tex2D(_MainTex, IN.texcoord).a;
-				alpha = saturate(alpha + (_Alpha * 2 - 1));
+				alpha = saturate(alpha + (_Fade * 2 - 1));
 				return fixed4(_Color.r, _Color.g, _Color.b, alpha);
 			}
 			ENDCG
