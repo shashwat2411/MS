@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScreenShatter : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class ScreenShatter : MonoBehaviour
     private bool reset;
     private bool fadeIn;
 
+    public string loadLevel;
+
     private void Awake()
     {
         System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
@@ -25,6 +28,8 @@ public class ScreenShatter : MonoBehaviour
     }
     private IEnumerator DelayCall()
     {
+        mainCamera.farClipPlane = 0f;
+
         fadeIn = true;
         ResetScreen();
         plane.SetActive(true);
@@ -48,6 +53,13 @@ public class ScreenShatter : MonoBehaviour
                 fadeIn = false;
                 ResetScreen();
                 plane.SetActive(false);
+            }
+        }
+        else
+        {
+            if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatter") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                SceneManager.LoadScene(loadLevel);
             }
         }
 
@@ -101,6 +113,7 @@ public class ScreenShatter : MonoBehaviour
 
         //mainCamera.gameObject.SetActive(false);
         mainCamera.enabled = false;
+        mainCamera.farClipPlane = 1000f;
         //captureCamera.gameObject.SetActive(false);
         shatterCamera.gameObject.SetActive(true);
 
