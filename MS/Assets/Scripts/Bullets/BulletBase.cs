@@ -95,13 +95,15 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 
         // float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
         
-        float scale = (this.damage + 40.0f ) / 100.0f; // Default damage(0,100)
-        float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
+        float scale = this.damage / 100.0f; // Default damage(0,100)
+        float finalScale = player.playerData.maxAttackSize * scale;
 
-        effect.transform.localScale = scale * localScale;
+        effect.transform.localScale = finalScale * localScale;
         effect.transform.position = hitPos + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
         //if (scale <= this.maxAttackSize) {  }
         //else { effect.transform.localScale = this.maxAttackSize * localScale; }
+
+
 
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;

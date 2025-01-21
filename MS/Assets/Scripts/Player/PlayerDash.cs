@@ -231,7 +231,11 @@ public class PlayerDash : MonoBehaviour
 
     public void LevelUp()
     {
-        dashCountMax++;
+        if(dashCountMax < 2)
+        {
+            dashCountMax++;
+        }
+       
         
     }
 
