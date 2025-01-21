@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.InputManagerEntry;
 
 public class TextManager : MonoBehaviour
 {
@@ -248,7 +247,7 @@ public class TextManager : MonoBehaviour
             var image = button.GetComponent<Image>();
 
             image.sprite = (i == currentChoiceIndex) ? highlightedSprite : defaultSprite;
-            
+
         }
     }
 

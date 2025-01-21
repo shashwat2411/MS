@@ -98,6 +98,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     Animator animator;
+    Transform mainCamera;
 
     BonusItem bonusItem;
     void Start()
@@ -114,7 +115,8 @@ public class PlayerManager : MonoBehaviour
         collider = GetComponent<Collider>();
         playerAttack = GetComponentInChildren<PlayerAttack>();
         playerMpAttack = GetComponent<PlayerMpAttack>();    
-        playerDash = GetComponent<PlayerDash>();    
+        playerDash = GetComponent<PlayerDash>();
+        mainCamera = Camera.main.transform;
 
         playerData = CharacterSettings.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
@@ -331,7 +333,7 @@ public class PlayerManager : MonoBehaviour
         SoundManager.Instance.PlaySE(hurtSE);
 
         Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
-        StartCoroutine(Camera.main.GetComponent<CameraBrain>().CameraShake(0.1f, damage / playerData.maxHp * cameraShakeIntensity));
+        StartCoroutine(mainCamera.GetComponent<CameraBrain>().CameraShake(0.1f, damage / playerData.maxHp * cameraShakeIntensity));
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }

@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-using static UnityEditor.Recorder.OutputPath;
 
 
 public enum ChargePhase
@@ -227,7 +226,10 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 throwAnimPlay = true;
-                jumpEffect.SetActive(true);
+
+                //jumpEffect.SetActive(true);
+                jumpEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                jumpEffect.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             }
 
 
@@ -310,8 +312,11 @@ public class PlayerAttack : MonoBehaviour
         //afterShock = false;
        
         throwAnimPlay = false;
-        jumpEffect.SetActive(false);
-       
+
+        //jumpEffect.SetActive(false);
+        jumpEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+        jumpEffect.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
+
         //AfterShockReset();
         Invoke("AfterShockReset", 0.1f);
 

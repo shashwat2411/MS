@@ -1,4 +1,4 @@
-using UniSense;
+﻿using UniSense;
 using UnityEngine;
 
 namespace DualSenseSample.Inputs
@@ -8,12 +8,9 @@ namespace DualSenseSample.Inputs
     /// </summary>
     public class DualSenseTrigger : AbstractDualSenseBehaviour
     {
-        [SerializeField][Range(0, 1)]
+        [SerializeField]
+        [Range(0, 1)]
         float StartPosition = 0;
-
-
-        
-
         #region Properties for Left Trigger
         public int LeftTriggerEffectType
         {
@@ -195,20 +192,23 @@ namespace DualSenseSample.Inputs
                 Continuous = new DualSenseContinuousResistanceProperties()
             };
 
-            
+
         }
 
         private void Update()
         {
-            var state = new DualSenseGamepadState
+            if (DualSense != null)
             {
-                LeftTrigger = leftTriggerState,
-                RightTrigger = rightTriggerState
-            };
-            DualSense?.SetGamepadState(state);
+                var state = new DualSenseGamepadState
+                {
+                    LeftTrigger = leftTriggerState,
+                    RightTrigger = rightTriggerState
+                };
+                DualSense?.SetGamepadState(state);
 
-            LeftContinuousForce = (byte)(DualSense.leftTrigger.value * 255);
-            RightContinuousForce= (byte)(DualSense.rightTrigger.value * 255);
+                LeftContinuousForce = (byte)(DualSense.leftTrigger.value * 255);
+                RightContinuousForce = (byte)(DualSense.rightTrigger.value * 255);
+            }
         }
 
         private DualSenseTriggerEffectType SetTriggerEffectType(int index)

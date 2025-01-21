@@ -97,6 +97,8 @@ public class CameraBrain : MonoBehaviour
 
     public IEnumerator CameraShake(float duration, float magnitude)
     {
+        GetComponent<Animator>().enabled = false;
+
         Vector3 originalPosition = transform.localPosition;
 
         float elapsed = 0f;
@@ -117,6 +119,8 @@ public class CameraBrain : MonoBehaviour
         }
 
         transform.localPosition = originalPosition;
+
+        GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
     {

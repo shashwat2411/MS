@@ -10,7 +10,7 @@ public class TalkCharacterInfo : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     public TextCore GetNowText(int i) { return talkText[i]; }
@@ -21,7 +21,7 @@ public class TalkCharacterInfo : MonoBehaviour
 //　　カスタムインスペクター用
 //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-[CustomEditor(typeof(TalkCharacterInfo))]
+//[CustomEditor(typeof(TalkCharacterInfo))]
 public class TalkCharacterInfoEditor : Editor
 {
     private ReorderableList reorderableList; // ReorderableListを管理
