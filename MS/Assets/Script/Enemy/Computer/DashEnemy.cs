@@ -100,11 +100,11 @@ public class DashEnemy : EnemyBase
     {
         //base.OnCollision(null);
 
-        //if(collided.gameObject == player)
+        //if(collided.gameObject == mainCharacter)
         //{
         //    if (state == DASHENEMY_STATE.ATTACK)
         //    {
-        //        player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+        //        mainCharacter.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
         //    }
         //}
     }

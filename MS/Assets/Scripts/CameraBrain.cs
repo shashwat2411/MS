@@ -113,6 +113,8 @@ public class CameraBrain : MonoBehaviour
                 transform.localPosition = new Vector3(x, y, originalPosition.z);
 
                 elapsed += Time.unscaledDeltaTime;
+
+                if (zoomIn == true) { elapsed = duration; }
             }
 
             yield return null;

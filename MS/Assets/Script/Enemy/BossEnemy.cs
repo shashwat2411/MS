@@ -12,6 +12,7 @@ public class BossEnemy : EnemyBase
         SCREAM,
         SLAP,
         SMASH,
+        SMASHFAR,
         SUMMONLIGHTNING,
 
         MAX
@@ -24,13 +25,16 @@ public class BossEnemy : EnemyBase
     public float slapAttackPower;
     public float smashAttackPower;
     public float lightningAttackPower;
-    [HideInInspector]public bool disableColliders;
+    public bool disableColliders;
+    public float speed = 1f;
+    public float maxSpeed = 1.5f;
 
     [Header("State Time")]
     public float screamTime;
     public float slapTime;
     public float smashTime;
     public float lightningTime;
+    public float phaseChangeThreshold = 0.25f;
     public BOSSENEMY_STATE currentState;
     public BOSSENEMY_STATE previousState;
     public BOSSENEMY_STATE nextState;
@@ -48,12 +52,15 @@ public class BossEnemy : EnemyBase
     public EnemyMaterial teeth;
     public EnemyMaterial hands;
     public EnemyMaterial tongue;
+    public Animator visualAimer;
 
     //Hash Map
     protected static int _Scream = Animator.StringToHash("_Scream");
     protected static int _Slap = Animator.StringToHash("_Slap");
     protected static int _Smash = Animator.StringToHash("_Smash");
+    protected static int _SmashFar = Animator.StringToHash("_SmashFar");
     protected static int _SummonLightning = Animator.StringToHash("_SummonLightning");
+    protected static int _Speed = Animator.StringToHash("_Speed");
 
     protected override void Start()
     {
@@ -79,12 +86,18 @@ public class BossEnemy : EnemyBase
     }
 
     protected override void FixedUpdate()
-    {
+    { 
+        float percentage = 1f - (bossHealthBar.health / bossHealthBar.maxHealth);
+        speed = Mathf.Lerp(1f, maxSpeed, percentage);
+
+        animator.SetFloat(_Speed, speed);
+        visualAimer.SetFloat(_Speed, speed);
+
         if (dead == false)
         {
             if (countDownStart == true && currentPhaseOver == false)
             {
-                if (countDown < nextPhaseTime) { countDown += Time.deltaTime; }
+                if (countDown < nextPhaseTime) { countDown += Time.deltaTime * speed; }
                 else if (IsCurrentAnimationOver())
                 {
                     countDown = 0f;
@@ -116,6 +129,10 @@ public class BossEnemy : EnemyBase
                     Smash();
                     break;
 
+                case BOSSENEMY_STATE.SMASHFAR:
+                    SmashFar();
+                    break;
+
                 case BOSSENEMY_STATE.SUMMONLIGHTNING:
                     SummonLightning();
                     break;
@@ -127,11 +144,15 @@ public class BossEnemy : EnemyBase
     {
         dead = true;
 
+        
         animator.StopPlayback();
+
+        speed = 1f;
 
         animator.SetBool(_Scream, true);
         animator.SetBool(_Slap, false);
         animator.SetBool(_Smash, false);
+        animator.SetBool(_SmashFar, false);
         animator.SetBool(_SummonLightning, false);
         animator.Play("Scream");
 
@@ -141,7 +162,7 @@ public class BossEnemy : EnemyBase
         StartCoroutine(hands.DissolveOut(2f));
         StartCoroutine(tongue.DissolveOut(2f));
 
-        Destroy(gameObject, 2.2f);
+        //Destroy(gameObject, 2.2f);
     }
 
     public IEnumerator DeathCall(float delay)
@@ -160,10 +181,12 @@ public class BossEnemy : EnemyBase
         currentPhaseOver = false;
         CalculateNextAttack();
         countDownStart = true;
+        disableColliders = false;
 
         animator.SetBool(_Scream, false);
         animator.SetBool(_Slap, false);
         animator.SetBool(_Smash, false);
+        animator.SetBool(_SmashFar, false);
         animator.SetBool(_SummonLightning, false);
     }
     private bool IsCurrentAnimationOver()
@@ -188,6 +211,7 @@ public class BossEnemy : EnemyBase
         if (nextState == BOSSENEMY_STATE.SCREAM) { nextPhaseTime = screamTime; }
         else if (nextState == BOSSENEMY_STATE.SLAP) { nextPhaseTime = slapTime; }
         else if (nextState == BOSSENEMY_STATE.SMASH) { nextPhaseTime = smashTime; }
+        else if (nextState == BOSSENEMY_STATE.SMASHFAR) { nextPhaseTime = smashTime; }
         else if (nextState == BOSSENEMY_STATE.SUMMONLIGHTNING) { nextPhaseTime = lightningTime; }
         else { nextPhaseTime = 0f; }
     }
@@ -197,6 +221,7 @@ public class BossEnemy : EnemyBase
     void Scream() { animator.SetBool(_Scream, true); }
     void Slap() { animator.SetBool(_Slap, true); }
     void Smash() { animator.SetBool(_Smash, true); }
+    void SmashFar() { animator.SetBool(_SmashFar, true); }
     void SummonLightning() { animator.SetBool(_SummonLightning, true); }
     //____________________________________________________________________________________________________________________________
 
@@ -208,7 +233,7 @@ public class BossEnemy : EnemyBase
         currentState = value;
 
         currentPhaseOver = false;
-        CalculateNextAttack();
+        //CalculateNextAttack();
         countDownStart = true;
     }
     //____________________________________________________________________________________________________________________________
@@ -223,10 +248,12 @@ public class BossEnemy : EnemyBase
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Slap"))
                 {
                     player.playerHP.Damage(slapAttackPower);
+                    disableColliders = true;
                 }
-                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"))
+                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash") || animator.GetCurrentAnimatorStateInfo(0).IsName("SmashFar"))
                 {
                     player.playerHP.Damage(smashAttackPower);
+                    disableColliders = true;
                 }
             }
         }

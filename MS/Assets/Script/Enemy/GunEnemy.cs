@@ -90,7 +90,7 @@ public class GunEnemy : EnemyBase
     {
         base.Move();
 
-        //direction = player.transform.position - gameObject.transform.position;
+        //direction = mainCharacter.transform.position - gameObject.transform.position;
         //rigidbody.velocity = direction.normalized * speed * Time.deltaTime;
         //ÉvÉåÅ[ÉÑÅ[Ç…å¸ÇØÇƒà⁄ìÆ
         direction = player.transform.position - gameObject.transform.position;
@@ -116,7 +116,7 @@ public class GunEnemy : EnemyBase
         {
             ThrowableEnemyObject bullet = Instantiate(enemyBullet, spawnPoint.position, spawnPoint.rotation).GetComponent<ThrowableEnemyObject>();
 
-            //bullet.SetTarget(player.transform.position);
+            //bullet.SetTarget(mainCharacter.transform.position);
             //bullet.SetOwner(gameObject);
             //bullet.SetMaxLifetime(itemLifetime);
 

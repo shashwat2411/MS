@@ -26,8 +26,8 @@ public class PlayerModelEventManager : MonoBehaviour
 
     public void PlayerReset()
     {
-        teleporter.player.SetBool("dissolveOut", false);
-        teleporter.player.SetBool("dissolveIn", false);
+        teleporter.mainCharacter.SetBool("dissolveOut", false);
+        teleporter.mainCharacter.SetBool("dissolveIn", false);
     }
 
     public void StartScreenShatter()
