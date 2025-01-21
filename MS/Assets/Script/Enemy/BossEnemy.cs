@@ -24,6 +24,7 @@ public class BossEnemy : EnemyBase
     public float slapAttackPower;
     public float smashAttackPower;
     public float lightningAttackPower;
+    [HideInInspector]public bool disableColliders;
 
     [Header("State Time")]
     public float screamTime;
@@ -58,6 +59,7 @@ public class BossEnemy : EnemyBase
     {
         healthBar = bossHealthBar;
 
+        disableColliders = false;
         countDownStart = false;
         currentPhaseOver = false;
 
@@ -216,13 +218,16 @@ public class BossEnemy : EnemyBase
         PlayerManager player = collision.gameObject.GetComponent<PlayerManager>();
         if(player)
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Slap"))
+            if (disableColliders == false)
             {
-                player.playerHP.Damage(slapAttackPower);
-            }
-            else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"))
-            {
-                player.playerHP.Damage(smashAttackPower);
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Slap"))
+                {
+                    player.playerHP.Damage(slapAttackPower);
+                }
+                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"))
+                {
+                    player.playerHP.Damage(smashAttackPower);
+                }
             }
         }
     }

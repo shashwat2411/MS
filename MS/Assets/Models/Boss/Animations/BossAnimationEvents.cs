@@ -9,6 +9,10 @@ public class BossAnimationEvents : MonoBehaviour
 
     public float cameraShakeIntensity;
     private CameraBrain mainCamera;
+
+    public BoxCollider handCollider1;
+    public BoxCollider handCollider2;
+
     private void Awake()
     {
         mainCamera = Camera.main.GetComponent<CameraBrain>();
@@ -16,6 +20,7 @@ public class BossAnimationEvents : MonoBehaviour
     public void ReturnToIdle()
     {
         owner.ReturnToIdle();
+        ResetColliders();
     }
     public void StartAimerAnimation()
     {
@@ -25,5 +30,15 @@ public class BossAnimationEvents : MonoBehaviour
     public void CameraShake()
     {
         StartCoroutine(mainCamera.CameraShake(0.15f, cameraShakeIntensity));
+    }
+
+    public void DisableColliders()
+    {
+        owner.disableColliders = true;
+    }
+
+    public void ResetColliders()
+    {
+        owner.disableColliders = false;
     }
 }

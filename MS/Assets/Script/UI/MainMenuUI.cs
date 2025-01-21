@@ -16,12 +16,6 @@ public class MainMenuUI : MonoBehaviour
     float counter = 0;
     bool switcher = false;
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-        }
-    }
     private void FixedUpdate()
     {
         if (switcher == false)
