@@ -22,7 +22,7 @@ public class ScreenShatter : MonoBehaviour
 
     private void Awake()
     {
-        System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
+        //System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
 
         StartCoroutine(DelayCall());
     }

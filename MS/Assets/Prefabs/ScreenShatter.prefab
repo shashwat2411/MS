@@ -295,6 +295,7 @@ MonoBehaviour:
   - {fileID: 7472616373020741020}
   - {fileID: 6232014072891667042}
   - {fileID: 558338043718795726}
+  loadLevel: 
 --- !u!1 &9189360467270132814
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +306,6 @@ GameObject:
   m_Component:
   - component: {fileID: 175834413566194894}
   - component: {fileID: 7634263205909415316}
-  - component: {fileID: 676735289636219471}
   - component: {fileID: 7672458458868631791}
   m_Layer: 0
   m_Name: ShatteredScreenCamera
@@ -380,14 +380,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &676735289636219471
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9189360467270132814}
-  m_Enabled: 1
 --- !u!114 &7672458458868631791
 MonoBehaviour:
   m_ObjectHideFlags: 0
