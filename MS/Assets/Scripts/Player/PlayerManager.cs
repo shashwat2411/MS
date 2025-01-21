@@ -118,7 +118,7 @@ public class PlayerManager : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();
         mainCamera = Camera.main.transform;
 
-        playerData = CharacterSettings.Instance.playerData.GetCopy();
+        playerData = PlayerSave.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
 
 
@@ -145,6 +145,17 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+
+    private void OnDestroy()
+    {
+        PlayerSave.Instance.playerData = playerData;
+     
+        PlayerSave.Instance.playerAblities = 
+            playerPrefabs[PlayerPrafabType.playerPermanentAblity]
+            .GetComponent<PlayerPermanentAblityCollector>()
+            .all;
+
+    }
 
     #region 入力 Stuff
     public void GetMoveInput(InputAction.CallbackContext ctx)
