@@ -14,26 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData:
     lv: 0
-    hp: 0
-    maxHp: 0
-    mp: 0
-    maxMp: 0
+    hp: 100
+    maxHp: 100
+    mp: 90
+    maxMp: 100
     exp: 0
-    nextExp: 0
-    attack: 0
-    defence: 0
-    healthRespons: 0
+    nextExp: 100
+    attack: 100
+    defence: 10
+    healthRespons: 2
     charge: 0
-    maxChargeTime: 0
-    maxAimSize: 0
-    maxAttackSize: 0
-    chargeSpeed: 0
-    atkMoveSpeed: 0
-    dashTime: 0
-    dashCooldown: 0
-    dashInvincibilityTime: 0
-    hurtInvincibilityTime: 0
-  playerPrefabs:
-    bullet: {fileID: 0}
-    attackArea: {fileID: 0}
-    mpAttackArea: {fileID: 0}
+    maxChargeTime: 8
+    maxAimSize: 0.5
+    maxAttackSize: 1.6
+    chargeSpeed: 1
+    atkMoveSpeed: 4
+    dashTime: 0.15
+    dashCooldown: 1
+    dashInvincibilityTime: 0.05
+    hurtInvincibilityTime: 0.1
+  playerAblities: []
