@@ -82,6 +82,7 @@ public class ThrowableEnemyObject : MonoBehaviour
         motionTime = 0f;
         lifetime = 0f;
         startPosition = transform.position;
+        direction = -direction;
     }
 
     public void SetMaxLifetime(float value) { maxLifetime = value; }

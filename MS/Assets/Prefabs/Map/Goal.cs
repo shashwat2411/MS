@@ -25,9 +25,7 @@ public class Goal : MonoBehaviour
         }
         else
         {
-            once = true;
-            vortex.Play();
-            box.gameObject.SetActive(true);
+            EnableGoal();
         }
     }
     private void FixedUpdate()
@@ -37,9 +35,15 @@ public class Goal : MonoBehaviour
             if (enemyManager.GetCount() <= 0 && once == false)
             {
                 once = true;
-                vortex.Play();
-                box.gameObject.SetActive(true);
+                EnableGoal();
             }
         }
+    }
+
+    public void EnableGoal()
+    {
+        once = true;
+        vortex.Play();
+        box.gameObject.SetActive(true);
     }
 }

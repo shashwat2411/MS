@@ -44,9 +44,10 @@ public class SkyDomeMovement : MonoBehaviour
 
         GameObject map = GameObject.Find("BossMap(Clone)");
         if (map != null) { mapMaterial = map.transform.GetChild(0).GetComponent<MeshRenderer>().material; }
+        else { mapMaterial = null; }
 
         originalColor = material[0].GetColor(_Color);
-        originalMapColor = mapMaterial.GetColor(_EmissionColor);
+        if (mapMaterial != null) { originalMapColor = mapMaterial.GetColor(_EmissionColor); }
     }
     private void FixedUpdate()
     {
