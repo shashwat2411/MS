@@ -101,6 +101,24 @@ public class ShieldAbility : PlayerAbility
             shield.SetColor(_fresnelColor, hitFesnelColor);
         }
     }
+    private void OnTriggerEnter(Collider collision)
+    {
+        ThrowableEnemyObject thrownObject = collision.gameObject.GetComponent<ThrowableEnemyObject>();
+
+        if (thrownObject != null)
+        {
+            thrownObject.SetTarget(thrownObject.GetOwner().transform.position);
+            thrownObject.SetPlayer(thrownObject.GetOwner());
+            thrownObject.SetOwner(player.gameObject);
+            thrownObject.ResetMotion();
+
+
+            shield.SetFloat(_alpha, hitAlpha);
+            shield.SetColor(_frontColor, hitFrontColor);
+            shield.SetColor(_backColor, hitBackColor);
+            shield.SetColor(_fresnelColor, hitFesnelColor);
+        }
+    }
 
     private void CalculateOrder()
     {
