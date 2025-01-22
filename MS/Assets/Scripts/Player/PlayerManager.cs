@@ -81,6 +81,7 @@ public class PlayerManager : MonoBehaviour
     public ParticleSystem playerHpRecoveryEffect;
     public HPBarManager playerHP;
     public PlayerExp playerExp;
+    public PostProcessController postProcess;
 
     [Header("Player SE")]
     public string hurtSE;
@@ -345,6 +346,7 @@ public class PlayerManager : MonoBehaviour
 
         Instantiate(playerDamageEffect.gameObject, transform.position + new Vector3(0f, 0.28f, 0f), transform.rotation);
         StartCoroutine(mainCamera.GetComponent<CameraBrain>().CameraShake(0.1f, damage / playerData.maxHp * cameraShakeIntensity));
+        StartCoroutine(postProcess.ChromaticAberrationFadeOut(damage / playerData.maxHp * cameraShakeIntensity / 2f));
         //StartCoroutine(Camera.main.gameObject.GetComponent<GameEffects>().HitStop(0.3f));
 
     }

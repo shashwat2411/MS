@@ -93,7 +93,7 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
         Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
 
-        // float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
+        // float scale = (this.damage / mainCharacter.playerData.attack) / mainCharacter.playerData.maxChargeTime;
         
         float scale = this.damage / 100.0f; // Default damage(0,100)
         float finalScale = player.playerData.maxAttackSize * scale;

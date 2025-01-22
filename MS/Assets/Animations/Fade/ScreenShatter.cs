@@ -13,19 +13,36 @@ public class ScreenShatter : MonoBehaviour
     public Camera shatterCamera;
     public GameObject plane;
 
-    public Animator[] shards;
+    public ShardAnimation[] shards;
 
     private bool reset;
     private bool fadeIn;
 
     public string loadLevel;
 
+    public AnimationCurve shardShatterAnimationCurve;
+    public AnimationCurve shardShatterReverseAnimationCurve;
+    public float animationDuration;
+    public float finalPositionZ;
+
     private void Awake()
     {
         //System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
-
+        ShuffleArray(shards);
         StartCoroutine(DelayCall());
     }
+
+    private void ShuffleArray<T>(T[] array)
+    {
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1); // Pick a random index
+            T temp = array[i]; // Swap the elements
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+    }
+
     private IEnumerator DelayCall()
     {
         mainCamera.farClipPlane = 0f;
@@ -48,7 +65,13 @@ public class ScreenShatter : MonoBehaviour
 
         if(fadeIn == true)
         {
-            if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatterReverse") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            //if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatterReverse") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            //{
+            //    fadeIn = false;
+            //    ResetScreen();
+            //    plane.SetActive(false);
+            //}
+            if (shards[shards.Length - 1].reverseAnimation == true)
             {
                 fadeIn = false;
                 ResetScreen();
@@ -57,7 +80,11 @@ public class ScreenShatter : MonoBehaviour
         }
         else
         {
-            if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatter") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            //if (shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).IsName("shatter") && shards[shards.Length - 1].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            //{
+            //    SceneManager.LoadScene(loadLevel);
+            //}
+            if (shards[shards.Length - 1].animation == true)
             {
                 SceneManager.LoadScene(loadLevel);
             }
@@ -98,9 +125,8 @@ public class ScreenShatter : MonoBehaviour
             }
             else
             {
-                //shards[i].SetBool("in", false);
-                //shards[i].SetBool("out", true);
-                shards[i].Play("shatter", -1, 0f);
+                //shards[i].Play("shatter", -1, 0f);
+                StartCoroutine(shards[i].Shatter(animationDuration));
                 yield return new WaitForSeconds(transitionSpeed);
             }
         }
@@ -130,7 +156,8 @@ public class ScreenShatter : MonoBehaviour
             }
             else
             {
-                shards[i].Play("shatterReverse", -1, 0f);
+                //shards[i].Play("shatterReverse", -1, 0f);
+                StartCoroutine(shards[i].ShatterReverse(animationDuration));
                 yield return new WaitForSeconds(transitionSpeed);
             }
         }

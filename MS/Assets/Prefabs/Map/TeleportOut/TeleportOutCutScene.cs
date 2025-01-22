@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 
 public class TeleportOutCutScene : MonoBehaviour
 {
-    public PlayerInput input;
+    public PlayerInput playerInput;
 
     public Animator canvas;
-    public Animator camera;
-    public Animator player;
+    public Animator mainCamera;
+    public Animator mainCharacter;
 
     private bool playCutScene = false;
 
@@ -21,7 +21,7 @@ public class TeleportOutCutScene : MonoBehaviour
     {
         if(playCutScene == false)
         {
-            player.StopPlayback();
+            mainCharacter.StopPlayback();
         }
     }
 
@@ -35,10 +35,10 @@ public class TeleportOutCutScene : MonoBehaviour
 
     public void TriggerPlayerDissolveOut()
     {
-        player.SetBool("dissolveOut", true);
-        player.SetBool("dissolveIn", false);
+        mainCharacter.SetBool("dissolveOut", true);
+        mainCharacter.SetBool("dissolveIn", false);
 
-        //PlayerModelEventManager model = player.gameObject.GetComponent<PlayerModelEventManager>();
+        //PlayerModelEventManager model = mainCharacter.gameObject.GetComponent<PlayerModelEventManager>();
 
         //StartCoroutine(model.limbs.DissolveOut(0.75f));
         //StartCoroutine(model.head.DissolveOut(0.75f));
@@ -48,8 +48,8 @@ public class TeleportOutCutScene : MonoBehaviour
     }
     public void TriggerPlayerDissolveIn()
     {
-        player.SetBool("dissolveOut", false);
-        player.SetBool("dissolveIn", true);
+        mainCharacter.SetBool("dissolveOut", false);
+        mainCharacter.SetBool("dissolveIn", true);
     }
 
     private void StartCutScene()
@@ -61,21 +61,21 @@ public class TeleportOutCutScene : MonoBehaviour
         canvas.SetBool("in", true);
         canvas.SetBool("out", false);
 
-        camera.SetBool("zoomIn", true);
-        camera.SetBool("zoomOut", false);
-        camera.gameObject.GetComponent<CameraBrain>().ZoomInTrigger();
+        mainCamera.SetBool("zoomIn", true);
+        mainCamera.SetBool("zoomOut", false);
+        mainCamera.gameObject.GetComponent<CameraBrain>().ZoomInTrigger();
 
-        input.enabled = false;
+        playerInput.enabled = false;
     }
 
     private void EndCutScene()
     {
-        input.enabled = true;
+        playerInput.enabled = true;
 
         canvas.SetBool("in", false);
         canvas.SetBool("out", true);
 
-        camera.SetBool("zoomIn", false);
-        camera.SetBool("zoomOut", true);
+        mainCamera.SetBool("zoomIn", false);
+        mainCamera.SetBool("zoomOut", true);
     }
 }

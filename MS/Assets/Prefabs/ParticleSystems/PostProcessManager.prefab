@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8296070286490848718}
   - component: {fileID: 4353230360117278806}
+  - component: {fileID: 1207719710900945283}
   m_Layer: 9
   m_Name: PostProcessManager
   m_TagString: Untagged
@@ -49,3 +50,127 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 8fb37b73fff98044a96763ebddf84505, type: 2}
+--- !u!114 &1207719710900945283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257603723698596160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7145ddc3c482c4c8c635bf00c4d721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgm: {fileID: 0}
+  pitch: 0.9
+  sound: 0.5
+  chromaticAberration: 0
+  chromaticAberrationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.05431319
+      outSlope: -0.05431319
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06941432
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.9756334
+      outSlope: -2.9756334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.035791814
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hueShift: 0
+  hueShiftCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.05431319
+      outSlope: -0.05431319
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06941432
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.9756334
+      outSlope: -2.9756334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.035791814
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  saturation: 0
+  saturationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.05431319
+      outSlope: -0.05431319
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06941432
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.9756334
+      outSlope: -2.9756334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.035791814
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  filmGrain: 0
+  filmGrainCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  redInRed: 100
+  redInGreen: 0
+  redInBlue: 0
+  greenInRed: 0
+  greenInGreen: 100
+  greenInBlue: 0
+  blueInRed: 0
+  blueInGreen: 0
+  blueInBlue: 100

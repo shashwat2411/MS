@@ -78,9 +78,9 @@ public class EnemyBomb : ThrowableEnemyObject
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (other.gameObject == player && owner != player)
+        //if (other.gameObject == mainCharacter && owner != mainCharacter)
         //{
-        //    PlayerManager manager = player.GetComponent<PlayerManager>();
+        //    PlayerManager manager = mainCharacter.GetComponent<PlayerManager>();
         //    //プレーヤーへのダメージ
         //    manager.playerHP.Damage(owner.GetComponent<EnemyBase>().attackPower);
         //    //other.GetComponent<MeshRenderer>().material.color = Color.green;

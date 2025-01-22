@@ -32,7 +32,7 @@ public class LockOnGrowth : MonoBehaviour
     {
         float currentRadius = Mathf.Lerp(initialRadius, 1f, growthValue);
 
-        innerCircle.localScale = new Vector3(currentRadius, currentRadius * 2f, currentRadius);
+        innerCircle.localScale = new Vector3(currentRadius, currentRadius * 1.2f, currentRadius);
 
         Vector3 position = Vector3.Lerp(initialInnerPosition, new Vector3(0f, 0f, 0f), growthValue);
         innerCircle.localPosition = new Vector3(position.x, innerCircle.localPosition.y, position.z);

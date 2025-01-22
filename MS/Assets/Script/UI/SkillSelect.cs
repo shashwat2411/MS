@@ -251,8 +251,8 @@ public class SkillSelect : MonoBehaviour
         {
             player.GetComponent<PlayerManager>().playerPrefabs.GetTopItemBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item);
         }
-        //player.GetComponent<PlayerManager>().playerData.
-        //player.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+        //mainCharacter.GetComponent<PlayerManager>().playerData.
+        //mainCharacter.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
 
         switch (SelectNo)
