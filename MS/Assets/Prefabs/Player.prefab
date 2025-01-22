@@ -1333,7 +1333,7 @@ MonoBehaviour:
   playerHP: {fileID: 0}
   playerExp: {fileID: 0}
   postProcess: {fileID: 0}
-  hurtSE: PlayerDamage
+  hurtSE: PlayerHurt
   dashSE: PlayerDash
 --- !u!114 &6535310836067697525
 MonoBehaviour:
@@ -3029,6 +3029,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933831159444811676, guid: 043a710452388da4b955475ce762ac86,
+        type: 3}
+      propertyPath: ChargeBar.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933831159444811676, guid: 043a710452388da4b955475ce762ac86,
+        type: 3}
+      propertyPath: ChargeBar.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5643751274804047598, guid: 043a710452388da4b955475ce762ac86,
         type: 3}

@@ -76,7 +76,24 @@ public class Lighting : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(totalDamage);
+            Debug.Log(enemy.name + totalDamage);
+            
         }
+        else // Boss
+        {
+            
+            enemy = other.gameObject.GetComponentInParent<EnemyBase>();
+            if (enemy)
+            {
+                enemy.Damage(totalDamage);
+                Debug.Log(enemy.name + "  " + totalDamage);
+                
+            }
+        }
+
+
+       
+
     }
 
     public void SetOrder(int value) { order = value; }

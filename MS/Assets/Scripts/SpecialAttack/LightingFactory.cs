@@ -24,7 +24,7 @@ public class LightingFactory : SpecialAttackFactory
             Lighting obj = ObjectPool.Instance.Get(spAtk, pos, rot).GetComponent<Lighting>();
 
             obj.SetOrder(j);
-            obj.Initiate(1.0f, damage * levelData[level].damageFactor, level, levelData.Count, usedMenko);
+            obj.Initiate(1.0f, damage * levelData[level].damageFactor/2.5f, level, levelData.Count, usedMenko);
 
             Debug.Log("sp level:  " + level + " sp damage factor " + levelData[level].damageFactor);
         }
