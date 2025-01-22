@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5802965801549360501}
-  - component: {fileID: 5973697692028850710}
   - component: {fileID: 2987545429665905394}
   - component: {fileID: -2446327678643568709}
+  - component: {fileID: 8183908837470860750}
   m_Layer: 6
   m_Name: GroundFire
   m_TagString: Untagged
@@ -35,27 +35,6 @@ Transform:
   - {fileID: 8892605693330430911}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5973697692028850710
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3207222013639785080}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2987545429665905394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +69,29 @@ MonoBehaviour:
   groundMark_02: {fileID: 2078562978266682994}
   groundMark_03: {fileID: 8566611051761801596}
   groundFireSE: EarthHit
+--- !u!136 &8183908837470860750
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207222013639785080}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.6481699
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3240842, z: 0}
 --- !u!1001 &8439222785070102699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,10 +165,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1442821675799539943, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997974213045084304, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431855802626464447, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818000342819223144, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152532768368240808, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3846233061778718494, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
         type: 3}
       propertyPath: m_Name
       value: BurnAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846233061778718494, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021690174862878120, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346223783602573924, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780790399383753939, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7010667195809642154, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279723228766584519, guid: 7b76ea8e49bd9d940ac4e3e8584e211a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

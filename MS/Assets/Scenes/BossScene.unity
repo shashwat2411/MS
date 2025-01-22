@@ -5539,6 +5539,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1345774470926056260, guid: ac8bae6fb9c2b054d812b0a05c2f15f8,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 7990
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345774470926056260, guid: ac8bae6fb9c2b054d812b0a05c2f15f8,
+        type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 129
+      objectReference: {fileID: 0}
     - target: {fileID: 5526335616180512432, guid: ac8bae6fb9c2b054d812b0a05c2f15f8,
         type: 3}
       propertyPath: postProcess
@@ -7183,6 +7193,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b4206adfd649547a346e42c4e6463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1440036643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6009364253595109357, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_Name
+      value: ResetPlayerAblityPrefabs
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6426371
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.2284737
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.370961
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634346937663710881, guid: 46f0f40fade16d74082202f818bba5a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46f0f40fade16d74082202f818bba5a6, type: 3}
 --- !u!1001 &1441560389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9896,6 +9974,11 @@ PrefabInstance:
       objectReference: {fileID: 774381843}
     - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
+      propertyPath: hurtSE
+      value: PlayerHurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
+        type: 3}
       propertyPath: playerHP
       value: 
       objectReference: {fileID: 3014776037018072397}
@@ -10034,3 +10117,4 @@ SceneRoots:
   - {fileID: 1606735832}
   - {fileID: 942426961}
   - {fileID: 331576809}
+  - {fileID: 1440036643}
