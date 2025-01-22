@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class PostProcessController : MonoBehaviour
 {
+    public AudioSource bgm;
+    public float pitch;
+    public float sound;
+    private float originalVolume;
+
     private Volume volume;
 
     private ChromaticAberration chr;
@@ -50,6 +56,8 @@ public class PostProcessController : MonoBehaviour
         volume.profile.TryGet(out color);
         volume.profile.TryGet(out film);
         volume.profile.TryGet(out mixer);
+
+        originalVolume = 0.5f;
     }
     void FixedUpdate()
     {
@@ -138,7 +146,19 @@ public class PostProcessController : MonoBehaviour
         blueInGreen = 200f;
         blueInBlue = -200f;
 
+        float elapsed = 0f;
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            bgm.volume = Mathf.Lerp(originalVolume, sound, elapsed / duration);
+            bgm.pitch = Mathf.Lerp(1f, pitch, elapsed / duration);
+        }
+
         yield return new WaitForSecondsRealtime(duration);
+
+        bgm.volume = sound;
+        bgm.pitch = pitch;
 
         yield return ResetChannelMixer(duration);
     }
@@ -156,7 +176,19 @@ public class PostProcessController : MonoBehaviour
         blueInGreen = -200f;
         blueInBlue = 200f;
 
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            bgm.volume = Mathf.Lerp(originalVolume, sound, elapsed / duration);
+            bgm.pitch = Mathf.Lerp(1f, pitch, elapsed / duration);
+        }
+
         yield return new WaitForSecondsRealtime(duration);
+
+        bgm.volume = sound;
+        bgm.pitch = pitch;
 
         yield return ResetChannelMixer(duration);
     }
@@ -183,6 +215,9 @@ public class PostProcessController : MonoBehaviour
             blueInGreen = Mathf.Lerp(redInRed, 0f, percentage);
             blueInBlue = Mathf.Lerp(redInRed, 100f, percentage);
 
+            bgm.volume = Mathf.Lerp(bgm.volume, originalVolume, percentage);
+            bgm.pitch = Mathf.Lerp(bgm.pitch, 1f, percentage);
+
             yield return null;
         }
 
@@ -197,5 +232,8 @@ public class PostProcessController : MonoBehaviour
         blueInRed = 0f;
         blueInGreen = 0f;
         blueInBlue = 100f;
+
+        bgm.volume = originalVolume;
+        bgm.pitch = 1f;
     }
 }

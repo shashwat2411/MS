@@ -32,6 +32,10 @@ public class BossAnimationEvents : MonoBehaviour
         aimer.Play("LightningAimer");
     }
 
+    public void StartScreamSound()
+    {
+        SoundManager.Instance.PlaySE("BossScream");
+    }
     public void NoiseScreen()
     {
         StartCoroutine(mainCamera.CameraShake(1.5f, screamShakeIntensity));
