@@ -12,6 +12,7 @@ public class PostProcessController : MonoBehaviour
     public float pitch;
     public float sound;
     private float originalVolume;
+    private float noiseOriginalVolume;
 
     private Volume volume;
 
@@ -60,6 +61,7 @@ public class PostProcessController : MonoBehaviour
         volume.profile.TryGet(out mixer);
 
         originalVolume = 0.5f;
+        noiseOriginalVolume = noise.volume;
     }
     void FixedUpdate()
     {
@@ -121,14 +123,15 @@ public class PostProcessController : MonoBehaviour
     {
         float elapsed = 0f;
         filmGrain = 1f;
-        noise.volume = 1f;
+
+        noise.Play();
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
 
             filmGrain = filmGrainCurve.Evaluate(elapsed / duration);
-            noise.volume = filmGrain;
+            noise.volume = filmGrainCurve.Evaluate(elapsed / duration) * noiseOriginalVolume;
 
             yield return null;
         }
