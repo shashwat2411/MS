@@ -8377,7 +8377,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -10520,10 +10520,36 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 7294047095009365553, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 2775602501108330903, guid: cd5ef1436cff48d46a15a9c40811c5b7,
+        type: 3}
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: attackPower
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: tickColor.b
+      value: 14.754424
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: tickColor.g
+      value: 14.754424
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: tickColor.r
+      value: 14.754424
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: sinMultiplier
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -57,6 +57,10 @@ public class BossAnimationEvents : MonoBehaviour
     {
         SoundManager.Instance.PlaySE("BossLightning", owner.GetAnimator().GetFloat(_Speed));
     }
+    public void StartDeathSound()
+    {
+        SoundManager.Instance.PlaySE("BossDeath");
+    }
     public void NoiseScreen()
     {
         StartCoroutine(mainCamera.CameraShake(1.5f, screamShakeIntensity));

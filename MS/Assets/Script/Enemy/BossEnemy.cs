@@ -89,7 +89,7 @@ public class BossEnemy : EnemyBase
 
     protected override void FixedUpdate()
     { 
-        float percentage = 1f - (bossHealthBar.health / bossHealthBar.maxHealth);
+        float percentage = 1f - (bossHealthBar.health / (bossHealthBar.maxHealth * 0.7f));
         speed = Mathf.Lerp(1f, maxSpeed, percentage);
 
         animator.SetFloat(_Speed, speed);
@@ -204,7 +204,7 @@ public class BossEnemy : EnemyBase
         int previous = (int)previousState;
         int rand = current;
 
-        bool phaseTwo = bossHealthBar.health / bossHealthBar.maxHealth < phaseChangeThreshold;
+        bool phaseTwo = bossHealthBar.health / bossHealthBar.maxHealth < 0.7f;
 
         if (phaseTwo == true)
         {
