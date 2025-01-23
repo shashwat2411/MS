@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 public class PostProcessController : MonoBehaviour
 {
     public AudioSource bgm;
+    private AudioSource noise;
     public float pitch;
     public float sound;
     private float originalVolume;
@@ -51,6 +52,7 @@ public class PostProcessController : MonoBehaviour
     private void Awake()
     {
         volume = GetComponent<Volume>();
+        noise = GetComponent<AudioSource>();
 
         volume.profile.TryGet(out chr);
         volume.profile.TryGet(out color);
@@ -119,17 +121,20 @@ public class PostProcessController : MonoBehaviour
     {
         float elapsed = 0f;
         filmGrain = 1f;
+        noise.volume = 1f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
 
             filmGrain = filmGrainCurve.Evaluate(elapsed / duration);
+            noise.volume = filmGrain;
 
             yield return null;
         }
 
         filmGrain = 0f;
+        noise.volume = 0f;
     }
 
     public IEnumerator ImpactEnhancer(float delay, float duration)
