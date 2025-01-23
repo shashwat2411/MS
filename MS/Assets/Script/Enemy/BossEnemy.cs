@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static EnemyBase;
 using static UnityEngine.Rendering.DebugUI;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class BossEnemy : EnemyBase
 {
@@ -60,6 +61,7 @@ public class BossEnemy : EnemyBase
     protected static int _Smash = Animator.StringToHash("_Smash");
     protected static int _SmashFar = Animator.StringToHash("_SmashFar");
     protected static int _SummonLightning = Animator.StringToHash("_SummonLightning");
+    protected static int _Death = Animator.StringToHash("_Death");
     protected static int _Speed = Animator.StringToHash("_Speed");
 
     protected override void Start()
@@ -144,8 +146,6 @@ public class BossEnemy : EnemyBase
     {
         dead = true;
 
-        
-        animator.StopPlayback();
 
         speed = 1f;
 
@@ -154,23 +154,25 @@ public class BossEnemy : EnemyBase
         animator.SetBool(_Smash, false);
         animator.SetBool(_SmashFar, false);
         animator.SetBool(_SummonLightning, false);
-        animator.Play("Scream");
+        animator.SetBool(_Death, true);
 
-        StartCoroutine(eyeball.DissolveOut(2f));
-        StartCoroutine(gums.DissolveOut(2f));
-        StartCoroutine(teeth.DissolveOut(2f));
-        StartCoroutine(hands.DissolveOut(2f));
-        StartCoroutine(tongue.DissolveOut(2f));
+        //StartCoroutine(DissolveOut(4f, 2f));
+
 
         //Destroy(gameObject, 2.2f);
     }
 
-    public IEnumerator DeathCall(float delay)
+    private IEnumerator DissolveOut(float delay, float duration)
     {
         yield return new WaitForSeconds(delay);
 
-        Destroy(gameObject);
+        StartCoroutine(eyeball.DissolveOut(duration));
+        StartCoroutine(gums.DissolveOut(duration));
+        StartCoroutine(teeth.DissolveOut(duration));
+        StartCoroutine(hands.DissolveOut(duration));
+        StartCoroutine(tongue.DissolveOut(duration));
     }
+
     //----------------------------------------------------
 
     public void ReturnToIdle()
@@ -201,9 +203,25 @@ public class BossEnemy : EnemyBase
         int current = (int)currentState;
         int previous = (int)previousState;
         int rand = current;
-        while (rand == current || rand == previous)
+
+        bool phaseTwo = bossHealthBar.health / bossHealthBar.maxHealth < phaseChangeThreshold;
+
+        if (phaseTwo == true)
         {
-            rand = Random.Range(1, (int)BOSSENEMY_STATE.MAX);
+            while ((rand == current || rand == previous))
+            {
+                rand = Random.Range(1, (int)BOSSENEMY_STATE.MAX);
+            }
+        }
+        else
+        {
+            int lightningSummon = (int)BOSSENEMY_STATE.SUMMONLIGHTNING;
+
+            while ((rand == current || rand == previous))
+            {
+                rand = Random.Range(1, (int)BOSSENEMY_STATE.MAX);
+                if (rand == lightningSummon) { rand = current; }
+            }
         }
 
         nextState = (BOSSENEMY_STATE)rand;

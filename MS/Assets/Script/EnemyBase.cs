@@ -261,4 +261,6 @@ public class EnemyBase : MonoBehaviour
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
     //____________________________________________________________________________________________________________________________
+
+    public Animator GetAnimator() { return animator; }
 }

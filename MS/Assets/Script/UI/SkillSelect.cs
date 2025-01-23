@@ -151,8 +151,10 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c2);
 
-                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) || CheckBonusIsUsed(type, i))  
+                int max2 = 20;
+                while ((!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) || CheckBonusIsUsed(type, i)) && max2 > 0)
                 {
+                    max2--;
                     i = Random.Range(0, c2);
                 }
 

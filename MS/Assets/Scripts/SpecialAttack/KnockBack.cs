@@ -1,27 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class KnockBack : MonoBehaviour
 {
     static float factor = 1.0f;
 
     [SerializeField] private float damage;
-    [SerializeField] private float lifetime;
-    [SerializeField] private float size;
     [SerializeField] private float knockForce = 3000.0f;
 
-    public AnimationCurve colliderGrowth;
-    private float counter = 0f;
+    private Animator animator;
+    private VisualEffect sparkParticles;
 
     public void Initiate(float lifetime = 0.8f, float damage = 1.0f)
     {
-        Destroy(gameObject, this.lifetime * factor);
-
-        transform.parent.localScale = size * factor * Vector3.one;
-        counter = 0f;
-
-        transform.localScale = Vector3.zero;
+        sparkParticles = GetComponentInChildren<VisualEffect>();
+        animator = GetComponent<Animator>();
     }
 
     public void LevelUp()
@@ -31,11 +26,15 @@ public class KnockBack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (counter < 1f) { counter += Time.deltaTime / (lifetime * factor); }
-        else { counter = 1f; }
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-        float y = colliderGrowth.Evaluate(counter);
-        transform.localScale = y * Vector3.one;
+    private void StartExplosion()
+    {
+        sparkParticles.Play();
     }
 
     private void OnTriggerEnter(Collider other)

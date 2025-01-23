@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
         bgmAudioSource.Play();
     }
 
-    public void PlaySE(string name)
+    public void PlaySE(string name, float pitch = 1f)
     {
         // ラムダ式　第二引数はPredicate
         // Soundクラスの配列の中の名前に，
@@ -92,8 +92,8 @@ public class SoundManager : MonoBehaviour
                 audioSource.clip = s.clip;
                 audioSource.volume = s.volume;
 
-                if (s.changeFrequency == true) { audioSource.pitch = (float)Random.Range(8, 13) / 10f; }
-                else { audioSource.pitch = 1f; }
+                if (s.changeFrequency == true) { audioSource.pitch = (float)Random.Range(8, 13) / 10f * pitch; }
+                else { audioSource.pitch = pitch; }
 
                 audioSource.Play();
                 return;

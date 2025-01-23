@@ -15,6 +15,7 @@ public class BossAnimationEvents : MonoBehaviour
     private CameraBrain mainCamera;
 
     public PostProcessController postProcess;
+    protected static int _Speed = Animator.StringToHash("_Speed");
 
     public float saturationFadeOutTime = 1f;
 
@@ -35,6 +36,26 @@ public class BossAnimationEvents : MonoBehaviour
     public void StartScreamSound()
     {
         SoundManager.Instance.PlaySE("BossScream");
+    }
+    public void StartBeforeSlapSound()
+    {
+        SoundManager.Instance.PlaySE("BossBeforeSlap", owner.GetAnimator().GetFloat(_Speed));
+    }
+    public void StartSlapSound()
+    {
+        SoundManager.Instance.PlaySE("BossSlap", owner.GetAnimator().GetFloat(_Speed));
+    }
+    public void StartBeforeSmashSound()
+    {
+        SoundManager.Instance.PlaySE("BossBeforeSmash", owner.GetAnimator().GetFloat(_Speed));
+    }
+    public void StartSmashSound()
+    {
+        SoundManager.Instance.PlaySE("BossSmash", owner.GetAnimator().GetFloat(_Speed));
+    }
+    public void StartLightningSound()
+    {
+        SoundManager.Instance.PlaySE("BossLightning", owner.GetAnimator().GetFloat(_Speed));
     }
     public void NoiseScreen()
     {
