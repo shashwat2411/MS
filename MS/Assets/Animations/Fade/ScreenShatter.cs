@@ -26,9 +26,14 @@ public class ScreenShatter : MonoBehaviour
     public float animationDuration;
     public float finalPositionZ;
 
+    private PostProcessController postProcess;
+    public float lensScale = 0.95f;
+
+
     private void Awake()
     {
-        //System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
+        postProcess = FindFirstObjectByType<PostProcessController>();
+
         ShuffleArray(shards);
         StartCoroutine(DelayCall());
     }
@@ -46,6 +51,7 @@ public class ScreenShatter : MonoBehaviour
 
     private IEnumerator DelayCall()
     {
+        postProcess.lensDistortionScale = lensScale;
         mainCamera.farClipPlane = 0f;
 
         fadeIn = true;
@@ -76,6 +82,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 fadeIn = false;
                 ResetScreen();
+                postProcess.lensDistortionScale = 1f;
                 plane.SetActive(false);
             }
         }
@@ -164,6 +171,8 @@ public class ScreenShatter : MonoBehaviour
         mainCamera.farClipPlane = 1000f;
         //captureCamera.gameObject.SetActive(false);
         shatterCamera.gameObject.SetActive(true);
+
+
 
         yield return ShatterReverseCoroutine();
     }
