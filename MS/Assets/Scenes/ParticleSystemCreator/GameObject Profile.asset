@@ -25,6 +25,52 @@ MonoBehaviour:
   texture:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: 5012c87109e526243864a09bf074a783, type: 3}
+--- !u!114 &-4393972593443912101
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 1
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 342.6
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 549.6
+  gaussianMaxRadius:
+    m_OverrideState: 1
+    m_Value: 0.5
+  highQualitySampling:
+    m_OverrideState: 1
+    m_Value: 1
+  focusDistance:
+    m_OverrideState: 1
+    m_Value: 9.95
+  aperture:
+    m_OverrideState: 1
+    m_Value: 5
+  focalLength:
+    m_OverrideState: 1
+    m_Value: 99
+  bladeCount:
+    m_OverrideState: 1
+    m_Value: 6
+  bladeCurvature:
+    m_OverrideState: 1
+    m_Value: 0.425
+  bladeRotation:
+    m_OverrideState: 1
+    m_Value: -180
 --- !u!114 &-3597306335401149888
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,7 +86,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.3
 --- !u!114 &-3448370385312193708
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -106,6 +152,36 @@ MonoBehaviour:
   - {fileID: 8009235759487593313}
   - {fileID: -6742008698635257836}
   - {fileID: 3830552007809364351}
+  - {fileID: -4393972593443912101}
+  - {fileID: 1910259211117421567}
+--- !u!114 &1910259211117421567
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.444
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.444
+  rounded:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &3830552007809364351
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -121,16 +197,16 @@ MonoBehaviour:
   active: 1
   redOutRedIn:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 117
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 17
   redOutBlueIn:
     m_OverrideState: 1
     m_Value: 0
   greenOutRedIn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 25
   greenOutGreenIn:
     m_OverrideState: 1
     m_Value: 100
@@ -173,4 +249,4 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 100

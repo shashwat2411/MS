@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -15,6 +17,23 @@ public class MainMenuUI : MonoBehaviour
 
     float counter = 0;
     bool switcher = false;
+
+    public Volume volume;
+    private ChromaticAberration chr;
+    private DepthOfField dof;
+    private Vignette vignette;
+
+    private void Start()
+    {
+        volume.profile.TryGet(out chr);
+        volume.profile.TryGet(out dof);
+        volume.profile.TryGet(out vignette);
+
+        dof.active = true;
+        vignette.active = true;
+
+        chr.intensity.value = 0.3f;
+    }
 
     private void FixedUpdate()
     {
