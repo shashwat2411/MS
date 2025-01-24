@@ -20,6 +20,8 @@ public class PostProcessController : MonoBehaviour
     private ColorAdjustments color;
     private FilmGrain film;
     private ChannelMixer mixer;
+    private DepthOfField dof;
+    private Vignette vignette;
 
 
     [Header("ChromaticAberration")]
@@ -59,9 +61,14 @@ public class PostProcessController : MonoBehaviour
         volume.profile.TryGet(out color);
         volume.profile.TryGet(out film);
         volume.profile.TryGet(out mixer);
+        volume.profile.TryGet(out dof);
+        volume.profile.TryGet(out vignette);
 
         originalVolume = 0.5f;
         noiseOriginalVolume = noise.volume;
+
+        dof.active = false;
+        vignette.active = false;
     }
     void FixedUpdate()
     {

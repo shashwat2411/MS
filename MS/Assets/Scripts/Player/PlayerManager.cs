@@ -372,6 +372,10 @@ public class PlayerManager : MonoBehaviour
         anim.enabled = true;
         Time.timeScale = 0.2f;
 
+        GetComponent<PlayerInput>().enabled = false;
+        animator.speed = 0f;
+        StartCoroutine(mainCamera.GetComponent<GameEffects>().DeathSlowMotion(1f, 0.2f));
+
     }
 
     public void CheckPlayerDataState()

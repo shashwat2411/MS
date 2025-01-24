@@ -87,6 +87,7 @@ public class ScreenShatter : MonoBehaviour
             //}
             if (shards[shards.Length - 1].animation == true)
             {
+                Time.timeScale = 1f;
                 SceneManager.LoadScene(loadLevel);
             }
         }
@@ -148,7 +149,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 //shards[i].Play("shatter", -1, 0f);
                 StartCoroutine(shards[i].Shatter(animationDuration));
-                yield return new WaitForSeconds(transitionSpeed);
+                yield return new WaitForSecondsRealtime(transitionSpeed);
             }
         }
     }
@@ -179,7 +180,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 //shards[i].Play("shatterReverse", -1, 0f);
                 StartCoroutine(shards[i].ShatterReverse(animationDuration));
-                yield return new WaitForSeconds(transitionSpeed);
+                yield return new WaitForSecondsRealtime(transitionSpeed);
             }
         }
     }

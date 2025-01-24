@@ -4,6 +4,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UniSense;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CameraBrain : MonoBehaviour
 {
@@ -20,7 +21,11 @@ public class CameraBrain : MonoBehaviour
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
+    public Vector3 zoomInFactor;
+    public Vector3 direction;
+
     private PlayerManager player;
+    [SerializeField] private TeleportOutCutScene teleportOut;
 
     public AnimationCurve zoomInY;
     public AnimationCurve zoomInZ;
@@ -38,6 +43,8 @@ public class CameraBrain : MonoBehaviour
         player = FindFirstObjectByType<PlayerManager>();
 
         originalOffset = offset;
+        zoomInCounter = 0f;
+        zoomIn = false;
     }
     void FixedUpdate()
     {
@@ -94,24 +101,23 @@ public class CameraBrain : MonoBehaviour
         //}
     }
 
-        //Rumble(test)
-        //if (Input.GetKey(KeyCode.M))
-        //{
-        //    SetGamePadMotorSpeed(MaxValue, true);
-        //}
-        //else
-        //{
-        //    SetGamePadMotorSpeed(0, false);
-        //}
-    }
 
     public void ZoomInTrigger()
     {
-        //zoomIn = true;
+        zoomIn = true;
     }
 
+    public void TriggerPlayerDissolveOut()
+    {
+        teleportOut.TriggerPlayerDissolveOut();
+    }
+    public void TriggerPlayerDissolveIn()
+    {
+        teleportOut.TriggerPlayerDissolveIn();
+    }
     public IEnumerator CameraShake(float duration, float magnitude)
     {
+        GetComponent<Animator>().enabled = false;
         Vector3 originalPosition = transform.localPosition;
 
         float elapsed = 0f;
@@ -126,14 +132,16 @@ public class CameraBrain : MonoBehaviour
                 transform.localPosition = new Vector3(x, y, originalPosition.z);
 
                 elapsed += Time.unscaledDeltaTime;
+                if (zoomIn == true) { elapsed = duration; }
             }
 
             SetGamePadMotorSpeed(magnitude, true);
-          
+
             yield return null;
         }
 
         transform.localPosition = originalPosition;
+        GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
     {
