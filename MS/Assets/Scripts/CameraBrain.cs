@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UniSense;
 
 public class CameraBrain : MonoBehaviour
 {
@@ -19,6 +21,16 @@ public class CameraBrain : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     private PlayerManager player;
+
+
+    [Header("RumbleTest")]
+    [SerializeField]
+    [Range(1, 50)]
+    float DamgeTest;
+
+    
+
+
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
@@ -48,6 +60,16 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+
+        //Rumble(test)
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    SetGamePadMotorSpeed(MaxValue, true);
+        //}
+        //else
+        //{
+        //    SetGamePadMotorSpeed(0, false);
+        //}
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)
@@ -67,6 +89,8 @@ public class CameraBrain : MonoBehaviour
 
                 elapsed += Time.unscaledDeltaTime;
             }
+
+            SetGamePadMotorSpeed(magnitude, true);
 
             yield return null;
         }
@@ -94,5 +118,31 @@ public class CameraBrain : MonoBehaviour
         offset = Vector3.Lerp(offset, originalOffset, 0.5f);
 
         yield return new WaitForSeconds(time);
+    }
+
+
+    void SetGamePadMotorSpeed(float magnitude, bool use)
+    {
+        Vector2 motorspeed;
+
+        motorspeed.y = magnitude * magnitude / (50.0f * 50.0f);
+        motorspeed.x = magnitude / 50.0f;
+
+        //motorspeed.Normalize();
+
+        if (use == true)
+        {
+            Gamepad.current?.SetMotorSpeeds(motorspeed.x, motorspeed.y);
+        }
+        else
+        {
+            Gamepad.current?.SetMotorSpeeds(0.0f, 0.0f);
+        }
+
+
+        if (Gamepad.current != null) 
+        {
+            Debug.Log(motorspeed.x + ":::" + motorspeed.y);
+        }
     }
 }

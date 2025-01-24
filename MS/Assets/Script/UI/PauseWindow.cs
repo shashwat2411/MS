@@ -40,6 +40,8 @@ public class PauseWindow : MonoBehaviour
     [SerializeField]
     GameObject GameManager;
 
+    public bool ConfigOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,9 +60,11 @@ public class PauseWindow : MonoBehaviour
     {
         DrawPlayerStatus();
 
-
-        cur.transform.localPosition = Selection[selectionNo].transform.localPosition;
-        CurText.text = Text[selectionNo];
+        if (ConfigOpen == false)
+        {
+            cur.transform.localPosition = Selection[selectionNo].transform.localPosition;
+            CurText.text = Text[selectionNo];
+        }
 
         if (Rt == true)
         {
@@ -195,7 +199,7 @@ public class PauseWindow : MonoBehaviour
                 break;
             case 1:
                 //config
-
+                ConfigOpen = true;
                 break;
            
         }

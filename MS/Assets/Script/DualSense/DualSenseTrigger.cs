@@ -8,11 +8,47 @@ namespace DualSenseSample.Inputs
     /// </summary>
     public class DualSenseTrigger : AbstractDualSenseBehaviour
     {
-        [SerializeField][Range(0, 1)]
-        float StartPosition = 0;
 
+        PlayerManager player;
+        float lowRange;
+        float middleRange;
+        float highRange;
 
         
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv1StartPosition;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv1ContinuousForce;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv2StartPosition;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv2ContinuousForce;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv3StartPosition;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float Lv3ContinuousForce;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float EffectEndForce;
+
+        [SerializeField]
+        [Range(0, 1)]
+        float EffectFrequency;
+
+
 
         #region Properties for Left Trigger
         public int LeftTriggerEffectType
@@ -174,11 +210,21 @@ namespace DualSenseSample.Inputs
         #endregion
         #endregion
 
-        private DualSenseTriggerState leftTriggerState;
-        private DualSenseTriggerState rightTriggerState;
+        public DualSenseTriggerState leftTriggerState;
+        public DualSenseTriggerState rightTriggerState;
+
+        private void Start()
+        {
+            player = FindFirstObjectByType<PlayerManager>();
+            lowRange = player.playerAttack.lowRange;
+            middleRange = player.playerAttack.middleRange;
+            highRange = player.playerAttack.highRange;
+        }
 
         private void Awake()
         {
+           
+
             leftTriggerState = new DualSenseTriggerState
             {
                 EffectType = DualSenseTriggerEffectType.ContinuousResistance,
@@ -195,7 +241,7 @@ namespace DualSenseSample.Inputs
                 Continuous = new DualSenseContinuousResistanceProperties()
             };
 
-            
+            RightEffectKeepEffect = false;
         }
 
         private void Update()
@@ -207,8 +253,54 @@ namespace DualSenseSample.Inputs
             };
             DualSense?.SetGamepadState(state);
 
-            LeftContinuousForce = (byte)(DualSense.leftTrigger.value * 255);
-            RightContinuousForce= (byte)(DualSense.rightTrigger.value * 255);
+            if (DualSense != null)
+            {
+
+               // Debug.Log(DualSense.rightTrigger.value);
+
+
+                float charge = player.playerData.charge;
+                float maxCharge = player.playerData.maxChargeTime;
+
+                float lowRangeCharge = maxCharge * lowRange / 100.0f;
+                float middleRangeCharge = maxCharge * middleRange / 100.0f;
+                float highRangeCharge = maxCharge * highRange / 100.0f;
+
+                //Level 1
+                if (charge <= maxCharge * lowRange / 100.0f)
+                {
+
+                    rightTriggerState.EffectType = DualSenseTriggerEffectType.ContinuousResistance;
+                    RightContinuousStartPosition = Lv1StartPosition;
+                    rightTriggerState.Continuous.Force = (byte)(Lv1ContinuousForce * 255);
+
+                }
+                //Level 2
+                if (charge > lowRangeCharge && charge <= middleRangeCharge)
+                {
+                    rightTriggerState.EffectType = DualSenseTriggerEffectType.ContinuousResistance;
+                    RightContinuousStartPosition = Lv2StartPosition;
+                    rightTriggerState.Continuous.Force = (byte)(Lv2ContinuousForce * 255);
+                }
+                //Level 3
+                if (charge <= highRangeCharge && charge > middleRangeCharge)
+                {
+                    rightTriggerState.EffectType = DualSenseTriggerEffectType.ContinuousResistance;
+                    RightContinuousStartPosition = Lv3StartPosition;
+                    rightTriggerState.Continuous.Force = (byte)(Lv3ContinuousForce * 255);
+                }
+                //Level Max
+                if (charge > maxCharge * highRange / 100.0f)
+                {
+                    rightTriggerState.EffectType = DualSenseTriggerEffectType.EffectEx;
+                    RightEffectStartPosition = 1.0f;
+                    rightTriggerState.EffectEx.EndForce = (byte)(EffectEndForce * 255);
+                    rightTriggerState.EffectEx.Frequency = (byte)(EffectFrequency * 255);
+                    RightEffectKeepEffect = true;
+                }
+
+
+            }
         }
 
         private DualSenseTriggerEffectType SetTriggerEffectType(int index)
@@ -219,5 +311,7 @@ namespace DualSenseSample.Inputs
 
             return DualSenseTriggerEffectType.NoResistance;
         }
+
+        
     }
 }
