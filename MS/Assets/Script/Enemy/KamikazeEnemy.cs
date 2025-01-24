@@ -1,11 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Device;
-using UnityEngine.XR;
 using static GunEnemy;
 using static ThrowEnemy;
 
@@ -22,7 +16,7 @@ public class KamikazeEnemy : EnemyBase
     public float idleTime;
     public float hurtTime;
 
-    private AudioSource tick;
+    public AudioSource tick;
 
     public float lifetime = 5f;
     private float lifeCounter = 0f;
@@ -32,13 +26,12 @@ public class KamikazeEnemy : EnemyBase
 
     public GameObject explosion;
 
-    [ColorUsage(false, true)] public UnityEngine.Color tickColor;
-    [ColorUsage(false, true)] private UnityEngine.Color originalColor;
+    [ColorUsage(false, true)] public Color tickColor;
+    [ColorUsage(false, true)] private Color originalColor;
 
     [Header("Material")]
     public EnemyMaterial body;
 
-    private int _Color = Shader.PropertyToID("_Color");
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void ScaleUp()
@@ -47,23 +40,22 @@ public class KamikazeEnemy : EnemyBase
 
         body.InstantiateMaterial();
 
+        originalColor = body.GetColor();
+
         float scale = transform.localScale.x;
         body.SetMaxDissolveScale(scale);
 
-        originalColor = body.material.GetColor(_Color);
     }
     protected override void Start()
     {
         base.Start();
 
-        ScaleUp();
-
-        tick = GetComponent<AudioSource>();
-
         lifeCounter = 0f;
         soundCounter = 0f;
 
         state = KAMIKAZEENEMY_STATE.IDLE;
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {
@@ -104,20 +96,20 @@ public class KamikazeEnemy : EnemyBase
         Destroy(gameObject);
     }
 
-    private IEnumerator ChangeColor(float duration)
+    private IEnumerator TickChangeColor(float duration)
     {
-        body.material.SetColor(_Color, tickColor);
+        body.SetColor(tickColor);
 
         float elapsed = 0f;
         while(elapsed < duration)
         {
             elapsed += Time.deltaTime;
 
-            body.material.SetColor(_Color, UnityEngine.Color.Lerp(tickColor, originalColor, elapsed / duration));
+            body.SetColor(Color.Lerp(tickColor, originalColor, elapsed / duration));
             yield return null;
         }
 
-        body.material.SetColor(_Color, originalColor);
+        body.SetColor(originalColor);
     }
     //____________________________________________________________________________________________________________________________
 
@@ -142,14 +134,17 @@ public class KamikazeEnemy : EnemyBase
             Death();
         }
 
-        soundCounter += Time.deltaTime * (lifeCounter + sinMultiplier);
+        soundCounter += Time.deltaTime * ((1f + lifeCounter) * sinMultiplier);
         float sin = Mathf.Sin(soundCounter);
-        if (Mathf.Abs(sin) >= 0.9f && tick.isPlaying == false) 
+        if (Mathf.Abs(sin) >= 0.99f) 
         {
-            soundCounter = 0f;
+            if (tick.isPlaying == false)
+            {
+                soundCounter = 0f;
 
-            tick.Play();
-            StartCoroutine(ChangeColor(tickDuration));
+                tick.Play();
+                StartCoroutine(TickChangeColor(tickDuration));
+            }
         }
     }
     //____________________________________________________________________________________________________________________________

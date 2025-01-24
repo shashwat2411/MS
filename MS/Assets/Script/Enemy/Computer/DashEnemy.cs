@@ -58,11 +58,16 @@ public class DashEnemy : EnemyBase
 
         areaChecker = area;
 
+        stopRotation = false;
+        stopLooking = true;
+
         ScaleUp();
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        RotateTowards(player.transform.position);
 
         if (attacked == true)
         {
@@ -124,7 +129,7 @@ public class DashEnemy : EnemyBase
     //____ステート________________________________________________________________________________________________________________________
     void Idle()
     {
-        stopRotation = false;   //回転再会
+        //stopRotation = false;   //回転再会
         stopMovement = false;
 
         CheckState();
@@ -159,7 +164,7 @@ public class DashEnemy : EnemyBase
     }
     void Charge()
     {
-        RotateTowards(player.transform.position);
+        //RotateTowards(player.transform.position);
         stopMovement = true;
 
         direction = player.transform.position - areaChecker.position;

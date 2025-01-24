@@ -709,14 +709,15 @@ MonoBehaviour:
   state: 0
   idleTime: 1
   hurtTime: 0.5
+  tick: {fileID: 2152564820903752440}
   lifetime: 5
-  sinMultiplier: 6
+  sinMultiplier: 2
   tickDuration: 0.2
   explosion: {fileID: 2775602501108330903, guid: cd5ef1436cff48d46a15a9c40811c5b7,
     type: 3}
   tickColor: {r: 14.754424, g: 14.754424, b: 14.754424, a: 0}
   body:
-    renderer: {fileID: 0}
+    renderer: {fileID: 7784650177729450025}
     color: {r: 0, g: 0, b: 0, a: 0}
     dissolve: 0
     minDissolve: 0
@@ -738,7 +739,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 49ee723d9f2082d429091535a39a143c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 0.5
   Loop: 0
@@ -1169,6 +1170,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1586541497374203181}
   m_SourcePrefab: {fileID: 100100000, guid: edce90c03c778fe4ebad8008930f6ee4, type: 3}
+--- !u!23 &7784650177729450025 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: edce90c03c778fe4ebad8008930f6ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8919721793193528493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8577209289864737276 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: edce90c03c778fe4ebad8008930f6ee4,
