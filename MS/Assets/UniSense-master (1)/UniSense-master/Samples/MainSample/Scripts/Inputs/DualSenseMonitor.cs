@@ -23,6 +23,7 @@ namespace DualSenseSample.Inputs
             var isDualSenseConected = dualSense != null;
             if (isDualSenseConected) NotifyConnection(dualSense);
             else NotifyDisconnection();
+            GetComponent<DualSenseTrigger>().enabled = false;
         }
 
         private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
@@ -59,6 +60,8 @@ namespace DualSenseSample.Inputs
             {
                 listener.OnConnect(dualSense);
             }
+
+            GetComponent<DualSenseTrigger>().enabled = true;
         }
 
         private void NotifyDisconnection()

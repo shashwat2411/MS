@@ -28,10 +28,17 @@ public class PlayerModelEventManager : MonoBehaviour
     {
         teleporter.mainCharacter.SetBool("dissolveOut", false);
         teleporter.mainCharacter.SetBool("dissolveIn", false);
+        teleporter.mainCharacter.SetBool("deathDissolveOut", false);
     }
 
     public void StartScreenShatter()
     {
         StartCoroutine(shatterer.ShatterScreenInitate());
+    }
+
+    public void StartDeathScreenShatter()
+    {
+        Time.timeScale = 1.0f;
+        StartCoroutine(shatterer.FailShatterScreenInitate());
     }
 }

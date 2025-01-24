@@ -87,13 +87,6 @@ MonoBehaviour:
     - type: 1
       key: 13
       value: 0.25
-  - name: Stronger Dash
-    description: Increase Dash Distance
-    icon: {fileID: 21300000, guid: ef3726db473d90f44b49dfdcc6abb00b, type: 3}
-    bonuses:
-    - type: 1
-      key: 13
-      value: 0.25
   playerBonusItems:
   - name: GroundFire
     description: Burn Time Increased
@@ -102,6 +95,12 @@ MonoBehaviour:
     - BonusOnOneTime:
       - key: 1
         type: 1
+        bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
+          type: 3}
+      description: Burn Time Increased
+    - BonusOnOneTime:
+      - key: 1
+        type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
       description: Burn Time Increased

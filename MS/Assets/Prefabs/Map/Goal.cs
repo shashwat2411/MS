@@ -36,6 +36,10 @@ public class Goal : MonoBehaviour
             {
                 once = true;
                 EnableGoal();
+
+                // Player Bonus
+                FindFirstObjectByType<SkillSelect>().LevelUp();
+
             }
         }
     }

@@ -20,27 +20,24 @@ public class CameraBrain : MonoBehaviour
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
-    public Vector3 zoomInFactor;
-    public Vector3 direction;
-
     private PlayerManager player;
-    [SerializeField] private TeleportOutCutScene teleportOut;
 
     public AnimationCurve zoomInY;
     public AnimationCurve zoomInZ;
     private float zoomInCounter = 0f;
     public bool zoomIn = false;
+
     [Header("RumbleTest")]
     [SerializeField]
     [Range(1, 50)]
     float DamgeTest;
+
+
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
 
         originalOffset = offset;
-        zoomInCounter = 0f;
-        zoomIn = false;
     }
     void FixedUpdate()
     {
@@ -97,24 +94,24 @@ public class CameraBrain : MonoBehaviour
         //}
     }
 
-    public void ZoomInTrigger()
-    {
-        zoomIn = true;
+        //Rumble(test)
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    SetGamePadMotorSpeed(MaxValue, true);
+        //}
+        //else
+        //{
+        //    SetGamePadMotorSpeed(0, false);
+        //}
     }
 
-    public void TriggerPlayerDissolveOut()
+    public void ZoomInTrigger()
     {
-        teleportOut.TriggerPlayerDissolveOut();
-    }
-    public void TriggerPlayerDissolveIn()
-    {
-        teleportOut.TriggerPlayerDissolveIn();
+        //zoomIn = true;
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)
     {
-        GetComponent<Animator>().enabled = false;
-
         Vector3 originalPosition = transform.localPosition;
 
         float elapsed = 0f;
@@ -129,17 +126,14 @@ public class CameraBrain : MonoBehaviour
                 transform.localPosition = new Vector3(x, y, originalPosition.z);
 
                 elapsed += Time.unscaledDeltaTime;
-
-                if (zoomIn == true) { elapsed = duration; }
             }
 
             SetGamePadMotorSpeed(magnitude, true);
+          
             yield return null;
         }
 
         transform.localPosition = originalPosition;
-
-        GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
     {
@@ -163,6 +157,7 @@ public class CameraBrain : MonoBehaviour
 
         yield return new WaitForSeconds(time);
     }
+
     void SetGamePadMotorSpeed(float magnitude, bool use)
     {
         Vector2 motorspeed;
@@ -183,6 +178,7 @@ public class CameraBrain : MonoBehaviour
 
 
         if (Gamepad.current != null)
+
         {
             Debug.Log(motorspeed.x + ":::" + motorspeed.y);
         }
