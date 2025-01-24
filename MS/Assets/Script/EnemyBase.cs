@@ -241,18 +241,22 @@ public class EnemyBase : MonoBehaviour
         dead = true;
         Destroy(agent.gameObject);
         var expEffect = Instantiate(mainCamera.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
-        ParticleSystem particle = expEffect.GetComponent<ParticleSystem>();
+        var stageNum = FindFirstObjectByType<StageNumber>();
 
-        ParticleSystem.EmissionModule emission = particle.emission;
+        if (stageNum != null)
+        {
+            int stageExpFactor = stageNum.stageExpFactor;
+            ParticleSystem particle = expEffect.GetComponent<ParticleSystem>();
+            ParticleSystem.EmissionModule emission = particle.emission;
 
-        int stageNum = FindFirstObjectByType<StageNumber>().stageNum; 
+            ParticleSystem.Burst burst = new ParticleSystem.Burst();
+            burst.time = 0f;
+            burst.count = 51 + stageExpFactor * 25;
 
-        ParticleSystem.Burst burst = new ParticleSystem.Burst();
-        burst.time = 0f;   
-        burst.count = 51 + stageNum * 25;
+            FindFirstObjectByType<EnemyManager>();
+            emission.SetBursts(new ParticleSystem.Burst[] { burst });
 
-         FindFirstObjectByType<EnemyManager>();
-        emission.SetBursts(new ParticleSystem.Burst[] { burst });
+        }
 
 
     }

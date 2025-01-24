@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StageNumber : MonoBehaviour
 {
-    public int stageNum = 0;
+    public int stageExpFactor = 0;
 }
