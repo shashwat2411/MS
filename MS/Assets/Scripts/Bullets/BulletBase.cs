@@ -15,13 +15,16 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     protected ChargePhase chargePhase;
 
 
+
+
+
     [SerializeField]
     GameObject impactEffectBlue, impactEffectRed;
 
     [Header("SE")]
     public string nameSE;
 
-
+   
 
     private PlayerManager player;
 
@@ -45,6 +48,8 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         Invoke("DestroyBullet", lifetime);
 
         player = FindFirstObjectByType<PlayerManager>();
+
+       
     }
 
 
@@ -138,6 +143,12 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
     public void ResetBonus()
     {
         sp.Clear();
+        spFactory.Clear();
     }
 
+
+    public int GetSpCount()
+    {
+        return spFactory.Count;
+    }
 }

@@ -37,6 +37,7 @@ public class TeleportOutCutScene : MonoBehaviour
     {
         mainCharacter.SetBool("dissolveOut", true);
         mainCharacter.SetBool("dissolveIn", false);
+        mainCharacter.SetBool("deathDissolveOut", false);
 
         //PlayerModelEventManager model = mainCharacter.gameObject.GetComponent<PlayerModelEventManager>();
 
@@ -49,6 +50,7 @@ public class TeleportOutCutScene : MonoBehaviour
     public void TriggerPlayerDissolveIn()
     {
         mainCharacter.SetBool("dissolveOut", false);
+        mainCharacter.SetBool("deathDissolveOut", false);
         mainCharacter.SetBool("dissolveIn", true);
     }
 
@@ -60,6 +62,8 @@ public class TeleportOutCutScene : MonoBehaviour
 
         canvas.SetBool("in", true);
         canvas.SetBool("out", false);
+
+        mainCamera.enabled = true;
 
         mainCamera.SetBool("zoomIn", true);
         mainCamera.SetBool("zoomOut", false);

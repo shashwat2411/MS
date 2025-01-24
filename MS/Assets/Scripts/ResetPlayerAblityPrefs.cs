@@ -12,20 +12,21 @@ public class ResetPlayerAblityPrefs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
+
+    }
+
+    void ResetPlayer()
+    {
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
 
         playerPrefabs.ResetPlayerPrefabs();
 
         PlayerSave.Instance.Clear();
-
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene(1);
-        }
+        ResetPlayer();
     }
 }
