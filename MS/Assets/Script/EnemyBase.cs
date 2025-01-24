@@ -45,6 +45,8 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
+        public Color GetColor() { return material.GetColor( _Color ); }
+        public void SetColor(Color color) { material.SetColor(_Color, color);}
         public bool GetDissolvedOut()
         {
             if (dissolve <= minDissolve) { return true; }
@@ -113,6 +115,7 @@ public class EnemyBase : MonoBehaviour
             material.SetFloat(_Dissolve, dissolve);
             yield return null;
         }
+
     };
 
     [Header("Health")]
@@ -125,6 +128,7 @@ public class EnemyBase : MonoBehaviour
     protected Vector3 direction;
     protected bool stopRotation;
     protected bool stopMovement;
+    protected bool stopLooking;
 
     [Header("References")]
     [SerializeField] protected Animator animator;
@@ -157,6 +161,7 @@ public class EnemyBase : MonoBehaviour
         attacked = false;
         stopRotation = false;
         stopMovement = false;
+        stopLooking = false;
         dead = false;
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
@@ -179,7 +184,7 @@ public class EnemyBase : MonoBehaviour
         if (stopMovement == false)
         {
             rigidbody.velocity = agent.velocity + extraForce;
-            transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
+            if (stopLooking == false) { transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f)); }
         }
     }
 
