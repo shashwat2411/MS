@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UniSense;
 
 public class CameraBrain : MonoBehaviour
 {
@@ -18,23 +20,22 @@ public class CameraBrain : MonoBehaviour
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
-    public Vector3 zoomInFactor;
-    public Vector3 direction;
-
     private PlayerManager player;
-    [SerializeField] private TeleportOutCutScene teleportOut;
 
-    public AnimationCurve zoomInY;
-    public AnimationCurve zoomInZ;
-    private float zoomInCounter = 0f;
-    public bool zoomIn = false;
+
+    [Header("RumbleTest")]
+    [SerializeField]
+    [Range(1, 50)]
+    float DamgeTest;
+
+    
+
+
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
 
         originalOffset = offset;
-        zoomInCounter = 0f;
-        zoomIn = false;
     }
     void FixedUpdate()
     {
@@ -52,26 +53,6 @@ public class CameraBrain : MonoBehaviour
         {
             transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
         }
-
-        if(zoomIn == true)
-        {
-            if (zoomInCounter < 1f) 
-            { 
-                zoomInCounter += Time.deltaTime;
-
-                float y = zoomInY.Evaluate(zoomInCounter);
-                float z = zoomInZ.Evaluate(zoomInCounter);
-
-                Vector3 position = transform.localPosition;
-                direction = (player.transform.position - transform.localPosition).normalized;
-                Vector3 displacement = new Vector3(0f, direction.y * y * zoomInFactor.y, direction.z * z * zoomInFactor.z);
-
-                position += displacement;
-
-                transform.localPosition = position;
-            }
-            else { zoomInCounter = 1f; }
-        }
     }
 
     private void Update()
@@ -79,26 +60,25 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+
+        //Rumble(test)
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    SetGamePadMotorSpeed(MaxValue, true);
+        //}
+        //else
+        //{
+        //    SetGamePadMotorSpeed(0, false);
+        //}
     }
 
     public void ZoomInTrigger()
     {
-        zoomIn = true;
-    }
-
-    public void TriggerPlayerDissolveOut()
-    {
-        teleportOut.TriggerPlayerDissolveOut();
-    }
-    public void TriggerPlayerDissolveIn()
-    {
-        teleportOut.TriggerPlayerDissolveIn();
+        //zoomIn = true;
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)
     {
-        GetComponent<Animator>().enabled = false;
-
         Vector3 originalPosition = transform.localPosition;
 
         float elapsed = 0f;
@@ -113,16 +93,14 @@ public class CameraBrain : MonoBehaviour
                 transform.localPosition = new Vector3(x, y, originalPosition.z);
 
                 elapsed += Time.unscaledDeltaTime;
-
-                if (zoomIn == true) { elapsed = duration; }
             }
+
+            SetGamePadMotorSpeed(magnitude, true);
 
             yield return null;
         }
 
         transform.localPosition = originalPosition;
-
-        GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
     {
@@ -145,5 +123,31 @@ public class CameraBrain : MonoBehaviour
         offset = Vector3.Lerp(offset, originalOffset, 0.5f);
 
         yield return new WaitForSeconds(time);
+    }
+
+
+    void SetGamePadMotorSpeed(float magnitude, bool use)
+    {
+        Vector2 motorspeed;
+
+        motorspeed.y = magnitude * magnitude / (50.0f * 50.0f);
+        motorspeed.x = magnitude / 50.0f;
+
+        //motorspeed.Normalize();
+
+        if (use == true)
+        {
+            Gamepad.current?.SetMotorSpeeds(motorspeed.x, motorspeed.y);
+        }
+        else
+        {
+            Gamepad.current?.SetMotorSpeeds(0.0f, 0.0f);
+        }
+
+
+        if (Gamepad.current != null) 
+        {
+            Debug.Log(motorspeed.x + ":::" + motorspeed.y);
+        }
     }
 }

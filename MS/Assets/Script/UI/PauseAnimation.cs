@@ -36,6 +36,7 @@ public class PauseAnimation : MonoBehaviour
     {
         AnimeCon.SetBool("PauseStart", AnimeStart);
         AnimeCon.SetBool("PauseEnd", AnimeEnd);
+        AnimeCon.SetBool("ConfigOpen", GetComponent<PauseWindow>().ConfigOpen);
     }
 
     public void AnimeReset()
