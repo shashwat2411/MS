@@ -7,7 +7,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class Lighting : MonoBehaviour
 {
     private int order = 0;
-    public int level = 1;
+    //public int level = 1;
     public float totalDamage;
     public float offset = 3.0f;
     public float horizontalOffset = 2.0f;
@@ -76,7 +76,24 @@ public class Lighting : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(totalDamage);
+            Debug.Log(enemy.name + totalDamage);
+            
         }
+        else // Boss
+        {
+            
+            enemy = other.gameObject.GetComponentInParent<EnemyBase>();
+            if (enemy)
+            {
+                enemy.Damage(totalDamage);
+                Debug.Log(enemy.name + "  " + totalDamage);
+                
+            }
+        }
+
+
+       
+
     }
 
     public void SetOrder(int value) { order = value; }

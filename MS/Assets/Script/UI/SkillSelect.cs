@@ -151,8 +151,10 @@ public class SkillSelect : MonoBehaviour
 
                 i = Random.Range(0, c2);
 
-                while (!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) || CheckBonusIsUsed(type, i))  
+                int max2 = 20;
+                while ((!player.playerPrefabs.CheckItemNotMax(BonusSettings.Instance.playerBonusItems[i]) || CheckBonusIsUsed(type, i)) && max2 > 0)
                 {
+                    max2--;
                     i = Random.Range(0, c2);
                 }
 
@@ -251,8 +253,8 @@ public class SkillSelect : MonoBehaviour
         {
             player.GetComponent<PlayerManager>().playerPrefabs.GetTopItemBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Item);
         }
-        //player.GetComponent<PlayerManager>().playerData.
-        //player.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
+        //mainCharacter.GetComponent<PlayerManager>().playerData.
+        //mainCharacter.GetComponent<HoldSkill>().AddPlayerBonusData(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
 
 
         switch (SelectNo)

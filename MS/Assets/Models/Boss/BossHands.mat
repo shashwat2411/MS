@@ -32,6 +32,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 59dde82047159b244a9721edb91b435e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,19 +50,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 7.63
+    - _Dissolve: 21.3
     - _EdgeWidth: 0.05
     - _Max: 3.2
-    - _MaxDissolve: 7.63
+    - _MaxDissolve: 21.3
     - _Min: 0.05
-    - _MinDissolve: -4.37
+    - _MinDissolve: -8.33
     - _NoiseStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Shades: 0.19
+    - _WorldDissolve: 1
+    - _WorldPosition: 0
     m_Colors:
     - _Color: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
     - _DissolveColor: {r: 4, g: 0, b: 0, a: 1}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4694805891893494799
 MonoBehaviour:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class BulletImpact : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class BulletImpact : MonoBehaviour
         {
             enemy.Damage(damage, true);
             return;
+        }
+
+        BossBodyCollision bossCollider = other.gameObject.GetComponent<BossBodyCollision>();
+        if (bossCollider)
+        {
+            if (bossCollider.owner)
+            {
+                bossCollider.owner.Damage(damage, true);
+                return;
+            }
         }
     }
 }

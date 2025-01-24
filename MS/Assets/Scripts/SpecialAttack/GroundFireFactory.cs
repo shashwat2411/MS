@@ -17,7 +17,7 @@ public class GroundFireFactory : SpecialAttackFactory
         for (int j = 0; j < i; j++)
         {
             var obj = ObjectPool.Instance.Get(spAtk, pos, rot);
-            obj.GetComponent<GroundFire>().Initiate(1.0f, damage * levelData[level].damageFactor, declineIntervalData[level], usedMenko);
+            obj.GetComponent<GroundFire>().Initiate(1.0f, damage * levelData[level].damageFactor/10, declineIntervalData[level], usedMenko);
             Debug.Log("sp level:  " + level + " sp damage factor " + levelData[level].damageFactor);
         }
     }

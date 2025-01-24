@@ -28,13 +28,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (FadeOut.GetComponent<Fade>().Fade_End == true && SceneChangeflag == true) 
-        {
-            // SceneManager.sceneLoaded += GameSceneLoaded;
+        //if (FadeOut.GetComponent<Fade>().Fade_End == true && SceneChangeflag == true) 
+        //{
+        //    // SceneManager.sceneLoaded += GameSceneLoaded;
 
-            SceneManager.LoadScene(NextScene_Name);
-            Debug.Log("1");
-        }
+        //    SceneManager.LoadScene(NextScene_Name);
+        //    Debug.Log("1");
+        //}
     }
 
    

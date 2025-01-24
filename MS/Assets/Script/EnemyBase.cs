@@ -45,6 +45,8 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
+        public Color GetColor() { return material.GetColor( _Color ); }
+        public void SetColor(Color color) { material.SetColor(_Color, color);}
         public bool GetDissolvedOut()
         {
             if (dissolve <= minDissolve) { return true; }
@@ -113,6 +115,7 @@ public class EnemyBase : MonoBehaviour
             material.SetFloat(_Dissolve, dissolve);
             yield return null;
         }
+
     };
 
     [Header("Health")]
@@ -125,6 +128,7 @@ public class EnemyBase : MonoBehaviour
     protected Vector3 direction;
     protected bool stopRotation;
     protected bool stopMovement;
+    protected bool stopLooking;
 
     [Header("References")]
     [SerializeField] protected Animator animator;
@@ -135,6 +139,7 @@ public class EnemyBase : MonoBehaviour
     protected EnemyDialogue dialogue;
     protected Transform areaChecker;
     private GameObject canvas;
+    private Transform mainCamera;
     protected Vector3 extraForce;
 
     [Header("Attack")]
@@ -151,10 +156,12 @@ public class EnemyBase : MonoBehaviour
         player = FindFirstObjectByType<PlayerManager>().gameObject;
         rigidbody = GetComponent<Rigidbody>();
         agent = GetComponentInChildren<NavMeshAgent>();
+        mainCamera = Camera.main.transform;
 
         attacked = false;
         stopRotation = false;
         stopMovement = false;
+        stopLooking = false;
         dead = false;
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
@@ -177,13 +184,16 @@ public class EnemyBase : MonoBehaviour
         if (stopMovement == false)
         {
             rigidbody.velocity = agent.velocity + extraForce;
-            transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f));
+            if (stopLooking == false) { transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f)); }
         }
     }
 
     virtual protected void LateUpdate()
     {
-        canvas.transform.LookAt(canvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        if (canvas != null)
+        {
+            canvas.transform.LookAt(canvas.transform.position + mainCamera.rotation * Vector3.forward, mainCamera.rotation * Vector3.up);
+        }
     }
 
     virtual protected void OnCollisionEnter(Collision collision)
@@ -229,7 +239,7 @@ public class EnemyBase : MonoBehaviour
     {
         dead = true;
         Destroy(agent.gameObject);
-        Instantiate(Camera.main.transform.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
+        Instantiate(mainCamera.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
     }
 
     virtual public void Knockback(Vector3 direction, float power)
@@ -256,4 +266,6 @@ public class EnemyBase : MonoBehaviour
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
     //____________________________________________________________________________________________________________________________
+
+    public Animator GetAnimator() { return animator; }
 }

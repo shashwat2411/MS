@@ -36,7 +36,7 @@ public class AimerEvent : MonoBehaviour
 
         // Start the second coroutine
         SoundManager.Instance.PlaySE("Lighting");
-        yield return StartCoroutine(mainCamera.CameraShake(0.05f, 0.1f));
+        yield return StartCoroutine(mainCamera.CameraShake(0.4f, 0.1f));
     }
 
     public void ReturnToIdle()

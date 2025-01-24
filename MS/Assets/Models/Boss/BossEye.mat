@@ -32,6 +32,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: f5126bee45b2437469ff9826dfbdfae7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,11 +55,13 @@ Material:
     - _Max: 3.39
     - _MaxDissolve: 5.94
     - _Min: 0.2
-    - _MinDissolve: -0.22
+    - _MinDissolve: -1.27
     - _NoiseStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Shades: 0.11
+    - _WorldDissolve: 1
+    - _WorldPosition: 0
     m_Colors:
     - _Color: {r: 1.319508, g: 1.319508, b: 1.319508, a: 1}
     - _DissolveColor: {r: 4, g: 0, b: 0, a: 1}

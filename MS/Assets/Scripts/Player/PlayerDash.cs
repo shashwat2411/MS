@@ -50,7 +50,7 @@ public class PlayerDash : MonoBehaviour
     PlayerData playerData;
     PlayerManager playerManager;
     Rigidbody rb;
-
+    Animator animator;
 
 
     public void GetDashDown(InputAction.CallbackContext ctx)
@@ -59,10 +59,9 @@ public class PlayerDash : MonoBehaviour
         {
             if (doubleDashReady && dashCount == 1)
             {
-              
                 doubleDash = true;
             }
-            else if (Time.time > (lastDash + playerData.dashCooldown))
+            else if (Time.time > (lastDash + playerData.dashCooldown) && !playerManager.playerAttack.throwAnimPlay)
             {
                 dashCount = dashCountMax;
                 ReadyToDash();
@@ -78,7 +77,8 @@ public class PlayerDash : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();  
-        playerManager = GetComponent<PlayerManager>();  
+        playerManager = GetComponent<PlayerManager>();
+        animator = GetComponent<Animator>();    
         playerData =playerManager.playerData;
         nameSE = playerManager.dashSE;
     }
@@ -102,10 +102,13 @@ public class PlayerDash : MonoBehaviour
             //ダッシュ中
             if (dashTimeLeft > 0)
             {
-                rb.velocity = dashOrientation;
-              
 
+
+                rb.velocity = dashOrientation;
+             
                 dashTimeLeft -= Time.deltaTime;
+
+             
 
                 invincibilityTimeLeft -= Time.deltaTime;
 
@@ -115,6 +118,8 @@ public class PlayerDash : MonoBehaviour
             else
             {
                 isDashing = false;
+             
+                
             }
         }
         //ダッシュ終了
@@ -171,7 +176,7 @@ public class PlayerDash : MonoBehaviour
         if (dashCount > 0)
         {
             isDashing = true;
-
+            
 
             dashTimeLeft = playerData.dashTime;
             
@@ -226,7 +231,11 @@ public class PlayerDash : MonoBehaviour
 
     public void LevelUp()
     {
-        dashCountMax++;
+        if(dashCountMax < 2)
+        {
+            dashCountMax++;
+        }
+       
         
     }
 

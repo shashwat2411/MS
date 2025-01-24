@@ -1,10 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Device;
-using UnityEngine.XR;
 using static GunEnemy;
 using static ThrowEnemy;
 
@@ -21,8 +16,22 @@ public class KamikazeEnemy : EnemyBase
     public float idleTime;
     public float hurtTime;
 
+    public AudioSource tick;
+
+    public float lifetime = 5f;
+    private float lifeCounter = 0f;
+    private float soundCounter = 0f;
+    public float sinMultiplier = 2f;
+    public float tickDuration = 0.2f;
+
+    public GameObject explosion;
+
+    [ColorUsage(false, true)] public Color tickColor;
+    [ColorUsage(false, true)] private Color originalColor;
+
     [Header("Material")]
     public EnemyMaterial body;
+
 
     //___仮想関数のOverride_________________________________________________________________________________________________________________________
     protected override void ScaleUp()
@@ -31,16 +40,22 @@ public class KamikazeEnemy : EnemyBase
 
         body.InstantiateMaterial();
 
+        originalColor = body.GetColor();
+
         float scale = transform.localScale.x;
         body.SetMaxDissolveScale(scale);
+
     }
     protected override void Start()
     {
         base.Start();
 
-        ScaleUp();
+        lifeCounter = 0f;
+        soundCounter = 0f;
 
         state = KAMIKAZEENEMY_STATE.IDLE;
+
+        ScaleUp();
     }
     protected override void FixedUpdate()
     {
@@ -53,20 +68,17 @@ public class KamikazeEnemy : EnemyBase
                 break;
 
             case KAMIKAZEENEMY_STATE.MOVE:
-                Move();
+                Follow();
                 break;
         }
     }
-    protected override void OnCollision(GameObject collided)
+    protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollision(null);
-
-        if (collided.gameObject == player)
+        if (collision.gameObject == player)
         {
-            healthBar.Damage(healthBar.health + 1f);
-
             //プレーヤーへのダメージ
             player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+            Death();
         }
     }
 
@@ -78,7 +90,26 @@ public class KamikazeEnemy : EnemyBase
     public override void Death()
     {
         base.Death();
+        GameObject exp = Instantiate(explosion, transform.position, transform.rotation);
+        exp.transform.localScale = 0.4f * Vector2.one;
+
         Destroy(gameObject);
+    }
+
+    private IEnumerator TickChangeColor(float duration)
+    {
+        body.SetColor(tickColor);
+
+        float elapsed = 0f;
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            body.SetColor(Color.Lerp(tickColor, originalColor, elapsed / duration));
+            yield return null;
+        }
+
+        body.SetColor(originalColor);
     }
     //____________________________________________________________________________________________________________________________
 
@@ -91,9 +122,30 @@ public class KamikazeEnemy : EnemyBase
 
         StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.MOVE, idleTime));
     }
-    void Hurt()
+
+    void Follow()
     {
-        StartCoroutine(ChangeState(KAMIKAZEENEMY_STATE.IDLE, hurtTime));
+        Move();
+
+        if (lifeCounter < lifetime) { lifeCounter += Time.deltaTime; }
+        else
+        {
+            lifeCounter = lifetime;
+            Death();
+        }
+
+        soundCounter += Time.deltaTime * ((1f + lifeCounter) * sinMultiplier);
+        float sin = Mathf.Sin(soundCounter);
+        if (Mathf.Abs(sin) >= 0.99f) 
+        {
+            if (tick.isPlaying == false)
+            {
+                soundCounter = 0f;
+
+                tick.Play();
+                StartCoroutine(TickChangeColor(tickDuration));
+            }
+        }
     }
     //____________________________________________________________________________________________________________________________
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -70,12 +69,31 @@ public class GroundFire : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
+      
+
+        
         if (enemy && !allEnemies.Contains(other.gameObject))
         {
             allEnemies.Add(enemy.gameObject);
+         
         }
+        else // Boss
+        {
+            enemy = other.gameObject.GetComponentInParent<EnemyBase>();
+            if (enemy && !allEnemies.Contains(enemy.gameObject))
+            {
+                allEnemies.Add(enemy.gameObject);
+                return;
+            }
+        }
+
+       
     }
+
+
+
     private void OnTriggerExit(Collider other)
     {
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
@@ -99,6 +117,7 @@ public class GroundFire : MonoBehaviour
                 else
                 {
                     enemyBase.Damage(this.damage);
+                    Debug.Log(enemyBase.name + " "+ damage);
                 }
             }
         }

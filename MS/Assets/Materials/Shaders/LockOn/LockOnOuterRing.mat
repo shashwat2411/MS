@@ -60,6 +60,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -100,15 +104,15 @@ Material:
     - _Dissolve: -0.6
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeWidth: 0.05
+    - _EdgeWidth: 0.1575
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Max: 3.44
+    - _Max: -0.45
     - _MaxDissolve: 0.66
     - _Metallic: 0
-    - _Min: 0.02
+    - _Min: 0.42
     - _MinDissolve: -0.6
     - _NoiseStrength: 1
     - _OcclusionStrength: 1
@@ -124,13 +128,17 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _WorkflowMode: 1
+    - _WorldDissolve: 1
+    - _WorldPosition: 0
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 6.402483, g: 6.8831816, b: 1.8739551, a: 1}
     - _DissolveColor: {r: 12.844469, g: 2.017456, b: 5.5340543, a: 1}
     - _EmissionColor: {r: 1.2920023, g: 2.490566, b: 0, a: 1}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2345810468633030487
 MonoBehaviour:

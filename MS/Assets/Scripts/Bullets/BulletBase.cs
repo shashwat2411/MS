@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
 {
@@ -94,21 +93,26 @@ public class BulletBase : MonoBehaviour, IAtkEffBonusAdder
         GameObject effect = Instantiate(impactEffect, hitPos, transform.rotation);
         Vector3 localScale = new Vector3(effectSize, effectSize, effectSize);
 
-        float scale = (this.damage / player.playerData.attack) / player.playerData.maxChargeTime;
-        float finalScale = Mathf.Lerp(0.6f, 1.3f, scale);
+        // float scale = (this.damage / mainCharacter.playerData.attack) / mainCharacter.playerData.maxChargeTime;
+        
+        float scale = this.damage / 100.0f; // Default damage(0,100)
+        float finalScale = player.playerData.maxAttackSize * scale;
 
         effect.transform.localScale = finalScale * localScale;
         effect.transform.position = hitPos + new Vector3(0f, -effect.transform.localScale.y / 2f, 0f);
         //if (scale <= this.maxAttackSize) {  }
         //else { effect.transform.localScale = this.maxAttackSize * localScale; }
 
+
+
         effect.GetComponent<MenkoExplosion>().damage = scale;
         effect.GetComponentInChildren<BulletImpact>().damage = this.damage;
+        Debug.Log("real damage:"+ damage + "   scale:" + scale + " final:" + finalScale);
 
         //Sound Effect
         SoundManager.Instance.PlaySE(nameSE);
 
-        //Invoke Stuff
+     
         DoSpecialThings();
         //Invoke("DestroyBullet", lifetime);
         once = false;

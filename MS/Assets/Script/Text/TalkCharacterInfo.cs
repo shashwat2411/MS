@@ -162,6 +162,17 @@ public class TalkCharacterInfoEditor : Editor
             }
         }
 
+        // JSONファイルエクスポート
+        if (GUILayout.Button("会話内容をJSONでエクスポート"))
+        {
+            string path = EditorUtility.SaveFilePanel("エクスポートするJSONファイルを保存", Application.dataPath, "TalkCharacterInfo.json", "json");
+            if (!string.IsNullOrEmpty(path))
+            {
+                ExportDataToJson(path);
+            }
+        }
+
+
         serializedObject.ApplyModifiedProperties();
     }
 
@@ -190,5 +201,14 @@ public class TalkCharacterInfoEditor : Editor
             element.FindPropertyRelative("isCheck").boolValue = core.isCheck;
             element.FindPropertyRelative("changeNumber").intValue = core.changeNumber;
         }
+    }
+
+    private void ExportDataToJson(string path)
+    {
+        TalkCharacterInfo targetObject = (TalkCharacterInfo)target;
+        TextCoreListWrapper wrapper = new TextCoreListWrapper { textCores = new List<TextCore>(targetObject.talkText) };
+        string json = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(path, json);
+        Debug.Log($"会話内容がJSON形式でエクスポートされました: {path}");
     }
 }

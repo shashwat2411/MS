@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class MainMenuUI : MonoBehaviour
 {
+
     public Image title;
     public float size1;
     public float size2;
@@ -14,6 +15,7 @@ public class MainMenuUI : MonoBehaviour
 
     float counter = 0;
     bool switcher = false;
+
     private void FixedUpdate()
     {
         if (switcher == false)
@@ -38,10 +40,5 @@ public class MainMenuUI : MonoBehaviour
         }
     }
 
-    public void MainGame(InputAction.CallbackContext context)
-    {
-        if (!context.started) return;
 
-        FindFirstObjectByType<GameManager>().SceneChange();
-    }
 }

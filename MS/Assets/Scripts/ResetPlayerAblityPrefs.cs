@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResetPlayerAblityPrefs : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class ResetPlayerAblityPrefs : MonoBehaviour
 
         playerPrefabs.ResetPlayerPrefabs();
 
+        PlayerSave.Instance.Clear();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
