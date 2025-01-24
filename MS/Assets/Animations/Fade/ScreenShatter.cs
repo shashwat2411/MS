@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -115,6 +116,26 @@ public class ScreenShatter : MonoBehaviour
 
         yield return ShatterCoroutine();
     }
+
+
+    public IEnumerator FailShatterScreenInitate()
+    {
+        loadLevel = "MainMenu";
+
+        plane.SetActive(true);
+        reset = false;
+        captureCamera.gameObject.SetActive(true);
+        mainCanvas.worldCamera = captureCamera;
+
+        yield return null;
+
+        mainCamera.gameObject.SetActive(false);
+        captureCamera.gameObject.SetActive(false);
+        shatterCamera.gameObject.SetActive(true);
+
+        yield return ShatterCoroutine();
+    }
+
     private IEnumerator ShatterCoroutine()
     {
         for (int i = 0; i < shards.Length; i++)

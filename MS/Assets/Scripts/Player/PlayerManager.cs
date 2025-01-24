@@ -65,6 +65,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerAttack playerAttack;
     PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
+    public GameObject mainCharacterModel;
+
 
 
     //Bonus
@@ -360,6 +362,13 @@ public class PlayerManager : MonoBehaviour
 
     public void Death()
     {
+        var anim = mainCharacterModel.GetComponent<Animator>();
+        anim.SetBool("deathDissolveOut", true);
+        anim.SetBool("dissolveOut", false);
+        anim.SetBool("dissolveIn", false);
+        anim.enabled = true;
+        Time.timeScale = 0.2f;
+
     }
 
     public void CheckPlayerDataState()
@@ -387,12 +396,10 @@ public class PlayerManager : MonoBehaviour
         playerData.lv++;
         if((playerData.lv %5) == 0)
         {
-            playerData.nextExp *= 1.2f;
+            playerData.nextExp *= 1.0f;
         }
 
-        //Bonus Menu
-        BonusMenu.SetActive(true);
-
+      
     }
 
     /// <summary>
@@ -546,7 +553,6 @@ public class PlayerManager : MonoBehaviour
         }
         return false;
     }
-
 
   
 }

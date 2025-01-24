@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using static UnityEngine.ParticleSystem;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -239,7 +240,21 @@ public class EnemyBase : MonoBehaviour
     {
         dead = true;
         Destroy(agent.gameObject);
-        Instantiate(mainCamera.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
+        var expEffect = Instantiate(mainCamera.parent.GetComponent<EffectPrefabManager>().expEffect, transform.position, transform.rotation);
+        ParticleSystem particle = expEffect.GetComponent<ParticleSystem>();
+
+        ParticleSystem.EmissionModule emission = particle.emission;
+
+        int stageNum = FindFirstObjectByType<StageNumber>().stageNum; 
+
+        ParticleSystem.Burst burst = new ParticleSystem.Burst();
+        burst.time = 0f;   
+        burst.count = 51 + stageNum * 25;
+
+         FindFirstObjectByType<EnemyManager>();
+        emission.SetBursts(new ParticleSystem.Burst[] { burst });
+
+
     }
 
     virtual public void Knockback(Vector3 direction, float power)
