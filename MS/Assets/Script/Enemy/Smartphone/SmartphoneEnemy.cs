@@ -46,5 +46,7 @@ public class SmartphoneEnemy : ThrowEnemy
         base.Death();
 
     }
+    
+    public EnemyPoison GetItem() { return (EnemyPoison)itemReference; }
 
 }

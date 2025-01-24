@@ -37,7 +37,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0
 --- !u!114 &-3448370385312193708
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -108,10 +108,10 @@ MonoBehaviour:
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 1.01
+    m_Value: 1.29
   scatter:
     m_OverrideState: 1
-    m_Value: 0.437
+    m_Value: 0.24
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 3830552007809364351}
   - {fileID: -4393972593443912101}
   - {fileID: 1910259211117421567}
+  - {fileID: 8548386262954560850}
 --- !u!114 &1910259211117421567
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   color:
     m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 1}
@@ -175,7 +176,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.444
+    m_Value: 0.576
   smoothness:
     m_OverrideState: 1
     m_Value: 0.444
@@ -197,16 +198,16 @@ MonoBehaviour:
   active: 1
   redOutRedIn:
     m_OverrideState: 1
-    m_Value: 117
+    m_Value: 100
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 17
+    m_Value: 0
   redOutBlueIn:
     m_OverrideState: 1
     m_Value: 0
   greenOutRedIn:
     m_OverrideState: 1
-    m_Value: 25
+    m_Value: 0
   greenOutGreenIn:
     m_OverrideState: 1
     m_Value: 100
@@ -250,3 +251,31 @@ MonoBehaviour:
   saturation:
     m_OverrideState: 1
     m_Value: 100
+--- !u!114 &8548386262954560850
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  xMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  yMultiplier:
+    m_OverrideState: 1
+    m_Value: 0
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  scale:
+    m_OverrideState: 1
+    m_Value: 1

@@ -365,6 +365,8 @@ public class PlayerManager : MonoBehaviour
         SoundManager.Instance.StopAllSE();
         SoundManager.Instance.StopBGM();
 
+        collider.enabled = false;
+
         var anim = mainCharacterModel.GetComponent<Animator>();
         anim.SetBool("deathDissolveOut", true);
         anim.SetBool("dissolveOut", false);
@@ -374,7 +376,9 @@ public class PlayerManager : MonoBehaviour
 
         GetComponent<PlayerInput>().enabled = false;
         animator.speed = 0f;
-        StartCoroutine(mainCamera.GetComponent<GameEffects>().DeathSlowMotion(1f, 0.2f));
+
+        StartCoroutine(postProcess.VignetteFadeIn(0.4f));
+        StartCoroutine(mainCamera.GetComponent<GameEffects>().DeathSlowMotion(0.5f, 0f));
 
     }
 

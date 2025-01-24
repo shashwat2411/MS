@@ -7,12 +7,15 @@ using UnityEngine.Rendering.Universal;
 
 public class PostProcessController : MonoBehaviour
 {
+    public bool mainMenu = false;
+
     public AudioSource bgm;
     private AudioSource noise;
     public float pitch;
     public float sound;
     private float originalVolume;
     private float noiseOriginalVolume;
+    private float originalVignette;
 
     private Volume volume;
 
@@ -22,6 +25,7 @@ public class PostProcessController : MonoBehaviour
     private ChannelMixer mixer;
     private DepthOfField dof;
     private Vignette vignette;
+    private LensDistortion lensDistortion;
 
 
     [Header("ChromaticAberration")]
@@ -52,6 +56,13 @@ public class PostProcessController : MonoBehaviour
     [Range(-200, 200)] public float blueInGreen;
     [Range(-200, 200)] public float blueInBlue = 100f;
 
+    [Header("Vignette")]
+    [Range(0, 1)] public float vignetteIntensity;
+    public AnimationCurve vignetteCurve;
+
+    [Header("LensDistortion")]
+    [Range(0.01f, 5f)] public float lensDistortionScale = 1f;
+
     private void Awake()
     {
         volume = GetComponent<Volume>();
@@ -63,34 +74,50 @@ public class PostProcessController : MonoBehaviour
         volume.profile.TryGet(out mixer);
         volume.profile.TryGet(out dof);
         volume.profile.TryGet(out vignette);
+        volume.profile.TryGet(out lensDistortion);
 
         originalVolume = 0.5f;
         noiseOriginalVolume = noise.volume;
 
-        dof.active = false;
-        vignette.active = false;
+        originalVignette = vignette.intensity.value;
+
+        if (mainMenu == false)
+        {
+            dof.active = false;
+            vignette.active = false;
+
+            lensDistortion.intensity.value = 0.01f;
+            lensDistortion.yMultiplier.value = 0f;
+        }
     }
-    void FixedUpdate()
+    void Update()
     {
-        chr.intensity.value = chromaticAberration;
+        lensDistortion.scale.value = lensDistortionScale;
 
-        color.hueShift.value = hueShift;
-        color.saturation.value = saturation;
+        if (mainMenu == false)
+        {
+            chr.intensity.value = chromaticAberration;
 
-        film.intensity.value = filmGrain;
+            color.hueShift.value = hueShift;
+            color.saturation.value = saturation;
 
-        //Mixer
-        mixer.redOutRedIn.value = redInRed;
-        mixer.redOutGreenIn.value = redInGreen;
-        mixer.redOutBlueIn.value = redInBlue;
+            film.intensity.value = filmGrain;
 
-        mixer.greenOutRedIn.value = greenInRed;
-        mixer.greenOutGreenIn.value = greenInGreen;
-        mixer.greenOutBlueIn.value = greenInBlue;
+            vignette.intensity.value = vignetteIntensity;
 
-        mixer.blueOutRedIn.value = blueInRed;
-        mixer.blueOutGreenIn.value = blueInGreen;
-        mixer.blueOutBlueIn.value = blueInBlue;
+            //Mixer
+            mixer.redOutRedIn.value = redInRed;
+            mixer.redOutGreenIn.value = redInGreen;
+            mixer.redOutBlueIn.value = redInBlue;
+
+            mixer.greenOutRedIn.value = greenInRed;
+            mixer.greenOutGreenIn.value = greenInGreen;
+            mixer.greenOutBlueIn.value = greenInBlue;
+
+            mixer.blueOutRedIn.value = blueInRed;
+            mixer.blueOutGreenIn.value = blueInGreen;
+            mixer.blueOutBlueIn.value = blueInBlue;
+        }
     }
 
     public IEnumerator ChromaticAberrationFadeOut(float duration)
@@ -145,6 +172,44 @@ public class PostProcessController : MonoBehaviour
 
         filmGrain = 0f;
         noise.volume = 0f;
+    }
+    public IEnumerator VignetteFadeIn(float duration)
+    {
+        vignette.active = true;
+
+        float elapsed = 0f;
+        vignetteIntensity = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            vignetteIntensity = vignetteCurve.Evaluate(elapsed / duration) * originalVignette;
+
+            yield return null;
+        }
+
+        vignetteIntensity = originalVignette;
+    }
+    public IEnumerator VignetteFadeOut(float duration)
+    {
+        if (mainMenu == true) { yield return null; }
+
+        vignette.active = true;
+
+        float elapsed = duration;
+        vignetteIntensity = originalVignette;
+
+        while (elapsed > duration)
+        {
+            elapsed -= Time.unscaledDeltaTime;
+
+            vignetteIntensity = vignetteCurve.Evaluate(elapsed / duration) * originalVignette;
+
+            yield return null;
+        }
+
+        vignetteIntensity = 0f;
     }
 
     public IEnumerator ImpactEnhancer(float delay, float duration)
