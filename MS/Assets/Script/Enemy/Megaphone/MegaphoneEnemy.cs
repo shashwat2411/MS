@@ -27,11 +27,33 @@ public class MegaphoneEnemy : ThrowEnemy
     {
         base.Start();
 
+        stopLooking = true;
+        stopRotation = false;
+
         ScaleUp();
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        RotateTowards(player.transform.position);
+    }
+
+    protected override void Idle()
+    {
+        stopRotation = true;
+        stopMovement = false;
+
+        CheckState();
+    }
+    protected override void Move()
+    {
+        stopRotation = false;
+        base.Move();
+    }
+
+    protected override void Attack()
+    {
+        stopRotation = true;
     }
 
     public override void Death()

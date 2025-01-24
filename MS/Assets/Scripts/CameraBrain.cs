@@ -22,13 +22,15 @@ public class CameraBrain : MonoBehaviour
 
     private PlayerManager player;
 
+    public AnimationCurve zoomInY;
+    public AnimationCurve zoomInZ;
+    private float zoomInCounter = 0f;
+    public bool zoomIn = false;
 
     [Header("RumbleTest")]
     [SerializeField]
     [Range(1, 50)]
     float DamgeTest;
-
-    
 
 
     void Awake()
@@ -45,13 +47,33 @@ public class CameraBrain : MonoBehaviour
         transform.LookAt(player.transform.position + angleOffset);
 
         float value = player.GetMovementInput().x;
-        if(value > 0.3f)
+        if (value > 0.3f)
         {
             transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), rotationAngle * value * Time.deltaTime);
         }
         else if (value < 0.3f)
         {
             transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
+        }
+
+        if (zoomIn == true)
+        {
+            if (zoomInCounter < 1f)
+            {
+                zoomInCounter += Time.deltaTime;
+
+                float y = zoomInY.Evaluate(zoomInCounter);
+                float z = zoomInZ.Evaluate(zoomInCounter);
+
+                Vector3 position = transform.localPosition;
+                direction = (player.transform.position - transform.localPosition).normalized;
+                Vector3 displacement = new Vector3(0f, direction.y * y * zoomInFactor.y, direction.z * z * zoomInFactor.z);
+
+                position += displacement;
+
+                transform.localPosition = position;
+            }
+            else { zoomInCounter = 1f; }
         }
     }
 
@@ -60,6 +82,17 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
+
+        //Rumble(test)
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    SetGamePadMotorSpeed(MaxValue, true);
+        //}
+        //else
+        //{
+        //    SetGamePadMotorSpeed(0, false);
+        //}
+    }
 
         //Rumble(test)
         //if (Input.GetKey(KeyCode.M))
@@ -96,7 +129,7 @@ public class CameraBrain : MonoBehaviour
             }
 
             SetGamePadMotorSpeed(magnitude, true);
-
+          
             yield return null;
         }
 
@@ -125,7 +158,6 @@ public class CameraBrain : MonoBehaviour
         yield return new WaitForSeconds(time);
     }
 
-
     void SetGamePadMotorSpeed(float magnitude, bool use)
     {
         Vector2 motorspeed;
@@ -145,7 +177,8 @@ public class CameraBrain : MonoBehaviour
         }
 
 
-        if (Gamepad.current != null) 
+        if (Gamepad.current != null)
+
         {
             Debug.Log(motorspeed.x + ":::" + motorspeed.y);
         }

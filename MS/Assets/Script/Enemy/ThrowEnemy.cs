@@ -97,7 +97,7 @@ public class ThrowEnemy : EnemyBase
 
 
     //____ステート________________________________________________________________________________________________________________________
-    protected void Idle()
+    virtual protected void Idle()
     {
         stopRotation = false;   //回転再会
         stopMovement = false;
@@ -132,7 +132,7 @@ public class ThrowEnemy : EnemyBase
             }
         }
     }
-    protected void Attack()
+    virtual protected void Attack()
     {
 
     }

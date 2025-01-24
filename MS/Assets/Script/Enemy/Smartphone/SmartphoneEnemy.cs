@@ -29,11 +29,16 @@ public class SmartphoneEnemy : ThrowEnemy
     {
         base.Start();
 
+        stopLooking = true;
+        stopRotation = false;
+
         ScaleUp();
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        stopRotation = false;
+        RotateTowards(player.transform.position);
     }
 
     public override void Death()
@@ -41,4 +46,5 @@ public class SmartphoneEnemy : ThrowEnemy
         base.Death();
 
     }
+
 }

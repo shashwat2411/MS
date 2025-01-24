@@ -27,7 +27,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -37,8 +37,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: 850aa7f29c6fea443a4c806eb8245e29, type: 3}
+    - _DistortionTex:
+        m_Texture: {fileID: 2800000, guid: 8a26b37fd02c99b4ca5fd3c0194b8abb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -56,14 +56,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
-    - _DistortionSpeed: 0.1
-    - _EmissionFactor: 1
-    - _NoiseScale: 1
+    - _DistortionStrength: 1.6
+    - _NoiseScale: 816.8
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScrollSpeed: 0.1
-    - _StepEdge: 0.05
-    - _SurfaceMovementSpeed: 0.1
+    - _SurfaceMovementSpeed: 0.001
     m_Colors:
-    - _NoiseTextureColor: {r: 0, g: 1.755318, b: 2, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _DistortionSpeed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
