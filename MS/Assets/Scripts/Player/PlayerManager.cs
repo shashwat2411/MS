@@ -123,7 +123,7 @@ public class PlayerManager : MonoBehaviour
 
         playerData = PlayerSave.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
-
+        Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
 
        
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
@@ -362,6 +362,9 @@ public class PlayerManager : MonoBehaviour
 
     public void Death()
     {
+        SoundManager.Instance.StopAllSE();
+        SoundManager.Instance.StopBGM();
+
         var anim = mainCharacterModel.GetComponent<Animator>();
         anim.SetBool("deathDissolveOut", true);
         anim.SetBool("dissolveOut", false);
