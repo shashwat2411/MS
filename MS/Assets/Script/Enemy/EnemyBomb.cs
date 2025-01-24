@@ -15,7 +15,7 @@ public class EnemyBomb : ThrowableEnemyObject
 
     public AnimationCurve expansion;
     private float expansionCounter = 0f;
-    private Vector3 localScale;
+    [HideInInspector] public Vector3 localScale;
 
     //Hash Map
     private int _Transparency = Shader.PropertyToID("_Transparency");
@@ -23,7 +23,6 @@ public class EnemyBomb : ThrowableEnemyObject
     {
         base.Start();
 
-        localScale = new Vector3(1.5f, 1.5f, 1.5f);
         grounded = false;
 
         fuseMaterial.material = Instantiate(fuseMaterial.material);

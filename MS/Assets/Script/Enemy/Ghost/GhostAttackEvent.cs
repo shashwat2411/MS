@@ -11,6 +11,9 @@ public class GhostAttackEvent : MonoBehaviour
     {
         owner.AttackInstantiate();
         owner.GetItem().start = false;
+
+        float scale = owner.transform.localScale.x;
+        owner.GetItem().localScale = new Vector3(0.75f, 0.75f, 0.75f) * scale;
     }
 
     public void Launch()
