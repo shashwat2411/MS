@@ -72,6 +72,11 @@ public class CameraBrain : MonoBehaviour
         //}
     }
 
+    public void ZoomInTrigger()
+    {
+        //zoomIn = true;
+    }
+
     public IEnumerator CameraShake(float duration, float magnitude)
     {
         Vector3 originalPosition = transform.localPosition;
