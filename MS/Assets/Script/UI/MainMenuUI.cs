@@ -64,26 +64,26 @@ public class MainMenuUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (switcher == false)
-        {
-            counter += Time.deltaTime;
+        //if (switcher == false)
+        //{
+        //    counter += Time.deltaTime;
 
-            if (counter < speed)
-            {
-                title.GetComponent<RectTransform>().localScale = Vector3.Lerp(title.GetComponent<RectTransform>().localScale, new Vector3(size1, size1, size1), 0.5f);
-            }
-            else if (counter >= speed) { counter = speed; switcher = true; }
-        }
-        else
-        {
-            counter -= Time.deltaTime;
+        //    if (counter < speed)
+        //    {
+        //        title.GetComponent<RectTransform>().localScale = Vector3.Lerp(title.GetComponent<RectTransform>().localScale, new Vector3(size1, size1, size1), 0.5f);
+        //    }
+        //    else if (counter >= speed) { counter = speed; switcher = true; }
+        //}
+        //else
+        //{
+        //    counter -= Time.deltaTime;
 
-            if (counter > 0f)
-            {
-                title.GetComponent<RectTransform>().localScale = Vector3.Lerp(title.GetComponent<RectTransform>().localScale, new Vector3(size2, size2, size2), 0.5f);
-            }
-            else if (counter <= 0f) { counter = 0f; switcher = false; }
-        }
+        //    if (counter > 0f)
+        //    {
+        //        title.GetComponent<RectTransform>().localScale = Vector3.Lerp(title.GetComponent<RectTransform>().localScale, new Vector3(size2, size2, size2), 0.5f);
+        //    }
+        //    else if (counter <= 0f) { counter = 0f; switcher = false; }
+        //}
     }
 
 }

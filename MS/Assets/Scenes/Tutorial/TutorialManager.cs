@@ -63,6 +63,7 @@ public class TutorialManager : MonoBehaviour
     public MegaphoneEnemy[] enemies;
     private bool mpOnce = false;
     private bool mpTwice = false;
+    private bool mpThrice = false;
 
     [Header("Finish")]
     public float finishDelayTime;
@@ -80,6 +81,7 @@ public class TutorialManager : MonoBehaviour
         levelUpOnce = false;
         mpOnce = false;
         mpTwice = false;
+        mpThrice = false;
         finishOnce = false;
 
         //delays
@@ -102,7 +104,7 @@ public class TutorialManager : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].gameObject.SetActive(false);
+            //enemies[i].gameObject.SetActive(false);
 
             //enemies[i].megaphone.SetDissolveToMin();
             //enemies[i].body.SetDissolveToMin();
@@ -180,7 +182,17 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(NextState(levelUpDelayTime, true, true, false));
             for (int i = 0; i < enemies.Length; i++)
             {
-                StartCoroutine(DissolveIn(enemies[i], mpEnemyAppearDelayTime + (0.5f * i), enemyDissolveDuration));
+                StartCoroutine(DissolveIn(enemies[i], mpEnemyAppearDelayTime + (1f * i), enemyDissolveDuration));
+            }
+        }
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if ((enemies[i] ? enemies[i].dead : true) && mpThrice == false)
+            {
+                mpThrice = true;
+                if (mpOnce == false) { StartCoroutine(NextState(0f, false, true, false)); }
+                StartCoroutine(NextState(mpDelayTime, false, true, true));
             }
         }
     }
@@ -235,13 +247,10 @@ public class TutorialManager : MonoBehaviour
     {
         if (state == TUTORIALSTATE.MP)
         {
-            for (int i = 0; i < enemies.Length; i++)
+            if (mpOnce == false)
             {
-                if ((enemies[i] ? enemies[i].dead : true) && mpOnce == false)
-                {
-                    mpOnce = true;
-                    StartCoroutine(NextState(mpDelayTime, false, true, false));
-                }
+                mpOnce = true;
+                StartCoroutine(NextState(mpDelayTime, false, true, false));
             }
         }
     }

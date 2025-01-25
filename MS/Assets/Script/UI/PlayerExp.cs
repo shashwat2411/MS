@@ -41,11 +41,11 @@ public class PlayerExp : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerManager>();
 
-        shiftBar = transform.GetChild(0).gameObject.GetComponent<Image>();
-        baseBar = transform.GetChild(1).gameObject.GetComponent<Image>();
+        shiftBar = transform.GetChild(1).gameObject.GetComponent<Image>();
+        baseBar = transform.GetChild(2).gameObject.GetComponent<Image>();
         //borderBar = transform.GetChild(0).gameObject.GetComponent<Image>();
         //innerBorderBar = transform.GetChild(3).gameObject.GetComponent<Image>();
-        ExpText = transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
+        ExpText = transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
         UpdateColor();
     }
 
