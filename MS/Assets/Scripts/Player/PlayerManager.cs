@@ -264,10 +264,7 @@ public class PlayerManager : MonoBehaviour
         CaculateInputDirection();
         SwitchPlayerStates();
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            SceneManager.LoadScene(0);
-        }
+   
         
     }
 
