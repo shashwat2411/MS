@@ -24,6 +24,15 @@ namespace DualSenseSample.Inputs
             if (isDualSenseConected) NotifyConnection(dualSense);
             else NotifyDisconnection();
             GetComponent<DualSenseTrigger>().enabled = false;
+            //GetComponent<DualSenseRumble>().enabled = false;
+        }
+
+        //private void Update() => GetComponent<DualSenseTrigger>().enabled = true;
+
+        private void FixedUpdate()
+        {
+            GetComponent<DualSenseTrigger>().enabled = true;
+            //GetComponent<DualSenseRumble>().enabled = true;
         }
 
         private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
@@ -61,7 +70,8 @@ namespace DualSenseSample.Inputs
                 listener.OnConnect(dualSense);
             }
 
-            GetComponent<DualSenseTrigger>().enabled = true;
+            Debug.Log("connected");
+           
         }
 
         private void NotifyDisconnection()
@@ -70,6 +80,9 @@ namespace DualSenseSample.Inputs
             {
                 listener.OnDisconnect();
             }
+
+            Debug.Log("disconnected");
+            
         }
     }
 }

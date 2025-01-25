@@ -226,8 +226,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (isHold && !afterShock)
         {
-          
-
+           
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
 
             if(chargePhase == ChargePhase.Entry  || chargePhase == ChargePhase.Low)
@@ -262,6 +261,8 @@ public class PlayerAttack : MonoBehaviour
 
             ParticleSystem.MainModule main = chargeEffect.main;
             main.loop = false;
+
+            Debug.Log("AttackFinish");
         }
 
     }

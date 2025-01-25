@@ -13,6 +13,8 @@ public class Goal : MonoBehaviour
 
     public bool debug = false;
 
+
+
     private void Start()
     {
         enemyManager = FindFirstObjectByType<EnemyManager>();
@@ -39,7 +41,7 @@ public class Goal : MonoBehaviour
 
                 // Player Bonus
                 FindFirstObjectByType<SkillSelect>().LevelUp();
-
+               
             }
         }
     }

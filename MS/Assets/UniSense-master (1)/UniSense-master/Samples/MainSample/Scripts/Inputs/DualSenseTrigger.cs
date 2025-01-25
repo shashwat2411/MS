@@ -301,6 +301,9 @@ namespace DualSenseSample.Inputs
 
 
             }
+
+
+            //Debug.Log(Gamepad.current?.rightTrigger.value);
         }
 
         private DualSenseTriggerEffectType SetTriggerEffectType(int index)
@@ -312,6 +315,7 @@ namespace DualSenseSample.Inputs
             return DualSenseTriggerEffectType.NoResistance;
         }
 
-        
+       
+
     }
 }
