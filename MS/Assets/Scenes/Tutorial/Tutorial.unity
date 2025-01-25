@@ -599,7 +599,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -1045,7 +1045,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -1596,7 +1596,7 @@ PrefabInstance:
     - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
         type: 3}
       propertyPath: loadLevel
-      value: SampleScene_5
+      value: GameStage_1
       objectReference: {fileID: 0}
     - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
         type: 3}
@@ -1617,6 +1617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: transitionSpeed
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
+        type: 3}
+      propertyPath: animationDuration
+      value: 0.08333334
       objectReference: {fileID: 0}
     - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
         type: 3}
@@ -3934,7 +3939,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -4684,7 +4689,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -6402,7 +6407,7 @@ PrefabInstance:
     - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -7419,6 +7424,16 @@ PrefabInstance:
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 149902004}
+    - target: {fileID: 1636079647147008108, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -147.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636079647147008108, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 43.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2476706548043862120, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
       propertyPath: m_Camera
@@ -7443,6 +7458,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672828897152758845, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672828897152758845, guid: 635abd798f48b584b88f870d4b380e37,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 9093688481716055622, guid: 635abd798f48b584b88f870d4b380e37,
         type: 3}
@@ -8115,7 +8140,7 @@ PrefabInstance:
     - target: {fileID: 4816747135433939526, guid: 71f290acda13a8a46a2893011111150a,
         type: 3}
       propertyPath: mpDelayTime
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4816747135433939526, guid: 71f290acda13a8a46a2893011111150a,
         type: 3}
@@ -8130,7 +8155,7 @@ PrefabInstance:
     - target: {fileID: 4816747135433939526, guid: 71f290acda13a8a46a2893011111150a,
         type: 3}
       propertyPath: finishDelayTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4816747135433939526, guid: 71f290acda13a8a46a2893011111150a,
         type: 3}
