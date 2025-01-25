@@ -125,6 +125,8 @@ public class PlayerManager : MonoBehaviour
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
         Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
 
+     
+
        
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
@@ -151,6 +153,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        playerData.hp = playerData.maxHp;
         PlayerSave.Instance.playerData = playerData;
      
         PlayerSave.Instance.playerAblities = 
