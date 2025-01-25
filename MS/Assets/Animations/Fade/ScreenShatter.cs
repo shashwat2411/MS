@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,9 +26,14 @@ public class ScreenShatter : MonoBehaviour
     public float animationDuration;
     public float finalPositionZ;
 
+    private PostProcessController postProcess;
+    public float lensScale = 0.95f;
+
+
     private void Awake()
     {
-        //System.Array.Sort(shards, (a, b) => a.transform.localPosition.x.CompareTo(b.transform.localPosition.x));
+        postProcess = FindFirstObjectByType<PostProcessController>();
+
         ShuffleArray(shards);
         StartCoroutine(DelayCall());
     }
@@ -45,6 +51,7 @@ public class ScreenShatter : MonoBehaviour
 
     private IEnumerator DelayCall()
     {
+        postProcess.lensDistortionScale = lensScale;
         mainCamera.farClipPlane = 0f;
 
         fadeIn = true;
@@ -75,6 +82,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 fadeIn = false;
                 ResetScreen();
+                postProcess.lensDistortionScale = 1f;
                 plane.SetActive(false);
             }
         }
@@ -86,6 +94,7 @@ public class ScreenShatter : MonoBehaviour
             //}
             if (shards[shards.Length - 1].animation == true)
             {
+                Time.timeScale = 1f;
                 SceneManager.LoadScene(loadLevel);
             }
         }
@@ -115,6 +124,26 @@ public class ScreenShatter : MonoBehaviour
 
         yield return ShatterCoroutine();
     }
+
+
+    public IEnumerator FailShatterScreenInitate()
+    {
+        loadLevel = "MainMenu";
+
+        plane.SetActive(true);
+        reset = false;
+        captureCamera.gameObject.SetActive(true);
+        mainCanvas.worldCamera = captureCamera;
+
+        yield return null;
+
+        mainCamera.gameObject.SetActive(false);
+        captureCamera.gameObject.SetActive(false);
+        shatterCamera.gameObject.SetActive(true);
+
+        yield return ShatterCoroutine();
+    }
+
     private IEnumerator ShatterCoroutine()
     {
         for (int i = 0; i < shards.Length; i++)
@@ -127,7 +156,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 //shards[i].Play("shatter", -1, 0f);
                 StartCoroutine(shards[i].Shatter(animationDuration));
-                yield return new WaitForSeconds(transitionSpeed);
+                yield return new WaitForSecondsRealtime(transitionSpeed);
             }
         }
     }
@@ -142,6 +171,8 @@ public class ScreenShatter : MonoBehaviour
         mainCamera.farClipPlane = 1000f;
         //captureCamera.gameObject.SetActive(false);
         shatterCamera.gameObject.SetActive(true);
+
+
 
         yield return ShatterReverseCoroutine();
     }
@@ -158,7 +189,7 @@ public class ScreenShatter : MonoBehaviour
             {
                 //shards[i].Play("shatterReverse", -1, 0f);
                 StartCoroutine(shards[i].ShatterReverse(animationDuration));
-                yield return new WaitForSeconds(transitionSpeed);
+                yield return new WaitForSecondsRealtime(transitionSpeed);
             }
         }
     }

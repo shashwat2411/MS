@@ -65,6 +65,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerAttack playerAttack;
     PlayerMpAttack playerMpAttack;
     PlayerDash playerDash;
+    public GameObject mainCharacterModel;
+
 
 
     //Bonus
@@ -121,7 +123,7 @@ public class PlayerManager : MonoBehaviour
 
         playerData = PlayerSave.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
-
+        Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
 
        
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
@@ -360,6 +362,24 @@ public class PlayerManager : MonoBehaviour
 
     public void Death()
     {
+        SoundManager.Instance.StopAllSE();
+        SoundManager.Instance.StopBGM();
+
+        collider.enabled = false;
+
+        var anim = mainCharacterModel.GetComponent<Animator>();
+        anim.SetBool("deathDissolveOut", true);
+        anim.SetBool("dissolveOut", false);
+        anim.SetBool("dissolveIn", false);
+        anim.enabled = true;
+        Time.timeScale = 0.2f;
+
+        GetComponent<PlayerInput>().enabled = false;
+        animator.speed = 0f;
+
+        StartCoroutine(postProcess.VignetteFadeIn(0.4f));
+        StartCoroutine(mainCamera.GetComponent<GameEffects>().DeathSlowMotion(0.5f, 0f));
+
     }
 
     public void CheckPlayerDataState()
@@ -387,12 +407,10 @@ public class PlayerManager : MonoBehaviour
         playerData.lv++;
         if((playerData.lv %5) == 0)
         {
-            playerData.nextExp *= 1.2f;
+            playerData.nextExp *= 1.0f;
         }
 
-        //Bonus Menu
-        BonusMenu.SetActive(true);
-
+      
     }
 
     /// <summary>
@@ -546,7 +564,6 @@ public class PlayerManager : MonoBehaviour
         }
         return false;
     }
-
 
   
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 public class GameEffects : MonoBehaviour
@@ -41,6 +42,26 @@ public class GameEffects : MonoBehaviour
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
         slowMotion = true;
+    }
+
+    public IEnumerator DeathSlowMotion(float time, float scale)
+    {
+        float elapsed = 0f;
+
+        while(elapsed < time)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            slowDownFactor = Mathf.Lerp(1f, scale, elapsed / time);
+
+            Time.timeScale = slowDownFactor;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+            yield return null;
+        }
+
+        Time.timeScale = 0.2f;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 
     public IEnumerator HitStop(float duration)

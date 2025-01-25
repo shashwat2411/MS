@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyPoison : ThrowableEnemyObject
 {
+    public float rotationValue = 1f;
     protected override void Start()
     {
         base.Start();
@@ -12,6 +13,8 @@ public class EnemyPoison : ThrowableEnemyObject
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        transform.Rotate(new Vector3(1f, 0f, 0f), rotationValue);
     }
 
     private void OnCollisionEnter(Collision collision)
