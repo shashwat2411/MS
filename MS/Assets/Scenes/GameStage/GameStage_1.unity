@@ -6658,18 +6658,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9047676264548940614}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &543450652030338068 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
-    type: 3}
-  m_PrefabInstance: {fileID: 9047676264548940614}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951e52619e6f099468bb50d3aff8f921, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1768972179094941407 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4984400120948274797, guid: 635abd798f48b584b88f870d4b380e37,
@@ -7289,56 +7277,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
-      value: a5b26621-26c3-4d72-b879-a9ea4608f213
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
-      value: 7f353fe0-93db-4a70-ac70-d5997f8a907b
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
-      value: Player/ZoomIn[/XInputControllerWindows/dpad/down]
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
-      value: Player/ZoomOut[/XInputControllerWindows/dpad/up]
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 774381846}
@@ -7382,56 +7320,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 774381843}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 543450652030338068}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 543450652030338068}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetZoomInPressed
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetZoomOutPressed
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072802543075497394, guid: 705c8e1dc38b8cf48958b50e1460a003,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
         type: 3}
       propertyPath: playerHP

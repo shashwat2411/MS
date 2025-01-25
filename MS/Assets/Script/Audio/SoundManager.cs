@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(string name)
     {
-        if (soundsInfo = null)
+        if (soundsInfo == null)
         {
             return;
         }
@@ -80,7 +80,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySE(string name, float pitch = 1f)
     {
-        if (soundsInfo = null)
+        if (soundsInfo == null)
         {
             return;
         }
