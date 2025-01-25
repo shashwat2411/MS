@@ -1,8 +1,0 @@
-//
-//
-//  input
-//  Runble
-//  Color
-//
-//  ControlManager
-//
