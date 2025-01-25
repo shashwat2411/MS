@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class SkillWindow : MonoBehaviour
 {
@@ -23,11 +24,20 @@ public class SkillWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = FindFirstObjectByType<PlayerManager>();
+       
        
     }
 
- 
+    private void OnEnable()
+    {
+        if(player == null)
+        {
+            player = FindFirstObjectByType<PlayerManager>();
+        }
+
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
+    }
 
 
     public void DrawBonus()

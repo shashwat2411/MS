@@ -104,6 +104,8 @@ public class PlayerManager : MonoBehaviour
     Transform mainCamera;
 
     BonusItem bonusItem;
+
+    PlayerInput playerInput;
     void Start()
     {
         BonusMenu = GameObject.Find("BonusSelect");
@@ -121,7 +123,7 @@ public class PlayerManager : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();
         mainCamera = Camera.main.transform;
         cameraBrain = Camera.main.GetComponent<CameraBrain>();
-
+        playerInput = GetComponent<PlayerInput>();
 
         playerData = PlayerSave.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
@@ -231,8 +233,8 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+
      
-      
 
         playerDash.Dash();
         invincibility = playerDash.dashIncibility || hurtInvincibility;

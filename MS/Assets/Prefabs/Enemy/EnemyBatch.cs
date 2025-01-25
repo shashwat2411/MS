@@ -15,6 +15,12 @@ public class EnemyBatch : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Inite();
+    }
+
+
+   protected void Inite()
+    {
         enemies = GetComponentsInChildren<EnemyBase>();
         foreach (EnemyBase enemy in enemies)
         {
@@ -22,9 +28,17 @@ public class EnemyBatch : MonoBehaviour
         }
 
 
-       
+
 
         StartCoroutine(SpawnEnemy());
+    }
+
+    void SpawnFirstEnemy()
+    {
+        for (int i = 0; i < firstSpawnCount; i++)
+        {
+            enemies[i].gameObject.SetActive(true);
+        }
     }
 
 
