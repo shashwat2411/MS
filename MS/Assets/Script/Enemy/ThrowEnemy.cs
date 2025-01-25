@@ -91,7 +91,6 @@ public class ThrowEnemy : EnemyBase
     public override void Death()
     {
         base.Death();
-        Destroy(gameObject);
     }
     //____________________________________________________________________________________________________________________________
 
@@ -111,24 +110,27 @@ public class ThrowEnemy : EnemyBase
             base.Move();
         }
 
-        direction = player.transform.position - gameObject.transform.position;
-        if (direction.magnitude < attackDistance)
+        if (dead == false)
         {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
-            rigidbody.velocity = Vector3.zero;
-            if (attacked == false)
+            direction = player.transform.position - gameObject.transform.position;
+            if (direction.magnitude < attackDistance)
             {
-                animator.SetBool(_Attack, true);
-                animator.SetBool(_Walk, false);
-                RotateTowards(player.transform.position);
-                StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, 0f));
-            }
-            else
-            {
-                animator.SetBool(_Attack, false);
-                animator.SetBool(_Walk, false);
-                StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+                rigidbody.velocity = Vector3.zero;
+                if (attacked == false)
+                {
+                    animator.SetBool(_Attack, true);
+                    animator.SetBool(_Walk, false);
+                    RotateTowards(player.transform.position);
+                    StartCoroutine(ChangeState(THROWENEMY_STATE.ATTACK, 0f));
+                }
+                else
+                {
+                    animator.SetBool(_Attack, false);
+                    animator.SetBool(_Walk, false);
+                    StartCoroutine(ChangeState(THROWENEMY_STATE.IDLE, 0f));
+                }
             }
         }
     }
@@ -198,9 +200,12 @@ public class ThrowEnemy : EnemyBase
         yield return new WaitForSeconds(delayTime);
         state = value;
 
-        if (value == THROWENEMY_STATE.IDLE)
+        if (dead == false)
         {
-            agent.gameObject.transform.position = transform.position;
+            if (value == THROWENEMY_STATE.IDLE)
+            {
+                agent.gameObject.transform.position = transform.position;
+            }
         }
     }
 
