@@ -23,6 +23,7 @@ public class ResetPlayerAblityPrefs : MonoBehaviour
         playerPrefabs.ResetPlayerPrefabs();
 
         PlayerSave.Instance.Clear();
+
     }
 
     private void OnDestroy()

@@ -11,11 +11,14 @@ public class TeleportOutCutScene : MonoBehaviour
     public Animator mainCamera;
     public Animator mainCharacter;
 
+    public MiniMapUI minimapUI;
+
     private bool playCutScene = false;
 
     private void Start()
     {
         playCutScene = false;
+        minimapUI = FindFirstObjectByType<MiniMapUI>();
     }
     private void Update()
     {
@@ -30,6 +33,8 @@ public class TeleportOutCutScene : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             StartCutScene();
+            minimapUI.MovePlayer(1, 0);
+            PlayerSave.Instance.minimapPos.Item1 += 1;
         }
     }
 

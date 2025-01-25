@@ -1042,7 +1042,19 @@ MonoBehaviour:
     m_ActionId: b54bc87c-4d4e-4119-a182-7e8275144367
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6535310836067697525}
+        m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
+        m_MethodName: GetAttackPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 28a48f1d-992c-4a3c-a6c9-a587a4a11b60
     m_ActionName: Player/New action
   - m_PersistentCalls:
@@ -1273,6 +1285,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2e86847-3d23-4ba0-adc8-f7bfbdc3c93d
     m_ActionName: MainMenu/Enter[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2267661427729007094}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: GetZoomInPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a5b26621-26c3-4d72-b879-a9ea4608f213
+    m_ActionName: Player/ZoomIn[/XInputControllerWindows/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2267661427729007094}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: GetZoomOutPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f353fe0-93db-4a70-ac70-d5997f8a907b
+    m_ActionName: Player/ZoomOut[/XInputControllerWindows/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1350,7 +1394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.2
   collider: {fileID: 0}
-  attackMoveRange: 2
+  attackMoveRange: 1.5
   chargePhase: 0
   lowRange: 22.1
   middleRange: 51.4

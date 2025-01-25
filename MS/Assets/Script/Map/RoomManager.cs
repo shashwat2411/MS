@@ -35,6 +35,7 @@ public class RoomManager : MonoBehaviour
         
         CSVReading(0);
         currentRoom = MakeRoom(1);
+    
     }
 
     //==================================

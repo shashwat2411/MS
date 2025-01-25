@@ -40,7 +40,6 @@ public class CameraBrain : MonoBehaviour
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
-        //dualsense = GameObject.Find("DualSense");
 
         originalOffset = offset;
         zoomInCounter = 0f;

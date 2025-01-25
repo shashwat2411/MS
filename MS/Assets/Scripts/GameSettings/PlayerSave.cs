@@ -8,6 +8,7 @@ public class PlayerSave : ScriptableObject
     public PlayerData playerData;
     public List<GameObject> playerAblities = new List<GameObject>();
 
+    public (int, int) minimapPos;
 
     static PlayerSave instance;
     public static PlayerSave Instance
@@ -28,7 +29,7 @@ public class PlayerSave : ScriptableObject
     {
         playerAblities.Clear();   
         playerData = CharacterSettings.Instance.playerData;
-        
+        minimapPos = (0, 0);
 
     }
 

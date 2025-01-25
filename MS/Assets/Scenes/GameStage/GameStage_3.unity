@@ -1026,7 +1026,7 @@ PrefabInstance:
     - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
         type: 3}
       propertyPath: loadLevel
-      value: BossScene
+      value: GameStage_4
       objectReference: {fileID: 0}
     - target: {fileID: 3098070804861501320, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
         type: 3}
@@ -3511,7 +3511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270f10e28ba5b844a87a85eeb8bc46ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: {x: 0.75, y: 1.5}
+  range: {x: 1.2, y: 1.8}
 --- !u!114 &635416838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3524,7 +3524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8e60021f5577248b0ec55e40fee916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNum: 6
+  stageExpFactor: 6
 --- !u!1001 &648606302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9617,6 +9617,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1177558486}
+  - {fileID: 1404206362697930}
   - {fileID: 4417784510810067838}
   - {fileID: 2094981521}
   - {fileID: 955755217}
@@ -9631,7 +9632,6 @@ SceneRoots:
   - {fileID: 1754039144}
   - {fileID: 7546326418321527640}
   - {fileID: 1190276357}
-  - {fileID: 1404206362697930}
   - {fileID: 80865459}
   - {fileID: 3177958552820133138}
   - {fileID: 1281697764}

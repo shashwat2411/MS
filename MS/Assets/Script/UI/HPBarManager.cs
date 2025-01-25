@@ -66,7 +66,7 @@ public class HPBarManager : MonoBehaviour
                    
             Hpbar2.Hp_Now = Hp_Now - 100.0f;
 
-            Hpbar1.active = false;
+            StartCoroutine(DisableHpBar1());
             Hpbar2.active = true;
         }
         else
@@ -76,9 +76,19 @@ public class HPBarManager : MonoBehaviour
             Hpbar2.Hp_Now = 0.0f;
 
             Hpbar1.active = true;
-            Hpbar2.active = false;
+            StartCoroutine(DisableHpBar2());
         }
 
+    }
+    IEnumerator DisableHpBar1()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Hpbar1.active = false;
+    }
+    IEnumerator DisableHpBar2()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Hpbar2.active = false;
     }
 
     void SetSecondHPLength()

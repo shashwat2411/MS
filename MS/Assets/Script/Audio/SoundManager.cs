@@ -52,9 +52,16 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(string name)
     {
+        if (soundsInfo == null)
+        {
+            return;
+        }
+
         // ラムダ式 第二引数はPredicate
         // SoundCoreクラスの配列内に
         // 同じ名前の物があるかどうかを確認
+
+
         SoundCore s = System.Array.Find(soundsInfo.GetBGM(), sound => sound.name == name);
         //無ければ戻る
         if (s == null)
@@ -73,6 +80,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySE(string name, float pitch = 1f)
     {
+        if (soundsInfo == null)
+        {
+            return;
+        }
+
         // ラムダ式　第二引数はPredicate
         // Soundクラスの配列の中の名前に，
         // 引数nameに等しいものがあるかどうか確認
