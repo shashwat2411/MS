@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static ThrowEnemy;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class TutorialManager : MonoBehaviour
         CHARGE,
         EXPERIENCE,
         LEVEL_UP,
-        AIMER_MOVEMENT,
         MP,
         FINISH,
 
@@ -28,10 +26,12 @@ public class TutorialManager : MonoBehaviour
     [Header("References")]
     public PlayerManager player;
     public PlayerInput input;
+    public ScreenShatter shatterer;
 
     [Header("Inputs")]
-    public InputActionReference closeRangeAttack;
     public InputActionReference dash;
+    public InputActionReference closeRangeAttack;
+    public InputActionReference mpAttack;
 
     [Header("Movement")]
     public float movementDelayTime;
@@ -42,11 +42,28 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Charge")]
     public float chargeDelayTime;
+    public float enemyAppearDelayTime;
     private bool chargeOnce = false;
     private bool chargeTwice = false;
 
     [Header("Experience")]
     public MegaphoneEnemy enemy1;
+    public float experienceDelayTime;
+    private bool experienceOnce = false;
+
+    [Header("Level Up")]
+    public float levelUpDelayTime;
+    public float levelUpTwoDelayTime;
+    private bool levelUpOnce = false;
+
+    [Header("MP")]
+    public float mpDelayTime;
+    public MegaphoneEnemy[] enemies;
+    private bool mpOnce = false;
+
+    [Header("Finish")]
+    public float finishDelayTime;
+    private bool finishOnce = false;
 
     private void Start()
     {
@@ -54,14 +71,35 @@ public class TutorialManager : MonoBehaviour
 
         enemy1.gameObject.SetActive(false);
 
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].gameObject.SetActive(false);
+        }
+
         //boolean
         movementOnce = false;
         chargeOnce = false;
         chargeTwice = false;
+        experienceOnce = false;
+        levelUpOnce = false;
+        mpOnce = false;
+        finishOnce = false;
+
+        //delays
+        movementDelayTime += text.dissolveDuration;
+        dashDelayTime += text.dissolveDuration;
+        chargeDelayTime += text.dissolveDuration;
+        enemyAppearDelayTime += text.dissolveDuration;
+        experienceDelayTime += text.dissolveDuration;
+        levelUpDelayTime += text.dissolveDuration;
+        levelUpTwoDelayTime += text.dissolveDuration;
+        mpDelayTime += text.dissolveDuration;
+        finishDelayTime += text.dissolveDuration;
 
         //Subscriptions
-        closeRangeAttack.action.canceled += ChargeFinish;
         dash.action.started += DashInput;
+        closeRangeAttack.action.canceled += ChargeFinish;
+        mpAttack.action.started += MpAttack;
     }
 
     private void FixedUpdate()
@@ -88,10 +126,6 @@ public class TutorialManager : MonoBehaviour
                 LEVEL_UP();
                 break;
 
-            case TUTORIALSTATE.AIMER_MOVEMENT:
-                AIMER_MOVEMENT();
-                break;
-
             case TUTORIALSTATE.MP:
                 MP();
                 break;
@@ -113,11 +147,37 @@ public class TutorialManager : MonoBehaviour
     }
     private void DASH() { }
     private void CHARGE() { }
-    private void EXPERIENCE() { }
-    private void LEVEL_UP() { }
-    private void AIMER_MOVEMENT() { }
+    private void EXPERIENCE()
+    {
+        if ((enemy1 ? enemy1.dead : true) && experienceOnce == false)
+        {
+            experienceOnce = true;
+            StartCoroutine(NextState(experienceDelayTime, false, true, true));
+        }
+    }
+    private void LEVEL_UP()
+    {
+        if (levelUpOnce == false)
+        {
+            levelUpOnce = true;
+            StartCoroutine(NextState(levelUpDelayTime, false, true, false));
+            StartCoroutine(NextState(levelUpDelayTime + levelUpTwoDelayTime, true, true, true));
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                StartCoroutine(enemies[i].DissolveIn(levelUpDelayTime + levelUpTwoDelayTime + enemyAppearDelayTime - text.dissolveDuration * 2f));
+            }
+        }
+    }
     private void MP() { }
-    private void FINISH() { }
+    private void FINISH() 
+    {
+        if(finishOnce == false)
+        {
+            finishOnce = true;
+            StartCoroutine(shatterer.ShatterScreenInitate());
+        }
+    }
 
     private void Update()
     {
@@ -144,21 +204,33 @@ public class TutorialManager : MonoBehaviour
                 {
                     chargeOnce = true;
                     StartCoroutine(NextState(chargeDelayTime, false, true, false));
+                    return;
                 }
             }
 
-            if(chargeOnce == true && chargeTwice == false)
+            if (chargeOnce == true && chargeTwice == false)
             {
                 chargeTwice = true;
                 StartCoroutine(NextState(chargeDelayTime, true, true));
 
-                enemy1.gameObject.SetActive(true);
-                enemy1.DissolveIn();
+                StartCoroutine(enemy1.DissolveIn(enemyAppearDelayTime));
             }
-
         }
     }
-
+    void MpAttack(InputAction.CallbackContext context)
+    {
+        if (state == TUTORIALSTATE.MP)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if ((enemies[i] ? enemies[i].dead : true) && mpOnce == false)
+                {
+                    mpOnce = true;
+                    StartCoroutine(NextState(mpDelayTime, true, true, true));
+                }
+            }
+        }
+    }
 
 
     //Coroutines--------------------------------------------------------------------------------------------------------------------------
@@ -172,12 +244,17 @@ public class TutorialManager : MonoBehaviour
         {
             current++;
             if (current >= (int)TUTORIALSTATE.MAX) { current = (int)TUTORIALSTATE.FINISH; }
+        }
 
-            if (videoShift == true) { video.ChangeScreen(); }
-            if (textShift == true) { text.ChangeScreen(); }
+        if (videoShift == true)
+        {
+            video.ChangeScreen();
+        }
+        if (textShift == true)
+        {
+            text.ChangeScreen();
         }
 
         state = (TUTORIALSTATE)current;
     }
-
 }

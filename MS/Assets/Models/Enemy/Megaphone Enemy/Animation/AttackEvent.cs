@@ -6,6 +6,15 @@ public class AttackEvent : MonoBehaviour
 {
     public ThrowEnemy owner;
 
+
+    public void RotateEnable()
+    {
+        owner.gameObject.GetComponent<MegaphoneEnemy>().SetStopRotation(false);
+    }    
+    public void RotateDisable()
+    {
+        owner.gameObject.GetComponent<MegaphoneEnemy>().SetStopRotation(true);
+    }
     public void Attack()
     {
         owner.AttackInstantiate();

@@ -54,7 +54,7 @@ public class MegaphoneEnemy : ThrowEnemy
 
     protected override void Attack()
     {
-        stopRotation = true;
+
     }
 
     public override void Death()
@@ -70,11 +70,17 @@ public class MegaphoneEnemy : ThrowEnemy
         Destroy(gameObject, dissolveOutDuration);
     }
 
-    public void DissolveIn()
+    public IEnumerator DissolveIn(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         gameObject.SetActive(true);
+
+        yield return null;
 
         StartCoroutine(megaphone.DissolveIn(dissolveOutDuration));
         StartCoroutine(body.DissolveIn(dissolveOutDuration));
     }
+
+    public void SetStopRotation(bool value) { stopRotation = value; }
 }
