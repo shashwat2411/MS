@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Device;
 
 public class MegaphoneEnemy : ThrowEnemy
 {
@@ -60,5 +61,20 @@ public class MegaphoneEnemy : ThrowEnemy
     {
         base.Death();
 
+        GetComponent<Collider>().enabled = false;
+        animator.speed = 0f;
+
+        StartCoroutine(megaphone.DissolveOut(dissolveOutDuration));
+        StartCoroutine(body.DissolveOut(dissolveOutDuration));
+
+        Destroy(gameObject, dissolveOutDuration);
+    }
+
+    public void DissolveIn()
+    {
+        gameObject.SetActive(true);
+
+        StartCoroutine(megaphone.DissolveIn(dissolveOutDuration));
+        StartCoroutine(body.DissolveIn(dissolveOutDuration));
     }
 }

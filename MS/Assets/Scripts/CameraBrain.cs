@@ -4,7 +4,6 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UniSense;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CameraBrain : MonoBehaviour
 {
@@ -41,7 +40,6 @@ public class CameraBrain : MonoBehaviour
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
-       
 
         originalOffset = offset;
         zoomInCounter = 0f;

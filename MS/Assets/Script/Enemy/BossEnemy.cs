@@ -276,4 +276,25 @@ public class BossEnemy : EnemyBase
             }
         }
     }
+
+    public void BossOnCollision(GameObject collision)
+    {
+        PlayerManager player = collision.gameObject.GetComponent<PlayerManager>();
+        if (player)
+        {
+            if (disableColliders == false)
+            {
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Slap"))
+                {
+                    player.playerHP.Damage(slapAttackPower);
+                    disableColliders = true;
+                }
+                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash") || animator.GetCurrentAnimatorStateInfo(0).IsName("SmashFar"))
+                {
+                    player.playerHP.Damage(smashAttackPower);
+                    disableColliders = true;
+                }
+            }
+        }
+    }
 }

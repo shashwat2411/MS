@@ -4948,6 +4948,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.8685718
       objectReference: {fileID: 0}
+    - target: {fileID: 2072932121850151571, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2162264580363315961, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5037,11 +5042,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GunEnemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6870146018940722811, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869873269981273226, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -7415,12 +7415,6 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1404206362697930}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1799069154 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 2152564820903752440, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
-    type: 3}
-  m_PrefabInstance: {fileID: 3590062240476354223}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1830428953 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2535805834776900895, guid: 90894f0f8daad2240a8443e4e5fa6cd3,
@@ -8973,11 +8967,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 635416836}
     m_Modifications:
-    - target: {fileID: 2152564820903752440, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6446019585927674765, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9028,25 +9017,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7148714100632284219, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: m_Speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148714100632284219, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 7294047095009365553, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
         type: 3}
       propertyPath: m_Name
       value: KamikazeEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294047095009365553, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
-        type: 3}
-      propertyPath: tick
-      value: 
-      objectReference: {fileID: 1799069154}
-    - target: {fileID: 7711396439132801089, guid: 9671ffb968e66d04cb7bcaaefc5946dd,
-        type: 3}
-      propertyPath: sinMultiplier
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9230,15 +9214,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 635416836}
     m_Modifications:
-    - target: {fileID: 307770816887279091, guid: 29d5b291be0df6547a776f75bbfab692,
+    - target: {fileID: 65485646775956934, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
-      propertyPath: attackDistance
-      value: 10
+      propertyPath: m_LocalPosition.z
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 65485646775956934, guid: 29d5b291be0df6547a776f75bbfab692,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 65485646775956934, guid: 29d5b291be0df6547a776f75bbfab692,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 601121622043439549, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
       propertyPath: m_Name
       value: PoisonEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 601121622043439549, guid: 29d5b291be0df6547a776f75bbfab692,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1555752673473499043, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
@@ -9290,10 +9289,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3877112495239704362, guid: 29d5b291be0df6547a776f75bbfab692,
+    - target: {fileID: 5817679787173230839, guid: 29d5b291be0df6547a776f75bbfab692,
         type: 3}
-      propertyPath: m_Speed
-      value: 4
+      propertyPath: m_LocalPosition.z
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817679787173230839, guid: 29d5b291be0df6547a776f75bbfab692,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817679787173230839, guid: 29d5b291be0df6547a776f75bbfab692,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9386,11 +9395,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 635416836}
     m_Modifications:
-    - target: {fileID: 1879835070338036779, guid: 209918086360d774898f677740be67c9,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.61
-      objectReference: {fileID: 0}
     - target: {fileID: 3829147028783882152, guid: 209918086360d774898f677740be67c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9450,6 +9454,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161599631619499585, guid: 209918086360d774898f677740be67c9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161599631619499585, guid: 209918086360d774898f677740be67c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161599631619499585, guid: 209918086360d774898f677740be67c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
