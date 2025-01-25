@@ -493,7 +493,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -615,33 +615,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46f0f40fade16d74082202f818bba5a6, type: 3}
---- !u!1 &1510026044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5173800700656170862, guid: 62071e494f50d9b4a9038bc37cd0cd38,
-    type: 3}
-  m_PrefabInstance: {fileID: 5261705809254702914}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1510026046
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510026044}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bb227356f29f73142908aff3db7f65bc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!20 &1603854513 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2350285328742304146, guid: bce0abc834ecb6a4e9ff44c08c4037c3,
@@ -4524,7 +4497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2112603599
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4746,11 +4719,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3762378603363875892, guid: 62071e494f50d9b4a9038bc37cd0cd38,
+    - target: {fileID: 1713435700392017829, guid: 62071e494f50d9b4a9038bc37cd0cd38,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 404f75df10e6a9147b8ecdc7abf2ed36, type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713435700392017829, guid: 62071e494f50d9b4a9038bc37cd0cd38,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713435700392017829, guid: 62071e494f50d9b4a9038bc37cd0cd38,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713435700392017829, guid: 62071e494f50d9b4a9038bc37cd0cd38,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5173800700656170862, guid: 62071e494f50d9b4a9038bc37cd0cd38,
         type: 3}
       propertyPath: m_Name
@@ -4809,11 +4797,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5173800700656170862, guid: 62071e494f50d9b4a9038bc37cd0cd38,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1510026046}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62071e494f50d9b4a9038bc37cd0cd38, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
