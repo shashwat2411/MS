@@ -41,8 +41,8 @@ public class PlayerExp : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerManager>();
 
-        baseBar = transform.GetChild(0).gameObject.GetComponent<Image>();
-        //shiftBar = transform.GetChild(1).gameObject.GetComponent<Image>();
+        shiftBar = transform.GetChild(0).gameObject.GetComponent<Image>();
+        baseBar = transform.GetChild(1).gameObject.GetComponent<Image>();
         //borderBar = transform.GetChild(0).gameObject.GetComponent<Image>();
         //innerBorderBar = transform.GetChild(3).gameObject.GetComponent<Image>();
         ExpText = transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
@@ -59,7 +59,9 @@ public class PlayerExp : MonoBehaviour
         exp = player.playerData.exp;
         maxExp = player.playerData.nextExp;
 
-        baseBar.fillAmount = exp / maxExp;
+        shiftBar.fillAmount = exp / maxExp;
+        baseBar.fillAmount = Mathf.Lerp(baseBar.fillAmount, shiftBar.fillAmount, shiftSpeed);
+
         ExpText.text = exp.ToString("N0");
         Debug.Log("exp:" + exp + ":::::maxexp:" + maxExp + "::::fill:" + baseBar.fillAmount);
     }
@@ -109,9 +111,9 @@ public class PlayerExp : MonoBehaviour
 
     private void UpdateColor()
     {
-        if (baseBar != null) { baseBar.color = baseColor; }
-        if (shiftBar != null) { shiftBar.color = shiftColor; }
-        if (borderBar != null) { borderBar.color = borderColor; }
-        if (innerBorderBar != null) { innerBorderBar.color = borderColor; }
+        //if (baseBar != null) { baseBar.color = baseColor; }
+        //if (shiftBar != null) { shiftBar.color = shiftColor; }
+        //if (borderBar != null) { borderBar.color = borderColor; }
+        //if (innerBorderBar != null) { innerBorderBar.color = borderColor; }
     }
 }

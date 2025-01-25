@@ -71,9 +71,9 @@ public class PlayerMP : MonoBehaviour
 
     private void UpdateColor()
     {
-        if (baseBar != null) { baseBar.color = baseColor; }
-        if (shiftBar != null) { shiftBar.color = shiftColor; }
-        if (borderBar != null) { borderBar.color = borderColor; }
-        if (innerBorderBar != null) { innerBorderBar.color = borderColor; }
+        //if (baseBar != null) { baseBar.color = baseColor; }
+        //if (shiftBar != null) { shiftBar.color = shiftColor; }
+        //if (borderBar != null) { borderBar.color = borderColor; }
+        //if (innerBorderBar != null) { innerBorderBar.color = borderColor; }
     }
 }

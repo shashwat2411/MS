@@ -111,9 +111,6 @@ public class PlayerManager : MonoBehaviour
     {
         BonusMenu = GameObject.Find("BonusSelect");
 
-        TutorialManager t = FindFirstObjectByType<TutorialManager>();
-        if (t) { tutorial = true; }
-        else { tutorial = false; }
     }
 
     private void Awake()
@@ -155,6 +152,9 @@ public class PlayerManager : MonoBehaviour
         playerHP = FindFirstObjectByType<HPBarManager>();
         playerExp = FindFirstObjectByType<PlayerExp>();
 
+        TutorialManager t = FindFirstObjectByType<TutorialManager>();
+        if (t) { tutorial = true; }
+        else { tutorial = false; }
 
     }
 

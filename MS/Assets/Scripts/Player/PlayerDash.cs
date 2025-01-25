@@ -188,7 +188,8 @@ public class PlayerDash : MonoBehaviour
 
             lastDash = Time.time + playerData.dashTime;
 
-            dashCoolDownMask.fillAmount = 0.0f;
+            //dashCoolDownMask.fillAmount = 0.0f;
+            StartCoroutine(DashDown(0.5f));
 
             dashCount--;
 
@@ -203,7 +204,27 @@ public class PlayerDash : MonoBehaviour
         }
 
     }
+    private IEnumerator DashDown(float duration)
+    {
+        float elapsed = 0f;
 
+        float amount = dashCoolDownMask.fillAmount;
+        float amount2 = 1f;
+
+        if (dashCount <= 0) { amount2 = dashCoolDownMask.fillAmount; }
+
+        if (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            dashCoolDownMask.fillAmount = elapsed / duration * amount;
+            if (dashCount <= 0) { doubleDashCoolDownMask.fillAmount = elapsed / duration * amount2; }
+            yield return null;
+        }
+
+        dashCoolDownMask.fillAmount = 0f;
+        if (dashCount <= 0) { doubleDashCoolDownMask.fillAmount = 0f; }
+    }
 
     void CalculateAndTurnDir()
     {
