@@ -41,6 +41,7 @@ public class CameraBrain : MonoBehaviour
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
+        dualsense = GameObject.Find("DualSense");
 
         originalOffset = offset;
         zoomInCounter = 0f;
@@ -90,15 +91,15 @@ public class CameraBrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
         if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
 
-        //Rumble(test)
-        //if (Input.GetKey(KeyCode.M))
-        //{
-        //    SetGamePadMotorSpeed(MaxValue, true);
-        //}
-        //else
-        //{
-        //    SetGamePadMotorSpeed(0, false);
-        //}
+        //  Rumble(test)
+        if (Gamepad.current?.buttonWest.isPressed == true)  
+        {
+            //SetRumbleValue(DamgeTest, true);
+           //player.playerHP.Damage(20.0f);
+           
+           SetGamePadMotorSpeed(DamgeTest, true);
+        }
+        
     }
 
 
@@ -135,12 +136,13 @@ public class CameraBrain : MonoBehaviour
                 if (zoomIn == true) { elapsed = duration; }
             }
 
+           
             SetGamePadMotorSpeed(magnitude, true);
-
             yield return null;
         }
 
         transform.localPosition = originalPosition;
+
         GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
@@ -166,6 +168,7 @@ public class CameraBrain : MonoBehaviour
         yield return new WaitForSeconds(time);
     }
 
+
     void SetGamePadMotorSpeed(float magnitude, bool use)
     {
         Vector2 motorspeed;
@@ -174,6 +177,9 @@ public class CameraBrain : MonoBehaviour
         motorspeed.x = magnitude / 50.0f;
 
         //motorspeed.Normalize();
+
+        if (motorspeed.x > 1.0f) { motorspeed.x = 1.0f; }
+        if (motorspeed.y > 1.0f) { motorspeed.y = 1.0f; }
 
         if (use == true)
         {
@@ -184,11 +190,5 @@ public class CameraBrain : MonoBehaviour
             Gamepad.current?.SetMotorSpeeds(0.0f, 0.0f);
         }
 
-
-        if (Gamepad.current != null)
-
-        {
-            Debug.Log(motorspeed.x + ":::" + motorspeed.y);
-        }
     }
 }
