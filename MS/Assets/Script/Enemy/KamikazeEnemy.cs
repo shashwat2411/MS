@@ -157,9 +157,12 @@ public class KamikazeEnemy : EnemyBase
         yield return new WaitForSeconds(delayTime);
         state = value;
 
-        if (value == KAMIKAZEENEMY_STATE.IDLE)
+        if (dead == false)
         {
-            agent.gameObject.transform.position = transform.position;
+            if (value == KAMIKAZEENEMY_STATE.IDLE)
+            {
+                agent.gameObject.transform.position = transform.position;
+            }
         }
     }
     //____________________________________________________________________________________________________________________________

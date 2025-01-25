@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class GhostEnemy : ThrowEnemy
 {
@@ -51,6 +52,16 @@ public class GhostEnemy : ThrowEnemy
     {
         base.Death();
 
+        GetComponent<Collider>().enabled = false;
+        animator.speed = 0f;
+
+        StartCoroutine(ears.DissolveOut(dissolveOutDuration));
+        StartCoroutine(hands.DissolveOut(dissolveOutDuration));
+        StartCoroutine(body.DissolveOut(dissolveOutDuration));
+        StartCoroutine(tv.DissolveOut(dissolveOutDuration));
+        StartCoroutine(screen.DissolveOut(dissolveOutDuration));
+
+        Destroy(gameObject, dissolveOutDuration);
     }
 
     public EnemyBomb GetItem() { return (EnemyBomb)itemReference; }

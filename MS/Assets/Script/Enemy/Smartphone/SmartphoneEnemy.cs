@@ -11,6 +11,7 @@ public class SmartphoneEnemy : ThrowEnemy
     public EnemyMaterial screen;
     public EnemyMaterial phone;
 
+
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void ScaleUp()
     {
@@ -45,6 +46,13 @@ public class SmartphoneEnemy : ThrowEnemy
     {
         base.Death();
 
+        GetComponent<Collider>().enabled = false;
+        animator.speed = 0f;
+
+        StartCoroutine(hand.DissolveOut(dissolveOutDuration));
+        StartCoroutine(screen.DissolveOut(dissolveOutDuration));
+        StartCoroutine(phone.DissolveOut(dissolveOutDuration));
+        Destroy(gameObject, dissolveOutDuration);
     }
     
     public EnemyPoison GetItem() { return (EnemyPoison)itemReference; }

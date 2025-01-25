@@ -150,6 +150,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected bool attacked;
 
     public bool dead = false;
+    protected float dissolveOutDuration = 0.5f;
 
     virtual protected void Start()
     {
@@ -178,14 +179,17 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void FixedUpdate()
     {
-        extraForce *= 0.95f;
-
-        rigidbody.angularVelocity = Vector3.zero;
-
-        if (stopMovement == false)
+        if (dead == false)
         {
-            rigidbody.velocity = agent.velocity + extraForce;
-            if (stopLooking == false) { transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f)); }
+            extraForce *= 0.95f;
+
+            rigidbody.angularVelocity = Vector3.zero;
+
+            if (stopMovement == false)
+            {
+                rigidbody.velocity = agent.velocity + extraForce;
+                if (stopLooking == false) { transform.LookAt(Vector3.Lerp(transform.position, transform.position + rigidbody.velocity, 0.6f)); }
+            }
         }
     }
 
@@ -226,9 +230,12 @@ public class EnemyBase : MonoBehaviour
 
     virtual protected void Move()
     {
-        agent.isStopped = false;
+        if (dead == false)
+        {
+            agent.isStopped = false;
 
-        agent.SetDestination(player.transform.position);
+            agent.SetDestination(player.transform.position);
+        }
     }
 
     virtual public void Damage(float value, bool killingBlow = false)
