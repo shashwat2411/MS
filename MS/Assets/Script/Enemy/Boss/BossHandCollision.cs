@@ -6,6 +6,6 @@ public class BossHandCollision : BossBodyCollision
 {
     private void OnCollisionEnter(Collision collision)
     {
-        //owner.BossOnCollision(collision.gameObject);
+        owner.BossOnCollision(collision.gameObject);
     }
 }

@@ -69,4 +69,12 @@ public class MegaphoneEnemy : ThrowEnemy
 
         Destroy(gameObject, dissolveOutDuration);
     }
+
+    public void DissolveIn()
+    {
+        gameObject.SetActive(true);
+
+        StartCoroutine(megaphone.DissolveIn(dissolveOutDuration));
+        StartCoroutine(body.DissolveIn(dissolveOutDuration));
+    }
 }
