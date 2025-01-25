@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using TMPro;
 
 //[ExecuteAlways]
 public class PlayerExp : MonoBehaviour
@@ -34,15 +35,17 @@ public class PlayerExp : MonoBehaviour
     private Image borderBar;
     private Image innerBorderBar;
     private PlayerManager player;
+    private TextMeshProUGUI ExpText;
 
     private void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
 
-        baseBar = transform.GetChild(2).gameObject.GetComponent<Image>();
-        shiftBar = transform.GetChild(1).gameObject.GetComponent<Image>();
-        borderBar = transform.GetChild(0).gameObject.GetComponent<Image>();
-        innerBorderBar = transform.GetChild(3).gameObject.GetComponent<Image>();
+        baseBar = transform.GetChild(0).gameObject.GetComponent<Image>();
+        //shiftBar = transform.GetChild(1).gameObject.GetComponent<Image>();
+        //borderBar = transform.GetChild(0).gameObject.GetComponent<Image>();
+        //innerBorderBar = transform.GetChild(3).gameObject.GetComponent<Image>();
+        ExpText = transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
         UpdateColor();
     }
 
@@ -56,8 +59,9 @@ public class PlayerExp : MonoBehaviour
         exp = player.playerData.exp;
         maxExp = player.playerData.nextExp;
 
-        baseBar.fillAmount = exp / (maxExp <= 0f ? 1f : maxExp) * 0.5f;
-        shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);
+        baseBar.fillAmount = exp / maxExp;
+        ExpText.text = exp.ToString("N0");
+        Debug.Log("exp:" + exp + ":::::maxexp:" + maxExp + "::::fill:" + baseBar.fillAmount);
     }
 
     public void ExpFill(float value)
@@ -105,7 +109,7 @@ public class PlayerExp : MonoBehaviour
 
     private void UpdateColor()
     {
-        if (baseBar != null) { baseBar.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0f); }
+        if (baseBar != null) { baseBar.color = baseColor; }
         if (shiftBar != null) { shiftBar.color = shiftColor; }
         if (borderBar != null) { borderBar.color = borderColor; }
         if (innerBorderBar != null) { innerBorderBar.color = borderColor; }

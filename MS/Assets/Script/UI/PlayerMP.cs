@@ -45,7 +45,7 @@ public class PlayerMP : MonoBehaviour
         mp = player.playerData.mp;
         maxMp = player.playerData.maxMp;
 
-        baseBar.fillAmount = mp / maxMp * 0.5f;
+        baseBar.fillAmount = mp / maxMp;
         shiftBar.fillAmount = Mathf.Lerp(shiftBar.fillAmount, baseBar.fillAmount, shiftSpeed);
     }
 
