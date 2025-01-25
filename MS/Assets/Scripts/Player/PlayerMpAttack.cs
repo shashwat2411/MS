@@ -52,14 +52,21 @@ public class PlayerMpAttack : MonoBehaviour
     void MpAttack()
     {
         float resMp = playerData.mp - mpConsumption;
-        if (resMp >= 0)
+        if (resMp > 0)
         {
             playerData.mp = resMp;
         }
         else
         {
+            if (playerManager.tutorial == true) { playerData.mp = 40f; }
+            else
+            {
+                playerData.mp = 0f;
+                return;
+            }
+
+            isMpAttacking = false;
             Debug.Log("low mp");
-            return;
         }
 
         mpAttackReady = false;

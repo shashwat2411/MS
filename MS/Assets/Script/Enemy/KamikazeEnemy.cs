@@ -80,6 +80,9 @@ public class KamikazeEnemy : EnemyBase
             player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
             Death();
         }
+
+        KnockBack knockback = collision.gameObject.GetComponent<KnockBack>();
+        if (knockback) { Death(); }
     }
 
     public override void Damage(float value, bool killingBlow = false)

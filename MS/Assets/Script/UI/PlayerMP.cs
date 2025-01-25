@@ -58,6 +58,8 @@ public class PlayerMP : MonoBehaviour
         {
             mp = 0f;
         }
+
+        player.playerData.mp = mp;
     }
 
 #if UNITY_EDITOR

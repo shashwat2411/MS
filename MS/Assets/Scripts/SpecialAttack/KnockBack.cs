@@ -49,6 +49,13 @@ public class KnockBack : MonoBehaviour
             //enemy.GetComponent<Rigidbody>().AddForce(direction * knockForce * factor);
             enemy.Knockback(direction, knockForce * factor);
             enemy.Damage(damage * factor);
+            return;
+        }
+
+        ThrowableEnemyObject projectile = other.GetComponent<ThrowableEnemyObject>();
+        if (projectile)
+        {
+            Destroy(projectile.gameObject);
         }
     }
 }

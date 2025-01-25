@@ -84,6 +84,7 @@ public class PlayerManager : MonoBehaviour
     public HPBarManager playerHP;
     public PlayerExp playerExp;
     public PostProcessController postProcess;
+    [HideInInspector] public bool tutorial;
 
     [Header("Player SE")]
     public string hurtSE;
@@ -107,7 +108,10 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         BonusMenu = GameObject.Find("BonusSelect");
-     
+
+        TutorialManager t = FindFirstObjectByType<TutorialManager>();
+        if (t) { tutorial = true; }
+        else { tutorial = false; }
     }
 
     private void Awake()
@@ -362,6 +366,8 @@ public class PlayerManager : MonoBehaviour
 
     public void Death()
     {
+        if (tutorial == true) { playerHP.Damage(-50f); return; }
+
         SoundManager.Instance.StopAllSE();
         SoundManager.Instance.StopBGM();
 
