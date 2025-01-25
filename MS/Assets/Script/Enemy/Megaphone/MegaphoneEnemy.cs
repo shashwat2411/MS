@@ -20,8 +20,15 @@ public class MegaphoneEnemy : ThrowEnemy
         body.InstantiateMaterial();
 
         float scale = transform.localScale.x;
+
         megaphone.SetMaxDissolveScale(scale);
         body.SetMaxDissolveScale(scale);
+
+        if (player.GetComponent<PlayerManager>().tutorial == true)
+        {
+            ResetEnemy();
+        }
+
     }
 
     protected override void Start()
@@ -70,7 +77,19 @@ public class MegaphoneEnemy : ThrowEnemy
         Destroy(gameObject, dissolveOutDuration);
     }
 
-    public IEnumerator DissolveIn(float delay)
+    public void ResetEnemy()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+
+        megaphone.renderer.enabled = false;
+        body.renderer.enabled = false;
+
+        megaphone.SetDissolveToMin();
+        body.SetDissolveToMin();
+
+        this.enabled = false;
+    }
+    public IEnumerator DissolveIn(float delay, float duration)
     {
         yield return new WaitForSeconds(delay);
 
@@ -78,8 +97,8 @@ public class MegaphoneEnemy : ThrowEnemy
 
         yield return null;
 
-        StartCoroutine(megaphone.DissolveIn(dissolveOutDuration));
-        StartCoroutine(body.DissolveIn(dissolveOutDuration));
+        StartCoroutine(megaphone.DissolveIn(duration));
+        StartCoroutine(body.DissolveIn(duration));
     }
 
     public void SetStopRotation(bool value) { stopRotation = value; }

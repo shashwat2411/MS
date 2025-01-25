@@ -43,6 +43,7 @@ public class TutorialManager : MonoBehaviour
     [Header("Charge")]
     public float chargeDelayTime;
     public float enemyAppearDelayTime;
+    public float enemyDissolveDuration;
     private bool chargeOnce = false;
     private bool chargeTwice = false;
 
@@ -58,8 +59,10 @@ public class TutorialManager : MonoBehaviour
 
     [Header("MP")]
     public float mpDelayTime;
+    public float mpEnemyAppearDelayTime;
     public MegaphoneEnemy[] enemies;
     private bool mpOnce = false;
+    private bool mpTwice = false;
 
     [Header("Finish")]
     public float finishDelayTime;
@@ -69,13 +72,6 @@ public class TutorialManager : MonoBehaviour
     {
         state = TUTORIALSTATE.MOVEMENT;
 
-        enemy1.gameObject.SetActive(false);
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].gameObject.SetActive(false);
-        }
-
         //boolean
         movementOnce = false;
         chargeOnce = false;
@@ -83,6 +79,7 @@ public class TutorialManager : MonoBehaviour
         experienceOnce = false;
         levelUpOnce = false;
         mpOnce = false;
+        mpTwice = false;
         finishOnce = false;
 
         //delays
@@ -100,6 +97,16 @@ public class TutorialManager : MonoBehaviour
         dash.action.started += DashInput;
         closeRangeAttack.action.canceled += ChargeFinish;
         mpAttack.action.started += MpAttack;
+
+        //enemy1.gameObject.SetActive(false);
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].gameObject.SetActive(false);
+
+            //enemies[i].megaphone.SetDissolveToMin();
+            //enemies[i].body.SetDissolveToMin();
+        }
     }
 
     private void FixedUpdate()
@@ -161,15 +168,22 @@ public class TutorialManager : MonoBehaviour
         {
             levelUpOnce = true;
             StartCoroutine(NextState(levelUpDelayTime, false, true, false));
-            StartCoroutine(NextState(levelUpDelayTime + levelUpTwoDelayTime, true, true, true));
+            StartCoroutine(NextState(levelUpDelayTime + levelUpTwoDelayTime, false, true, true));
+        }
+    }
+    private void MP()
+    {
+        if (mpTwice == false)
+        {
+            mpTwice = true;
 
+            StartCoroutine(NextState(levelUpDelayTime, true, true, false));
             for (int i = 0; i < enemies.Length; i++)
             {
-                StartCoroutine(enemies[i].DissolveIn(levelUpDelayTime + levelUpTwoDelayTime + enemyAppearDelayTime - text.dissolveDuration * 2f));
+                StartCoroutine(DissolveIn(enemies[i], mpEnemyAppearDelayTime + (0.5f * i), enemyDissolveDuration));
             }
         }
     }
-    private void MP() { }
     private void FINISH() 
     {
         if(finishOnce == false)
@@ -213,7 +227,7 @@ public class TutorialManager : MonoBehaviour
                 chargeTwice = true;
                 StartCoroutine(NextState(chargeDelayTime, true, true));
 
-                StartCoroutine(enemy1.DissolveIn(enemyAppearDelayTime));
+                StartCoroutine(DissolveIn(enemy1, enemyAppearDelayTime, enemyDissolveDuration));
             }
         }
     }
@@ -226,7 +240,7 @@ public class TutorialManager : MonoBehaviour
                 if ((enemies[i] ? enemies[i].dead : true) && mpOnce == false)
                 {
                     mpOnce = true;
-                    StartCoroutine(NextState(mpDelayTime, true, true, true));
+                    StartCoroutine(NextState(mpDelayTime, false, true, false));
                 }
             }
         }
@@ -256,5 +270,24 @@ public class TutorialManager : MonoBehaviour
         }
 
         state = (TUTORIALSTATE)current;
+    }
+
+    public IEnumerator DissolveIn(MegaphoneEnemy enemy, float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        enemy.gameObject.SetActive(true);
+
+        yield return null;
+
+        enemy.megaphone.renderer.enabled = true;
+        enemy.body.renderer.enabled = true;
+        StartCoroutine(enemy.megaphone.DissolveIn(duration));
+        StartCoroutine(enemy.body.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        enemy.GetComponent<BoxCollider>().enabled = true;
+        enemy.enabled = true;
     }
 }

@@ -97,7 +97,7 @@ public class HPBarManager : MonoBehaviour
 
         len = 0.7f / 100.0f * (Hp_Max - 100.0f);
 
-        Hpbar2.transform.localScale = new Vector3(len, Hpbar2.transform.localScale.y);
+        Hpbar2.transform.localScale = new Vector3(Hpbar2.transform.localScale.x, len);
     }
 
     public void Damage(float value)
