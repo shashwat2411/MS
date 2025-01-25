@@ -54,7 +54,7 @@ public class MegaphoneEnemy : ThrowEnemy
 
     protected override void Attack()
     {
-        stopRotation = true;
+
     }
 
     public override void Death()
@@ -81,4 +81,6 @@ public class MegaphoneEnemy : ThrowEnemy
         StartCoroutine(megaphone.DissolveIn(dissolveOutDuration));
         StartCoroutine(body.DissolveIn(dissolveOutDuration));
     }
+
+    public void SetStopRotation(bool value) { stopRotation = value; }
 }
