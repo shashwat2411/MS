@@ -74,6 +74,7 @@ public class PlayerMpAttack : MonoBehaviour
         mpAttackArea = ObjectPool.Instance.Get(playerManager.playerPrefabs.mpAttackArea, transform.position, transform.rotation);
 
         mpAttackArea.GetComponentInChildren<KnockBack>().Initiate(0f, 0f);
+        SoundManager.Instance.PlaySE("PlayerKnockback");
 
         mpAttackCoolDownLeft = mpAttackCoolDown;
 
