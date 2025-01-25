@@ -40,7 +40,6 @@ public class CameraBrain : MonoBehaviour
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
-        //dualsense = GameObject.Find("DualSense");
 
         originalOffset = offset;
         zoomInCounter = 0f;
@@ -94,9 +93,9 @@ public class CameraBrain : MonoBehaviour
         if (Gamepad.current?.buttonWest.isPressed == true)  
         {
             //SetRumbleValue(DamgeTest, true);
-           //player.playerHP.Damage(20.0f);
+           player.playerHP.Damage(20.0f);
            
-           SetGamePadMotorSpeed(DamgeTest, true);
+           //SetGamePadMotorSpeed(DamgeTest, true);
         }
         
     }
@@ -142,6 +141,8 @@ public class CameraBrain : MonoBehaviour
 
         transform.localPosition = originalPosition;
 
+        SetGamePadMotorSpeed(0.0f, false);
+
         GetComponent<Animator>().enabled = false;
     }
     public IEnumerator ZoomIn(float time)
@@ -172,13 +173,17 @@ public class CameraBrain : MonoBehaviour
     {
         Vector2 motorspeed;
 
-        motorspeed.y = magnitude * magnitude / (50.0f * 50.0f);
-        motorspeed.x = magnitude / 50.0f;
+        float value = magnitude * 20.0f;
+
+        motorspeed.y = value * value / (50.0f * 50.0f);
+        motorspeed.x = value / 50.0f;
 
         //motorspeed.Normalize();
 
         if (motorspeed.x > 1.0f) { motorspeed.x = 1.0f; }
         if (motorspeed.y > 1.0f) { motorspeed.y = 1.0f; }
+
+        Debug.Log(magnitude + "::::::" + motorspeed.x + ":::::" + motorspeed.y);
 
         if (use == true)
         {

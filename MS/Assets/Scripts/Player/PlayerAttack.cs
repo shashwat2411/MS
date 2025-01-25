@@ -95,11 +95,11 @@ public class PlayerAttack : MonoBehaviour
     {
 
         #region Input
-        closeRangeAttack.action.started += HoldAttack;
+        //closeRangeAttack.action.started += HoldAttack;
 
 
 
-        closeRangeAttack.action.canceled += AttackFinish;
+        //closeRangeAttack.action.canceled += AttackFinish;
 
         #endregion
 
@@ -137,7 +137,19 @@ public class PlayerAttack : MonoBehaviour
 
        
     }
+    public void GetAttackPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            HoldAttack();
+        }
+        if (ctx.phase == InputActionPhase.Canceled)
+        {
+            AttackFinish();
+        }
 
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -209,7 +221,7 @@ public class PlayerAttack : MonoBehaviour
     /// triggerを放したら、めんこ発射
     /// </summary>
     /// <param name="context"></param>
-    void AttackFinish(InputAction.CallbackContext context)
+    void AttackFinish()
     {
 
         if (isHold && !afterShock)
@@ -262,7 +274,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    void HoldAttack(InputAction.CallbackContext context)
+    void HoldAttack()
     {
         if (!isHold && !afterShock)
         {

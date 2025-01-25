@@ -31,7 +31,7 @@ public class MiniMapUI : MonoBehaviour
         roomDatas = roomManager.GetRoomDatas();
         GenerateMiniMap(roomDatas);
         UpdateMiniMap();
-
+        MovePlayer(PlayerSave.Instance.minimapPos.Item1, PlayerSave.Instance.minimapPos.Item2);
 
 
 

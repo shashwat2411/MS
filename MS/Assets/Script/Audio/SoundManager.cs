@@ -20,12 +20,12 @@ public class SoundManager : MonoBehaviour
               
                 _instance = FindObjectOfType<SoundManager>();
 
-                if (_instance == null)
-                {
+                //if (_instance == null)
+                //{
                    
-                    GameObject go = new GameObject("SoundManager");
-                    _instance = go.AddComponent<SoundManager>();
-                }
+                //    GameObject go = new GameObject("SoundManager");
+                //    _instance = go.AddComponent<SoundManager>();
+                //}
             }
             return _instance;
         }
@@ -42,19 +42,31 @@ public class SoundManager : MonoBehaviour
     public List<AudioSource> seAudioSources = new List<AudioSource>();
 
     //サウンド情報を読み込む
-    [SerializeField]
-    public SoundsInfo soundsInfo;
+
+     SoundsInfo soundsInfo;
 
     public string nowBGMName = "defaultBGM";
     public string nowSEName = "defaultSE";
 
     bool lowBGM=false;
 
+    private void Start()
+    {
+        soundsInfo = SoundsInfo.instance;
+    }
+
     public void PlayBGM(string name)
     {
+        //if (soundsInfo == null)
+        //{
+        //    return;
+        //}
+
         // ラムダ式 第二引数はPredicate
         // SoundCoreクラスの配列内に
         // 同じ名前の物があるかどうかを確認
+
+
         SoundCore s = System.Array.Find(soundsInfo.GetBGM(), sound => sound.name == name);
         //無ければ戻る
         if (s == null)
@@ -73,6 +85,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySE(string name, float pitch = 1f)
     {
+        if (soundsInfo == null)
+        {
+            return;
+        }
+
         // ラムダ式　第二引数はPredicate
         // Soundクラスの配列の中の名前に，
         // 引数nameに等しいものがあるかどうか確認

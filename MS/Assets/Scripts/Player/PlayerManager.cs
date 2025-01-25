@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
     PlayerDash playerDash;
     public GameObject mainCharacterModel;
 
-
+    CameraBrain cameraBrain;
 
     //Bonus
     GameObject BonusMenu;
@@ -105,6 +105,8 @@ public class PlayerManager : MonoBehaviour
     Transform mainCamera;
 
     BonusItem bonusItem;
+
+    PlayerInput playerInput;
     void Start()
     {
         BonusMenu = GameObject.Find("BonusSelect");
@@ -124,10 +126,14 @@ public class PlayerManager : MonoBehaviour
         playerMpAttack = GetComponent<PlayerMpAttack>();    
         playerDash = GetComponent<PlayerDash>();
         mainCamera = Camera.main.transform;
+        cameraBrain = Camera.main.GetComponent<CameraBrain>();
+        playerInput = GetComponent<PlayerInput>();
 
         playerData = PlayerSave.Instance.playerData.GetCopy();
         playerPrefabs = CharacterSettings.Instance.playerPrefabs;
         Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
+
+     
 
        
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
@@ -155,6 +161,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        playerData.hp = playerData.maxHp;
         PlayerSave.Instance.playerData = playerData;
      
         PlayerSave.Instance.playerAblities = 
@@ -208,12 +215,30 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+
+    public void GetZoomInPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            StartCoroutine(cameraBrain.ZoomIn(5f));
+        }
+       
+    }
+
+    public void GetZoomOutPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            StartCoroutine(cameraBrain.ZoomOut(5f));
+        }
+
+    }
     #endregion
 
     private void FixedUpdate()
     {
+
      
-      
 
         playerDash.Dash();
         invincibility = playerDash.dashIncibility || hurtInvincibility;
@@ -245,10 +270,7 @@ public class PlayerManager : MonoBehaviour
         CaculateInputDirection();
         SwitchPlayerStates();
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            SceneManager.LoadScene(0);
-        }
+   
         
     }
 
