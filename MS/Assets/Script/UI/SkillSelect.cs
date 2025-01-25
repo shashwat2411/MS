@@ -190,6 +190,9 @@ public class SkillSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    
+
         //¶‰EƒXƒLƒ‹‘I‘ð
         Cursor.transform.localPosition = BonusWindow[SelectNo].transform.localPosition;
 
@@ -293,12 +296,14 @@ public class SkillSelect : MonoBehaviour
 
     public void LevelUp()
     {
+        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
         Time.timeScale = 0;
 
         IsBonusSelect = true;
 
         AnimeStart = true;
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+     
 
         RandomBonus();
 
