@@ -4301,8 +4301,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6235546439691239576}
-  - component: {fileID: 4604862911029530478}
-  - component: {fileID: 7362701646482517062}
+  - component: {fileID: 126601489393160683}
+  - component: {fileID: 1207872395045797057}
+  - component: {fileID: 680569754671292378}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -4326,7 +4327,15 @@ Transform:
   - {fileID: 9135448962895056928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4604862911029530478
+--- !u!81 &126601489393160683
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066310948031488840}
+  m_Enabled: 1
+--- !u!114 &1207872395045797057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4440,7 +4449,7 @@ MonoBehaviour:
     volume: 0.5
     loop: 0
     changeFrequency: 1
---- !u!114 &7362701646482517062
+--- !u!114 &680569754671292378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

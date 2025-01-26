@@ -8,16 +8,23 @@ public class ShardAnimation : MonoBehaviour
     [HideInInspector] public bool animation = false;
     [HideInInspector] public bool reverseAnimation = false;
 
+    public AudioClip fade;
+    private AudioSource source;
+
     private void Awake()
     {
         animation = false;
         reverseAnimation = false;
         screen = transform.parent.parent.parent.GetComponent<ScreenShatter>();
+
+        source = GetComponent<AudioSource>();
     }
     public IEnumerator Shatter(float duration)
     {
         float elapsed = 0f;
         Vector3 position = Vector3.zero;
+
+        source.Play();
 
         while(elapsed < duration)
         {
@@ -40,6 +47,8 @@ public class ShardAnimation : MonoBehaviour
     {
         float elapsed = 0f;
         Vector3 position = Vector3.zero;
+
+        source.Play();
 
         while (elapsed < duration)
         {

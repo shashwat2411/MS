@@ -27,6 +27,7 @@ public class TutorialManager : MonoBehaviour
     public PlayerManager player;
     public PlayerInput input;
     public ScreenShatter shatterer;
+    public Goal goal;
 
     [Header("Inputs")]
     public InputActionReference dash;
@@ -201,7 +202,7 @@ public class TutorialManager : MonoBehaviour
         if(finishOnce == false)
         {
             finishOnce = true;
-            StartCoroutine(shatterer.ShatterScreenInitate());
+            goal.EnableGoal();
         }
     }
 

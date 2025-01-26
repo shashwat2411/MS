@@ -10,6 +10,7 @@ public class SmartphoneAttackEvent : MonoBehaviour
     {
         owner.AttackInstantiate();
 
+        SoundManager.Instance.PlaySE("PhoneThrow");
         float scale = owner.transform.localScale.x;
         owner.GetItem().transform.localScale = owner.GetItem().transform.localScale * scale;
     }

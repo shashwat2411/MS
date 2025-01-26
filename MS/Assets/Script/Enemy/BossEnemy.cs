@@ -21,6 +21,8 @@ public class BossEnemy : EnemyBase
 
     [Header("References")]
     public HealthBar bossHealthBar;
+    public Animator canvas;
+    public Animator mainCamera;
 
     [Header("Attack")]
     public float slapAttackPower;
@@ -156,10 +158,34 @@ public class BossEnemy : EnemyBase
         animator.SetBool(_SummonLightning, false);
         animator.SetBool(_Death, true);
 
+        animator.Play("Death2");
+        animator.speed = 0;
+        visualAimer.speed = 0f;
+        //animator.StopPlayback();
+
         //StartCoroutine(DissolveOut(4f, 2f));
 
+        //animator.speed = 0f;
 
+        SoundManager.Instance.StopAllSE();
+        StartCoroutine(BossDeathCutScene(2f));
         //Destroy(gameObject, 2.2f);
+    }
+
+    private IEnumerator BossDeathCutScene(float delay)
+    {
+        canvas.SetBool("in", true);
+        canvas.SetBool("out", false);
+
+        mainCamera.GetComponent<CameraBrain>().target = gameObject.transform;
+
+        //mainCamera.Play("ZoomOut2");
+
+        yield return new WaitForSeconds(delay);
+
+        animator.speed = 1f;
+        SoundManager.Instance.PlaySE("BossDeath", 0.5f);
+
     }
 
     private IEnumerator DissolveOut(float delay, float duration)

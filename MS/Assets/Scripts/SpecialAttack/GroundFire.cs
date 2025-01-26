@@ -69,7 +69,7 @@ public class GroundFire : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("fire" + other.name);
+      
         EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
 
         

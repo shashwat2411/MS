@@ -24,6 +24,7 @@ public class CameraBrain : MonoBehaviour
     public Vector3 direction;
 
     private PlayerManager player;
+    [HideInInspector] public Transform target;
     [SerializeField] private TeleportOutCutScene teleportOut;
 
     public AnimationCurve zoomInY;
@@ -40,6 +41,7 @@ public class CameraBrain : MonoBehaviour
     void Awake()
     {
         player = FindFirstObjectByType<PlayerManager>();
+        target = player.transform;
 
         originalOffset = offset;
         zoomInCounter = 0f;
@@ -50,16 +52,16 @@ public class CameraBrain : MonoBehaviour
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
 
-        transform.LookAt(player.transform.position + angleOffset);
+        transform.LookAt(target.transform.position + angleOffset);
 
         float value = player.GetMovementInput().x;
         if (value > 0.3f)
         {
-            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), rotationAngle * value * Time.deltaTime);
+            transform.parent.RotateAround(target.transform.position, new Vector3(0, 1, 0), rotationAngle * value * Time.deltaTime);
         }
         else if (value < 0.3f)
         {
-            transform.parent.RotateAround(player.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
+            transform.parent.RotateAround(target.transform.position, new Vector3(0, 1, 0), -rotationAngle * value * Time.deltaTime);
         }
 
         if (zoomIn == true)
@@ -72,7 +74,7 @@ public class CameraBrain : MonoBehaviour
                 float z = zoomInZ.Evaluate(zoomInCounter);
 
                 Vector3 position = transform.localPosition;
-                direction = (player.transform.position - transform.localPosition).normalized;
+                direction = (target.transform.position - transform.localPosition).normalized;
                 Vector3 displacement = new Vector3(0f, direction.y * y * zoomInFactor.y, direction.z * z * zoomInFactor.z);
 
                 position += displacement;
@@ -195,4 +197,5 @@ public class CameraBrain : MonoBehaviour
         }
 
     }
+
 }

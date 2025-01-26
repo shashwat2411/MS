@@ -383,6 +383,7 @@ public class PlayerManager : MonoBehaviour
     public void Heal()
     {
         playerHP.Recover(playerData.healthRespons);
+        SoundManager.Instance.PlaySE("PlayerHeal");
         CheckPlayerDataState();
     }
 
@@ -401,6 +402,8 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("dissolveIn", false);
         anim.enabled = true;
         Time.timeScale = 0.2f;
+
+        SoundManager.Instance.PlaySE("PlayerDeath");
 
         GetComponent<PlayerInput>().enabled = false;
         animator.speed = 0f;
