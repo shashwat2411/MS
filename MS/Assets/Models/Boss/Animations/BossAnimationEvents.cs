@@ -19,6 +19,9 @@ public class BossAnimationEvents : MonoBehaviour
 
     public float saturationFadeOutTime = 1f;
 
+    public ScreenShatter shatterer;
+    public string nextScene;
+
     private void Awake()
     {
         mainCamera = Camera.main.GetComponent<CameraBrain>();
@@ -87,5 +90,11 @@ public class BossAnimationEvents : MonoBehaviour
     public void DisableColliders()
     {
         owner.disableColliders = true;
+    }
+
+    public void StartScreenShatter()
+    {
+        shatterer.loadLevel = nextScene;
+        StartCoroutine(shatterer.ShatterScreenInitate());
     }
 }
