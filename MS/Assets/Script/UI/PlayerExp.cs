@@ -63,7 +63,7 @@ public class PlayerExp : MonoBehaviour
         baseBar.fillAmount = Mathf.Lerp(baseBar.fillAmount, shiftBar.fillAmount, shiftSpeed);
 
         ExpText.text = exp.ToString("N0");
-        Debug.Log("exp:" + exp + ":::::maxexp:" + maxExp + "::::fill:" + baseBar.fillAmount);
+        //Debug.Log("exp:" + exp + ":::::maxexp:" + maxExp + "::::fill:" + baseBar.fillAmount);
     }
 
     public void ExpFill(float value)
@@ -84,7 +84,7 @@ public class PlayerExp : MonoBehaviour
             SoundManager.Instance.PlaySE(levelupSE);
 
             FindFirstObjectByType<SkillSelect>().LevelUp();
-            player.playerData.nextExp = maxExp * 1.2f;
+            player.playerData.nextExp = maxExp * 1.1f;
         }
 
         player.playerData.exp = exp;
