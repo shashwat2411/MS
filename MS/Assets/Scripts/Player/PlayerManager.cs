@@ -433,10 +433,10 @@ public class PlayerManager : MonoBehaviour
     void LevelUp()
     {
         playerData.lv++;
-        if((playerData.lv %5) == 0)
-        {
-            playerData.nextExp *= 1.0f;
-        }
+        //if((playerData.lv %5) == 0)
+        //{
+        //    playerData.nextExp *= 1.0f;
+        //}
 
       
     }
@@ -454,21 +454,21 @@ public class PlayerManager : MonoBehaviour
     /// 経験値を与える
     /// </summary>
     /// <param name="exp"></param>
-    public void ApplyExp(float exp)
-    {
-        var toNextLeft = playerData.nextExp - playerData.exp - exp;
-        // 過ごした経験値
-        if(toNextLeft <= 0)
-        {
-            LevelUp();
-            playerData.exp = -toNextLeft;
-        }
-        else
-        {
-            playerData.exp = playerData.exp + exp;
-        }
+    //public void ApplyExp(float exp)
+    //{
+    //    var toNextLeft = playerData.nextExp - playerData.exp - exp;
+    //    // 過ごした経験値
+    //    if(toNextLeft <= 0)
+    //    {
+    //        LevelUp();
+    //        playerData.exp = -toNextLeft;
+    //    }
+    //    else
+    //    {
+    //        playerData.exp = playerData.exp + exp;
+    //    }
        
-    }
+    //}
 
 
     void SetAnimator()

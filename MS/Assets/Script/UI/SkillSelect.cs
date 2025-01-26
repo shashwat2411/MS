@@ -16,6 +16,7 @@ public class SkillSelect : MonoBehaviour
     int SelectNo;
 
     PlayerManager player;
+    PlayerInput playerInput;
 
     Animator AnimeCon;
     public bool b1, b2, b3, AnimeStart;
@@ -52,7 +53,9 @@ public class SkillSelect : MonoBehaviour
         AnimeCon = GetComponent<Animator>();
 
         player = FindFirstObjectByType<PlayerManager>();
-        
+
+        playerInput = player.GetComponent<PlayerInput>();   
+
         SelectNo = 0;
 
         //RandomBonus();
@@ -276,9 +279,9 @@ public class SkillSelect : MonoBehaviour
 
         Cursor.SetActive(false);
 
-        
 
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+
+        playerInput.SwitchCurrentActionMap("Player");
 
 
         bonustype1.Clear();
@@ -296,7 +299,7 @@ public class SkillSelect : MonoBehaviour
 
     public void LevelUp()
     {
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        playerInput.SwitchCurrentActionMap("UI");
 
         Time.timeScale = 0;
 
@@ -351,6 +354,22 @@ public class SkillSelect : MonoBehaviour
         IsBonusSelect = false;
 
         Time.timeScale = 1;
+    }
+
+
+    public void CheckActionMap()
+    {
+        StartCoroutine(ChangeActionMapToUI());
+    }
+
+    IEnumerator ChangeActionMapToUI()
+    {
+        yield return null;
+
+        if (playerInput.currentActionMap.name == "Player")
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+        }
     }
 
 }

@@ -17,21 +17,35 @@ public class SoundManager : MonoBehaviour
         {
             if (_instance == null)
             {
-              
+
                 _instance = FindObjectOfType<SoundManager>();
 
-                //if (_instance == null)
-                //{
-                   
-                //    GameObject go = new GameObject("SoundManager");
-                //    _instance = go.AddComponent<SoundManager>();
-                //}
+                if (_instance == null)
+                {
+
+                    //GameObject go = new GameObject("SoundManager");
+                    //_instance = go.AddComponent<SoundManager>();
+                }
             }
             return _instance;
         }
     }
+    //void Awake()
+    //{
+    //    // インスタンスが存在していない場合、現在のオブジェクトをインスタンスとして設定
+    //    if (_instance == null)
+    //    {
+    //        _instance = this;
+    //        DontDestroyOnLoad(gameObject); // シーンをまたいでもオブジェクトを破棄しない
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject); // 既にインスタンスが存在する場合、現在のオブジェクトを破棄
+    //    }
+    //}
 
-  
+
+
     private SoundManager() { }
 
     //AudioSource

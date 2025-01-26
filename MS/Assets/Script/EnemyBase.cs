@@ -259,6 +259,7 @@ public class EnemyBase : MonoBehaviour
             ParticleSystem.Burst burst = new ParticleSystem.Burst();
             burst.time = 0f;
             burst.count = 51 + stageExpFactor * 25;
+            Debug.Log("exp num" + burst.count);
 
             FindFirstObjectByType<EnemyManager>();
             emission.SetBursts(new ParticleSystem.Burst[] { burst });
