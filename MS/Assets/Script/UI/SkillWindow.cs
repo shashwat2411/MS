@@ -18,7 +18,7 @@ public class SkillWindow : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI Name, Description;
 
-    PlayerManager player;
+   public PlayerManager player;
 
 
     // Start is called before the first frame update
