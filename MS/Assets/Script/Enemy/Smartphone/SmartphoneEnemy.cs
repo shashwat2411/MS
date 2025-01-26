@@ -25,6 +25,8 @@ public class SmartphoneEnemy : ThrowEnemy
         hand.SetMaxDissolveScale(scale);
         screen.SetMaxDissolveScale(scale);
         phone.SetMaxDissolveScale(scale);
+
+        ResetEnemy();
     }
     protected override void Start()
     {
@@ -54,7 +56,36 @@ public class SmartphoneEnemy : ThrowEnemy
         StartCoroutine(phone.DissolveOut(dissolveOutDuration));
         Destroy(gameObject, dissolveOutDuration);
     }
-    
+    public void ResetEnemy()
+    {
+        hand.renderer.enabled = false;
+        screen.renderer.enabled = false;
+        phone.renderer.enabled = false;
+
+        hand.SetDissolveToMin();
+        screen.SetDissolveToMin();
+        phone.SetDissolveToMin();
+    }
+    public override IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(true);
+
+        yield return null;
+
+        hand.renderer.enabled = true;
+        screen.renderer.enabled = true;
+        phone.renderer.enabled = true;
+
+        StartCoroutine(hand.DissolveIn(duration));
+        StartCoroutine(screen.DissolveIn(duration));
+        StartCoroutine(phone.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<BoxCollider>().enabled = true;
+    }
     public EnemyPoison GetItem() { return (EnemyPoison)itemReference; }
 
 }

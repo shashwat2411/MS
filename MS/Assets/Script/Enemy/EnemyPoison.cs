@@ -1,27 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyBase;
 
 public class EnemyPoison : ThrowableEnemyObject
 {
     public float rotationValue = 1f;
+
+    public float dissolveDuration = 0.5f;
+    public EnemyMaterial phone;
+    public EnemyMaterial screen;
+
+    private bool dead = false;
     protected override void Start()
     {
         base.Start();
+
+        phone.InstantiateMaterial();
+        screen.InstantiateMaterial();
+
+        deathDelay = dissolveDuration;
+        dead = false;
     }
 
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
+        if (dead == false)
+        {
+            base.FixedUpdate();
 
-        transform.Rotate(new Vector3(1f, 0f, 0f), rotationValue);
+            transform.Rotate(new Vector3(1f, 0f, 0f), rotationValue);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") == true)
         {
-            Destroy(gameObject);
+            Destructor();
             return;
         }
         if (collision.gameObject == player && owner != player)
@@ -35,4 +51,15 @@ public class EnemyPoison : ThrowableEnemyObject
             Destroy(gameObject);
         }
     }
+
+    protected override void Destructor()
+    {
+        dead = true;
+        Destroy(gameObject, deathDelay);
+        Destroy(GetComponent<BoxCollider>());
+        Destroy(GetComponent<Rigidbody>());
+        StartCoroutine(phone.DissolveOut(dissolveDuration));
+        StartCoroutine(screen.DissolveOut(dissolveDuration));
+    }
+
 }

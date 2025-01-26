@@ -21,8 +21,8 @@ public class BossEnemy : EnemyBase
 
     [Header("References")]
     public HealthBar bossHealthBar;
-    public Animator canvas;
-    public Animator mainCamera;
+    public Animator canvasAnimator;
+    public Animator mainCameraAnimator;
 
     [Header("Attack")]
     public float slapAttackPower;
@@ -174,10 +174,10 @@ public class BossEnemy : EnemyBase
 
     private IEnumerator BossDeathCutScene(float delay)
     {
-        canvas.SetBool("in", true);
-        canvas.SetBool("out", false);
+        canvasAnimator.SetBool("in", true);
+        canvasAnimator.SetBool("out", false);
 
-        mainCamera.GetComponent<CameraBrain>().target = gameObject.transform;
+        mainCameraAnimator.GetComponent<CameraBrain>().target = gameObject.transform;
 
         //mainCamera.Play("ZoomOut2");
 

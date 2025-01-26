@@ -26,6 +26,10 @@ public class MegaphoneEnemy : ThrowEnemy
 
         if (player.GetComponent<PlayerManager>().tutorial == true)
         {
+            ResetEnemyTutorial();
+        }
+        else
+        {
             ResetEnemy();
         }
 
@@ -79,6 +83,14 @@ public class MegaphoneEnemy : ThrowEnemy
 
     public void ResetEnemy()
     {
+        megaphone.renderer.enabled = false;
+        body.renderer.enabled = false;
+
+        megaphone.SetDissolveToMin();
+        body.SetDissolveToMin();
+    }
+    public void ResetEnemyTutorial()
+    {
         GetComponent<BoxCollider>().enabled = false;
 
         megaphone.renderer.enabled = false;
@@ -89,7 +101,7 @@ public class MegaphoneEnemy : ThrowEnemy
 
         this.enabled = false;
     }
-    public IEnumerator DissolveIn(float delay, float duration)
+    public override IEnumerator DissolveIn(float delay, float duration)
     {
         yield return new WaitForSeconds(delay);
 
@@ -97,8 +109,15 @@ public class MegaphoneEnemy : ThrowEnemy
 
         yield return null;
 
+        megaphone.renderer.enabled = true;
+        body.renderer.enabled = true;
         StartCoroutine(megaphone.DissolveIn(duration));
         StartCoroutine(body.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<BoxCollider>().enabled = true;
+        this.enabled = true;
     }
 
     public void SetStopRotation(bool value) { stopRotation = value; }

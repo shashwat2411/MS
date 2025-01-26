@@ -638,7 +638,7 @@ MonoBehaviour:
     changeFrequency: 1
   - name: PlayerDash
     clip: {fileID: 8300000, guid: fb9fd31a265e0254abfbbf72324dd88f, type: 3}
-    volume: 0.6
+    volume: 0.2
     loop: 0
     changeFrequency: 1
   - name: PlayerHurt
@@ -648,7 +648,7 @@ MonoBehaviour:
     changeFrequency: 1
   - name: BonusSelect
     clip: {fileID: 8300000, guid: 26c2598d68aed10468edb0a83370b27f, type: 3}
-    volume: 0.2
+    volume: 0.5
     loop: 0
     changeFrequency: 0
   - name: CollectExp
@@ -660,7 +660,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 04d9e4ee26a393446b3741f875280829, type: 3}
     volume: 0.8
     loop: 0
-    changeFrequency: 0
+    changeFrequency: 1
   - name: Lighting
     clip: {fileID: 8300000, guid: 618e7e0cf83553d42b1640bc073cff82, type: 3}
     volume: 0.4
@@ -744,6 +744,16 @@ MonoBehaviour:
   - name: PlayerHeal
     clip: {fileID: 8300000, guid: 604ebe7d57b94134582fc9c2d4ea4585, type: 3}
     volume: 0.1
+    loop: 0
+    changeFrequency: 1
+  - name: BonusOption
+    clip: {fileID: 8300000, guid: 9ecc1d8a5b5c90a4988e5507b7788afe, type: 3}
+    volume: 0.2
+    loop: 0
+    changeFrequency: 0
+  - name: EnemyDash
+    clip: {fileID: 8300000, guid: ad4e31559290ae8438ba22f7b87f0b9f, type: 3}
+    volume: 0.25
     loop: 0
     changeFrequency: 1
 --- !u!1 &868156536219289153
@@ -4552,8 +4562,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6235546439691239576}
   - component: {fileID: 126601489393160683}
-  - component: {fileID: 1207872395045797057}
-  - component: {fileID: 680569754671292378}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -4574,6 +4582,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 987186385056946490}
+  - {fileID: 4447576632140573825}
   - {fileID: 9135448962895056928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4585,172 +4595,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8066310948031488840}
   m_Enabled: 1
---- !u!114 &1207872395045797057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8066310948031488840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75a425d8dccbdc42aa7b206bc2bd3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgm:
-  - name: BGM_1
-    clip: {fileID: 8300000, guid: a9cf845f273b8f443b11f6a208c8454b, type: 3}
-    volume: 0.5
-    loop: 1
-    changeFrequency: 0
-  se:
-  - name: MenkoSmash
-    clip: {fileID: 8300000, guid: 4e4a3e1cb8527d54d89c425a560da5df, type: 3}
-    volume: 0.6
-    loop: 0
-    changeFrequency: 1
-  - name: PlayerDash
-    clip: {fileID: 8300000, guid: 3c9dc636b61b756499add964f9dfe278, type: 3}
-    volume: 0.8
-    loop: 0
-    changeFrequency: 1
-  - name: PlayerHurt
-    clip: {fileID: 8300000, guid: 98cbd5cf23315e740949f3c5ae34296a, type: 3}
-    volume: 0.2
-    loop: 0
-    changeFrequency: 1
-  - name: BonusSelect
-    clip: {fileID: 8300000, guid: 26c2598d68aed10468edb0a83370b27f, type: 3}
-    volume: 0.2
-    loop: 0
-    changeFrequency: 0
-  - name: CollectExp
-    clip: {fileID: 8300000, guid: ebab77b3141a65c4f961b4e6077bb520, type: 3}
-    volume: 0.2
-    loop: 0
-    changeFrequency: 1
-  - name: LevelUp
-    clip: {fileID: 8300000, guid: 04d9e4ee26a393446b3741f875280829, type: 3}
-    volume: 0.8
-    loop: 0
-    changeFrequency: 0
-  - name: Lighting
-    clip: {fileID: 8300000, guid: 618e7e0cf83553d42b1640bc073cff82, type: 3}
-    volume: 0.4
-    loop: 0
-    changeFrequency: 1
-  - name: EarthHit
-    clip: {fileID: 8300000, guid: fdbd898b6deb34c4c97e342bc5e138e7, type: 3}
-    volume: 0.8
-    loop: 0
-    changeFrequency: 0
-  - name: EnemyBullet
-    clip: {fileID: 8300000, guid: fd3161ad14ef1b54ab0215186551ca7e, type: 3}
-    volume: 0.2
-    loop: 0
-    changeFrequency: 0
-  - name: EnemyBomb
-    clip: {fileID: 8300000, guid: 446534646703e9e4fa0ef364718c171a, type: 3}
-    volume: 0.2
-    loop: 0
-    changeFrequency: 0
-  - name: PauseIn
-    clip: {fileID: 8300000, guid: 35f019aef6bab324ab44c1d7d8e1fe07, type: 3}
-    volume: 0.4
-    loop: 0
-    changeFrequency: 0
-  - name: PauseOut
-    clip: {fileID: 8300000, guid: a8da54d9360cbec4e862939f607ac283, type: 3}
-    volume: 0.4
-    loop: 0
-    changeFrequency: 0
-  - name: BossScream
-    clip: {fileID: 8300000, guid: 3f2896fec72a68546ab5dcfc6d1c196b, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 1
-  - name: BossSlap
-    clip: {fileID: 8300000, guid: e070db4917c554f46b77dfa2de2d9c64, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 0
-  - name: BossSmash
-    clip: {fileID: 8300000, guid: 757efc43b819dc640b3afa3018b3d46d, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 0
-  - name: BossLightning
-    clip: {fileID: 8300000, guid: b4ef98f8cfdc4c74ea36631046889be3, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 1
-  - name: BossBeforeSmash
-    clip: {fileID: 8300000, guid: 40454a2759a171f46a44b2549438c029, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 1
-  - name: BossDeath
-    clip: {fileID: 8300000, guid: e6659a17ed2984141a3ac5ef556367b0, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 0
-  - name: BossBeforeSlap
-    clip: {fileID: 8300000, guid: 50a6344ecf8711c4ba39c204ee882bd4, type: 3}
-    volume: 0.5
-    loop: 0
-    changeFrequency: 1
---- !u!114 &680569754671292378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8066310948031488840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856b453c903e24c439baebe8c3e842b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmAudioSource: {fileID: 1509348225805095594}
-  seAudioSources:
-  - {fileID: 6423057612980798041}
-  - {fileID: 6959384784095040063}
-  - {fileID: 6315604849475284973}
-  - {fileID: 6503338185325969636}
-  - {fileID: 2223311248451465757}
-  - {fileID: 8283433546409376855}
-  - {fileID: 113976052503784968}
-  - {fileID: 496725735620599346}
-  - {fileID: 5494265860284663685}
-  - {fileID: 3258523247690022319}
-  - {fileID: 237344361318864624}
-  - {fileID: 2568135763241507665}
-  - {fileID: 3529381526610617445}
-  - {fileID: 6413129043186872848}
-  - {fileID: 6138354872824304946}
-  - {fileID: 7777198876081614064}
-  - {fileID: 1322902154621676639}
-  - {fileID: 6165347148006982283}
-  - {fileID: 4913709621852058238}
-  - {fileID: 7960648879015414280}
-  - {fileID: 3433431382610676176}
-  - {fileID: 675382703536877985}
-  - {fileID: 6776608211349185761}
-  - {fileID: 6486129930577514846}
-  - {fileID: 172772587667734278}
-  - {fileID: 4218757227526218015}
-  - {fileID: 5539666609711491564}
-  - {fileID: 4606359159723732147}
-  - {fileID: 5240530745735811748}
-  - {fileID: 9071479446329480474}
-  - {fileID: 8878299564905217387}
-  - {fileID: 4693232349292299491}
-  - {fileID: 5296831840900700194}
-  - {fileID: 883757818500245420}
-  - {fileID: 8629210558218327513}
-  - {fileID: 8238301623880124324}
-  nowBGMName: defaultBGM
-  nowSEName: defaultSE
 --- !u!1 &8271186173905193371
 GameObject:
   m_ObjectHideFlags: 0

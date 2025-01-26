@@ -46,6 +46,11 @@ public class DashEnemy : EnemyBase
         computer.SetMaxDissolveScale(scale);
         body.SetMaxDissolveScale(scale);
         screen.SetMaxDissolveScale(scale);
+
+        //if (player.GetComponent<PlayerManager>().tutorial == true)
+        {
+            ResetEnemy();
+        }
     }
     protected override void Start()
     {
@@ -255,6 +260,37 @@ public class DashEnemy : EnemyBase
                 agent.gameObject.transform.position = transform.position;
             }
         }
+    }
+
+    public void ResetEnemy()
+    {
+        computer.renderer.enabled = false;
+        body.renderer.enabled = false;
+        screen.renderer.enabled = false;
+
+        computer.SetDissolveToMin();
+        body.SetDissolveToMin();
+        screen.SetDissolveToMin();
+    }
+    public override IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(true);
+
+        yield return null;
+
+        computer.renderer.enabled = true;
+        body.renderer.enabled = true;
+        screen.renderer.enabled = true;
+
+        StartCoroutine(computer.DissolveIn(duration));
+        StartCoroutine(body.DissolveIn(duration));
+        StartCoroutine(screen.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<BoxCollider>().enabled = true;
     }
     //____________________________________________________________________________________________________________________________
 

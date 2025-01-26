@@ -85,6 +85,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerExp playerExp;
     public PostProcessController postProcess;
     [HideInInspector] public bool tutorial;
+    public bool result = false; 
 
     [Header("Player SE")]
     public string hurtSE;
@@ -115,29 +116,31 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
-        playerSensor = GetComponent<PlayerSensor>();
-        collider = GetComponent<Collider>();
-        playerAttack = GetComponentInChildren<PlayerAttack>();
-        playerMpAttack = GetComponent<PlayerMpAttack>();    
-        playerDash = GetComponent<PlayerDash>();
-        mainCamera = Camera.main.transform;
-        cameraBrain = Camera.main.GetComponent<CameraBrain>();
-        playerInput = GetComponent<PlayerInput>();
+            animator = GetComponent<Animator>();
+        if (result == false)
+        {
+            rigidbody = GetComponent<Rigidbody>();
+            playerSensor = GetComponent<PlayerSensor>();
+            collider = GetComponent<Collider>();
+            playerAttack = GetComponentInChildren<PlayerAttack>();
+            playerMpAttack = GetComponent<PlayerMpAttack>();
+            playerDash = GetComponent<PlayerDash>();
+            mainCamera = Camera.main.transform;
+            cameraBrain = Camera.main.GetComponent<CameraBrain>();
+            playerInput = GetComponent<PlayerInput>();
 
-        playerData = PlayerSave.Instance.playerData.GetCopy();
-        playerPrefabs = CharacterSettings.Instance.playerPrefabs;
-        Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
-
+            playerData = PlayerSave.Instance.playerData.GetCopy();
+            playerPrefabs = CharacterSettings.Instance.playerPrefabs;
+            Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
      
 
        
         playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
         cameraTransform = Camera.main.transform;
+        }
 
-       #region Animator setting
+        #region Animator setting
         postureHash = Animator.StringToHash("Posture");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         turnSpeedHash = Animator.StringToHash("RotateSpeed");

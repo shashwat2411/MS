@@ -251,6 +251,7 @@ public class SkillSelect : MonoBehaviour
         if (IsBonusSelect != true) return;
 
 
+        SoundManager.Instance.PlaySE("BonusSelect");
         if (BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus != null)
         {
             player.GetComponent<PlayerManager>().ApplyBonus(BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus);
@@ -299,6 +300,8 @@ public class SkillSelect : MonoBehaviour
 
     public void LevelUp()
     {
+        SoundManager.Instance.PlaySE("LevelUp", 2.5f);
+
         playerInput.SwitchCurrentActionMap("UI");
 
         Time.timeScale = 0;

@@ -127,7 +127,7 @@ public class ScreenShatter : MonoBehaviour
 
     public IEnumerator FailShatterScreenInitate()
     {
-        loadLevel = "MainMenu";
+        loadLevel = "Result";
 
         plane.SetActive(true);
         reset = false;

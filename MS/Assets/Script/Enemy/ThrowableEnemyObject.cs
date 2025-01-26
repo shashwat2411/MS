@@ -23,6 +23,8 @@ public class ThrowableEnemyObject : MonoBehaviour
     public AnimationCurve motion;
     protected GameObject player;
     protected GameObject owner;
+
+    protected float deathDelay = 0f;
     virtual protected void Start()
     {
         moveOn = false;
@@ -53,7 +55,10 @@ public class ThrowableEnemyObject : MonoBehaviour
         else { motionTime = 1.0f; }
 
         if (lifetime < maxLifetime) { lifetime += Time.deltaTime; }
-        else { Destroy(gameObject); }
+        else 
+        {
+            Destructor();
+        }
 
         float y = motion.Evaluate(motionTime);
 
@@ -77,6 +82,10 @@ public class ThrowableEnemyObject : MonoBehaviour
 
     }
 
+    virtual protected void Destructor()
+    {
+        Destroy(gameObject, deathDelay);
+    }
     public void ResetMotion()
     {
         motionTime = 0f;

@@ -18,7 +18,7 @@ public class SkyDomeMovement : MonoBehaviour
 
     [ColorUsage(false, true)] public Color thresholdColor;
     [ColorUsage(false, true)] public Color mapThresholdColor;
-    [ColorUsage(false, true)] private Color originalColor;
+    [ColorUsage(false, true)] private Color[] originalColor;
     [ColorUsage(false, true)] private Color originalMapColor;
 
     private int _Color = Shader.PropertyToID("_Color");
@@ -36,6 +36,7 @@ public class SkyDomeMovement : MonoBehaviour
 
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
         material = new Material[renderers.Length];
+        originalColor = new Color[renderers.Length];
 
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -46,7 +47,7 @@ public class SkyDomeMovement : MonoBehaviour
         if (map != null) { mapMaterial = map.transform.GetChild(0).GetComponent<MeshRenderer>().material; }
         else { mapMaterial = null; }
 
-        originalColor = material[0].GetColor(_Color);
+        for (int i = 0; i < material.Length; i++) { originalColor[i] = material[i].GetColor(_Color); }
         if (mapMaterial != null) { originalMapColor = mapMaterial.GetColor(_EmissionColor); }
     }
     private void FixedUpdate()
@@ -61,7 +62,7 @@ public class SkyDomeMovement : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < material.Length; i++) { material[i].SetColor(_Color, originalColor); }
+            for (int i = 0; i < material.Length; i++) { material[i].SetColor(_Color, originalColor[i]); }
             if (mapMaterial != null) { mapMaterial.SetColor(_EmissionColor, originalMapColor); }
         }
 
@@ -85,7 +86,7 @@ public class SkyDomeMovement : MonoBehaviour
         {
             elapsed += Time.deltaTime;
 
-            for (int i = 0; i < material.Length; i++) { material[i].SetColor(_Color, Color.Lerp(originalColor, thresholdColor, elapsed / duration)); }
+            for (int i = 0; i < material.Length; i++) { material[i].SetColor(_Color, Color.Lerp(originalColor[i], thresholdColor, elapsed / duration)); }
             if (mapMaterial != null) { mapMaterial.SetColor(_EmissionColor, Color.Lerp(originalMapColor, mapThresholdColor, elapsed / duration)); }
 
             yield return null;

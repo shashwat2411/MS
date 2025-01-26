@@ -31,6 +31,8 @@ public class GhostEnemy : ThrowEnemy
         body.SetMaxDissolveScale(scale);
         tv.SetMaxDissolveScale(scale);
         screen.SetMaxDissolveScale(scale);
+
+        ResetEnemy();
     }
     protected override void Start()
     {
@@ -63,6 +65,43 @@ public class GhostEnemy : ThrowEnemy
 
         Destroy(gameObject, dissolveOutDuration);
     }
+    public void ResetEnemy()
+    {
+        ears.renderer.enabled = false;
+        hands.renderer.enabled = false;
+        body.renderer.enabled = false;
+        tv.renderer.enabled = false;
+        screen.renderer.enabled = false;
 
+        ears.SetDissolveToMin();
+        hands.SetDissolveToMin();
+        body.SetDissolveToMin();
+        tv.SetDissolveToMin();
+        screen.SetDissolveToMin();
+    }
+    public override IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(true);
+
+        yield return null;
+
+        ears.renderer.enabled = true;
+        hands.renderer.enabled = true;
+        body.renderer.enabled = true;
+        tv.renderer.enabled = true;
+        screen.renderer.enabled = true;
+
+        StartCoroutine(ears.DissolveIn(duration));
+        StartCoroutine(hands.DissolveIn(duration));
+        StartCoroutine(body.DissolveIn(duration));
+        StartCoroutine(tv.DissolveIn(duration));
+        StartCoroutine(screen.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<BoxCollider>().enabled = true;
+    }
     public EnemyBomb GetItem() { return (EnemyBomb)itemReference; }
 }

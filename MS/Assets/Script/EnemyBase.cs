@@ -284,7 +284,12 @@ public class EnemyBase : MonoBehaviour
         healthBar.health = healthBar.maxHealth;
     }
 
-    public GameObject GetPlayer() { return player; }
+    virtual public IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return null;
+    }
+
+        public GameObject GetPlayer() { return player; }
 
     //___Gizmos_________________________________________________________________________________________________________________________
     virtual protected void OnDrawGizmosSelected()

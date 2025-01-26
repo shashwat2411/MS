@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static GunEnemy;
-using static ThrowEnemy;
 
 public class KamikazeEnemy : EnemyBase
 {
@@ -45,6 +43,7 @@ public class KamikazeEnemy : EnemyBase
         float scale = transform.localScale.x;
         body.SetMaxDissolveScale(scale);
 
+        ResetEnemy();
     }
     protected override void Start()
     {
@@ -170,7 +169,28 @@ public class KamikazeEnemy : EnemyBase
     }
     //____________________________________________________________________________________________________________________________
 
+    public void ResetEnemy()
+    {
+        body.renderer.enabled = false;
 
+        body.SetDissolveToMin();
+    }
+    public override IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(true);
+
+        yield return null;
+
+        body.renderer.enabled = true;
+
+        StartCoroutine(body.DissolveIn(duration));
+
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<BoxCollider>().enabled = true;
+    }
     //___Gizmos_________________________________________________________________________________________________________________________
     //____________________________________________________________________________________________________________________________
 
