@@ -14,4 +14,12 @@ public class ChangeMainMenu : MonoBehaviour
         source.Play();
         StartCoroutine(screenShatter.ShatterScreenInitate());
     }
+    public void Tutorial(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+
+        source.Play();
+        screenShatter.loadLevel = "Tutorial";
+        StartCoroutine(screenShatter.ShatterScreenInitate());
+    }
 }
