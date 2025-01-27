@@ -51,8 +51,12 @@ public class EnemyBomb : ThrowableEnemyObject
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(nameSE);
+        }
 
-        SoundManager.Instance.PlaySE(nameSE);
+     
 
         if (grounded == true)
         {
