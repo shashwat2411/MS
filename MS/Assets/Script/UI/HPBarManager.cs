@@ -41,11 +41,11 @@ public class HPBarManager : MonoBehaviour
     public void SetPlayerHP()
     {
 
-        if (Hp_Max > 100)
+        if (Hp_Max > 150)
         {
-            Hpbar1.Hp_Max = 100.0f;
+            Hpbar1.Hp_Max = 150.0f;
 
-            Hpbar2.Hp_Max = Hp_Max - 100.0f;
+            Hpbar2.Hp_Max = Hp_Max - 150.0f;
 
             Hpbar2.gameObject.SetActive(true);
 
@@ -60,11 +60,11 @@ public class HPBarManager : MonoBehaviour
             Hpbar2.gameObject.SetActive(false);
         }
 
-        if (Hp_Now > 100)
+        if (Hp_Now > 150)
         {
-            Hpbar1.Hp_Now = 100.0f;
+            Hpbar1.Hp_Now = 150.0f;
                    
-            Hpbar2.Hp_Now = Hp_Now - 100.0f;
+            Hpbar2.Hp_Now = Hp_Now - 150.0f;
 
             StartCoroutine(DisableHpBar1());
             Hpbar2.active = true;
@@ -95,7 +95,7 @@ public class HPBarManager : MonoBehaviour
     {
         float len;
 
-        len = 0.7f / 100.0f * (Hp_Max - 100.0f);
+        len = 0.7f / 100.0f * (Hp_Max - 150.0f);
 
         Hpbar2.transform.localScale = new Vector3(Hpbar2.transform.localScale.x, len);
     }
