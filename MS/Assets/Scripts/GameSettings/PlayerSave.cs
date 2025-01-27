@@ -10,9 +10,10 @@ public class PlayerSave : ScriptableObject
 
     
     public (int, int) minimapPos;
+    public Vector3 cameraOffset = new Vector3(0, 6.25f, -10f);
 
     public bool victory = false;
-
+   
     static PlayerSave instance;
 
     public static PlayerSave Instance
@@ -35,6 +36,7 @@ public class PlayerSave : ScriptableObject
         playerData = CharacterSettings.Instance.playerData;
         minimapPos = (0, 0);
         victory = false;
+        cameraOffset = new Vector3(0, 6.25f, -10f);
     }
 
 }

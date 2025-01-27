@@ -85,7 +85,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerExp playerExp;
     public PostProcessController postProcess;
     [HideInInspector] public bool tutorial;
-    public bool result = false; 
+    public bool result = false;
+    public bool bossScene = false;
 
     [Header("Player SE")]
     public string hurtSE;
@@ -116,7 +117,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-            animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         if (result == false)
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -132,12 +133,21 @@ public class PlayerManager : MonoBehaviour
             playerData = PlayerSave.Instance.playerData.GetCopy();
             playerPrefabs = CharacterSettings.Instance.playerPrefabs;
             Debug.Log("sp count" + playerPrefabs.bullet.GetComponent<BulletBase>().GetSpCount());
-     
+
+
+            if (!bossScene)
+            {
+                cameraBrain.offset = PlayerSave.Instance.cameraOffset;
+            }
+            
+
 
        
-        playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
+            playerPrefabs[PlayerPrafabType.playerPermanentAblity] = Instantiate(playerAblities, this.transform);
 
-        cameraTransform = Camera.main.transform;
+
+       
+            cameraTransform = Camera.main.transform;
         }
 
         #region Animator setting
@@ -172,6 +182,7 @@ public class PlayerManager : MonoBehaviour
             .GetComponent<PlayerPermanentAblityCollector>()
             .all;
 
+        PlayerSave.Instance.cameraOffset = cameraBrain.offset;
     }
 
     #region 入力 Stuff
