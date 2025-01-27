@@ -63,6 +63,8 @@ public class CameraBrain : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (offset.z > zoomUpOffset.z) { offset.z = zoomUpOffset.z; }
+
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
 
