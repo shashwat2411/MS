@@ -159,7 +159,7 @@ public class PostProcessController : MonoBehaviour
             yield return null;
         }
 
-        saturation = 0f;
+        saturation = 100f;
     }
     public IEnumerator HueShift(float duration)
     {
