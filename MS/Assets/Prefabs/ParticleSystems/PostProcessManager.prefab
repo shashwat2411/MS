@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7145ddc3c482c4c8c635bf00c4d721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenu: 0
   bgm: {fileID: 0}
   pitch: 0.9
   sound: 0.5
@@ -116,7 +117,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  saturation: 0
+  saturation: 3
   saturationCurve:
     serializedVersion: 2
     m_Curve:
@@ -175,6 +176,14 @@ MonoBehaviour:
   blueInRed: 0
   blueInGreen: 0
   blueInBlue: 100
+  vignetteIntensity: 0
+  vignetteCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  lensDistortionScale: 1
 --- !u!82 &5167500842212405843
 AudioSource:
   m_ObjectHideFlags: 0
