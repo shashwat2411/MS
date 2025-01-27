@@ -15,7 +15,7 @@ MonoBehaviour:
   playerBonusDatas:
   - name: Max HP
     description: Max HP +20
-    icon: {fileID: 21300000, guid: dee5a5fc9af3f20439fda47500de76a9, type: 3}
+    icon: {fileID: 21300000, guid: f299c4c6ca5e6fa47884b7e45266a652, type: 3}
     bonuses:
     - type: 0
       key: 0
@@ -25,21 +25,21 @@ MonoBehaviour:
       value: 20
   - name: Attack + 10%
     description: "\u653B\u6483\u529B + 10%"
-    icon: {fileID: 21300000, guid: 371cf895452557f44ba2150e64f6fb33, type: 3}
+    icon: {fileID: 21300000, guid: 1b48ad0d13c893944b0f48276ec0c0c7, type: 3}
     bonuses:
     - type: 1
       key: 3
       value: 0.1
   - name: Charge Speed
     description: "\u30C1\u30E3\u30FC\u30B8\u901F\u5EA6\u30A2\u30C3\u30D7"
-    icon: {fileID: 21300000, guid: 06287674ff1708b428032a982034ca11, type: 3}
+    icon: {fileID: 21300000, guid: a760fb6226866f342ad520e66487479f, type: 3}
     bonuses:
     - type: 1
       key: 11
       value: 0.3
   - name: Attack Size
     description: "\u653B\u6483\u7BC4\u56F2\u30A2\u30C3\u30D7"
-    icon: {fileID: 21300000, guid: cbc072f42f667254b98a7871f701d808, type: 3}
+    icon: {fileID: 21300000, guid: 05381e678cc127842a2187fbfc61ce6e, type: 3}
     bonuses:
     - type: 1
       key: 10
@@ -49,14 +49,14 @@ MonoBehaviour:
       value: 0.4
   - name: Dash Cooldown
     description: "\u30C0\u30C3\u30B7\u30E5CT\u6E1B\u5C11"
-    icon: {fileID: 21300000, guid: 2225a93feff2f6e43a6f1c83d11d5639, type: 3}
+    icon: {fileID: 21300000, guid: eed7fe4490399bb40af6578eb5a0fea3, type: 3}
     bonuses:
     - type: 1
       key: 14
       value: -0.2
   - name: Max MP
     description: "MP\u91CF\u30A2\u30C3\u30D7"
-    icon: {fileID: 21300000, guid: 28366a422a1ea3a4cab43c235a792b33, type: 3}
+    icon: {fileID: 21300000, guid: 63f0f73658c10b349ae8fd4301a72523, type: 3}
     bonuses:
     - type: 0
       key: 16
@@ -69,14 +69,14 @@ MonoBehaviour:
       value: 30
   - name: Aim Speed
     description: "\u7684\u306E\u901F\u5EA6\u30A2\u30C3\u30D7"
-    icon: {fileID: 21300000, guid: a8c6417709915e04382b8ae2c492cd79, type: 3}
+    icon: {fileID: 21300000, guid: ce62c41016bf5ff4fb984c209c2d39b1, type: 3}
     bonuses:
     - type: 1
       key: 12
       value: 0.3
   - name: Stronger Dash
     description: "\u30C0\u30C3\u30B7\u30E5\u8DDD\u96E2\u30A2\u30C3\u30D7"
-    icon: {fileID: 21300000, guid: ef3726db473d90f44b49dfdcc6abb00b, type: 3}
+    icon: {fileID: 21300000, guid: 47280503d05cbf649b8e117a073be679, type: 3}
     bonuses:
     - type: 1
       key: 13
@@ -84,7 +84,7 @@ MonoBehaviour:
   playerBonusItems:
   - name: GroundFire
     description: "\u3084\u3051\u3069\u4ED8\u4E0E"
-    icon: {fileID: 21300000, guid: db716d570b8f0544db6b416bf80c6ad4, type: 3}
+    icon: {fileID: 21300000, guid: 8d7226cfe1a396841900f3283725e13b, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
       description: "\u3084\u3051\u3069\u6642\u9593\u30A2\u30C3\u30D7"
   - name: Shield
     description: "\u30B7\u30FC\u30EB\u30C9\u4ED8\u4E0E"
-    icon: {fileID: 21300000, guid: ee17aab47af773c47b5ab391c9af9205, type: 3}
+    icon: {fileID: 21300000, guid: 89d555bf215af224d925c988f853fdee, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
       description: "\u30B7\u30FC\u30EB\u30C9\u8FFD\u52A0"
   - name: Multiple Menko
     description: "\u3081\u3093\u30531\u679A\u8FFD\u52A0"
-    icon: {fileID: 21300000, guid: 06530d130d53b2847b828266fda83c47, type: 3}
+    icon: {fileID: 21300000, guid: 90d3cc40cf50e7a40b4325710122812c, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 2
@@ -147,8 +147,8 @@ MonoBehaviour:
         bonusItem: {fileID: 0}
       description: "\u3081\u3093\u30531\u679A\u8FFD\u52A0"
   - name: Healing
-    description: "\u518D\u751F\u529B\u4ED8\u4E0E"
-    icon: {fileID: 21300000, guid: c3a7e09f389d2004c9ed7c82d14f3362, type: 3}
+    description: Healing Over Time
+    icon: {fileID: 21300000, guid: 6c522002bdd12ac40af34038eeb5f197, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
       description: "\u56DE\u5FA9\u91CF\u30A2\u30C3\u30D7"
   - name: Lightning
     description: "\u96F7\u53EC\u559A"
-    icon: {fileID: 21300000, guid: a6c277dde8bfe5142a8237d6ab571a89, type: 3}
+    icon: {fileID: 21300000, guid: eab3a76b0b9f41a418a454856df7ad5c, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 1
@@ -210,7 +210,7 @@ MonoBehaviour:
       description: "\u96F7\u8FFD\u52A0"
   - name: Double Dash
     description: "\u30C0\u30D6\u30EB\u30C0\u30C3\u30B7\u30E5"
-    icon: {fileID: 21300000, guid: 62768f30ebdaa7f409c905ed9ace526b, type: 3}
+    icon: {fileID: 21300000, guid: 0944a643118d10045a5ec57972ffbed2, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 0
