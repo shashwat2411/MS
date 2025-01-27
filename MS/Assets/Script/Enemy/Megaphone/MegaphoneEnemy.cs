@@ -46,8 +46,11 @@ public class MegaphoneEnemy : ThrowEnemy
     }
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
-        RotateTowards(player.transform.position);
+        if (stopEverything == false)
+        {
+            base.FixedUpdate();
+            RotateTowards(player.transform.position);
+        }
     }
 
     protected override void Idle()
@@ -88,6 +91,8 @@ public class MegaphoneEnemy : ThrowEnemy
 
         megaphone.SetDissolveToMin();
         body.SetDissolveToMin();
+
+        stopEverything = true;
     }
     public void ResetEnemyTutorial()
     {
@@ -118,6 +123,7 @@ public class MegaphoneEnemy : ThrowEnemy
 
         GetComponent<BoxCollider>().enabled = true;
         this.enabled = true;
+        stopEverything = false;
     }
 
     public void SetStopRotation(bool value) { stopRotation = value; }

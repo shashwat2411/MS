@@ -45,9 +45,12 @@ public class GhostEnemy : ThrowEnemy
     }
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
-        stopRotation = false;
-        RotateTowards(player.transform.position);
+        if (stopEverything == false)
+        {
+            base.FixedUpdate();
+            stopRotation = false;
+            RotateTowards(player.transform.position);
+        }
     }
 
     public override void Death()
@@ -78,6 +81,8 @@ public class GhostEnemy : ThrowEnemy
         body.SetDissolveToMin();
         tv.SetDissolveToMin();
         screen.SetDissolveToMin();
+
+        stopEverything = true;
     }
     public override IEnumerator DissolveIn(float delay, float duration)
     {
@@ -102,6 +107,7 @@ public class GhostEnemy : ThrowEnemy
         yield return new WaitForSeconds(duration);
 
         GetComponent<BoxCollider>().enabled = true;
+        stopEverything = false;
     }
     public EnemyBomb GetItem() { return (EnemyBomb)itemReference; }
 }

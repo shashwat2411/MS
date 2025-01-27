@@ -130,6 +130,7 @@ public class EnemyBase : MonoBehaviour
     protected bool stopRotation;
     protected bool stopMovement;
     protected bool stopLooking;
+    protected bool stopEverything;
 
     [Header("References")]
     [SerializeField] protected Animator animator;
@@ -164,6 +165,7 @@ public class EnemyBase : MonoBehaviour
         stopRotation = false;
         stopMovement = false;
         stopLooking = false;
+        stopEverything = false;
         dead = false;
 
         canvas = GetComponentInChildren<Canvas>().gameObject;

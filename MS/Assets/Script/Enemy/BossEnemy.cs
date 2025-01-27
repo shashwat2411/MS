@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static EnemyBase;
 using static UnityEngine.Rendering.DebugUI;
 using static UnityEngine.UI.GridLayoutGroup;
@@ -15,6 +16,7 @@ public class BossEnemy : EnemyBase
         SMASH,
         SMASHFAR,
         SUMMONLIGHTNING,
+        LASERBEAM,
 
         MAX
     }
@@ -23,11 +25,16 @@ public class BossEnemy : EnemyBase
     public HealthBar bossHealthBar;
     public Animator canvasAnimator;
     public Animator mainCameraAnimator;
+    public GameObject eyeballBone;
+    public bool laserBeam;
+    private bool lookAt = true;
+    [Range(0, 1)] public float lookingSpeed = 0.2f;
 
     [Header("Attack")]
     public float slapAttackPower;
     public float smashAttackPower;
     public float lightningAttackPower;
+    public float laserBeamAttackPower;
     public bool disableColliders;
     public float speed = 1f;
     public float maxSpeed = 1.5f;
@@ -37,6 +44,7 @@ public class BossEnemy : EnemyBase
     public float slapTime;
     public float smashTime;
     public float lightningTime;
+    public float laserBeamTime;
     public float phaseChangeThreshold = 0.25f;
     public BOSSENEMY_STATE currentState;
     public BOSSENEMY_STATE previousState;
@@ -64,20 +72,26 @@ public class BossEnemy : EnemyBase
     protected static int _SmashFar = Animator.StringToHash("_SmashFar");
     protected static int _SummonLightning = Animator.StringToHash("_SummonLightning");
     protected static int _Death = Animator.StringToHash("_Death");
+    protected static int _LaserBeam = Animator.StringToHash("_LaserBeam");
     protected static int _Speed = Animator.StringToHash("_Speed");
 
     protected override void Start()
     {
+        player = FindFirstObjectByType<PlayerManager>().gameObject;
+
         healthBar = bossHealthBar;
 
         disableColliders = false;
         countDownStart = false;
         currentPhaseOver = false;
+        laserBeam = false;
+        lookAt = true;
 
         countDown = 0f;
 
         ReturnToIdle();
         StartCoroutine(ChangeState(BOSSENEMY_STATE.SCREAM));
+        StartCoroutine(BossEnterCutScene(3f, 0.33f));
 
         healthBar.Stimulate();
         healthBar.disappear = false;
@@ -90,7 +104,14 @@ public class BossEnemy : EnemyBase
     }
 
     protected override void FixedUpdate()
-    { 
+    {
+        if (lookAt == true) 
+        {
+            Quaternion rotation = eyeballBone.transform.rotation;
+            Quaternion targetRotation = LookAt(eyeballBone.transform, player.transform.position, eyeballBone.transform.up);
+            eyeballBone.transform.rotation = Quaternion.Lerp(rotation, targetRotation, lookingSpeed);
+        }
+
         float percentage = 1f - (bossHealthBar.health / (bossHealthBar.maxHealth * 0.7f));
         speed = Mathf.Lerp(1f, maxSpeed, percentage);
 
@@ -140,6 +161,10 @@ public class BossEnemy : EnemyBase
                 case BOSSENEMY_STATE.SUMMONLIGHTNING:
                     SummonLightning();
                     break;
+
+                case BOSSENEMY_STATE.LASERBEAM:
+                    LaserBeam();
+                    break;
             }
         }
     }
@@ -156,6 +181,7 @@ public class BossEnemy : EnemyBase
         animator.SetBool(_Smash, false);
         animator.SetBool(_SmashFar, false);
         animator.SetBool(_SummonLightning, false);
+        animator.SetBool(_LaserBeam, false);
         animator.SetBool(_Death, true);
 
         animator.Play("Death2");
@@ -172,6 +198,24 @@ public class BossEnemy : EnemyBase
         //Destroy(gameObject, 2.2f);
     }
 
+    private IEnumerator BossEnterCutScene(float delay, float delay2)
+    {
+        SoundManager.Instance.StopAllSE();
+        mainCameraAnimator.GetComponent<CameraBrain>().target = gameObject.transform;
+        player.GetComponent<PlayerInput>().enabled = false;
+
+        yield return new WaitForSeconds(delay);
+
+        canvasAnimator.Play("BlackBarsOut");
+
+        yield return new WaitForSeconds(delay2);
+
+        
+        //mainCameraAnimator.GetComponent<CameraBrain>().target = player.transform;
+        StartCoroutine(mainCameraAnimator.GetComponent<CameraBrain>().ShiftTarget(player.transform, 1f));
+        player.GetComponent<PlayerInput>().enabled = true;
+    }
+
     private IEnumerator BossDeathCutScene(float delay)
     {
         canvasAnimator.SetBool("in", true);
@@ -184,7 +228,8 @@ public class BossEnemy : EnemyBase
         yield return new WaitForSeconds(delay);
 
         animator.speed = 1f;
-        SoundManager.Instance.PlaySE("BossDeath", 0.5f);
+        SoundManager.Instance.PlaySE("BossDeath");
+        FindFirstObjectByType<BossAnimationEvents>().StartDeathSound();
 
     }
 
@@ -203,19 +248,34 @@ public class BossEnemy : EnemyBase
 
     public void ReturnToIdle()
     {
-        previousState = currentState;
-        currentState = BOSSENEMY_STATE.IDLE;
+        if (laserBeam == false)
+        {
+            previousState = currentState;
+            currentState = BOSSENEMY_STATE.IDLE;
 
-        currentPhaseOver = false;
-        CalculateNextAttack();
-        countDownStart = true;
-        disableColliders = false;
+            currentPhaseOver = false;
+            CalculateNextAttack();
+            countDownStart = true;
+            disableColliders = false;
 
-        animator.SetBool(_Scream, false);
-        animator.SetBool(_Slap, false);
-        animator.SetBool(_Smash, false);
-        animator.SetBool(_SmashFar, false);
-        animator.SetBool(_SummonLightning, false);
+            animator.SetBool(_Scream, false);
+            animator.SetBool(_Slap, false);
+            animator.SetBool(_Smash, false);
+            animator.SetBool(_SmashFar, false);
+            animator.SetBool(_SummonLightning, false);
+            animator.SetBool(_LaserBeam, false);
+        }
+        else
+        {
+            previousState = currentState;
+            currentState = BOSSENEMY_STATE.LASERBEAM;
+            animator.SetBool(_LaserBeam, true);
+
+            laserBeam = false;
+            lookAt = true;
+
+            nextPhaseTime = laserBeamTime;
+        }
     }
     private bool IsCurrentAnimationOver()
     {
@@ -230,11 +290,13 @@ public class BossEnemy : EnemyBase
         int previous = (int)previousState;
         int rand = current;
 
+        int laserBeam = (int)BOSSENEMY_STATE.LASERBEAM;
+
         bool phaseTwo = bossHealthBar.health / bossHealthBar.maxHealth < 0.7f;
 
         if (phaseTwo == true)
         {
-            while ((rand == current || rand == previous))
+            while ((rand == current || rand == previous) || rand == laserBeam)
             {
                 rand = Random.Range(1, (int)BOSSENEMY_STATE.MAX);
             }
@@ -243,7 +305,7 @@ public class BossEnemy : EnemyBase
         {
             int lightningSummon = (int)BOSSENEMY_STATE.SUMMONLIGHTNING;
 
-            while ((rand == current || rand == previous))
+            while ((rand == current || rand == previous) || rand == laserBeam)
             {
                 rand = Random.Range(1, (int)BOSSENEMY_STATE.MAX);
                 if (rand == lightningSummon) { rand = current; }
@@ -267,6 +329,9 @@ public class BossEnemy : EnemyBase
     void Smash() { animator.SetBool(_Smash, true); }
     void SmashFar() { animator.SetBool(_SmashFar, true); }
     void SummonLightning() { animator.SetBool(_SummonLightning, true); }
+    void LaserBeam() {
+        animator.SetBool(_LaserBeam, true);
+    }
     //____________________________________________________________________________________________________________________________
 
     //___Coroutines_________________________________________________________________________________________________________________________
@@ -322,5 +387,31 @@ public class BossEnemy : EnemyBase
                 }
             }
         }
+    }
+
+    public void SetNextPhaseToLaserBeam()
+    {
+        lookAt = false;
+        laserBeam = true;
+    }
+
+    Quaternion LookAt(Transform owner, Vector3 targetPosition, Vector3 up)
+    {
+        // Calculate the forward direction
+        Vector3 forward = (targetPosition - owner.transform.position).normalized;
+
+        // Ensure the up direction is valid
+        Vector3 right = Vector3.Cross(up, forward).normalized;
+        Vector3 trueUp = Vector3.Cross(forward, right).normalized;
+
+        // Create a rotation matrix
+        Matrix4x4 rotationMatrix = new Matrix4x4();
+        rotationMatrix.SetColumn(0, right);    // X-axis
+        rotationMatrix.SetColumn(1, trueUp);  // Y-axis
+        rotationMatrix.SetColumn(2, forward); // Z-axis
+        rotationMatrix.SetColumn(3, new Vector4(0, 0, 0, 1));
+
+        // Apply the rotation to the transform
+        return rotationMatrix.rotation;
     }
 }

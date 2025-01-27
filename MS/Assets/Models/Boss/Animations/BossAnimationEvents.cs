@@ -10,6 +10,8 @@ public class BossAnimationEvents : MonoBehaviour
 
     public float cameraShakeIntensity;
     public float screamShakeIntensity;
+    public float cutSceneScreamShakeIntensity;
+    public float deathSceneShakeIntensity;
     public float impactTime;
     public float colorReturnTime;
     private CameraBrain mainCamera;
@@ -22,9 +24,11 @@ public class BossAnimationEvents : MonoBehaviour
     public ScreenShatter shatterer;
     public string nextScene;
 
+    private bool cutScene = true;
     private void Awake()
     {
         mainCamera = Camera.main.GetComponent<CameraBrain>();
+        cutScene = true;
     }
 
     public void ReturnToIdle()
@@ -62,13 +66,23 @@ public class BossAnimationEvents : MonoBehaviour
     }
     public void StartDeathSound()
     {
-        SoundManager.Instance.PlaySE("BossDeath");
+        StartCoroutine(mainCamera.CameraShake(2f, deathSceneShakeIntensity));
     }
     public void NoiseScreen()
     {
-        StartCoroutine(mainCamera.CameraShake(1.5f, screamShakeIntensity));
-        StartCoroutine(postProcess.SaturationFadeOut(saturationFadeOutTime, -100f));
-        StartCoroutine(postProcess.FilmGrainFadeOut(saturationFadeOutTime));
+
+        if (cutScene == false)
+        {
+            StartCoroutine(mainCamera.CameraShake(1.5f, screamShakeIntensity));
+            StartCoroutine(postProcess.SaturationFadeOut(saturationFadeOutTime, -100f));
+            StartCoroutine(postProcess.FilmGrainFadeOut(saturationFadeOutTime));
+        }
+        else
+        {
+            cutScene = false;
+            StartCoroutine(mainCamera.CameraShake(1.5f, cutSceneScreamShakeIntensity));
+            StartCoroutine(postProcess.HueShift(1.5f));
+        }
     }
 
     public void ImpactCameraShake()

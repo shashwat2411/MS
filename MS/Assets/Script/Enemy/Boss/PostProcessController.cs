@@ -153,6 +153,22 @@ public class PostProcessController : MonoBehaviour
 
         saturation = 0f;
     }
+    public IEnumerator HueShift(float duration)
+    {
+        float elapsed = 0f;
+        hueShift = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            hueShift = hueShiftCurve.Evaluate(elapsed / duration) * 180f;
+
+            yield return null;
+        }
+
+        hueShift = 0f;
+    }
     public IEnumerator FilmGrainFadeOut(float duration)
     {
         float elapsed = 0f;

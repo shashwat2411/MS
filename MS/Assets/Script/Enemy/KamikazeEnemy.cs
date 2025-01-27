@@ -58,30 +58,36 @@ public class KamikazeEnemy : EnemyBase
     }
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
-
-        switch (state)
+        if (stopEverything == false)
         {
-            case KAMIKAZEENEMY_STATE.IDLE:
-                Idle();
-                break;
+            base.FixedUpdate();
 
-            case KAMIKAZEENEMY_STATE.MOVE:
-                Follow();
-                break;
+            switch (state)
+            {
+                case KAMIKAZEENEMY_STATE.IDLE:
+                    Idle();
+                    break;
+
+                case KAMIKAZEENEMY_STATE.MOVE:
+                    Follow();
+                    break;
+            }
         }
     }
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == player)
+        if (stopEverything == false)
         {
-            //プレーヤーへのダメージ
-            player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
-            Death();
-        }
+            if (collision.gameObject == player)
+            {
+                //プレーヤーへのダメージ
+                player.GetComponent<PlayerManager>().playerHP.Damage(attackPower);
+                Death();
+            }
 
-        KnockBack knockback = collision.gameObject.GetComponent<KnockBack>();
-        if (knockback) { Death(); }
+            KnockBack knockback = collision.gameObject.GetComponent<KnockBack>();
+            if (knockback) { Death(); }
+        }
     }
 
     public override void Damage(float value, bool killingBlow = false)
@@ -174,12 +180,14 @@ public class KamikazeEnemy : EnemyBase
         body.renderer.enabled = false;
 
         body.SetDissolveToMin();
+
+        stopEverything = true;
     }
     public override IEnumerator DissolveIn(float delay, float duration)
     {
         yield return new WaitForSeconds(delay);
 
-        gameObject.SetActive(true);
+        if (gameObject != null) { gameObject.SetActive(true); }
 
         yield return null;
 
@@ -190,6 +198,7 @@ public class KamikazeEnemy : EnemyBase
         yield return new WaitForSeconds(duration);
 
         GetComponent<BoxCollider>().enabled = true;
+        stopEverything = false;
     }
     //___Gizmos_________________________________________________________________________________________________________________________
     //____________________________________________________________________________________________________________________________

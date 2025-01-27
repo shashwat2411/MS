@@ -39,9 +39,12 @@ public class SmartphoneEnemy : ThrowEnemy
     }
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
-        stopRotation = false;
-        RotateTowards(player.transform.position);
+        if (stopEverything == false)
+        {
+            base.FixedUpdate();
+            stopRotation = false;
+            RotateTowards(player.transform.position);
+        }
     }
 
     public override void Death()
@@ -65,6 +68,8 @@ public class SmartphoneEnemy : ThrowEnemy
         hand.SetDissolveToMin();
         screen.SetDissolveToMin();
         phone.SetDissolveToMin();
+
+        stopEverything = true;
     }
     public override IEnumerator DissolveIn(float delay, float duration)
     {
@@ -85,6 +90,7 @@ public class SmartphoneEnemy : ThrowEnemy
         yield return new WaitForSeconds(duration);
 
         GetComponent<BoxCollider>().enabled = true;
+        stopEverything = false;
     }
     public EnemyPoison GetItem() { return (EnemyPoison)itemReference; }
 
