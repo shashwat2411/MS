@@ -8,6 +8,13 @@ public class BiteAttackCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        owner.GetPlayer().GetComponent<PlayerManager>().playerHP.Damage(owner.attackPower);
+        if (other.gameObject == owner.GetPlayer())
+        {
+            if (owner.attackedOnce == false)
+            {
+                owner.GetPlayer().GetComponent<PlayerManager>().playerHP.Damage(owner.attackPower);
+                owner.attackedOnce = true;
+            }
+        }
     }
 }
