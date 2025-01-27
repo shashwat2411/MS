@@ -15,18 +15,13 @@ public class SkillWindow : MonoBehaviour
     [SerializeField]
     Image Icon;
 
+    [SerializeField] Image card;
+
     [SerializeField]
     TextMeshProUGUI Name, Description;
 
    public PlayerManager player;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-       
-    }
 
     private void OnEnable()
     {
@@ -49,6 +44,7 @@ public class SkillWindow : MonoBehaviour
             Name.text = Bonus.name;
             Description.text = Bonus.description;
             Icon.sprite = Bonus.icon;
+            card.sprite = Bonus.icon;
 
         }
 
@@ -57,6 +53,7 @@ public class SkillWindow : MonoBehaviour
             Name.text = Item.name;
             Description.text = Item.bonusList[GetSkillLv(Item)].description;
             Icon.sprite = Item.icon;
+            card.sprite = Item.icon;
 
 
         }

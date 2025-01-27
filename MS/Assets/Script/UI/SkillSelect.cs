@@ -38,6 +38,9 @@ public class SkillSelect : MonoBehaviour
     List<int> bonustype1 = new List<int>();
     List<int> bonustype2 = new List<int>();
 
+    [ColorUsage(false, true)] public Color selectedColor;
+    [ColorUsage(false, true)] private Color originalColor;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,8 @@ public class SkillSelect : MonoBehaviour
         playerInput = player.GetComponent<PlayerInput>();   
 
         SelectNo = 0;
+
+        originalColor = BonusWindow[0].GetComponent<Image>().material.GetColor("_Color");
 
         //RandomBonus();
 
@@ -207,12 +212,14 @@ public class SkillSelect : MonoBehaviour
         for (int i = 0; i < BonusWindow.Count(); i++)
         {
             BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = originalSize;
-            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+            //BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+            BonusWindow[i].GetComponent<Image>().material.SetColor("_Color", originalColor);
         }
         //Cursor.SetActive(true);
 
         BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = originalSize * 1.15f;
-        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.cyan;
+        //BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.cyan;
+        BonusWindow[SelectNo].GetComponent<Image>().material.SetColor("_Color", selectedColor);
 
         // Debug.Log("Time.timeScale=" + Time.timeScale);
 
