@@ -15,11 +15,23 @@ public class CameraBrain : MonoBehaviour
 
     public Vector3 offset;
     public Vector3 angleOffset;
+
+    [Header("ZoomIn")]
     public Vector3 zoomInOffset;
+
+    [Header("ZoomOut")]
     public Vector3 zoomOutOffset;
+
+    [Header("ZoomDown")]
+    public Vector3 zoomDownOffset;
+
+    [Header("ZoomUp")]
+    public Vector3 zoomUpOffset;
+
     private Vector3 originalOffset;
     private Vector3 velocity = Vector3.zero;
 
+    [Header("CutScene")]
     public Vector3 zoomInFactor;
     public Vector3 direction;
 
@@ -87,23 +99,6 @@ public class CameraBrain : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(CameraShake(shakeTime, shakeIntensity)); }
-        if (Input.GetKeyDown(KeyCode.K)) { StartCoroutine(ZoomIn(5f)); }
-        if (Input.GetKeyDown(KeyCode.J)) { StartCoroutine(ZoomOut(5f)); }
-
-        //  Rumble(test)
-        if (Gamepad.current?.buttonWest.isPressed == true)  
-        {
-            //SetRumbleValue(DamgeTest, true);
-           player.playerHP.Damage(20.0f);
-           
-           //SetGamePadMotorSpeed(DamgeTest, true);
-        }
-        
-    }
-
 
     public IEnumerator ShiftTarget(Transform nextTarget, float duration)
     {
@@ -168,21 +163,23 @@ public class CameraBrain : MonoBehaviour
 
         GetComponent<Animator>().enabled = false;
     }
-    public IEnumerator ZoomIn(float time)
+    public void ZoomIn()
     {
-        offset = Vector3.Lerp(offset, zoomInOffset, 0.5f);
-
-        yield return new WaitForSeconds(time);
-
-        yield return StartCoroutine(NormalZoom(2f));
+        offset = Vector3.Lerp(offset, zoomInOffset, 0.2f);
     }
-    public IEnumerator ZoomOut(float time)
+
+    public void ZoomOut()
     {
-        offset = Vector3.Lerp(offset, zoomOutOffset, 0.5f);
+        offset = Vector3.Lerp(offset, zoomOutOffset, 0.2f);
+    }
+    public void ZoomDown()
+    {
+        offset = Vector3.Lerp(offset, zoomDownOffset, 0.2f);
+    }
 
-        yield return new WaitForSeconds(time);
-
-        yield return StartCoroutine(NormalZoom(2f));
+    public void ZoomUp()
+    {
+        offset = Vector3.Lerp(offset, zoomUpOffset, 0.2f);
     }
     public IEnumerator NormalZoom(float time)
     {
