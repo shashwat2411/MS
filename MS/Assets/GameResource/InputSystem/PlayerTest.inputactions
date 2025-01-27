@@ -112,6 +112,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ZoomDown",
+                    "type": "Button",
+                    "id": "953068df-d7db-4b91-b822-4c3fe3de6fdd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ZoomUp",
+                    "type": "Button",
+                    "id": "3ef61d48-7d17-457e-a5ae-48d4fcac9bde",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -503,7 +521,7 @@
                 {
                     "name": "",
                     "id": "f1402572-3db0-4552-84ab-12899e44cea0",
-                    "path": "<Gamepad>/dpad/down",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad;Joystick;XR",
@@ -513,12 +531,78 @@
                 },
                 {
                     "name": "",
+                    "id": "e24813c7-9acd-4e85-9007-c7ef4d4fa59a",
+                    "path": "<Keyboard>/#(+)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ZoomIn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a4d43681-a15f-4696-bbab-e836c24d944b",
-                    "path": "<Gamepad>/dpad/up",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad;Joystick;XR",
                     "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6210d90-d55c-43f6-8731-adc3698790f3",
+                    "path": "<Keyboard>/#(-)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cfd54b76-5096-4bd0-acb6-eceae73e5fab",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Joystick;XR",
+                    "action": "ZoomDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d9dece1-045a-468b-ba6a-bf87bba63c12",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ZoomDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba632e15-dbd6-4c46-a661-0b41d45018d9",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Joystick;XR",
+                    "action": "ZoomUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba2e8b45-c4e2-43a1-82e7-a6151b8162d1",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ZoomUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -24,21 +24,21 @@ MonoBehaviour:
       key: 1
       value: 20
   - name: Attack + 10%
-    description: All Damage + 10%
+    description: 攻撃力 + 10%
     icon: {fileID: 21300000, guid: 371cf895452557f44ba2150e64f6fb33, type: 3}
     bonuses:
     - type: 1
       key: 3
       value: 0.1
   - name: Charge Speed
-    description: Decrease Charge Speed
+    description: チャージ速度アップ
     icon: {fileID: 21300000, guid: 06287674ff1708b428032a982034ca11, type: 3}
     bonuses:
     - type: 1
       key: 11
       value: 0.3
   - name: Attack Size
-    description: Increase Attack Size
+    description: 攻撃範囲アップ
     icon: {fileID: 21300000, guid: cbc072f42f667254b98a7871f701d808, type: 3}
     bonuses:
     - type: 1
@@ -48,14 +48,14 @@ MonoBehaviour:
       key: 8
       value: 0.4
   - name: Dash Cooldown
-    description: Decrease Dash Cooldown
+    description: ダッシュCT減少
     icon: {fileID: 21300000, guid: 2225a93feff2f6e43a6f1c83d11d5639, type: 3}
     bonuses:
     - type: 1
       key: 14
       value: -0.2
   - name: Max MP
-    description: Increase MP
+    description: MP量アップ
     icon: {fileID: 21300000, guid: 28366a422a1ea3a4cab43c235a792b33, type: 3}
     bonuses:
     - type: 0
@@ -68,14 +68,14 @@ MonoBehaviour:
       key: 15
       value: 30
   - name: Aim Speed
-    description: Increase Aim Speed
+    description: 的の速度アップ
     icon: {fileID: 21300000, guid: a8c6417709915e04382b8ae2c492cd79, type: 3}
     bonuses:
     - type: 1
       key: 12
       value: 0.3
   - name: Stronger Dash
-    description: Increase Dash Distance
+    description: ダッシュ距離アップ
     icon: {fileID: 21300000, guid: ef3726db473d90f44b49dfdcc6abb00b, type: 3}
     bonuses:
     - type: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
       value: 0.25
   playerBonusItems:
   - name: GroundFire
-    description: Burn Time Increased
+    description: やけど付与
     icon: {fileID: 21300000, guid: db716d570b8f0544db6b416bf80c6ad4, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -91,27 +91,27 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: Burn Time Increased
+      description: やけど付与
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: Burn Time Increased
+      description: やけど時間アップ
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: Burn Time Increased
+      description: やけど時間アップ
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 421541957962403253, guid: 2955c8bcdcda72e498829849d27b0edc,
           type: 3}
-      description: Burn Time Increased
+      description: やけど時間アップ
   - name: Shield
-    description: Have 3 Shields
+    description: シールド付与
     icon: {fileID: 21300000, guid: ee17aab47af773c47b5ab391c9af9205, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -119,33 +119,33 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Have 1 Shield
+      description: シールド付与
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Have 2 Shields
+      description: シールド追加
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f,
           type: 3}
-      description: Have 3 Shields
+      description: シールド追加
   - name: Multiple Menko
-    description: Throw 2 Menkos
+    description: めんこ1枚追加
     icon: {fileID: 21300000, guid: 06530d130d53b2847b828266fda83c47, type: 3}
     bonusList:
     - BonusOnOneTime:
       - key: 2
         type: 1
         bonusItem: {fileID: 0}
-      description: Throw 2 Menkos
+      description: めんこ1枚追加
     - BonusOnOneTime:
       - key: 2
         type: 1
         bonusItem: {fileID: 0}
-      description: Throw 3 Menkos
+      description: めんこ1枚追加
   - name: Healing
     description: Healing Over Time
     icon: {fileID: 21300000, guid: c3a7e09f389d2004c9ed7c82d14f3362, type: 3}
@@ -155,27 +155,27 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing Over Time
+      description: 再生力付与
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing Over Time
+      description: 再生力付与
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing Over Time
+      description: 回復量アップ
     - BonusOnOneTime:
       - key: 0
         type: 1
         bonusItem: {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd,
           type: 3}
-      description: Healing Over Time
+      description: 回復量アップ
   - name: Lightning
-    description: Summon 1 Lightning
+    description: 雷召喚
     icon: {fileID: 21300000, guid: a6c277dde8bfe5142a8237d6ab571a89, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -183,33 +183,33 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Summon 1 Lightning
+      description: 雷召喚
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Increase Lightning Damage
+      description: 雷のダメージ量アップ
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Summon 2 Lightning
+      description: 雷追加
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Increase Lightning Damage
+      description: 雷のダメージ量アップ
     - BonusOnOneTime:
       - key: 1
         type: 0
         bonusItem: {fileID: 6931403879147533841, guid: 2019e971afd5bdb4d8469f9cb6508fc3,
           type: 3}
-      description: Summon 3 Lightning
+      description: 雷追加
   - name: Double Dash
-    description: Double Dash
+    description: ダブルダッシュ
     icon: {fileID: 21300000, guid: 62768f30ebdaa7f409c905ed9ace526b, type: 3}
     bonusList:
     - BonusOnOneTime:
@@ -217,7 +217,7 @@ MonoBehaviour:
         type: 1
         bonusItem: {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63,
           type: 3}
-      description: Player can dash twice
+      description: ダブルダッシュ
   ItemBonusDatas:
   - name: 
     description: 

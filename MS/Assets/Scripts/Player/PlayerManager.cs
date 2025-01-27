@@ -223,7 +223,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            StartCoroutine(cameraBrain.ZoomIn(5f));
+            cameraBrain.ZoomIn();
         }
        
     }
@@ -232,7 +232,24 @@ public class PlayerManager : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Started)
         {
-            StartCoroutine(cameraBrain.ZoomOut(5f));
+            cameraBrain.ZoomOut();
+        }
+
+    }
+    public void GetZoomDownPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            cameraBrain.ZoomDown();
+        }
+
+    }
+
+    public void GetZoomUpPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            cameraBrain.ZoomUp();
         }
 
     }
