@@ -14,23 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData:
     lv: 0
-    hp: 100
-    maxHp: 100
-    mp: 100
-    maxMp: 100
-    exp: 0
-    nextExp: 100
-    attack: 100
+    hp: 150
+    maxHp: 150
+    mp: 130
+    maxMp: 130
+    exp: 4
+    nextExp: 121
+    attack: 121
     defence: 10
     healthRespons: 5
     charge: 0
     maxChargeTime: 6
     maxAimSize: 0.5
     maxAttackSize: 1.6
-    chargeSpeed: 1.1
+    chargeSpeed: 3.3799999
     atkMoveSpeed: 6
     dashTime: 0.15
-    dashCooldown: 1
+    dashCooldown: 0.8
     dashInvincibilityTime: 0.05
     hurtInvincibilityTime: 0.2
-  playerAblities: []
+  playerAblities:
+  - {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd, type: 3}
+  - {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63, type: 3}
+  - {fileID: 324449526187434854, guid: 6adaf70269d70304a9a1d50dcb6c42bd, type: 3}
+  - {fileID: 5673985308406611995, guid: adec1d9e26ec37e4e855cb99f48efe63, type: 3}
+  victory: 0

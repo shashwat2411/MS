@@ -256,7 +256,7 @@ public class SkillSelect : MonoBehaviour
     {
         if (!context.started) return;
         if (IsBonusSelect != true) return;
-
+        if (AnimeStart) return;
 
         SoundManager.Instance.PlaySE("BonusSelect");
         if (BonusWindow[SelectNo].GetComponent<SkillWindow>().Bonus != null)
