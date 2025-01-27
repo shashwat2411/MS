@@ -38,8 +38,8 @@ public class SkillSelect : MonoBehaviour
     List<int> bonustype1 = new List<int>();
     List<int> bonustype2 = new List<int>();
 
-    [ColorUsage(false, true)] public Color selectedColor;
-    [ColorUsage(false, true)] private Color originalColor;
+    [ColorUsage(true, true)] public Color selectedColor;
+    [ColorUsage(true, true)] private Color originalColor;
 
 
     // Start is called before the first frame update
@@ -63,6 +63,12 @@ public class SkillSelect : MonoBehaviour
 
         originalColor = BonusWindow[0].GetComponent<Image>().material.GetColor("_Color");
 
+        for (int i = 0; i < 3; i++)
+        {
+            Image image = BonusWindow[i].GetComponent<Image>();
+
+            image.material = Instantiate(image.material);
+        }
         //RandomBonus();
 
         //for (int i = 0; i < 3; i++)
@@ -331,13 +337,13 @@ public class SkillSelect : MonoBehaviour
             BonusWindow[i].SetActive(true);
 
             BonusWindow[i].gameObject.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
-            BonusWindow[i].gameObject.GetComponent<Image>().color = Color.white;
+            BonusWindow[i].GetComponent<Image>().material.SetColor("_Color", originalColor);
         }
         //Cursor.SetActive(true);
 
 
         BonusWindow[SelectNo].gameObject.GetComponent<RectTransform>().localScale = new Vector3(8f, 8f, 1f);
-        BonusWindow[SelectNo].gameObject.GetComponent<Image>().color = Color.red;
+        BonusWindow[SelectNo].GetComponent<Image>().material.SetColor("_Color", selectedColor);
 
     }
 
