@@ -3728,11 +3728,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1305751162}
   - {fileID: 1215743582}
   - {fileID: 1431573173}
   - {fileID: 1872250804}
   - {fileID: 371853546}
+  - {fileID: 1305751162}
   - {fileID: 1568255634}
   - {fileID: 906530986}
   - {fileID: 2128334523}
@@ -3781,7 +3781,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 16
-  firstSpawnCount: 5
+  delay: 5
+  firstSpawnCount: 4
 --- !u!1001 &648606302
 PrefabInstance:
   m_ObjectHideFlags: 0
