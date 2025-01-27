@@ -172,6 +172,7 @@ public class BossEnemy : EnemyBase
     public override void Death()
     {
         dead = true;
+        PlayerSave.Instance.victory = true;
 
 
         speed = 1f;

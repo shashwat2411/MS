@@ -8,9 +8,13 @@ public class PlayerSave : ScriptableObject
     public PlayerData playerData;
     public List<GameObject> playerAblities = new List<GameObject>();
 
+    
     public (int, int) minimapPos;
 
+    public bool victory = false;
+
     static PlayerSave instance;
+
     public static PlayerSave Instance
     {
         get
@@ -30,7 +34,7 @@ public class PlayerSave : ScriptableObject
         playerAblities.Clear();   
         playerData = CharacterSettings.Instance.playerData;
         minimapPos = (0, 0);
-
+        victory = false;
     }
 
 }

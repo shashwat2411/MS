@@ -24,6 +24,8 @@ public class ResetPlayerAblityPrefs : MonoBehaviour
 
         PlayerSave.Instance.Clear();
 
+
+
     }
 
     private void OnDestroy()
