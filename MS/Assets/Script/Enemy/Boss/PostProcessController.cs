@@ -26,6 +26,8 @@ public class PostProcessController : MonoBehaviour
     private DepthOfField dof;
     private Vignette vignette;
     private LensDistortion lensDistortion;
+    private ShadowsMidtonesHighlights smh;
+    private WhiteBalance whiteBalance;
 
 
     [Header("ChromaticAberration")]
@@ -75,6 +77,8 @@ public class PostProcessController : MonoBehaviour
         volume.profile.TryGet(out dof);
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out lensDistortion);
+        volume.profile.TryGet(out smh);
+        volume.profile.TryGet(out whiteBalance);
 
         originalVolume = 0.5f;
         noiseOriginalVolume = noise.volume;
@@ -85,9 +89,13 @@ public class PostProcessController : MonoBehaviour
         {
             dof.active = false;
             vignette.active = false;
+            smh.active = false;
+            whiteBalance.active = false;
 
             lensDistortion.intensity.value = 0.01f;
             lensDistortion.yMultiplier.value = 0f;
+
+            film.response.value = 0f;
         }
     }
     void Update()
@@ -331,5 +339,47 @@ public class PostProcessController : MonoBehaviour
 
         bgm.volume = originalVolume;
         bgm.pitch = 1f;
+    }
+
+    public IEnumerator ScaryEffectOn(float time, bool negative = false)
+    {
+        float elapsed = 0f;
+
+        while(elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+
+            float percentage = elapsed / time;
+            if (negative == true) { percentage = 1f - elapsed / time; }
+
+            lensDistortion.intensity.value = Mathf.Lerp(0.35f, 0.75f, percentage);
+            lensDistortion.xMultiplier.value = Mathf.Lerp(1f, 0f, percentage);
+            lensDistortion.yMultiplier.value = Mathf.Lerp(1f, 0.128f, percentage);
+
+            Vector4 shadows = smh.shadows.value;
+            Vector4 midtones = smh.midtones.value;
+            Vector4 highlights = smh.highlights.value;
+
+            shadows.x = Mathf.Lerp(1f, 0.13f, percentage);
+            shadows.y = Mathf.Lerp(1f, 0.40f, percentage);
+            shadows.z = Mathf.Lerp(1f, 1.00f, percentage);
+
+            midtones.x = Mathf.Lerp(1f, 1.00f, percentage);
+            midtones.y = Mathf.Lerp(1f, 0.33f, percentage);
+            midtones.z = Mathf.Lerp(1f, 0.00f, percentage);
+
+            highlights.x = Mathf.Lerp(1f, 1.00f, percentage);
+            highlights.y = Mathf.Lerp(1f, 0.95f, percentage);
+            highlights.z = Mathf.Lerp(1f, 0.49f, percentage);
+
+            smh.shadows.value = shadows;
+            smh.midtones.value = midtones;
+            smh.highlights.value = highlights;
+
+            whiteBalance.temperature.value = Mathf.Lerp(0f, -70f, percentage);
+            whiteBalance.tint.value = Mathf.Lerp(0f, 92f, percentage);
+
+            yield return null;
+        }
     }
 }
