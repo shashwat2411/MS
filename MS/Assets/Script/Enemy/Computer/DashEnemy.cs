@@ -23,6 +23,7 @@ public class DashEnemy : EnemyBase
     public float hurtTime;
     [SerializeField] protected float cooldown = 0f;
     public Transform area;
+    [HideInInspector] public bool attackedOnce = false;
 
     [Header("Material")]
     public EnemyMaterial computer;
@@ -65,6 +66,7 @@ public class DashEnemy : EnemyBase
 
         stopRotation = false;
         stopLooking = true;
+        attackedOnce = true;
 
         ScaleUp();
     }
@@ -214,6 +216,7 @@ public class DashEnemy : EnemyBase
     {
         attacked = true;
         cooldown = 0f;
+        attackedOnce = false;
 
         CheckState();
     }
