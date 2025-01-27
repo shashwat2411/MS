@@ -24,7 +24,7 @@ public class EnemyBatch : MonoBehaviour
         enemies = GetComponentsInChildren<EnemyBase>();
         foreach (EnemyBase enemy in enemies)
         {
-            enemy.gameObject.SetActive(false);
+            //enemy.gameObject.SetActive(false);
         }
 
 
@@ -33,37 +33,22 @@ public class EnemyBatch : MonoBehaviour
         StartCoroutine(SpawnEnemy());
     }
 
-    void SpawnFirstEnemy()
-    {
-        for (int i = 0; i < firstSpawnCount; i++)
-        {
-            enemies[i].gameObject.SetActive(true);
-        }
-    }
-
 
     IEnumerator SpawnEnemy()
     {
         for(int i = 0;i< firstSpawnCount; i++)
         {
-            enemies[i].gameObject.SetActive(true);
+            //enemies[i].gameObject.SetActive(true);
+            StartCoroutine(enemies[i].DissolveIn(0f, 1f));
         }
 
         yield return new WaitForSeconds(waitTime);
 
         for (int i = firstSpawnCount; i < enemies.Length; i++)
         {
-            enemies[i].gameObject.SetActive(true);
+            //enemies[i].gameObject.SetActive(true);
+            StartCoroutine(enemies[i].DissolveIn(0f, 1f));
         }
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-       
 
     }
 }

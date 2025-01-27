@@ -1,0 +1,290 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4524126588400143186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2513751306259487301}
+  - component: {fileID: 7394150969603943867}
+  - component: {fileID: 3572717132350633032}
+  - component: {fileID: 6742890131000722128}
+  - component: {fileID: 5338187203333088644}
+  - component: {fileID: 228501181768084267}
+  m_Layer: 0
+  m_Name: ResultGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2513751306259487301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7394150969603943867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa21e3db4b128d43adc9789dd2baec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeIn: {fileID: 0}
+  FadeOut: {fileID: 0}
+  NextScene_Name: SampleScene_5
+--- !u!114 &3572717132350633032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f37a0ac7a5eade24c98c8281967e814e,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b54bc87c-4d4e-4119-a182-7e8275144367
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3452b9d-a8d3-4e58-920d-3f9514e6eb7c
+    m_ActionName: Player/Interact[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28a48f1d-992c-4a3c-a6c9-a587a4a11b60
+    m_ActionName: Player/CloseRangeAttack[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17968a37-c75a-4bd5-b45c-f16036d2b2ba
+    m_ActionName: Player/GetExp[/Keyboard/v]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 56950028-3cc7-4eee-ad59-3d526f9386f4
+    m_ActionName: Player/Dash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 251fa7fd-5211-4d85-8384-5d6f8684791c
+    m_ActionName: Player/Attack Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a818dff9-adf4-44a0-9bce-bbc5efcad2f5
+    m_ActionName: Player/LevelUp[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a950a7e-789f-4f05-a116-1871961205b8
+    m_ActionName: Player/MpAttack[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f50a3fcd-68f5-43cc-a040-7b9312e6e6f3
+    m_ActionName: Player/LockMovement[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82b899e5-43d9-4896-be5d-dc85a75773c8
+    m_ActionName: Player/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a42b409-151c-4cfc-8073-86e2057b7956
+    m_ActionName: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38e3ac43-39e3-45f6-bce5-d1ecb9e02fb6
+    m_ActionName: UI/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd39f2a0-5478-4434-a0a9-80e50910bf03
+    m_ActionName: UI/Select[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7815826e-0a4d-465d-ab61-8d98ab7740c9
+    m_ActionName: UI/Back[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ea57e65-6f70-4353-ba45-503cc3f08d6c
+    m_ActionName: UI/R1[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dcf8bec5-66d4-45c0-8b61-a9b5e98b79dc
+    m_ActionName: UI/L1[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6742890131000722128}
+        m_TargetAssemblyTypeName: ChangeResult, Assembly-CSharp
+        m_MethodName: MainGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c2e86847-3d23-4ba0-adc8-f7bfbdc3c93d
+    m_ActionName: MainMenu/Enter[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5b26621-26c3-4d72-b879-a9ea4608f213
+    m_ActionName: Player/ZoomIn
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f353fe0-93db-4a70-ac70-d5997f8a907b
+    m_ActionName: Player/ZoomOut
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: MainMenu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &6742890131000722128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de36a963ae80a1d49a36effaee0dba29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenShatter: {fileID: 0}
+  source: {fileID: 5338187203333088644}
+--- !u!82 &5338187203333088644
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b818f15fa1050404dad7658b2635c8e6, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 0
+  DopplerLevel: 1
+  MinDistance: 0.1
+  MaxDistance: 5000
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!81 &228501181768084267
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524126588400143186}
+  m_Enabled: 1

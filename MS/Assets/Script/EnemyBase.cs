@@ -130,6 +130,7 @@ public class EnemyBase : MonoBehaviour
     protected bool stopRotation;
     protected bool stopMovement;
     protected bool stopLooking;
+    protected bool stopEverything;
 
     [Header("References")]
     [SerializeField] protected Animator animator;
@@ -164,6 +165,7 @@ public class EnemyBase : MonoBehaviour
         stopRotation = false;
         stopMovement = false;
         stopLooking = false;
+        stopEverything = false;
         dead = false;
 
         canvas = GetComponentInChildren<Canvas>().gameObject;
@@ -284,7 +286,12 @@ public class EnemyBase : MonoBehaviour
         healthBar.health = healthBar.maxHealth;
     }
 
-    public GameObject GetPlayer() { return player; }
+    virtual public IEnumerator DissolveIn(float delay, float duration)
+    {
+        yield return null;
+    }
+
+        public GameObject GetPlayer() { return player; }
 
     //___Gizmos_________________________________________________________________________________________________________________________
     virtual protected void OnDrawGizmosSelected()

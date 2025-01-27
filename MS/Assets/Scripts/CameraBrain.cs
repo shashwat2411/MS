@@ -31,6 +31,7 @@ public class CameraBrain : MonoBehaviour
     public AnimationCurve zoomInZ;
     private float zoomInCounter = 0f;
     public bool zoomIn = false;
+    private bool targetTransition = false;
 
     [Header("RumbleTest")]
     [SerializeField]
@@ -46,13 +47,14 @@ public class CameraBrain : MonoBehaviour
         originalOffset = offset;
         zoomInCounter = 0f;
         zoomIn = false;
+        targetTransition = false;
     }
     void FixedUpdate()
     {
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
 
-        transform.LookAt(target.transform.position + angleOffset);
+        if (targetTransition == false) { transform.LookAt(target.transform.position + angleOffset); }
 
         float value = player.GetMovementInput().x;
         if (value > 0.3f)
@@ -102,6 +104,25 @@ public class CameraBrain : MonoBehaviour
         
     }
 
+
+    public IEnumerator ShiftTarget(Transform nextTarget, float duration)
+    {
+        float elapsed = 0f;
+        targetTransition = true;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            Vector3 position = Vector3.Lerp(target.transform.position, nextTarget.position, elapsed / duration) + angleOffset;
+            transform.LookAt(position);
+
+            yield return null;
+        }
+
+        target = nextTarget;
+        targetTransition = false;
+    }
 
     public void ZoomInTrigger()
     {

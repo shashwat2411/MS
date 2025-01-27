@@ -18,4 +18,8 @@ public class DashAttackEvent : MonoBehaviour
     {
         owner.AttackOver();
     }
+    public void PlaySound()
+    {
+        SoundManager.Instance.PlaySE("EnemyDash");
+    }
 }
