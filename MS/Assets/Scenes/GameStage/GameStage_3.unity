@@ -4664,6 +4664,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1183274262 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1911297253685732250, guid: 635abd798f48b584b88f870d4b380e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3014776037018072395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1190276357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7204,12 +7210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b4206adfd649547a346e42c4e6463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &2134557273 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6573317664924136153, guid: 635abd798f48b584b88f870d4b380e37,
-    type: 3}
-  m_PrefabInstance: {fileID: 3014776037018072395}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1404206362697930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7569,7 +7569,7 @@ PrefabInstance:
         type: 3}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 2134557273}
+      objectReference: {fileID: 1183274262}
     - target: {fileID: 1555701730618983655, guid: 4245fdbe6f2b2c147ad06bbdcb5c09a5,
         type: 3}
       propertyPath: mainCamera

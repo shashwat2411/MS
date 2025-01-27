@@ -162,7 +162,7 @@ public class TutorialManager : MonoBehaviour
         if ((enemy1 ? enemy1.dead : true) && experienceOnce == false)
         {
             experienceOnce = true;
-            StartCoroutine(NextState(experienceDelayTime, false, true, true));
+            StartCoroutine(NextState(experienceDelayTime, true, true, true));
         }
     }
     private void LEVEL_UP()
@@ -170,8 +170,8 @@ public class TutorialManager : MonoBehaviour
         if (levelUpOnce == false)
         {
             levelUpOnce = true;
-            StartCoroutine(NextState(levelUpDelayTime, false, true, false));
-            StartCoroutine(NextState(levelUpDelayTime + levelUpTwoDelayTime, false, true, true));
+            StartCoroutine(NextState(levelUpDelayTime, true, true, false));
+            StartCoroutine(NextState(levelUpDelayTime + levelUpTwoDelayTime, true, true, true));
         }
     }
     private void MP()
@@ -192,8 +192,8 @@ public class TutorialManager : MonoBehaviour
             if ((enemies[i] ? enemies[i].dead : true) && mpThrice == false)
             {
                 mpThrice = true;
-                if (mpOnce == false) { StartCoroutine(NextState(0f, false, true, false)); }
-                StartCoroutine(NextState(mpDelayTime, false, true, true));
+                if (mpOnce == false) { StartCoroutine(NextState(0f, true, true, false)); }
+                StartCoroutine(NextState(mpDelayTime, true, true, true));
             }
         }
     }
@@ -230,7 +230,7 @@ public class TutorialManager : MonoBehaviour
                 if (chargeOnce == false)
                 {
                     chargeOnce = true;
-                    StartCoroutine(NextState(chargeDelayTime, false, true, false));
+                    StartCoroutine(NextState(chargeDelayTime, true, true, false));
                     return;
                 }
             }
