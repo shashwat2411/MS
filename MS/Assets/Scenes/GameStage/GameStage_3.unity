@@ -7164,6 +7164,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundStage3
       objectReference: {fileID: 0}
+    - target: {fileID: 5376175132351254227, guid: fafac85ea9f798e4a95698e614559324,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f27a48f5465daa4e8d197a8b6e50fd0, type: 2}
     - target: {fileID: 6123302359261514703, guid: fafac85ea9f798e4a95698e614559324,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7214,6 +7219,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6732677487715880934, guid: fafac85ea9f798e4a95698e614559324,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f27a48f5465daa4e8d197a8b6e50fd0, type: 2}
+    - target: {fileID: 7351083333853507753, guid: fafac85ea9f798e4a95698e614559324,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ddc01e9f28f9de4a9433677d705103f, type: 2}
+    - target: {fileID: 8365386430403984475, guid: fafac85ea9f798e4a95698e614559324,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 138022455}
+    - target: {fileID: 8365386430403984475, guid: fafac85ea9f798e4a95698e614559324,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 9047676264548940615}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7600,6 +7625,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705c8e1dc38b8cf48958b50e1460a003, type: 3}
+--- !u!114 &9047676264548940615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2267661427729007094, guid: 705c8e1dc38b8cf48958b50e1460a003,
+    type: 3}
+  m_PrefabInstance: {fileID: 9047676264548940614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951e52619e6f099468bb50d3aff8f921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

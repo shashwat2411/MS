@@ -1765,6 +1765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 398563508532912204}
+  - component: {fileID: 8686747851667878619}
   m_Layer: 11
   m_Name: BackgroundStage1
   m_TagString: Obstacle
@@ -1797,6 +1798,25 @@ Transform:
   - {fileID: 3875777867502377075}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8686747851667878619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5111914971238640606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787f5b46d5296604d908d338b0fa1253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials: []
+  camera: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 2048
+  player: {fileID: 0}
+  maskSize: 2
 --- !u!1 &5114542857831617136
 GameObject:
   m_ObjectHideFlags: 0
