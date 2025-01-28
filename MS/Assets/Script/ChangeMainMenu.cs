@@ -7,12 +7,14 @@ public class ChangeMainMenu : MonoBehaviour
 {
     public ScreenShatter screenShatter;
     public AudioSource source;
+    public MainMenuMainCameraAnimation animation;
     public void MainGame(InputAction.CallbackContext context)
     {
         if (!context.started) return;
 
         source.Play();
-        StartCoroutine(screenShatter.ShatterScreenInitate());
+        animation.
+        StartCoroutine(animation.ScaryEffectOn());
     }
     public void Tutorial(InputAction.CallbackContext context)
     {
@@ -20,6 +22,6 @@ public class ChangeMainMenu : MonoBehaviour
 
         source.Play();
         screenShatter.loadLevel = "Tutorial";
-        StartCoroutine(screenShatter.ShatterScreenInitate());
+        StartCoroutine(animation.ScaryEffectOn());
     }
 }

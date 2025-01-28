@@ -5,7 +5,8 @@ using UnityEngine;
 public class MainMenuMainCameraAnimation : MonoBehaviour
 {
     private PostProcessController postProcess;
-    private AudioSource source;
+    public AudioSource source;
+    public ScreenShatter screenShatter;
 
     public float transitionTime = 0.2f;
     public float pitchValue = 0.9f;
@@ -13,13 +14,14 @@ public class MainMenuMainCameraAnimation : MonoBehaviour
     private void Awake()
     {
         postProcess = FindFirstObjectByType<PostProcessController>();
-        source = GetComponent<AudioSource>();
     }
 
-    public void ScaryEffectOn()
+    public IEnumerator ScaryEffectOn()
     {
-        StartCoroutine(postProcess.ScaryEffectOn(transitionTime));
-        StartCoroutine(SoundEffect(transitionTime, 1f, pitchValue));
+        yield return postProcess.ScaryEffectOn(transitionTime);
+        yield return SoundEffect(transitionTime, 1f, pitchValue);
+
+        yield return screenShatter.ShatterScreenInitate();
     }
     public void ScaryEffectOff()
     {
