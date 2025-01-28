@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLaserBeam : MonoBehaviour
+public class BossLaserBeamHitter : MonoBehaviour
 {
 
     BoxCollider boxCollider;
+    public GameObject laserBeamEffect;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+       
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        transform.rotation = laserBeamEffect.transform.rotation;    
     }
 
 

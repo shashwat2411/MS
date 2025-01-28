@@ -205,7 +205,7 @@ public class CameraBrain : MonoBehaviour
         if (motorspeed.x > 1.0f) { motorspeed.x = 1.0f; }
         if (motorspeed.y > 1.0f) { motorspeed.y = 1.0f; }
 
-        Debug.Log(magnitude + "::::::" + motorspeed.x + ":::::" + motorspeed.y);
+        //Debug.Log(magnitude + "::::::" + motorspeed.x + ":::::" + motorspeed.y);
 
         if (use == true)
         {
