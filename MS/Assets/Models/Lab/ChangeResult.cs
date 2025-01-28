@@ -9,12 +9,23 @@ public class ChangeResult : MonoBehaviour
     public ScreenShatter screenShatter;
     public AudioSource source;
     public PostProcessController postProcess;
+
+    private bool once = false;
+
+    private void Awake()
+    {
+        once = false;
+    }
     public void MainGame(InputAction.CallbackContext context)
     {
         if (!context.started) return;
 
-        source.Play();
-        StartCoroutine(ScaryEffectOn());
+        if(once == false)
+        {
+            once = true;
+            source.Play();
+            StartCoroutine(ScaryEffectOn());
+        }
     }
     public IEnumerator ScaryEffectOn()
     {

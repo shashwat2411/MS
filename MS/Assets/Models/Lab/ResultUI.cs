@@ -18,6 +18,7 @@ public class ResultUI : MonoBehaviour
     private ShadowsMidtonesHighlights smh;
 
     public ScreenShatter screen;
+    public GameObject boss;
 
     private void Start()
     {
@@ -55,6 +56,8 @@ public class ResultUI : MonoBehaviour
 
         if (PlayerSave.Instance.victory == false)
         {
+            boss.SetActive(false);
+
             Vector4 shadows = smh.shadows.value;
             Vector4 midtones = smh.midtones.value;
             Vector4 highlights = smh.highlights.value;
