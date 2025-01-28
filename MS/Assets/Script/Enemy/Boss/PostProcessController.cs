@@ -10,6 +10,7 @@ public class PostProcessController : MonoBehaviour
     public bool mainMenu = false;
 
     public AudioSource bgm;
+    public Transform light;
     private AudioSource noise;
     public float pitch;
     public float sound;
@@ -375,6 +376,11 @@ public class PostProcessController : MonoBehaviour
             smh.shadows.value = shadows;
             smh.midtones.value = midtones;
             smh.highlights.value = highlights;
+
+            float x = Mathf.Lerp(297.407f, 347.34f, percentage);
+            Quaternion rotation = light.rotation;
+            rotation.eulerAngles = new Vector3(x, rotation.eulerAngles.y, rotation.eulerAngles.z);
+            light.rotation = rotation;
 
             whiteBalance.temperature.value = Mathf.Lerp(0f, -70f, percentage);
             whiteBalance.tint.value = Mathf.Lerp(0f, 92f, percentage);

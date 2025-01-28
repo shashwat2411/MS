@@ -15,6 +15,7 @@ public class ResultUI : MonoBehaviour
     private ChannelMixer mixer;
     private Vignette vignette;
     private LensDistortion lensDistortion;
+    private ShadowsMidtonesHighlights smh;
 
     public ScreenShatter screen;
 
@@ -24,8 +25,10 @@ public class ResultUI : MonoBehaviour
         volume.profile.TryGet(out mixer);
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out lensDistortion);
+        volume.profile.TryGet(out smh);
 
         vignette.active = true;
+        smh.active = true;
 
         vignette.intensity.value = 0.462f;
         vignette.smoothness.value = 0.444f;
@@ -48,6 +51,30 @@ public class ResultUI : MonoBehaviour
         lensDistortion.active = true;
         lensDistortion.intensity.value = 0.28f;
         lensDistortion.yMultiplier.value = 1f;
+
+
+        if (PlayerSave.Instance.victory == false)
+        {
+            Vector4 shadows = smh.shadows.value;
+            Vector4 midtones = smh.midtones.value;
+            Vector4 highlights = smh.highlights.value;
+
+            shadows.x = 1f;
+            shadows.y = 0.19f;
+            shadows.z = 0.26f;
+
+            midtones.x = 1f;
+            midtones.y = 0.54f;
+            midtones.z = 0.66f;
+
+            highlights.x = 0.8f;
+            highlights.y = 1f;
+            highlights.z = 0.23f;
+
+            smh.shadows.value = shadows;
+            smh.midtones.value = midtones;
+            smh.highlights.value = highlights;
+        }
     }
 
 

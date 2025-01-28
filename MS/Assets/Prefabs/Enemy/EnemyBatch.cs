@@ -20,14 +20,12 @@ public class EnemyBatch : MonoBehaviour
         Inite();
     }
 
-
    protected void Inite()
     {
         enemies = GetComponentsInChildren<EnemyBase>();
 
         StartCoroutine(SpawnEnemy());
     }
-
 
     IEnumerator SpawnEnemy()
     {
