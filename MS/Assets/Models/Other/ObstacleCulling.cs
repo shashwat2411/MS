@@ -9,9 +9,13 @@ public class ObstacleCulling : MonoBehaviour
     public LayerMask layer;
     public PlayerManager player;
     public float maskSize;
+    [Range(0, 1)] public float smoothness = 0.6f;
+    [Range(0, 1)] public float opacity = 0.5f;
 
     public static int _PlayerPosition = Shader.PropertyToID("_PlayerPosition");
     public static int _MaskSize = Shader.PropertyToID("_MaskSize");
+    public static int _Smoothness = Shader.PropertyToID("_Smoothness");
+    public static int _Opacity = Shader.PropertyToID("_Opacity");
 
     private void Start()
     {
@@ -48,6 +52,8 @@ public class ObstacleCulling : MonoBehaviour
 
             materials[i].SetVector(_PlayerPosition, view);
             materials[i].SetFloat(_MaskSize, maskSize);
+            materials[i].SetFloat(_Smoothness, smoothness);
+            materials[i].SetFloat(_Opacity, opacity);
         }
     }
 }

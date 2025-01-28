@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
 {
     public TutorialMonitorManager video;
     public TutorialTextManager text;
+    public TutorialControllerManager controller;
 
     public enum TUTORIALSTATE
     {
@@ -16,6 +17,7 @@ public class TutorialManager : MonoBehaviour
         EXPERIENCE,
         LEVEL_UP,
         MP,
+        KILL,
         FINISH,
 
         MAX
@@ -66,6 +68,9 @@ public class TutorialManager : MonoBehaviour
     private bool mpTwice = false;
     private bool mpThrice = false;
 
+    [Header("Kill")]
+    public float killDelayTime;
+
     [Header("Finish")]
     public float finishDelayTime;
     private bool finishOnce = false;
@@ -94,6 +99,7 @@ public class TutorialManager : MonoBehaviour
         levelUpDelayTime += text.dissolveDuration;
         levelUpTwoDelayTime += text.dissolveDuration;
         mpDelayTime += text.dissolveDuration;
+        killDelayTime += text.dissolveDuration;
         finishDelayTime += text.dissolveDuration;
 
         //Subscriptions
@@ -140,6 +146,10 @@ public class TutorialManager : MonoBehaviour
                 MP();
                 break;
 
+            case TUTORIALSTATE.KILL:
+                KILL();
+                break;
+
             case TUTORIALSTATE.FINISH:
                 FINISH();
                 break;
@@ -176,25 +186,33 @@ public class TutorialManager : MonoBehaviour
     }
     private void MP()
     {
+
+    }
+    private void KILL()
+    {
         if (mpTwice == false)
         {
             mpTwice = true;
 
-            StartCoroutine(NextState(levelUpDelayTime, true, true, false));
+            StartCoroutine(NextState(killDelayTime, true, true, false));
             for (int i = 0; i < enemies.Length; i++)
             {
                 StartCoroutine(DissolveIn(enemies[i], mpEnemyAppearDelayTime + (1f * i), enemyDissolveDuration));
             }
         }
 
+        int count = 0;
         for (int i = 0; i < enemies.Length; i++)
         {
-            if ((enemies[i] ? enemies[i].dead : true) && mpThrice == false)
+            if ((enemies[i] ? enemies[i].dead : true))
             {
-                mpThrice = true;
-                if (mpOnce == false) { StartCoroutine(NextState(0f, true, true, false)); }
-                StartCoroutine(NextState(mpDelayTime, true, true, true));
+                count++;
             }
+        }
+        if (count >= 5 && mpThrice == false)
+        {
+            mpThrice = true;
+            StartCoroutine(NextState(finishDelayTime, true, true, true));
         }
     }
     private void FINISH() 
@@ -251,7 +269,7 @@ public class TutorialManager : MonoBehaviour
             if (mpOnce == false)
             {
                 mpOnce = true;
-                StartCoroutine(NextState(mpDelayTime, false, true, false));
+                StartCoroutine(NextState(mpDelayTime, true, true, true));
             }
         }
     }
@@ -270,14 +288,9 @@ public class TutorialManager : MonoBehaviour
             if (current >= (int)TUTORIALSTATE.MAX) { current = (int)TUTORIALSTATE.FINISH; }
         }
 
-        if (videoShift == true)
-        {
-            video.ChangeScreen();
-        }
-        if (textShift == true)
-        {
-            text.ChangeScreen();
-        }
+        video.ChangeScreen();
+        text.ChangeScreen();
+        controller.ChangeScreen();
 
         state = (TUTORIALSTATE)current;
     }
