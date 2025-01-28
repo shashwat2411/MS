@@ -27,7 +27,7 @@ public class BossEnemy : EnemyBase
     public Animator mainCameraAnimator;
     public GameObject eyeballBone;
     public bool laserBeam;
-    public bool lookAt = true;
+    private bool lookAt = true;
     [Range(0, 1)] public float lookingSpeed = 0.2f;
 
     [Header("Attack")]
