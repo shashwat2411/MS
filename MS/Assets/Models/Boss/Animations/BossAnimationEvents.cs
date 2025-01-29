@@ -24,6 +24,10 @@ public class BossAnimationEvents : MonoBehaviour
     public ScreenShatter shatterer;
     public string nextScene;
 
+    public ParticleSystem charge;
+    public ParticleSystem chargeBall;
+    public ParticleSystem laserbeam;
+
     private bool cutScene = true;
     private void Awake()
     {
@@ -110,5 +114,15 @@ public class BossAnimationEvents : MonoBehaviour
     {
         shatterer.loadLevel = nextScene;
         StartCoroutine(shatterer.ShatterScreenInitate());
+    }
+
+    public void StartCharge()
+    {
+        charge.Play();
+    }
+    public void ShootLaserBeam()
+    {
+        charge.Stop();
+        laserbeam.Play();
     }
 }

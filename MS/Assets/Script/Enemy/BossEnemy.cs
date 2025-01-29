@@ -29,6 +29,8 @@ public class BossEnemy : EnemyBase
     public bool laserBeam;
     private bool lookAt = true;
     [Range(0, 1)] public float lookingSpeed = 0.2f;
+    [Range(0, 1)] private float originallookingSpeed;
+    [Range(0, 1)] public float laserBeamLookingSpeed = 0.05f;
 
     [Header("Attack")]
     public float slapAttackPower;
@@ -77,6 +79,8 @@ public class BossEnemy : EnemyBase
 
     protected override void Start()
     {
+        originallookingSpeed = lookingSpeed;
+
         player = FindFirstObjectByType<PlayerManager>().gameObject;
 
         healthBar = bossHealthBar;
@@ -265,6 +269,8 @@ public class BossEnemy : EnemyBase
             animator.SetBool(_SmashFar, false);
             animator.SetBool(_SummonLightning, false);
             animator.SetBool(_LaserBeam, false);
+
+            StartCoroutine(SlowDownLookingSpeed(0.2f, laserBeamLookingSpeed, originallookingSpeed));
         }
         else
         {
@@ -273,9 +279,25 @@ public class BossEnemy : EnemyBase
             animator.SetBool(_LaserBeam, true);
 
             laserBeam = false;
-            lookAt = true;
+            //lookingSpeed = laserBeamLookingSpeed;
+            StartCoroutine(SlowDownLookingSpeed(0.75f, originallookingSpeed, laserBeamLookingSpeed));
 
             nextPhaseTime = laserBeamTime;
+            Invoke("ReturnToIdle", 2.8f);
+        }
+    }
+
+    public IEnumerator SlowDownLookingSpeed(float duration, float start, float end)
+    {
+        float elapsed = 0f;
+
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            lookingSpeed = Mathf.Lerp(start, end, elapsed / duration);
+
+            yield return null;
         }
     }
     private bool IsCurrentAnimationOver()
