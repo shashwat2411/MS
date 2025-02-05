@@ -253,6 +253,8 @@ public class BossEnemy : EnemyBase
 
     public void ReturnToIdle()
     {
+        lookAt = true;
+
         if (laserBeam == false)
         {
             previousState = currentState;
@@ -270,7 +272,7 @@ public class BossEnemy : EnemyBase
             animator.SetBool(_SummonLightning, false);
             animator.SetBool(_LaserBeam, false);
 
-            StartCoroutine(SlowDownLookingSpeed(0.2f, laserBeamLookingSpeed, originallookingSpeed));
+            StartCoroutine(SlowDownLookingSpeed(0.5f, laserBeamLookingSpeed, originallookingSpeed));
         }
         else
         {
@@ -280,10 +282,10 @@ public class BossEnemy : EnemyBase
 
             laserBeam = false;
             //lookingSpeed = laserBeamLookingSpeed;
-            StartCoroutine(SlowDownLookingSpeed(0.75f, originallookingSpeed, laserBeamLookingSpeed));
+            StartCoroutine(SlowDownLookingSpeed(1f, originallookingSpeed, laserBeamLookingSpeed));
 
             nextPhaseTime = laserBeamTime;
-            Invoke("ReturnToIdle", 2.8f);
+            Invoke("ReturnToIdle", 2.4f);
         }
     }
 
@@ -414,8 +416,12 @@ public class BossEnemy : EnemyBase
 
     public void SetNextPhaseToLaserBeam()
     {
-        lookAt = false;
+        //slookAt = false;
         laserBeam = true;
+    }
+    public void StopLookingAt()
+    {
+        lookAt = false;
     }
 
     Quaternion LookAt(Transform owner, Vector3 targetPosition, Vector3 up)

@@ -254,7 +254,7 @@ public class EnemyBase : MonoBehaviour
 
         if (stageNum != null)
         {
-            int stageExpFactor = stageNum.stageExpFactor;
+            float stageExpFactor = stageNum.stageExpFactor;
             ParticleSystem particle = expEffect.GetComponent<ParticleSystem>();
             ParticleSystem.EmissionModule emission = particle.emission;
 

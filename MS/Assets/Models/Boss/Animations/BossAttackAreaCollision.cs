@@ -9,18 +9,23 @@ public class BossAttackAreaCollision : MonoBehaviour
     public BossEnemy owner;
 
     private bool once = false;
+    private bool twice = false;
     private void OnTriggerStay(Collider other)
     {
         if (once == false)
         {
             counter += Time.deltaTime;
         }
+        else if(twice == false)
+        {
+            twice = true;
+            Invoke("ResetTimer", stayTime * 2f);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        counter = 0f;
-        once = false;
+        ResetTimer();
     }
 
     private void FixedUpdate()
@@ -30,5 +35,12 @@ public class BossAttackAreaCollision : MonoBehaviour
             once = true;
             owner.SetNextPhaseToLaserBeam();
         }
+    }
+
+    private void ResetTimer()
+    {
+        counter = 0f;
+        once = false;
+        twice = false;
     }
 }

@@ -256,7 +256,7 @@ public class TutorialManager : MonoBehaviour
             if (chargeOnce == true && chargeTwice == false)
             {
                 chargeTwice = true;
-                StartCoroutine(NextState(chargeDelayTime, true, true));
+                StartCoroutine(NextState(chargeDelayTime, true, true, true));
 
                 StartCoroutine(DissolveIn(enemy1, enemyAppearDelayTime, enemyDissolveDuration));
             }
