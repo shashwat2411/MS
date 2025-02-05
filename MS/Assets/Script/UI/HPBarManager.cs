@@ -18,6 +18,8 @@ public class HPBarManager : MonoBehaviour
     [SerializeField, Range(0.0f, 100.0f)]
     float MaxScale;
 
+    public float playerStartingMaxHp = 200f;
+
     //Poison
     private bool poisoned = false;
 
@@ -41,11 +43,11 @@ public class HPBarManager : MonoBehaviour
     public void SetPlayerHP()
     {
 
-        if (Hp_Max > 150)
+        if (Hp_Max > playerStartingMaxHp)
         {
-            Hpbar1.Hp_Max = 150.0f;
+            Hpbar1.Hp_Max = playerStartingMaxHp;
 
-            Hpbar2.Hp_Max = Hp_Max - 150.0f;
+            Hpbar2.Hp_Max = Hp_Max - playerStartingMaxHp;
 
             Hpbar2.gameObject.SetActive(true);
 
@@ -60,11 +62,11 @@ public class HPBarManager : MonoBehaviour
             Hpbar2.gameObject.SetActive(false);
         }
 
-        if (Hp_Now > 150)
+        if (Hp_Now > playerStartingMaxHp)
         {
-            Hpbar1.Hp_Now = 150.0f;
+            Hpbar1.Hp_Now = playerStartingMaxHp;
                    
-            Hpbar2.Hp_Now = Hp_Now - 150.0f;
+            Hpbar2.Hp_Now = Hp_Now - playerStartingMaxHp;
 
             StartCoroutine(DisableHpBar1());
             Hpbar2.active = true;
@@ -95,7 +97,7 @@ public class HPBarManager : MonoBehaviour
     {
         float len;
 
-        len = 0.7f / 100.0f * (Hp_Max - 150.0f);
+        len = 0.7f / 100.0f * (Hp_Max - playerStartingMaxHp);
 
         Hpbar2.transform.localScale = new Vector3(Hpbar2.transform.localScale.x, len);
     }

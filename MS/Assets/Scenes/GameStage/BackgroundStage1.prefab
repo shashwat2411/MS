@@ -1104,8 +1104,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3217243148899187958}
-  - component: {fileID: 4199908983274752750}
-  - component: {fileID: 6825840671258431617}
   m_Layer: 11
   m_Name: Cables
   m_TagString: Obstacle
@@ -1142,43 +1140,6 @@ Transform:
   - {fileID: 1102701175015582353}
   m_Father: {fileID: 398563508532912204}
   m_LocalEulerAnglesHint: {x: 0, y: 126.268, z: 0}
---- !u!65 &4199908983274752750
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3050843816521329073}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 1152
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 7031
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.86, y: 4, z: 23.81}
-  m_Center: {x: 0.9, y: 0, z: -2.9}
---- !u!208 &6825840671258431617
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3050843816521329073}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 6.115, y: 2, z: 13.18}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.9, y: 0, z: -2.9}
-  m_TimeToStationary: 0.5
 --- !u!1 &3071503349251561127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,7 +1779,7 @@ MonoBehaviour:
   player: {fileID: 0}
   maskSize: 2
   smoothness: 1
-  opacity: 0.1
+  opacity: 0.5
 --- !u!1 &5114542857831617136
 GameObject:
   m_ObjectHideFlags: 0

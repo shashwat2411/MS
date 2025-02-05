@@ -26,13 +26,28 @@ public class BossAnimationEvents : MonoBehaviour
 
     public ParticleSystem charge;
     public ParticleSystem chargeBall;
-    public ParticleSystem laserbeam;
+    public ParticleSystem beam;
+    public ParticleSystem beamOutline;
+    public BossLaserBeamHitter beamCollider;
 
     private bool cutScene = true;
+
+
+    ParticleSystem.MainModule chargeMain;
+    ParticleSystem.MainModule chargeBallMain;
+    ParticleSystem.MainModule beamMain;
+    ParticleSystem.MainModule beamOutlineMain;
     private void Awake()
     {
         mainCamera = Camera.main.GetComponent<CameraBrain>();
         cutScene = true;
+
+        beam.Stop();
+
+        chargeMain = charge.main;
+        chargeBallMain = chargeBall.main;
+        beamMain = beam.main;
+        beamOutlineMain = beamOutline.main;
     }
 
     public void ReturnToIdle()
@@ -118,11 +133,37 @@ public class BossAnimationEvents : MonoBehaviour
 
     public void StartCharge()
     {
+        chargeMain.simulationSpeed = owner.GetAnimator().GetFloat(_Speed);
+
         charge.Play();
+    }    
+    public void StartChargeBall()
+    {
+        chargeBallMain.simulationSpeed = owner.GetAnimator().GetFloat(_Speed);
+
+        chargeBall.Play();
+        SoundManager.Instance.PlaySE("BossLaserGrunt", owner.GetAnimator().GetFloat(_Speed));
     }
-    public void ShootLaserBeam()
+    public void StopChargeAndInitiateBeam()
     {
         charge.Stop();
-        laserbeam.Play();
+
+        SoundManager.Instance.PlaySE("BossLaser", owner.GetAnimator().GetFloat(_Speed));
+
+        beamCollider.collider.enabled = true;
+        StartCoroutine(beamCollider.CollisionSize(0.01f, beamCollider.originalLocalScale.z, 0.2f));
+    }
+    public void BeamEffect()
+    {
+        beamMain.simulationSpeed = owner.GetAnimator().GetFloat(_Speed);
+        beamOutlineMain.simulationSpeed = owner.GetAnimator().GetFloat(_Speed);
+
+        beam.Play();
+        beamOutline.Play();
+    }
+
+    public void StopLookingAt()
+    {
+        owner.StopLookingAt();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossHandCollision : BossBodyCollision
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         owner.BossOnCollision(collision.gameObject);
     }
