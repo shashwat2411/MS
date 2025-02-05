@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class BulletImpact : MonoBehaviour
 {
@@ -13,6 +12,13 @@ public class BulletImpact : MonoBehaviour
         if (enemy)
         {
             enemy.Damage(damage, true);
+            return;
+        }
+
+        DashHeadCollider enemyCollider = other.gameObject.GetComponent<DashHeadCollider>();
+        if (enemyCollider)
+        {
+            enemyCollider.owner.Damage(damage, true);
             return;
         }
 
