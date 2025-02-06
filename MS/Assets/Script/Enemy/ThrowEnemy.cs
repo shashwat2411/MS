@@ -202,7 +202,7 @@ public class ThrowEnemy : EnemyBase
 
         if (dead == false)
         {
-            if (value == THROWENEMY_STATE.IDLE)
+            if (value != THROWENEMY_STATE.IDLE)
             {
                 agent.gameObject.transform.position = transform.position;
             }

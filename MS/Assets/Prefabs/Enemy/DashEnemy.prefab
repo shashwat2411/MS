@@ -436,7 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9167956737858382914}
   - component: {fileID: 8226845807303947405}
-  - component: {fileID: 8621226302855475346}
+  - component: {fileID: 7788212925732132198}
   - component: {fileID: 7683174731093330245}
   m_Layer: 10
   m_Name: CollisionArea
@@ -481,7 +481,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.53, z: 0.98}
   m_Center: {x: 0, y: -0.58, z: -0.06}
---- !u!54 &8621226302855475346
+--- !u!54 &7788212925732132198
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,7 +507,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &7683174731093330245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3615660408359145598}
   attackDistance: 6
-  attackPower: 20
+  attackPower: 40
   attackSpeed: 30
   attacked: 0
   dead: 0

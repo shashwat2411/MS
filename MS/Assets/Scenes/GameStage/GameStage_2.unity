@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00920137, g: 0.008627497, b: 0.026958382, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3324,7 +3324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &635416836
 Transform:
   m_ObjectHideFlags: 0
@@ -5018,7 +5018,7 @@ PrefabInstance:
     - target: {fileID: 444942143458622675, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.207
       objectReference: {fileID: 0}
     - target: {fileID: 444942143458622675, guid: 4502e04b1bf0cd84f81f41c716a3b5af,
         type: 3}
@@ -5388,7 +5388,7 @@ PrefabInstance:
     - target: {fileID: 8629256779356058312, guid: 98fda54d135de9f47912c9810fbfd39e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.274
       objectReference: {fileID: 0}
     - target: {fileID: 8629256779356058312, guid: 98fda54d135de9f47912c9810fbfd39e,
         type: 3}
@@ -5867,6 +5867,16 @@ PrefabInstance:
       propertyPath: smoothness
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3715723253953820156, guid: ec984f4bdcf74584f87601afb9f14135,
+        type: 3}
+      propertyPath: m_Extents.x
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715723253953820156, guid: ec984f4bdcf74584f87601afb9f14135,
+        type: 3}
+      propertyPath: m_Extents.z
+      value: 0.94
+      objectReference: {fileID: 0}
     - target: {fileID: 3787896821446739180, guid: ec984f4bdcf74584f87601afb9f14135,
         type: 3}
       propertyPath: m_Name
@@ -5877,6 +5887,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: aa74174ecb0f9e346ba406382f93793b, type: 2}
+    - target: {fileID: 4963725413120662014, guid: ec984f4bdcf74584f87601afb9f14135,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963725413120662014, guid: ec984f4bdcf74584f87601afb9f14135,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.53
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SmartphoneEnemy : ThrowEnemy
 {
@@ -10,7 +11,10 @@ public class SmartphoneEnemy : ThrowEnemy
     public EnemyMaterial hand;
     public EnemyMaterial screen;
     public EnemyMaterial phone;
+    public MeshRenderer mosaic;
+    private Material mosaicMaterial;
 
+    private int _NoiseScale = Shader.PropertyToID("_NoiseScale");
 
     //___âºëzä÷êîÇÃOverride_________________________________________________________________________________________________________________________
     protected override void ScaleUp()
@@ -34,6 +38,12 @@ public class SmartphoneEnemy : ThrowEnemy
 
         stopLooking = true;
         stopRotation = false;
+
+        mosaicMaterial = Instantiate(mosaic.material);
+        mosaic.material = mosaicMaterial;
+
+        mosaicMaterial.SetFloat(_NoiseScale, 0f);
+        mosaic.enabled = false;
 
         ScaleUp();
     }
@@ -86,6 +96,7 @@ public class SmartphoneEnemy : ThrowEnemy
         StartCoroutine(hand.DissolveIn(duration));
         StartCoroutine(screen.DissolveIn(duration));
         StartCoroutine(phone.DissolveIn(duration));
+        StartCoroutine(MosiacDissolveIn(duration * 2f));
 
         yield return new WaitForSeconds(duration);
 
@@ -93,5 +104,24 @@ public class SmartphoneEnemy : ThrowEnemy
         stopEverything = false;
     }
     public EnemyPoison GetItem() { return (EnemyPoison)itemReference; }
+
+    private IEnumerator MosiacDissolveIn(float duration)
+    {
+        float elapsed = 0f;
+        mosaic.enabled = true;
+        mosaicMaterial.SetFloat(_NoiseScale, 0f);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            float value = Mathf.Lerp(0f, 816.8f, elapsed / duration);
+            mosaicMaterial.SetFloat(_NoiseScale, value);
+
+            yield return null;
+        }
+
+        mosaicMaterial.SetFloat(_NoiseScale, 816.8f);
+    }
 
 }

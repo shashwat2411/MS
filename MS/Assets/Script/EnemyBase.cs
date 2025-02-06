@@ -177,6 +177,8 @@ public class EnemyBase : MonoBehaviour
         Destroy(agent.GetComponent<MeshFilter>());
 
         areaChecker = transform;
+
+        InvokeRepeating("ResetAgentPosition", 5f, 5f);
     }
 
     virtual protected void FixedUpdate()
@@ -300,6 +302,11 @@ public class EnemyBase : MonoBehaviour
         Gizmos.DrawSphere(transform.position, attackDistance);
     }
     //____________________________________________________________________________________________________________________________
+
+    protected void ResetAgentPosition()
+    {
+        agent.gameObject.transform.position = transform.position;
+    }
 
     public Animator GetAnimator() { return animator; }
 }
