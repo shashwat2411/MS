@@ -23,7 +23,6 @@ public class ChangeMainMenu : MonoBehaviour
         {
             once = true;
             source.Play();
-            animation.
             StartCoroutine(animation.ScaryEffectOn());
         }
     }

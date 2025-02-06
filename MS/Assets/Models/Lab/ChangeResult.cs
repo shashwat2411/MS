@@ -32,7 +32,21 @@ public class ChangeResult : MonoBehaviour
         yield return postProcess.ScaryEffectOn(0.2f);
         yield return SoundEffect(0.2f, 1f, 0.8f);
 
-        yield return screenShatter.ShatterScreenInitate();
+        yield return InitiateFade();
+    }
+
+    private IEnumerator InitiateFade()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (screenShatter.currentlyFadingIn == false)
+        {
+            yield return screenShatter.ShatterScreenInitate();
+        }
+        else
+        {
+            yield return InitiateFade();
+        }
     }
     private IEnumerator SoundEffect(float duration, float startValue, float endValue)
     {

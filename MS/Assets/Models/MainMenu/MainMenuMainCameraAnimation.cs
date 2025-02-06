@@ -21,7 +21,21 @@ public class MainMenuMainCameraAnimation : MonoBehaviour
         yield return postProcess.ScaryEffectOn(transitionTime);
         yield return SoundEffect(transitionTime, 1f, pitchValue);
 
-        yield return screenShatter.ShatterScreenInitate();
+        yield return InitiateFade();
+    }
+
+    private IEnumerator InitiateFade()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (screenShatter.currentlyFadingIn == false)
+        {
+            yield return screenShatter.ShatterScreenInitate();
+        }
+        else
+        {
+            yield return InitiateFade();
+        }
     }
     public void ScaryEffectOff()
     {

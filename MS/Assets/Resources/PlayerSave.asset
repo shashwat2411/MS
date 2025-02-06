@@ -18,8 +18,8 @@ MonoBehaviour:
     maxHp: 200
     mp: 100
     maxMp: 100
-    exp: 108.5
-    nextExp: 121
+    exp: 51.5
+    nextExp: 110
     attack: 100
     defence: 10
     healthRespons: 5
@@ -27,12 +27,13 @@ MonoBehaviour:
     maxChargeTime: 6
     maxAimSize: 0.5
     maxAttackSize: 1.6
-    chargeSpeed: 1.6
+    chargeSpeed: 2.0800002
     atkMoveSpeed: 7
     dashTime: 0.15
     dashCooldown: 1
     dashInvincibilityTime: 0.08
     hurtInvincibilityTime: 0.2
-  playerAblities: []
-  cameraOffset: {x: 0, y: 4, z: -10}
+  playerAblities:
+  - {fileID: 3621364558873686749, guid: 6bf4718f1b74a3d4a8a63140d2cbec4f, type: 3}
+  cameraOffset: {x: 0, y: 6.25, z: -12}
   victory: 0

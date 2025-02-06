@@ -18,6 +18,8 @@ public class ScreenShatter : MonoBehaviour
     private bool reset;
     private bool fadeIn;
 
+    public bool currentlyFadingIn { get; private set; }
+
     public string loadLevel;
 
     public AnimationCurve shardShatterAnimationCurve;
@@ -54,6 +56,7 @@ public class ScreenShatter : MonoBehaviour
         mainCamera.farClipPlane = 0f;
 
         fadeIn = true;
+        currentlyFadingIn = true;
         ResetScreen();
         plane.SetActive(true);
 
@@ -188,6 +191,12 @@ public class ScreenShatter : MonoBehaviour
             {
                 //shards[i].Play("shatterReverse", -1, 0f);
                 StartCoroutine(shards[i].ShatterReverse(animationDuration));
+                if(i == shards.Length - 1)
+                {
+                    yield return new WaitForSecondsRealtime(animationDuration);
+                    currentlyFadingIn = false;
+                }
+
                 yield return new WaitForSecondsRealtime(transitionSpeed);
             }
         }

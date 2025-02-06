@@ -50,6 +50,8 @@ public class CameraBrain : MonoBehaviour
     [Range(1, 50)]
     float DamgeTest;
 
+    Camera camera;
+    float initialAngleOffset = 0f;
 
     void Awake()
     {
@@ -60,10 +62,15 @@ public class CameraBrain : MonoBehaviour
         zoomInCounter = 0f;
         zoomIn = false;
         targetTransition = false;
+
+        initialAngleOffset = angleOffset.y;
+        camera = GetComponent<Camera>();
     }
     void FixedUpdate()
     {
         if (offset.z > zoomUpOffset.z) { offset.z = zoomUpOffset.z; }
+
+        angleOffset.y = (camera.fieldOfView - 40f) / (60f - 40f) * (initialAngleOffset - 2f);
 
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
