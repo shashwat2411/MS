@@ -70,7 +70,8 @@ public class CameraBrain : MonoBehaviour
     {
         if (offset.z > zoomUpOffset.z) { offset.z = zoomUpOffset.z; }
 
-        angleOffset.y = (camera.fieldOfView - 40f) / (60f - 40f) * (initialAngleOffset - 2f);
+        //angleOffset.y = (camera.fieldOfView - 40f) / (60f - 40f) * (initialAngleOffset - 2f);
+        angleOffset.y = Mathf.Lerp(2f, initialAngleOffset, (camera.fieldOfView - 40f) / (60f - 40f));
 
         Vector3 targetPosition = player.transform.position + offset;
         transform.parent.position = Vector3.SmoothDamp(transform.parent.position, targetPosition, ref velocity, smoothTime);
